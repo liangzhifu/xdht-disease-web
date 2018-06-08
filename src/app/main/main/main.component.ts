@@ -5,7 +5,7 @@ import { MenuData } from '../menu-data';
 import { TitleService } from '../../core/title/title.service';
 import { ConfirmConfig } from '../../modal/confirm/confirm-config';
 import { ModalService } from '../../modal/modal.service';
-import {SessionStorageService} from '../../core/storage/session-storage.service';
+import { SessionStorageService } from '../../core/storage/session-storage.service';
 
 @Component({
   selector: 'app-main',

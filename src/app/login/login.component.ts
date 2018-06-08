@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
                 if (LoginResponse.status === '0') {
                   this.sessionStorage.set('token', LoginResponse.token);
                   const user: UserData = new UserData();
-                  user.userName = LoginResponse.showName;
+                  user.userName = LoginResponse.userName;
                   user.userAvatar = './assets/img/user-header.png';
                   this.sessionStorage.setObject('user', user);
                   this.router.navigate(['/main']).then();

@@ -1,0 +1,39 @@
+<div class="c-content-inner">
+  <form [formGroup]="roleEditFormGroup">
+    <div class="modal-body row">
+      <label>{{roleEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">角色名称：</label>
+          <div class="col-md-7">
+            <input type="hidden" formControlName="id">
+            <input type="text" class="form-control" formControlName="roleName" placeholder="角色名称">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">角色英文名称：</label>
+          <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="roleNameEng" placeholder="角色名称">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <button type="button" (click)="roleEditSubmit()">确定</button>
+        <button type="button" (click)="close()">取消</button>
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+  </form>
+</div>

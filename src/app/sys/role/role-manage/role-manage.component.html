@@ -1,0 +1,52 @@
+<div class="c-content-inner">
+  <form [formGroup]="paramFormGroup">
+  <div class="row">
+      <div class="col-md-4">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">角色名称：</label>
+          <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="roleName" placeholder="角色名称">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+          <button class="btn btn-primary" (click)="addRole();"><i class="fa fa-search fa-fw"></i> 新增</button>
+        </div>
+      </div>
+  </div>
+  </form>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table>
+          <tr>
+            <th width="30%">角色名称</th>
+            <th width="30%">角色英文名称</th>
+            <th width="40%">操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td>{{item.roleName}}</td>
+            <td>{{item.roleNameEng}}</td>
+            <td>
+              <button type="button" (click)="editRole(item.id)">修改</button>
+              <button type="button" (click)="delRole(item.id, item.roleName)">删除</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="paramFormGroup.value"></app-simple-data-http-page>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

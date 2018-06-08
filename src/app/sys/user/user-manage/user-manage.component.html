@@ -1,0 +1,64 @@
+<div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">姓名：</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" (input)="param.userName = $event.target.value" placeholder="请输入姓名...">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">邮箱：</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="请输入邮箱...">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+        <button class="btn btn-primary" (click)="addUser();"><i class="fa fa-search fa-fw"></i> 新增</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table>
+          <tr>
+            <th>工号</th>
+            <th>姓名</th>
+            <th>电话</th>
+            <th>邮箱</th>
+            <th>SI工作号</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td>{{item.userNo}}</td>
+            <td>{{item.showName}}</td>
+            <td>{{item.userPhone}}</td>
+            <td>{{item.userEmail}}</td>
+            <td>{{item.siNo}}</td>
+            <td>
+              <button type="button" (click)="editUser(item.id)">修改</button>
+              <button type="button" (click)="delUser(item.id, item.showName)">删除</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

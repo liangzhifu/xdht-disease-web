@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SessionStorageService } from '../core/storage/session-storage.service';
@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
     private sessionStorage: SessionStorageService
   ) {
     this.loginForm = this.formBuilder.group({
-      userNo : new FormControl('', Validators.compose([Validators.required])),
-      loginPwd : new FormControl('', Validators.compose([Validators.required]))
+      loginCode : '',
+      password : ''
     });
   }
 
@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   login () {
-    if (this.loginForm.valid) {
       this.httpClient.post(SystemConstant.GET_TOKEN, this.loginForm.value)
         .subscribe(
           {
@@ -41,7 +40,6 @@ export class LoginComponent implements OnInit {
                 if (LoginResponse.status === '0') {
                   this.sessionStorage.set('token', LoginResponse.token);
                   const user: UserData = new UserData();
-                  user.userId = LoginResponse.userId;
                   user.userName = LoginResponse.showName;
                   user.userAvatar = './assets/img/user-header.png';
                   this.sessionStorage.setObject('user', user);
@@ -60,5 +58,4 @@ export class LoginComponent implements OnInit {
             complete: () => {}
           });
     }
-  }
 }

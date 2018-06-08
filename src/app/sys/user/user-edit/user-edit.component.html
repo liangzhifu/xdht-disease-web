@@ -1,0 +1,67 @@
+<div class="c-content-inner">
+  <form [formGroup]="userEditFormGroup">
+    <div class="modal-body row">
+      <label>{{userEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">工号：</label>
+          <div class="col-md-7">
+            <input type="hidden" formControlName="id">
+            <input type="text" class="form-control" formControlName="userNo" placeholder="工号">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">显示名：</label>
+          <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="showName" placeholder="显示名">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">电话：</label>
+          <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="userPhone" placeholder="电话">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">邮箱：</label>
+          <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="userEmail" placeholder="邮箱">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">SI工作号：</label>
+          <div class="col-md-7">
+            <input type="text" class="form-control" formControlName="siNo" placeholder="SI工作号">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <button type="button" (click)="userEditSubmit()">确定</button>
+        <button type="button" (click)="close()">取消</button>
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+  </form>
+</div>

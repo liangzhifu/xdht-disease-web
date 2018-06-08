@@ -1,11 +1,11 @@
-const INTERFACE_ADDRESS = 'http://172.17.21.73:7050';
-const SYSTEM_GATEWAY = '/clear/system';
+const INTERFACE_ADDRESS = 'http://localhost:7071';
+const SYSTEM_GATEWAY = '';
 const INTERFACE_VERSION = '/api/v1';
 export const SystemConstant = Object.freeze({
-  LOCAL_STORAGE_PREFIX: 'tbi-clear-',
-  SESSION_STORAGE_PREFIX: 'tbi-clear-',
+  LOCAL_STORAGE_PREFIX: 'xdht-disease-',
+  SESSION_STORAGE_PREFIX: 'xdht-disease-',
   // 系统配置
-  GET_TOKEN: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/login',
+  GET_TOKEN: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/login/createToken',
   EDIT_PASSWORD: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/editPassword',
   // 用户配置
   USER_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/user/findUserList',

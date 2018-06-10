@@ -9,18 +9,18 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">工号：</label>
+          <label class="col-md-5 col-form-label text-right">用户名：</label>
           <div class="col-md-7">
             <input type="hidden" formControlName="id">
-            <input type="text" class="form-control" formControlName="userNo" placeholder="工号">
+            <input type="text" class="form-control" formControlName="userName" placeholder="用户名">
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">显示名：</label>
+          <label class="col-md-5 col-form-label text-right">登录名：</label>
           <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="showName" placeholder="显示名">
+            <input type="text" class="form-control" formControlName="loginCode" placeholder="登录名">
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
         <div class="form-group row">
           <label class="col-md-5 col-form-label text-right">电话：</label>
           <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="userPhone" placeholder="电话">
+            <input type="text" class="form-control" formControlName="mobile" placeholder="电话">
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
         <div class="form-group row">
           <label class="col-md-5 col-form-label text-right">邮箱：</label>
           <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="userEmail" placeholder="邮箱">
+            <input type="text" class="form-control" formControlName="email" placeholder="邮箱">
           </div>
         </div>
       </div>
@@ -46,9 +46,21 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">SI工作号：</label>
+          <label class="col-md-5 col-form-label text-right">密码：</label>
           <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="siNo" placeholder="SI工作号">
+            <input type="text" class="form-control" formControlName="password" placeholder="密码">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">管理员类型：</label>
+          <div class="col-md-7">
+            <select class="form-control" formControlName="mgrType">
+              <option value=""></option>
+              <option value="1">是</option>
+              <option value="0">否</option>
+            </select>
           </div>
         </div>
       </div>

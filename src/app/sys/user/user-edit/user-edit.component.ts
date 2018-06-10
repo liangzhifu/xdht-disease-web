@@ -30,11 +30,12 @@ export class UserEditComponent implements OnInit {
   ) {
     this.userEditFormGroup = this.formBuilder.group({
       id: '',
-      userNo: '',
-      showName: '',
-      userPhone: '',
-      userEmail: '',
-      siNo: ''
+      userName: '',
+      loginCode: '',
+      mobile: '',
+      password: '',
+      mgrType: '',
+      email: ''
     });
   }
 
@@ -48,11 +49,12 @@ export class UserEditComponent implements OnInit {
       this.addFlag = false;
       this.userEditTitle = '修改用户';
       this.userEditFormGroup.controls['id'].setValue(this.userData.userId);
-      this.userEditFormGroup.controls['userNo'].setValue(this.userData.userNo);
-      this.userEditFormGroup.controls['showName'].setValue(this.userData.showName);
-      this.userEditFormGroup.controls['userPhone'].setValue(this.userData.userPhone);
-      this.userEditFormGroup.controls['userEmail'].setValue(this.userData.userEmail);
-      this.userEditFormGroup.controls['siNo'].setValue(this.userData.siNo);
+      this.userEditFormGroup.controls['userName'].setValue(this.userData.userName);
+      this.userEditFormGroup.controls['loginCode'].setValue(this.userData.loginCode);
+      this.userEditFormGroup.controls['mobile'].setValue(this.userData.mobile);
+      this.userEditFormGroup.controls['email'].setValue(this.userData.email);
+      this.userEditFormGroup.controls['password'].setValue(this.userData.password);
+      this.userEditFormGroup.controls['mgrType'].setValue(this.userData.mgrType);
     }
   }
 
@@ -76,16 +78,16 @@ export class UserEditComponent implements OnInit {
     }
     this.httpService.post(url, this.userEditFormGroup.value).subscribe({
       next: (data) => {
+        const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '用户成功！', 3000);
+        this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
         const status = data.status;
-        if (status === '0') {
-          const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '用户成功！', 3000);
-          this.toastService.toast(toastCfg);
-          this.activeModal.close('success');
-        } else {
-          const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '用户失败！' + '失败原因：' + data.message, 3000);
-          this.toastService.toast(toastCfg);
-          this.activeModal.dismiss('failed');
-        }
+        // if (status === '1') {
+        // } else {
+        //   const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '用户失败！' + '失败原因：' + data.message, 3000);
+        //   this.toastService.toast(toastCfg);
+        //   this.activeModal.dismiss('failed');
+        // }
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '用户失败！' + '失败原因：' + err, 3000);

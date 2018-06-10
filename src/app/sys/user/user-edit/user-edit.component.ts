@@ -48,7 +48,7 @@ export class UserEditComponent implements OnInit {
       this.action = '修改';
       this.addFlag = false;
       this.userEditTitle = '修改用户';
-      this.userEditFormGroup.controls['id'].setValue(this.userData.userId);
+      this.userEditFormGroup.controls['id'].setValue(this.userData.id);
       this.userEditFormGroup.controls['userName'].setValue(this.userData.userName);
       this.userEditFormGroup.controls['loginCode'].setValue(this.userData.loginCode);
       this.userEditFormGroup.controls['mobile'].setValue(this.userData.mobile);

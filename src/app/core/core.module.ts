@@ -7,6 +7,8 @@ import { TitleService } from './title/title.service';
 import { TokenPermissionService } from './token/token-permission.service';
 import { WaitService } from './wait/wait.service';
 import { WaitComponent } from './wait/wait.component';
+import { SexReformPipe } from './pipe/sex-reform.pipe';
+import { StatusReformPipe } from './pipe/status-reform.pipe';
 
 @NgModule({
   imports: [
@@ -21,8 +23,14 @@ import { WaitComponent } from './wait/wait.component';
     WaitService
   ],
   exports: [
+    SexReformPipe,
+    StatusReformPipe,
     WaitComponent
   ],
-  declarations: [WaitComponent]
+  declarations: [
+    SexReformPipe,
+    StatusReformPipe,
+    WaitComponent
+  ]
 })
 export class CoreModule { }

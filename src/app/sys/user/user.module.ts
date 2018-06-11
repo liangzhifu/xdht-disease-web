@@ -7,10 +7,11 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { UserComponent } from './user/user.component';
-
+import { CoreModule } from '../../core/core.module';
 @NgModule({
   imports: [
     CommonModule,
+    CoreModule,
     FormsModule,
     ReactiveFormsModule,
     SimpleDataTableModule,

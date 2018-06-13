@@ -20,22 +20,22 @@ import {ModalService} from '../../../modal/modal.service';
 export class RoleManageComponent implements OnInit {
   url: string;
   method: 'post';
-  paramFormGroup: FormGroup;
 
+  // paramFormGroup: FormGroup;
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
+  /**
+   * 查询条件
+   */
+  param: any = {
+    roleName: ''
+  };
   constructor(
-    private formBuilder:  FormBuilder,
-    private waitService: WaitService,
     private ngbModal: NgbModal,
+    private waitService: WaitService,
+    private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService,
-    private modalService: ModalService
-  ) {
-    this.paramFormGroup = this.formBuilder.group({
-      roleName: ''
-    });
-  }
-
+    private toastService: ToastService
+  ) { }
   ngOnInit() {
     this.url = SystemConstant.ROLE_LIST;
   }
@@ -60,7 +60,7 @@ export class RoleManageComponent implements OnInit {
           this.search();
         }
       },
-      () => {}
+      // () => {}
     );
   }
 
@@ -69,9 +69,10 @@ export class RoleManageComponent implements OnInit {
    * @param roleId
    */
   editRole(roleId) {
+    // 获取角色数据
     this.httpService.get(SystemConstant.ROLE_DETAIL + '/' + roleId).subscribe({
       next: (data) => {
-        this.openEditRole(data.sysRole);
+        this.openEditRole(data);
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取角色详情失败！' + '失败原因：' + err, 3000);
@@ -104,20 +105,23 @@ export class RoleManageComponent implements OnInit {
     const confirmCfg = new ConfirmConfig('确定删除角色：' + roleName + '！');
     this.modalService.confirm(confirmCfg).then(
       () => {
-        this.httpService.get(SystemConstant.ROLE_DEL + '/' + roleId).subscribe({
+        this.httpService.get(SystemConstant.ROLE_DEL + '?id=' + roleId).subscribe({
           next: (data) => {
+            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
+            this.toastService.toast(toastCfg);
+            this.search();
             const status = data.status;
-            if (status === '0') {
-              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
-              this.toastService.toast(toastCfg);
-              this.search();
-            } else {
-              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除角色失败！' + '失败原因：' + data.message, 3000);
-              this.toastService.toast(toastCfg);
-            }
+            // if (status === '1') {
+            //   const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
+            //   this.toastService.toast(toastCfg);
+            //   this.search();
+            // } else {
+            //   const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除角色失败！1111111' + '失败原因：' + data.message, 3000);
+            //   this.toastService.toast(toastCfg);
+            // }
           },
           error: (err) => {
-            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除角色失败！' + '失败原因：' + err, 3000);
+            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除角色失败!！' + '失败原因：' + err, 3000);
             this.toastService.toast(toastCfg);
           },
           complete: () => {}

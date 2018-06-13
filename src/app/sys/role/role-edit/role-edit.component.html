@@ -18,9 +18,36 @@
       </div>
       <div class="col-md-6">
         <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">角色英文名称：</label>
+          <label class="col-md-5 col-form-label text-right">系统内置：</label>
           <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="roleNameEng" placeholder="角色名称">
+            <select class="form-control" formControlName="isSys">
+              <option value="">--请选择--</option>
+              <option value="1">是</option>
+              <option value="0">否</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">状态：</label>
+          <div class="col-md-7">
+            <select class="form-control" formControlName="status">
+              <option value="" >--请选择--</option>
+              <option value="0">正常</option>
+              <option value="1">删除</option>
+              <option value="2">停用</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label class="col-md-5 col-form-label text-right">备注：</label>
+          <div class="col-md-7">
+            <input class="form-control" formControlName="remarks" placeholder="备注">
           </div>
         </div>
       </div>

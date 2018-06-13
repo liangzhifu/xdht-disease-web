@@ -11,7 +11,9 @@ const sysRoutes: Routes = [
     component: SysComponent,
     children: [
       {path: 'user', loadChildren: './user/user.module#UserModule'},
-      {path: 'role', loadChildren: './role/role.module#RoleModule'}
+      {path: 'role', loadChildren: './role/role.module#RoleModule'},
+      {path: 'menu', loadChildren: './menu/menu.module#MenuModule'}
+
     ]
   }
 ];

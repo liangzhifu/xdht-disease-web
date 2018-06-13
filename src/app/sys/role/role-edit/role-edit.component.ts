@@ -7,6 +7,7 @@ import { ToastConfig } from '../../../toast/toast-config';
 import { ToastType } from '../../../toast/toast-type.enum';
 import { ToastService } from '../../../toast/toast.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {ModalService} from '../../../modal/modal.service';
 
 @Component({
   selector: 'app-role-edit',
@@ -21,6 +22,7 @@ export class RoleEditComponent implements OnInit {
   action = '';
   roleEditFormGroup: FormGroup;
   constructor(
+    private modalService: ModalService,
     private formBuilder:  FormBuilder,
     private waitService: WaitService,
     private httpService: HttpService,
@@ -30,7 +32,9 @@ export class RoleEditComponent implements OnInit {
     this.roleEditFormGroup = this.formBuilder.group({
       id: '',
       roleName: '',
-      roleNameEng: ''
+      isSys: '',
+      status: '',
+      remarks: ''
     });
   }
 
@@ -45,7 +49,9 @@ export class RoleEditComponent implements OnInit {
       this.roleEditTitle = '修改角色';
       this.roleEditFormGroup.controls['id'].setValue(this.roleData.id);
       this.roleEditFormGroup.controls['roleName'].setValue(this.roleData.roleName);
-      this.roleEditFormGroup.controls['roleNameEng'].setValue(this.roleData.roleNameEng);
+      this.roleEditFormGroup.controls['isSys'].setValue(this.roleData.isSys);
+      this.roleEditFormGroup.controls['status'].setValue(this.roleData.status);
+      this.roleEditFormGroup.controls['remarks'].setValue(this.roleData.remarks);
     }
   }
 
@@ -68,16 +74,17 @@ export class RoleEditComponent implements OnInit {
     }
     this.httpService.post(url, this.roleEditFormGroup.value).subscribe({
       next: (data) => {
+        const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '角色成功！', 3000);
+        this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
         const status = data.status;
-        if (status === '0') {
-          const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '角色成功！', 3000);
-          this.toastService.toast(toastCfg);
-          this.activeModal.close('success');
-        } else {
-          const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '角色失败！' + '失败原因：' + data.message, 3000);
-          this.toastService.toast(toastCfg);
-          this.activeModal.dismiss('failed');
-        }
+        // if (status === '0') {
+        //
+        // } else {
+        //   const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '角色失败！' + '失败原因：' + data.message, 3000);
+        //   this.toastService.toast(toastCfg);
+        //   this.activeModal.dismiss('failed');
+        // }
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '角色失败！' + '失败原因：' + err, 3000);

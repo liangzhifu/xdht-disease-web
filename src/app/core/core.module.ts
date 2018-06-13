@@ -9,6 +9,7 @@ import { WaitService } from './wait/wait.service';
 import { WaitComponent } from './wait/wait.component';
 import { SexReformPipe } from './pipe/sex-reform.pipe';
 import { StatusReformPipe } from './pipe/status-reform.pipe';
+import { SysReformPipe } from './pipe/sys-reform.pipe';
 
 @NgModule({
   imports: [
@@ -24,13 +25,15 @@ import { StatusReformPipe } from './pipe/status-reform.pipe';
   ],
   exports: [
     SexReformPipe,
+    SysReformPipe,
     StatusReformPipe,
     WaitComponent
   ],
   declarations: [
     SexReformPipe,
     StatusReformPipe,
-    WaitComponent
+    WaitComponent,
+    SysReformPipe
   ]
 })
 export class CoreModule { }

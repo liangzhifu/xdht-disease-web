@@ -10,6 +10,7 @@ import { ToastModule } from './toast/toast.module';
 import { SysModule } from './sys/sys.module';
 import { ModalModule } from './modal/modal.module';
 import { MainModule } from './main/main.module';
+import {RecordModule} from './record/record.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MainModule } from './main/main.module';
     ModalModule,
     NgbModule.forRoot(),
     SysModule,
+    RecordModule,
     ToastModule
   ],
   providers: [],

@@ -52,7 +52,15 @@ export class MainComponent implements OnInit {
       'keyWord': 'modal',
       'icon': 'fa-columns',
       'url': '/main/sys/role/roleManage'
-    }]
+    }, {
+      'id': '104',
+      'parentId': '101',
+      'name': '菜单管理',
+      'keyWord': 'modal',
+      'icon': 'fa-columns',
+      'url': '/main/sys/menu/menuManage'
+    }
+    ]
   }, {
     'id': '1',
     'parentId': '0',
@@ -75,7 +83,8 @@ export class MainComponent implements OnInit {
       'icon': 'fa-columns',
       'url': '/app/demo/modalDemo'
     }]
-  }, {
+  },
+    {
     'id': '24',
     'parentId': '20',
     'name': '角色管理',
@@ -103,7 +112,38 @@ export class MainComponent implements OnInit {
       'icon': 'fa-cogs',
       'url': '/app/role/roleDistribute'
     }]
-  }];
+  }, {
+      'id': '301',
+      'parentId': '0',
+      'name': '调查表管理',
+      'keyWord': 'jsgl',
+      'icon': 'fa-users',
+      'children': [{
+        'id': '31',
+        'parentId': '301',
+        'name': '职业卫生现场调查表',
+        'keyWord': 'jstj',
+        'icon': 'fa-plus-circle',
+        'url': '/main/record/recordScene/recordSceneManage'
+      }, {
+        'id': '32',
+        'parentId': '301',
+        'name': '查询',
+        'keyWord': 'jscx',
+        'icon': 'fa-search',
+        'url': '/app/role/roleList'
+      }, {
+        'id': '33',
+        'parentId': '301',
+        'name': '修改',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/app/role/roleDistribute'
+      }]
+    }
+
+
+];
 
   constructor(
     private router: Router,

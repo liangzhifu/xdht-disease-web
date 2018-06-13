@@ -6,10 +6,12 @@ import { SimpleDataTableModule } from '../../simple-data-table/simple-data-table
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleComponent } from './role/role.component';
 import { RoleEditComponent } from './role-edit/role-edit.component';
+import {CoreModule} from '../../core/core.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    CoreModule,
     FormsModule,
     ReactiveFormsModule,
     RoleRoutingModule,

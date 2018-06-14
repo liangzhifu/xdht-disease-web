@@ -8,11 +8,18 @@ import { MenuEditComponent } from './menu-edit/menu-edit.component';
 import { UserManageComponent } from './user-manage/user-manage.component';
 import { RoleManageComponent } from './role-manage/role-manage.component';
 import { MenuManageComponent } from './menu-manage/menu-manage.component';
+import { CoreModule } from '../core/core.module';
+import { SimpleDataTableModule } from '../simple-data-table/simple-data-table.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SimpleDataTableModule,
     SysRoutingModule
   ],
   entryComponents: [

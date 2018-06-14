@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SimpleDataHttpPageComponent } from '../../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import { SystemConstant } from '../../../core/class/system-constant';
+import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import { SystemConstant } from '../../core/class/system-constant';
 import { UserEditComponent } from '../user-edit/user-edit.component';
-import { WaitService } from '../../../core/wait/wait.service';
-import { ToastConfig } from '../../../toast/toast-config';
-import { ToastType } from '../../../toast/toast-type.enum';
-import { ConfirmConfig } from '../../../modal/confirm/confirm-config';
-import { ModalService } from '../../../modal/modal.service';
-import { HttpService } from '../../../core/http/http.service';
-import { ToastService } from '../../../toast/toast.service';
+import { WaitService } from '../../core/wait/wait.service';
+import { ToastConfig } from '../../toast/toast-config';
+import { ToastType } from '../../toast/toast-type.enum';
+import { ConfirmConfig } from '../../modal/confirm/confirm-config';
+import { ModalService } from '../../modal/modal.service';
+import { HttpService } from '../../core/http/http.service';
+import { ToastService } from '../../toast/toast.service';
 
 @Component({
   selector: 'app-user-manage',

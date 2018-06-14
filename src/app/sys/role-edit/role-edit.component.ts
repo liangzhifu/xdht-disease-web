@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { WaitService } from '../../../core/wait/wait.service';
-import { HttpService } from '../../../core/http/http.service';
-import { SystemConstant } from '../../../core/class/system-constant';
-import { ToastConfig } from '../../../toast/toast-config';
-import { ToastType } from '../../../toast/toast-type.enum';
-import { ToastService } from '../../../toast/toast.service';
+import { WaitService } from '../../core/wait/wait.service';
+import { HttpService } from '../../core/http/http.service';
+import { SystemConstant } from '../../core/class/system-constant';
+import { ToastConfig } from '../../toast/toast-config';
+import { ToastType } from '../../toast/toast-type.enum';
+import { ToastService } from '../../toast/toast.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {ModalService} from '../../../modal/modal.service';
+import {ModalService} from '../../modal/modal.service';
 
 @Component({
   selector: 'app-role-edit',

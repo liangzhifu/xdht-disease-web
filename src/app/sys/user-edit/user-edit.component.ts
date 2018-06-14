@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalService } from '../../../modal/modal.service';
-import { HttpService } from '../../../core/http/http.service';
-import { SystemConstant } from '../../../core/class/system-constant';
+import { ModalService } from '../../modal/modal.service';
+import { HttpService } from '../../core/http/http.service';
+import { SystemConstant } from '../../core/class/system-constant';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastConfig } from '../../../toast/toast-config';
-import { ToastType } from '../../../toast/toast-type.enum';
+import { ToastConfig } from '../../toast/toast-config';
+import { ToastType } from '../../toast/toast-type.enum';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ToastService } from '../../../toast/toast.service';
-import { WaitService } from '../../../core/wait/wait.service';
+import { ToastService } from '../../toast/toast.service';
+import { WaitService } from '../../core/wait/wait.service';
 
 @Component({
   selector: 'app-user-edit',

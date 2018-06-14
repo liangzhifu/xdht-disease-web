@@ -4,6 +4,7 @@ import { SysComponent } from './sys.component';
 import { UserManageComponent } from './user-manage/user-manage.component';
 import { RoleManageComponent } from './role-manage/role-manage.component';
 import { MenuManageComponent } from './menu-manage/menu-manage.component';
+import { CompanyManageComponent } from './company-manage/company-manage.component';
 
 /**
  * 系统管理路由
@@ -15,8 +16,8 @@ const sysRoutes: Routes = [
     children: [
       {path: 'userManage', component: UserManageComponent},
       {path: 'roleManage', component: RoleManageComponent},
-      {path: 'menuManage', component: MenuManageComponent}
-
+      {path: 'menuManage', component: MenuManageComponent},
+      {path: 'companyManage', component: CompanyManageComponent}
     ]
   }
 ];

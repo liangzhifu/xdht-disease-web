@@ -18,20 +18,36 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SceneEditComponent implements OnInit {
 
+  recordSceneEditTitle: string;
   // 查询问卷列表
   url: String;
   method: 'post';
-  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
 
+  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
   recordData: any;
   companyData: any;
   employeeData: any;
   // 输入填写内容
+  @Input() recordSceneRequest = {
+    'recordScene' : {
+      'recordNo' : '',
+      'projectName' : '',
+      'inquiryType' : '',
+      'inquiryPerson' : '',
+      'inquiryCompany' : '',
+      'inquiryCompanyEmployee' : '',
+      'inquiryDate': ''
+    },
+    'recordSceneQuestionDataList' : [{
+      'questionnaireId' : '',
+      'generatorRecord' : ''
+    }]
+  };
   @Input() recordSceneData: any = null;
-  recordSceneEditTitle: string;
   addFlag: boolean;
   action = '';
-  recordSceneEditFormGroup: FormGroup;
+  // recordSceneEditFormGroup: FormGroup;
+  // myFormGroup: FormGroup;
   constructor(
     private ngbModal: NgbModal,
     private modalService: ModalService,
@@ -41,24 +57,29 @@ export class SceneEditComponent implements OnInit {
     private activeModal: NgbActiveModal,
     private waitService: WaitService
   ) {
-    this.recordSceneEditFormGroup = this.formBuilder.group({
-      id: '',
-      recordNo: '',
-      projectName: '',
-      inquiryType: '',
-      inquiryPerson: '',
-      inquiryCompany: '',
-      inquiryCompanyEmployee: '',
-      inquiryDate: '',
-      status: '',
-      generatorRecord: '',
-      questionnaireId: ''
-    });
+    // this.recordSceneEditFormGroup = this.formBuilder.group({
+    //   id: '',
+    //   recordNo: '',
+    //   projectName: '',
+    //   inquiryType: '',
+    //   inquiryPerson: '',
+    //   inquiryCompany: '',
+    //   inquiryCompanyEmployee: '',
+    //   inquiryDate: '',
+    //   status: '',
+      // generatorRecord: '',
+      // questionnaireId: ''
+    // });
+    // this.myFormGroup = this.formBuilder.group({
+    //   generatorRecord: '',
+    //   questionnaireId: ''
+    // });
 
     // 获取问卷的列表
     this.httpService.post(SystemConstant.QUESTION_ALL_LIST, null ).subscribe({
       next: (data) => {
         this.recordData = data;
+        // this.recordSceneRequest.recordSceneQuestionDataList = data;
       },
       complete: () => {
       }
@@ -83,15 +104,15 @@ export class SceneEditComponent implements OnInit {
       this.action = '修改';
       this.addFlag = false;
       this.recordSceneEditTitle = '修改调查表';
-      this.recordSceneEditFormGroup.controls['id'].setValue(this.recordSceneData.id);
-      this.recordSceneEditFormGroup.controls['recordNo'].setValue(this.recordSceneData.recordNo);
-      this.recordSceneEditFormGroup.controls['projectName'].setValue(this.recordSceneData.projectName);
-      this.recordSceneEditFormGroup.controls['inquiryType'].setValue(this.recordSceneData.inquiryType);
-      this.recordSceneEditFormGroup.controls['inquiryPerson'].setValue(this.recordSceneData.inquiryPerson);
-      this.recordSceneEditFormGroup.controls['inquiryCompany'].setValue(this.recordSceneData.inquiryCompany);
-      this.recordSceneEditFormGroup.controls['inquiryCompanyEmployee'].setValue(this.recordSceneData.inquiryCompanyEmployee);
-      this.recordSceneEditFormGroup.controls['inquiryDate'].setValue(this.recordSceneData.inquiryDate);
-      this.recordSceneEditFormGroup.controls['status'].setValue(this.recordSceneData.status);
+      // this.recordSceneEditFormGroup.controls['id'].setValue(this.recordSceneData.id);
+      // this.recordSceneEditFormGroup.controls['recordNo'].setValue(this.recordSceneData.recordNo);
+      // this.recordSceneEditFormGroup.controls['projectName'].setValue(this.recordSceneData.projectName);
+      // this.recordSceneEditFormGroup.controls['inquiryType'].setValue(this.recordSceneData.inquiryType);
+      // this.recordSceneEditFormGroup.controls['inquiryPerson'].setValue(this.recordSceneData.inquiryPerson);
+      // this.recordSceneEditFormGroup.controls['inquiryCompany'].setValue(this.recordSceneData.inquiryCompany);
+      // this.recordSceneEditFormGroup.controls['inquiryCompanyEmployee'].setValue(this.recordSceneData.inquiryCompanyEmployee);
+      // this.recordSceneEditFormGroup.controls['inquiryDate'].setValue(this.recordSceneData.inquiryDate);
+      // this.recordSceneEditFormGroup.controls['status'].setValue(this.recordSceneData.status);
     }
   }
 
@@ -111,11 +132,13 @@ export class SceneEditComponent implements OnInit {
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {
-      url = SystemConstant.RECORD_SCENE_ADD;
+      // url = SystemConstant.RECORD_SCENE_ADD;
+      url = SystemConstant.RECORD_SCENE_ADDALL;
     } else {
       url = SystemConstant.RECORD_SCENE_EDIT;
     }
-    this.httpService.post(url, this.recordSceneEditFormGroup.value).subscribe({
+    // 保存调查表
+    this.httpService.post(url, this.recordSceneRequest).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
@@ -127,6 +150,21 @@ export class SceneEditComponent implements OnInit {
       complete: () => {
       }
     });
+
+    // 保存问卷状态表
+    // console.log('this.myFormGroup.value:' + this.myFormGroup.value);
+    // this.httpService.post(SystemConstant.RECORD_SCENE_QUESTION_ADD, this.myFormGroup.value).subscribe({
+    //   next: (data) => {
+    //     const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
+    //     this.toastService.toast(toastCfg);
+    //   },
+    //   error: (err) => {
+    //     const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
+    //     this.toastService.toast(toastCfg);
+    //   },
+    //   complete: () => {
+    //   }
+    // });
     this.waitService.wait(false);
   }
 

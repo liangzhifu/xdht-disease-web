@@ -128,10 +128,10 @@ export class MainComponent implements OnInit {
       }, {
         'id': '32',
         'parentId': '301',
-        'name': '查询',
+        'name': '建设项目概况调查表（预评价）',
         'keyWord': 'jscx',
         'icon': 'fa-search',
-        'url': '/app/role/roleList'
+        'url': '/main/record/recordPre/recordPreEvaManage'
       }, {
         'id': '33',
         'parentId': '301',

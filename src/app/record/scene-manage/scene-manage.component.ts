@@ -10,6 +10,7 @@ import { SystemConstant} from '../../core/class/system-constant';
 import { WaitService } from '../../core/wait/wait.service';
 import { ToastService } from '../../toast/toast.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {SceneEditComponent} from '../scene-edit/scene-edit.component';
 
 @Component({
   selector: 'app-record-scene-manage',
@@ -36,7 +37,7 @@ export class SceneManageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.url = SystemConstant.USER_LIST;
+    this.url = SystemConstant.RECORD_SCENE_PAGE_LIST;
   }
 
   /**
@@ -52,7 +53,7 @@ export class SceneManageComponent implements OnInit {
    * 新增--职业卫生现场调查记录
    */
   addScene() {
-    const modalRef = this.ngbModal.open(UserEditComponent);
+    const modalRef = this.ngbModal.open(SceneEditComponent);
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -65,9 +66,9 @@ export class SceneManageComponent implements OnInit {
   /**
    * 修改--职业卫生现场调查记录
    */
-  editScene(userId) {
+  editScene(id) {
     // 获取用户数据
-    this.httpService.get(SystemConstant.USER_DETAIL + '/' + userId).subscribe({
+    this.httpService.get(SystemConstant.RECORD_SCENE_DETAIL + '/' + id).subscribe({
       next: (data) => {
         this.openEditScene(data);
       },

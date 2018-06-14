@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { MainComponent } from './main/main.component';
+import { MainComponent } from './main.component';
 import { TokenPermissionService } from '../core/token/token-permission.service';
 
 /**

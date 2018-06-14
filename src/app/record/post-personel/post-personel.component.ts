@@ -16,6 +16,7 @@ export class PostPersonelComponent implements OnInit {
   recordPostPersonelEditTitle: string;
   @Input() recordPostPersonnelRequest = {
     'recordPostPersonnel' : {
+      'id': '',
       'postPersonnelNo' : '',
       'verificationResult': ''
     },
@@ -33,13 +34,42 @@ export class PostPersonelComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const postPersonnelId = this.recordPostPersonnelRequest.recordPostPersonnel.id;
+    if (postPersonnelId === undefined || postPersonnelId === null || postPersonnelId === ''){
+      this.addFlag = true;
+      this.recordPostPersonelEditTitle = '新增--岗位定员及工作制度调查表';
+    } else {
+      this.addFlag = false;
+      this.recordPostPersonelEditTitle = '修改--岗位定员及工作制度调查表';
+    }
   }
 
+  /**
+   * 关闭对话框
+   */
+  close() {
+    this.activeModal.dismiss('failed');
+  }
+
+  /**
+   * 添加部门
+   */
   addOffice() {
     const index = this.recordPostPersonnelRequest.recordPostPersonnelDataList.length;
     this.recordPostPersonnelRequest.recordPostPersonnelDataList[index] = { 'id' : ''};
   }
 
+  /**
+   * 删除部门
+   * @param index 序号
+   */
+  delOffice(index) {
+    this.recordPostPersonnelRequest.recordPostPersonnelDataList.slice(index, index + 1);
+  }
+
+  /**
+   * 提交
+   */
   submitData() {
     this.httpService.post(SystemConstant.MENU_ADD, this.recordPostPersonnelRequest).subscribe({
       next: (data) => {

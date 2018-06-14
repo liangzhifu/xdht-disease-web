@@ -7,31 +7,22 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <div class="form-group row">
-        <label class="col-md-5 col-form-label text-right">编码：</label>
-        <div class="col-md-7">
-          <input type="text" class="form-control" [(ngModel)]="recordPostPersonnelRequest.recordPostPersonnel.postPersonnelNo" placeholder="编码">
-        </div>
-      </div>
+      <label class="col-md-5 col-form-label text-right">编码：</label>
+      <input type="text" class="form-control" [(ngModel)]="recordPostPersonnelRequest.recordPostPersonnel.postPersonnelNo" placeholder="编码">
     </div>
     <div class="col-md-6">
-      <div class="form-group row">
-        <label class="col-md-5 col-form-label text-right">核实情况：</label>
-        <div class="col-md-7">
-          <input type="text" class="form-control" [(ngModel)]="recordPostPersonnelRequest.recordPostPersonnel.verificationResult" placeholder="核实情况">
-        </div>
-      </div>
+      <label class="col-md-5 col-form-label text-right">核实情况：</label>
+      <input type="text" class="form-control" [(ngModel)]="recordPostPersonnelRequest.recordPostPersonnel.verificationResult" placeholder="核实情况">
     </div>
   </div>
   <div class="row">
-    <button (click)="addOffice()">增加</button>
-    <button (click)="submitData()">提交</button>
     <table>
       <tr>
-        <td rowspan="2">车间/部门</td>
+        <td rowspan="2"><button (click)="addOffice()">增加</button>车间/部门</td>
         <td rowspan="2">工种/岗位</td>
         <td colspan="3">工作制度</td>
         <td colspan="2">定员（人）</td>
+        <td rowspan="2">操作</td>
       </tr>
       <tr>
         <td>天/周</td>
@@ -40,7 +31,7 @@
         <td>每班</td>
         <td>总定员</td>
       </tr>
-      <tr *ngFor="let item of recordPostPersonnelRequest.recordPostPersonnelDataList">
+      <tr *ngFor="let item of recordPostPersonnelRequest.recordPostPersonnelDataList; let i = index">
         <td><input [(ngModel)]="item.id" ></td>
         <td></td>
         <td></td>
@@ -48,7 +39,12 @@
         <td></td>
         <td></td>
         <td></td>
+        <td (click)="delOffice(i)"><button>删除</button></td>
       </tr>
     </table>
+  </div>
+  <div class="row">
+    <button (click)="submitData()">提交</button>
+    <button (click)="close()">取消</button>
   </div>
 </div>

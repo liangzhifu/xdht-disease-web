@@ -10,6 +10,7 @@ import { SystemConstant} from '../../core/class/system-constant';
 import { WaitService } from '../../core/wait/wait.service';
 import { ToastService } from '../../toast/toast.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 import {SceneEditComponent} from '../scene-edit/scene-edit.component';
 
 @Component({
@@ -33,7 +34,8 @@ export class SceneManageComponent implements OnInit {
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -61,6 +63,10 @@ export class SceneManageComponent implements OnInit {
         }
       }
     );
+  }
+
+  open() {
+    this.router.navigate(['/main/record/recordSceneDetail'], {queryParams: {id: 1}});
   }
 
   /**

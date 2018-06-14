@@ -2,16 +2,16 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group row">
-        <label class="col-md-4 col-form-label text-right">姓名：</label>
+        <label class="col-md-4 col-form-label text-right">菜单名称</label>
         <div class="col-md-8">
-          <input type="text" class="form-control" (input)="param.userName = $event.target.value" placeholder="请输入姓名...">
+          <input type="text" class="form-control" (input)="param.menuName = $event.target.value" placeholder="请输入菜单名称..."/>
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
-        <button class="btn btn-primary" (click)="addUser();"><i class="fa fa-search fa-fw"></i> 新增</button>
+        <button class="btn btn-primary" (click)="addMenu();"><i class="fa fa-search fa-fw"></i> 新增</button>
       </div>
     </div>
   </div>
@@ -26,24 +26,30 @@
       <div #sdt=simpleDataTable appSimpleDataTable>
         <table width="100%">
           <tr>
-            <th>用户名称</th>
-            <th>登录账号</th>
-            <th>电话</th>
-            <th>邮箱</th>
-            <th>性别</th>
+            <th>菜单名称</th>
+            <th>菜单类型</th>
+            <th>链接</th>
+            <th>图标</th>
+            <th>颜色</th>
+            <th>权限标识</th>
+            <th>是否显示</th>
             <th>状态</th>
+            <th>备注</th>
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;let i = index">
-            <td>{{item.userName}}</td>
-            <td>{{item.loginCode}}</td>
-            <td>{{item.mobile}}</td>
-            <td>{{item.email}}</td>
-            <td>{{item.sex | sexReform}}</td>
+            <td>{{item.menuName}}</td>
+            <td>{{item.menuType}}</td>
+            <td>{{item.menuHref}}</td>
+            <td>{{item.menuIcon}}</td>
+            <td>{{item.menuColor}}</td>
+            <td>{{item.permission}}</td>
+            <td>{{item.isShow}}</td>
             <td>{{item.status | statusReform}}</td>
+            <td>{{item.remarks}}</td>
             <td>
-              <button type="button" (click)="editUser(item.id)">修改</button>
-              <button type="button" (click)="delUser(item.id, item.userName)">删除</button>
+              <button type="button" (click)="editMenu(item.id)">修改</button>
+              <button type="button" (click)="delMenu(item.id, item.menuName)">删除</button>
             </td>
           </tr>
         </table>

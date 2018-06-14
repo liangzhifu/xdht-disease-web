@@ -10,7 +10,8 @@ const mainRoutes: Routes = [
   { path: '',
     component: MainComponent,
     children: [
-      {path: 'sys', loadChildren: './../sys/sys.module#SysModule'}
+      {path: 'sys', loadChildren: './../sys/sys.module#SysModule'},
+      {path: 'record', loadChildren: './../record/record.module#RecordModule'}
     ],
     canActivate: [TokenPermissionService]
   }

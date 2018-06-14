@@ -44,21 +44,21 @@ export class MainComponent implements OnInit {
       'name': '用户管理',
       'keyWord': 'mtk',
       'icon': 'fa-columns',
-      'url': '/main/sys/user/userManage'
+      'url': '/main/sys/userManage'
     }, {
       'id': '103',
       'parentId': '101',
       'name': '角色管理',
       'keyWord': 'modal',
       'icon': 'fa-columns',
-      'url': '/main/sys/role/roleManage'
+      'url': '/main/sys/roleManage'
     }, {
       'id': '104',
       'parentId': '101',
       'name': '菜单管理',
       'keyWord': 'modal',
       'icon': 'fa-columns',
-      'url': '/main/sys/menu/menuManage'
+      'url': '/main/sys/menuManage'
     }
     ]
   }, {

@@ -3,7 +3,7 @@
     <table class="table table-bordered" >
       <tr>
         <td colspan="2" >
-         <!-- <input  type="hidden" formControlName="id" value="">-->
+          <!-- <input  type="hidden" formControlName="id" value="">-->
           <input  type="hidden" formControlName="status" value="0">
           职业卫生现场调查记录表
         </td>
@@ -28,10 +28,10 @@
       <tr>
         <td>调查对象</td>
         <td colspan="2">
-         <!-- <input class="form-control" type="text"  formControlName="inquiryCompany"/>-->
+          <!-- <input class="form-control" type="text"  formControlName="inquiryCompany"/>-->
           <select #select formControlName="inquiryCompany" (change)="changeUser(select.value)">
-              <option value="">--请选择单位--</option>
-              <option *ngFor="let item of companyData;" value="{{item.id}}" >{{item.companyName}}</option>
+            <option value="">--请选择单位--</option>
+            <option *ngFor="let item of companyData;" value="{{item.id}}" >{{item.companyName}}</option>
 
           </select>
 
@@ -84,4 +84,4 @@
       </div>
     </div>
   </form>
- </div>
+</div>

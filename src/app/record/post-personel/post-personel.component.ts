@@ -9,10 +9,10 @@ import {SystemConstant} from '../../core/class/system-constant';
 
 @Component({
   selector: 'app-record-post-personel',
-  templateUrl: './record-post-personel.component.html',
-  styleUrls: ['./record-post-personel.component.scss']
+  templateUrl: './post-personel.component.html',
+  styleUrls: ['./post-personel.component.scss']
 })
-export class RecordPostPersonelComponent implements OnInit {
+export class PostPersonelComponent implements OnInit {
   recordPostPersonelEditTitle: string;
   @Input() recordPostPersonnelRequest = {
     'recordPostPersonnel' : {

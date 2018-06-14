@@ -1,22 +1,23 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {HttpService} from '../../core/http/http.service';
-import {ModalService} from '../../modal/modal.service';
-import {SystemConstant} from '../../core/class/system-constant';
-import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import {ToastType} from '../../toast/toast-type.enum';
-import {ToastConfig} from '../../toast/toast-config';
-import {WaitService} from '../../core/wait/wait.service';
-import {ToastService} from '../../toast/toast.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {RecordPostPersonelComponent} from '../record-post-personel/record-post-personel.component';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { HttpService } from '../../core/http/http.service';
+import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import { ToastType } from '../../toast/toast-type.enum';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ModalService } from '../../modal/modal.service';
+import { ToastService } from '../../toast/toast.service';
+import { WaitService } from '../../core/wait/wait.service';
+import { ToastConfig } from '../../toast/toast-config';
+import { SystemConstant} from '../../core/class/system-constant';
+import { PostPersonelComponent } from '../post-personel/post-personel.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-record-scene-manage',
-  templateUrl: './record-scene-manage.component.html',
-  styleUrls: ['./record-scene-manage.component.scss']
+  selector: 'app-record-scene-edit',
+  templateUrl: './scene-edit.component.html',
+  styleUrls: ['./scene-edit.component.scss']
 })
-export class RecordSceneManageComponent implements OnInit {
+export class SceneEditComponent implements OnInit {
+
   // 查询问卷列表
   url: String;
   method: 'post';
@@ -95,7 +96,7 @@ export class RecordSceneManageComponent implements OnInit {
   }
 
   editTable() {
-    const modalRef = this.ngbModal.open(RecordPostPersonelComponent);
+    const modalRef = this.ngbModal.open(PostPersonelComponent);
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -142,4 +143,5 @@ export class RecordSceneManageComponent implements OnInit {
       }
     });
   }
+
 }

@@ -128,7 +128,7 @@ export class MainComponent implements OnInit {
       'children': [{
         'id': '31',
         'parentId': '301',
-        'name': '职业卫生现场调查表',
+        'name': '现场调查记录管理',
         'keyWord': 'jstj',
         'icon': 'fa-plus-circle',
         'url': '/main/record/recordSceneManage'

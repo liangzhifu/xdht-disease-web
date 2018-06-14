@@ -59,6 +59,13 @@ export class MainComponent implements OnInit {
       'keyWord': 'modal',
       'icon': 'fa-columns',
       'url': '/main/sys/menuManage'
+    }, {
+      'id': '105',
+      'parentId': '101',
+      'name': '公司管理',
+      'keyWord': 'modal',
+      'icon': 'fa-columns',
+      'url': '/main/sys/companyManage'
     }
     ]
   }, {

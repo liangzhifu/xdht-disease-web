@@ -1,14 +1,14 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RecordComponent} from './record.component';
-import {RecordRoutingModule} from './record-routing.module';
-import {SceneEditComponent} from './scene-edit/scene-edit.component';
-import {RecordSceneModule} from './record-scene/record-scene.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CoreModule} from '../core/core.module';
-import {SimpleDataTableModule} from '../simple-data-table/simple-data-table.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RecordComponent} from './record.component';
+import { RecordRoutingModule } from './record-routing.module';
+import { SceneEditComponent } from './scene-edit/scene-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from '../core/core.module';
+import { SimpleDataTableModule } from '../simple-data-table/simple-data-table.module';
 import { PostPersonelComponent } from './post-personel/post-personel.component';
 import { SceneDetailComponent } from './scene-detail/scene-detail.component';
+import { SceneManageComponent } from './scene-manage/scene-manage.component';
 
 @NgModule({
   imports: [
@@ -17,13 +17,18 @@ import { SceneDetailComponent } from './scene-detail/scene-detail.component';
     FormsModule,
     ReactiveFormsModule,
     SimpleDataTableModule,
-    RecordRoutingModule,
-    RecordSceneModule
+    RecordRoutingModule
   ],
   entryComponents: [
     SceneEditComponent,
     PostPersonelComponent
   ],
-  declarations: [RecordComponent, PostPersonelComponent, SceneDetailComponent]
+  declarations: [
+    PostPersonelComponent,
+    RecordComponent,
+    SceneEditComponent,
+    SceneManageComponent,
+    SceneDetailComponent
+  ]
 })
 export class RecordModule { }

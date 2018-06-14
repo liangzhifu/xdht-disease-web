@@ -1,16 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { SystemConstant } from '../../../core/class/system-constant';
-import { WaitService } from '../../../core/wait/wait.service';
-import { SimpleDataHttpPageComponent } from '../../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
-import {HttpService} from '../../../core/http/http.service';
-import {ToastConfig} from '../../../toast/toast-config';
-import {ToastType} from '../../../toast/toast-type.enum';
-import {ToastService} from '../../../toast/toast.service';
-import {ConfirmConfig} from '../../../modal/confirm/confirm-config';
-import {ModalService} from '../../../modal/modal.service';
+import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import { WaitService } from '../../core/wait/wait.service';
+import { ModalService } from '../../modal/modal.service';
+import { HttpService } from '../../core/http/http.service';
+import { ToastService } from '../../toast/toast.service';
+import { SystemConstant} from '../../core/class/system-constant';
+import { ToastConfig } from '../../toast/toast-config';
+import { ToastType } from '../../toast/toast-type.enum';
+import { ConfirmConfig } from '../../modal/confirm/confirm-config';
 
 @Component({
   selector: 'app-role-manage',

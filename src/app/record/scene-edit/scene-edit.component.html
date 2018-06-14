@@ -1,22 +1,27 @@
 <div class="c-content-inner">
-  <form [formGroup]="recordSceneEditFormGroup">
+  <div class="modal-body row">
+    <label>{{recordSceneEditTitle}}</label>
     <table class="table table-bordered" >
       <tr>
         <td colspan="2" >
           <!-- <input  type="hidden" formControlName="id" value="">-->
-          <input  type="hidden" formControlName="status" value="0">
+          <!--<input  type="hidden" formControlName="status" value="0">-->
           职业卫生现场调查记录表
         </td>
-        <td>编号：<input class="form-control" type="text" formControlName="recordNo"></td>
+        <td>编码：
+          <input type="text" class="form-control" [(ngModel)]="recordSceneRequest.recordScene.recordNo" placeholder="编码">
+        </td>
       </tr>
       <tr>
         <td>项目名称</td>
-        <td colspan="2"><input class="form-control" type="text" formControlName="projectName" ></td>
+        <td colspan="2">
+          <input type="text" class="form-control" [(ngModel)]="recordSceneRequest.recordScene.projectName" placeholder="项目名称">
+        </td>
       </tr>
       <tr>
         <td>调查类型</td>
         <td colspan="2">
-          <select class="form-control" formControlName="inquiryType">
+          <select class="form-control" [(ngModel)]="recordSceneRequest.recordScene.inquiryType">
             <option value="">请选择</option>
             <option value="0">预评价</option>
             <option value="1">类比</option>
@@ -28,8 +33,7 @@
       <tr>
         <td>调查对象</td>
         <td colspan="2">
-          <!-- <input class="form-control" type="text"  formControlName="inquiryCompany"/>-->
-          <select #select formControlName="inquiryCompany" (change)="changeUser(select.value)">
+          <select #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany" (change)="changeUser(select.value)">
             <option value="">--请选择单位--</option>
             <option *ngFor="let item of companyData;" value="{{item.id}}" >{{item.companyName}}</option>
 
@@ -40,14 +44,13 @@
       <tr>
         <td>调查人</td>
         <td colspan="2">
-          <input class="form-control" type="text"  formControlName="inquiryPerson" placeholder="请填写调查人"/>
+          <input type="text" class="form-control" [(ngModel)]="recordSceneRequest.recordScene.inquiryPerson" placeholder="调查人">
         </td>
       </tr>
       <tr>
         <td>用人单位陪同人签字</td>
         <td colspan="2">
-          <!--<input class="form-control" type="text"  formControlName="inquiryCompanyEmployee">-->
-          <select  formControlName="inquiryCompanyEmployee" >
+          <select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee" >
             <option value="">--请选择陪同人--</option>
             <option *ngFor="let item of employeeData;" value="{{item.id}}" >{{item.empName}}</option>
           </select>
@@ -56,7 +59,8 @@
       <tr>
         <td>调查日期</td>
         <td colspan="2">
-          <input class="form-control" type="text"  formControlName="inquiryDate">
+      <!--    <input class="form-control" type="text"  formControlName="inquiryDate">-->
+          <input type="text" class="form-control" [(ngModel)]="recordSceneRequest.recordScene.inquiryDate" placeholder="调查日期">
         </td>
       </tr>
     </table>
@@ -66,22 +70,25 @@
         <td>职业卫生调查内容</td>
         <td>采用调查表</td>
       </tr>
-      <tr *ngFor="let item of recordData; let i = index">
+      <!--<tr *ngFor="let item of recordData; let i = index" >-->
+      <tr *ngFor="let item of recordData; let i = index" [(ngModel)]="recordSceneRequest.recordSceneQuestionDataList">
         <td> {{i+1}} </td>
-        <td> {{item.questionnaireName}} </td>
         <td>
-          <input type="checkbox" formControlName="generatorRecord" value="0">
-          <input type="hidden" formControlName="questionnaireId" value="{{item.id}}">
+         {{item.questionnaireName}}
+        </td>
+        <td>
+          <input type="checkbox"  value="0">
+        <!--  <input type="checkbox" [(ngModel]="generatorRecord" value="0">-->
+          <input type="hidden"  value="item.id" >
         </td>
       </tr>
     </table>
 
-    <div class="row">
-      <div class="col-md-4">
-        <button type="button" (click)="addEditSubmit()">确定</button>
-        <button type="button" >取消</button>
-        <button type="button" (click)="editTable()">表格</button>
-      </div>
+
+ </div>
+  <div class="row">
+    <div class="col-md-4">
+      <button type="button" (click)="addEditSubmit()">确定</button>
     </div>
-  </form>
+  </div>
 </div>

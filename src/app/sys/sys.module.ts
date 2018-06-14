@@ -11,6 +11,10 @@ import { MenuManageComponent } from './menu-manage/menu-manage.component';
 import { CoreModule } from '../core/core.module';
 import { SimpleDataTableModule } from '../simple-data-table/simple-data-table.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CompanyManageComponent } from './company-manage/company-manage.component';
+import { EmployeeManageComponent } from './employee-manage/employee-manage.component';
+import { CompanyOfficeManageComponent } from './company-office-manage/company-office-manage.component';
+import { CompanyEditComponent } from './company-edit/company-edit.component';
 
 
 @NgModule({
@@ -34,7 +38,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RoleEditComponent,
     SysComponent,
     UserEditComponent,
-    UserManageComponent
+    UserManageComponent,
+    CompanyManageComponent,
+    EmployeeManageComponent,
+    CompanyOfficeManageComponent,
+    CompanyEditComponent
   ]
 })
 export class SysModule { }

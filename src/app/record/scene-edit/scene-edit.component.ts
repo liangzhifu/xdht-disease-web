@@ -9,7 +9,7 @@ import { WaitService } from '../../core/wait/wait.service';
 import { ToastConfig } from '../../toast/toast-config';
 import { SystemConstant} from '../../core/class/system-constant';
 import { PostPersonelComponent } from '../post-personel/post-personel.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-record-scene-edit',
@@ -38,7 +38,7 @@ export class SceneEditComponent implements OnInit {
     private httpService: HttpService,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    // private activeModal: NgbActiveModal,
+    private activeModal: NgbActiveModal,
     private waitService: WaitService
   ) {
     this.recordSceneEditFormGroup = this.formBuilder.group({

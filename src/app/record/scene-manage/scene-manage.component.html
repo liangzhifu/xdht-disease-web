@@ -1,1 +1,55 @@
-<div></div>
+<div></div><div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right">项目名称：</label>
+      <input type="text" class="form-control" ([ngModel])="param.projectName" placeholder="项目名称">
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+        <button class="btn btn-primary" (click)="addScene();"><i class="fa fa-search fa-fw"></i> 新增</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table width="100%">
+          <tr>
+            <th>编号</th>
+            <th>项目名称</th>
+            <th>调查对象</th>
+            <th>调查人</th>
+            <th>陪同人</th>
+            <th>调查日期</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td>{{item.userName}}</td>
+            <td>{{item.loginCode}}</td>
+            <td>{{item.mobile}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.sex | sexReform}}</td>
+            <td>{{item.status | statusReform}}</td>
+            <td>
+              <button type="button" (click)="editScene(item.id)">修改</button>
+              <button type="button" (click)="delScene(item.id, item.userName)">删除</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+

@@ -124,7 +124,7 @@ export class MainComponent implements OnInit {
         'name': '职业卫生现场调查表',
         'keyWord': 'jstj',
         'icon': 'fa-plus-circle',
-        'url': '/main/record/recordScene/recordSceneManage'
+        'url': '/main/record/recordSceneManage'
       }, {
         'id': '32',
         'parentId': '301',

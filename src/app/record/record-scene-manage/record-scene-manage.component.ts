@@ -1,14 +1,15 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {HttpService} from '../../../core/http/http.service';
-import {ModalService} from '../../../modal/modal.service';
-import {SystemConstant} from '../../../core/class/system-constant';
-import {SimpleDataHttpPageComponent} from '../../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import {ToastType} from '../../../toast/toast-type.enum';
-import {ToastConfig} from '../../../toast/toast-config';
-import {WaitService} from '../../../core/wait/wait.service';
-import {ToastService} from '../../../toast/toast.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {HttpService} from '../../core/http/http.service';
+import {ModalService} from '../../modal/modal.service';
+import {SystemConstant} from '../../core/class/system-constant';
+import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import {ToastType} from '../../toast/toast-type.enum';
+import {ToastConfig} from '../../toast/toast-config';
+import {WaitService} from '../../core/wait/wait.service';
+import {ToastService} from '../../toast/toast.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {RecordPostPersonelComponent} from '../record-post-personel/record-post-personel.component';
 
 @Component({
   selector: 'app-record-scene-manage',
@@ -31,6 +32,7 @@ export class RecordSceneManageComponent implements OnInit {
   action = '';
   recordSceneEditFormGroup: FormGroup;
   constructor(
+    private ngbModal: NgbModal,
     private modalService: ModalService,
     private httpService: HttpService,
     private formBuilder: FormBuilder,
@@ -92,7 +94,15 @@ export class RecordSceneManageComponent implements OnInit {
     }
   }
 
-
+  editTable() {
+    const modalRef = this.ngbModal.open(RecordPostPersonelComponent);
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+        }
+      }
+    );
+  }
   /**
    * 提交
    */

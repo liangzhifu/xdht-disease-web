@@ -9,14 +9,14 @@ import {ToastConfig} from '../../toast/toast-config';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastService} from '../../toast/toast.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {RecordPostPersonelComponent} from '../record-post-personel/record-post-personel.component';
+import {PostPersonelComponent} from '../post-personel/post-personel.component';
 
 @Component({
   selector: 'app-record-scene-manage',
-  templateUrl: './record-scene-manage.component.html',
-  styleUrls: ['./record-scene-manage.component.scss']
+  templateUrl: './scene-manage.component.html',
+  styleUrls: ['./scene-manage.component.scss']
 })
-export class RecordSceneManageComponent implements OnInit {
+export class SceneManageComponent implements OnInit {
   // 查询问卷列表
   url: String;
   method: 'post';
@@ -95,7 +95,7 @@ export class RecordSceneManageComponent implements OnInit {
   }
 
   editTable() {
-    const modalRef = this.ngbModal.open(RecordPostPersonelComponent);
+    const modalRef = this.ngbModal.open(PostPersonelComponent);
     modalRef.result.then(
       (result) => {
         if (result === 'success') {

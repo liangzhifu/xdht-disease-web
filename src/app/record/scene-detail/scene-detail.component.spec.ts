@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecordSceneManageComponent } from './record-scene-manage.component';
+import { SceneDetailComponent } from './scene-detail.component';
 
-describe('RecordSceneManageComponent', () => {
-  let component: RecordSceneManageComponent;
-  let fixture: ComponentFixture<RecordSceneManageComponent>;
+describe('SceneDetailComponent', () => {
+  let component: SceneDetailComponent;
+  let fixture: ComponentFixture<SceneDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecordSceneManageComponent ]
+      declarations: [ SceneDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecordSceneManageComponent);
+    fixture = TestBed.createComponent(SceneDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

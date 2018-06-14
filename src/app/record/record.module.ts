@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RecordComponent} from './record.component';
 import {RecordRoutingModule} from './record-routing.module';
-import {RecordSceneEditComponent} from './record-scene-edit/record-scene-edit.component';
+import {SceneEditComponent} from './scene-edit/scene-edit.component';
 import {RecordSceneModule} from './record-scene/record-scene.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CoreModule} from '../core/core.module';
 import {SimpleDataTableModule} from '../simple-data-table/simple-data-table.module';
-import { RecordPostPersonelComponent } from './record-post-personel/record-post-personel.component';
-import { RecordSceneDetailComponent } from './record-scene-detail/record-scene-detail.component';
+import { PostPersonelComponent } from './post-personel/post-personel.component';
+import { SceneDetailComponent } from './scene-detail/scene-detail.component';
 
 @NgModule({
   imports: [
@@ -21,9 +21,9 @@ import { RecordSceneDetailComponent } from './record-scene-detail/record-scene-d
     RecordSceneModule
   ],
   entryComponents: [
-    RecordSceneEditComponent,
-    RecordPostPersonelComponent
+    SceneEditComponent,
+    PostPersonelComponent
   ],
-  declarations: [RecordComponent, RecordPostPersonelComponent, RecordSceneDetailComponent]
+  declarations: [RecordComponent, PostPersonelComponent, SceneDetailComponent]
 })
 export class RecordModule { }

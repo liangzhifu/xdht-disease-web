@@ -55,7 +55,7 @@ export class SceneManageComponent implements OnInit {
    * 新增--职业卫生现场调查记录
    */
   addScene() {
-    const modalRef = this.ngbModal.open(SceneEditComponent);
+    const modalRef = this.ngbModal.open(SceneEditComponent, {size: 'lg'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {

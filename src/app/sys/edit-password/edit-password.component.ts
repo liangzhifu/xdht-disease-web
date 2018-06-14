@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpService } from '../../../core/http/http.service';
-import { SystemConstant } from '../../../core/class/system-constant';
-import { ModalService } from '../../../modal/modal.service';
-import { AlertConfig } from '../../../modal/alert/alert-config';
-import { AlertType } from '../../../modal/alert/alert-type';
-import {SessionStorageService} from '../../../core/storage/session-storage.service';
+import { HttpService } from '../../core/http/http.service';
+import { SystemConstant } from '../../core/class/system-constant';
+import { ModalService } from '../../modal/modal.service';
+import { AlertConfig } from '../../modal/alert/alert-config';
+import { AlertType } from '../../modal/alert/alert-type';
+import {SessionStorageService} from '../../core/storage/session-storage.service';
 
 @Component({
   selector: 'app-edit-password',

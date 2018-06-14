@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SimpleDataHttpPageComponent} from '../../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import {WaitService} from '../../../core/wait/wait.service';
-import {ToastService} from '../../../toast/toast.service';
-import {ModalService} from '../../../modal/modal.service';
+import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import {WaitService} from '../../core/wait/wait.service';
+import {ToastService} from '../../toast/toast.service';
+import {ModalService} from '../../modal/modal.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {HttpService} from '../../../core/http/http.service';
-import {SystemConstant} from '../../../core/class/system-constant';
+import {HttpService} from '../../core/http/http.service';
+import {SystemConstant} from '../../core/class/system-constant';
 import {MenuEditComponent} from '../menu-edit/menu-edit.component';
-import {ToastType} from '../../../toast/toast-type.enum';
-import {ToastConfig} from '../../../toast/toast-config';
-import {ConfirmConfig} from '../../../modal/confirm/confirm-config';
+import {ToastType} from '../../toast/toast-type.enum';
+import {ToastConfig} from '../../toast/toast-config';
+import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 
 @Component({
   selector: 'app-menu-manage',

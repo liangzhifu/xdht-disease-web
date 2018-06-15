@@ -138,14 +138,14 @@ export class MainComponent implements OnInit {
         'name': '建设项目概况调查表（预评价）',
         'keyWord': 'jscx',
         'icon': 'fa-search',
-        'url': '/main/record/recordPre/recordPreEvaManage'
+        'url': '/main/record/recordPreEvaManage'
       }, {
         'id': '33',
         'parentId': '301',
-        'name': '修改',
+        'name': '建设项目概况调查表（控制效果评价）',
         'keyWord': 'jsfp',
         'icon': 'fa-cogs',
-        'url': '/app/role/roleDistribute'
+        'url': '/main/record/recordControlEffect'
       }]
     }
 

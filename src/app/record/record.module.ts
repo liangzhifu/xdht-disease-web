@@ -9,6 +9,11 @@ import { SimpleDataTableModule } from '../simple-data-table/simple-data-table.mo
 import { PostPersonelComponent } from './post-personel/post-personel.component';
 import { SceneDetailComponent } from './scene-detail/scene-detail.component';
 import { SceneManageComponent } from './scene-manage/scene-manage.component';
+import { PreEvaluationManageComponent } from './pre-evaluation-manage/pre-evaluation-manage.component';
+import { PreEvaluationEditComponent } from './pre-evaluation-edit/pre-evaluation-edit.component';
+import { ControlEffectManageComponent } from './control-effect-manage/control-effect-manage.component';
+import { ControlEffectEditComponent } from './control-effect-edit/control-effect-edit.component';
+import { PresentSituationComponent } from './present-situation/present-situation.component';
 
 @NgModule({
   imports: [
@@ -21,14 +26,21 @@ import { SceneManageComponent } from './scene-manage/scene-manage.component';
   ],
   entryComponents: [
     SceneEditComponent,
-    PostPersonelComponent
+    PostPersonelComponent,
+    PreEvaluationEditComponent,
+    ControlEffectEditComponent
   ],
   declarations: [
     PostPersonelComponent,
     RecordComponent,
     SceneEditComponent,
     SceneManageComponent,
-    SceneDetailComponent
+    SceneDetailComponent,
+    PreEvaluationManageComponent,
+    PreEvaluationEditComponent,
+    ControlEffectManageComponent,
+    ControlEffectEditComponent,
+    PresentSituationComponent
   ]
 })
 export class RecordModule { }

@@ -8,8 +8,8 @@ import { ToastService } from '../../toast/toast.service';
 import { WaitService } from '../../core/wait/wait.service';
 import { ToastConfig } from '../../toast/toast-config';
 import { SystemConstant} from '../../core/class/system-constant';
-import { PostPersonelComponent } from '../post-personel/post-personel.component';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-record-scene-edit',
@@ -18,20 +18,36 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SceneEditComponent implements OnInit {
 
+  recordSceneEditTitle: string;
   // 查询问卷列表
   url: String;
   method: 'post';
-  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
 
-  recordData: any;
+  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
   companyData: any;
   employeeData: any;
   // 输入填写内容
-  @Input() recordSceneData: any = null;
-  recordSceneEditTitle: string;
+  @Input() recordSceneRequest = {
+    'recordScene' : {
+      'id': '',
+      'recordNo' : '',
+      'projectName' : '',
+      'inquiryType' : '',
+      'inquiryPerson' : '',
+      'inquiryCompany' : '',
+      'inquiryCompanyEmployee' : '',
+      'inquiryDate': ''
+    },
+    'recordScenQuestionnaireList' : [{
+      'id': '',
+      'sceneId': '',
+      'questionnaireId' : '',
+      'generatorRecord' : '',
+      'questionnaireName': ''
+    }]
+  };
   addFlag: boolean;
   action = '';
-  recordSceneEditFormGroup: FormGroup;
   constructor(
     private ngbModal: NgbModal,
     private modalService: ModalService,
@@ -41,30 +57,26 @@ export class SceneEditComponent implements OnInit {
     private activeModal: NgbActiveModal,
     private waitService: WaitService
   ) {
-    this.recordSceneEditFormGroup = this.formBuilder.group({
-      id: '',
-      recordNo: '',
-      projectName: '',
-      inquiryType: '',
-      inquiryPerson: '',
-      inquiryCompany: '',
-      inquiryCompanyEmployee: '',
-      inquiryDate: '',
-      status: '',
-      generatorRecord: '',
-      questionnaireId: ''
-    });
-
     // 获取问卷的列表
-    this.httpService.post(SystemConstant.QUESTION_ALL_LIST, null ).subscribe({
+    this.httpService.post(SystemConstant.QUESTION_LIST, null ).subscribe({
       next: (data) => {
-        this.recordData = data;
+        this.recordSceneRequest.recordScenQuestionnaireList = [];
+        for (let i = 0; i < data.length; i ++) {
+          const recordSceneQuestionData = {
+            'id': '',
+            'sceneId': '',
+            'questionnaireId': data[i].id,
+            'generatorRecord' : '',
+            'questionnaireName': data[i].questionnaireName
+          };
+          this.recordSceneRequest.recordScenQuestionnaireList.push(recordSceneQuestionData);
+        }
       },
       complete: () => {
       }
     });
     // 获取单位列表
-    this.httpService.post(SystemConstant.COMPANY_ALL_LIST, null ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.companyData = data;
       },
@@ -75,39 +87,37 @@ export class SceneEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.recordSceneData === undefined || this.recordSceneData === null) {
-      this.action = '新增';
+    if (this.recordSceneRequest.recordScene.id === undefined
+      || this.recordSceneRequest.recordScene.id === null
+      || this.recordSceneRequest.recordScene.id === '') {
       this.addFlag = true;
-      this.recordSceneEditTitle = '新增调查表';
+      this.action = '新增';
+      this.recordSceneEditTitle = '新增--职业卫生现场调查记录';
     } else {
-      this.action = '修改';
       this.addFlag = false;
-      this.recordSceneEditTitle = '修改调查表';
-      this.recordSceneEditFormGroup.controls['id'].setValue(this.recordSceneData.id);
-      this.recordSceneEditFormGroup.controls['recordNo'].setValue(this.recordSceneData.recordNo);
-      this.recordSceneEditFormGroup.controls['projectName'].setValue(this.recordSceneData.projectName);
-      this.recordSceneEditFormGroup.controls['inquiryType'].setValue(this.recordSceneData.inquiryType);
-      this.recordSceneEditFormGroup.controls['inquiryPerson'].setValue(this.recordSceneData.inquiryPerson);
-      this.recordSceneEditFormGroup.controls['inquiryCompany'].setValue(this.recordSceneData.inquiryCompany);
-      this.recordSceneEditFormGroup.controls['inquiryCompanyEmployee'].setValue(this.recordSceneData.inquiryCompanyEmployee);
-      this.recordSceneEditFormGroup.controls['inquiryDate'].setValue(this.recordSceneData.inquiryDate);
-      this.recordSceneEditFormGroup.controls['status'].setValue(this.recordSceneData.status);
+      this.action = '修改';
+      this.recordSceneEditTitle = '修改--职业卫生现场调查记录';
     }
   }
 
-  editTable() {
-    const modalRef = this.ngbModal.open(PostPersonelComponent);
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-        }
-      }
-    );
+  /**
+   * 关闭对话框
+   */
+  close() {
+    this.activeModal.dismiss('failed');
   }
+
   /**
    * 提交
    */
   addEditSubmit() {
+    for (let i = 0; i < this.recordSceneRequest.recordScenQuestionnaireList.length; i ++) {
+      if ($('#checkbox-' + this.recordSceneRequest.recordScenQuestionnaireList[i].id).is(':checked')) {
+        this.recordSceneRequest.recordScenQuestionnaireList[i].generatorRecord = '1';
+      } else {
+        this.recordSceneRequest.recordScenQuestionnaireList[i].generatorRecord = '0';
+      }
+    }
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {
@@ -115,7 +125,8 @@ export class SceneEditComponent implements OnInit {
     } else {
       url = SystemConstant.RECORD_SCENE_EDIT;
     }
-    this.httpService.post(url, this.recordSceneEditFormGroup.value).subscribe({
+    // 保存调查表
+    this.httpService.post(url, this.recordSceneRequest).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
@@ -133,9 +144,9 @@ export class SceneEditComponent implements OnInit {
   /**
    * 根据单位改变单位下的人员
    */
-  changeUser(item) {
-    const myData = {'companyId': item};
-    this.httpService.post(SystemConstant.OFFICE_LIST, myData ).subscribe({
+  changeCompany(companyId) {
+    const param = {'companyId': companyId};
+    this.httpService.post(SystemConstant.COMPANY_EMPLOYEE_LIST, param).subscribe({
       next: (data) => {
         this.employeeData = data;
       },

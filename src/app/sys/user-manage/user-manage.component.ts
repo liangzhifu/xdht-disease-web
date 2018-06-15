@@ -103,18 +103,15 @@ export class UserManageComponent implements OnInit {
       () => {
         this.httpService.get(SystemConstant.USER_DEL + '?id=' + userId).subscribe({
           next: (data) => {
-            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
-            this.toastService.toast(toastCfg);
-            this.search();
             const status = data.status;
-            // if (status === '0') {
-            //   const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
-            //   this.toastService.toast(toastCfg);
-            //   this.search();
-            // } else {
-            //   const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除用户失败！' + '失败原因：' + data.message, 3000);
-            //   this.toastService.toast(toastCfg);
-            // }
+            if (status === '1') {
+              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
+              this.toastService.toast(toastCfg);
+              this.search();
+            } else {
+              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除用户失败！' + '失败原因：' + data.message, 3000);
+              this.toastService.toast(toastCfg);
+            }
           },
           error: (err) => {
             const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除用户失败！' + '失败原因：' + err, 3000);

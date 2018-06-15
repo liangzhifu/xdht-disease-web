@@ -59,6 +59,13 @@ export class MainComponent implements OnInit {
       'keyWord': 'modal',
       'icon': 'fa-columns',
       'url': '/main/sys/menuManage'
+    }, {
+      'id': '105',
+      'parentId': '101',
+      'name': '公司管理',
+      'keyWord': 'modal',
+      'icon': 'fa-columns',
+      'url': '/main/sys/companyManage'
     }
     ]
   }, {
@@ -121,17 +128,17 @@ export class MainComponent implements OnInit {
       'children': [{
         'id': '31',
         'parentId': '301',
-        'name': '职业卫生现场调查表',
+        'name': '现场调查记录管理',
         'keyWord': 'jstj',
         'icon': 'fa-plus-circle',
         'url': '/main/record/recordSceneManage'
       }, {
         'id': '32',
         'parentId': '301',
-        'name': '查询',
+        'name': '建设项目概况调查表（预评价）',
         'keyWord': 'jscx',
         'icon': 'fa-search',
-        'url': '/app/role/roleList'
+        'url': '/main/record/recordPre/recordPreEvaManage'
       }, {
         'id': '33',
         'parentId': '301',

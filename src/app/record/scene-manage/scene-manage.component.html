@@ -9,6 +9,7 @@
     <div class="col-md-4">
         <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
         <button class="btn btn-primary" (click)="addScene();"><i class="fa fa-search fa-fw"></i> 新增</button>
+      <button class="btn btn-primary" (click)="open();"><i class="fa fa-search fa-fw"></i> 打开</button>
     </div>
   </div>
   <div class="row">
@@ -31,15 +32,15 @@
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;let i = index">
-            <td>{{item.userName}}</td>
-            <td>{{item.loginCode}}</td>
-            <td>{{item.mobile}}</td>
-            <td>{{item.email}}</td>
-            <td>{{item.sex | sexReform}}</td>
-            <td>{{item.status | statusReform}}</td>
+            <td>{{item.recordNo}}</td>
+            <td>{{item.projectName}}</td>
+            <td>{{item.inquiryCompany}}</td>
+            <td>{{item.inquiryPerson}}</td>
+            <td>{{item.inquiryCompanyEmployee }}</td>
+            <td>{{item.inquiryDate}}</td>
             <td>
               <button type="button" (click)="editScene(item.id)">修改</button>
-              <button type="button" (click)="delScene(item.id, item.userName)">删除</button>
+              <button type="button" (click)="delScene(item.id, item.projectName)">删除</button>
             </td>
           </tr>
         </table>

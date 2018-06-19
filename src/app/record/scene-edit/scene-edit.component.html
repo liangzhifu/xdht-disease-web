@@ -63,18 +63,22 @@
   </div>
   <div class="row" style="padding: 10px;">
     <table class="table table-bordered table-hover">
-      <tr>
-        <td>序号</td>
-        <td>职业卫生调查内容</td>
-        <td>采用调查表</td>
-      </tr>
-      <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{item.questionnaireName}}</td>
-        <td>
-          <input type="checkbox" id="checkbox-{{item.questionnaireId}}">
-        </td>
-      </tr>
+      <thead class="thead-light">
+          <tr>
+              <th>序号</th>
+              <th>职业卫生调查内容</th>
+              <th>采用调查表</th>
+            </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item.questionnaireName}}</td>
+              <td>
+                <input type="checkbox" id="checkbox-{{item.questionnaireId}}">
+              </td>
+            </tr>
+      </tbody>
     </table>
   </div>
   <div class="row">

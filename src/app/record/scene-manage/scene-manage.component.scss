@@ -4,6 +4,10 @@ body,html{
 .table-list th,.table-list td{
   text-align: center;
 }
+.table-list th{
+  background-color: #4682B4;
+  color: #fff;
+}
 .table-list .btn:first-child{
   margin-right: 7px;
 }

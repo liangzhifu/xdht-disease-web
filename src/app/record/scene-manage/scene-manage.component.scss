@@ -1,0 +1,21 @@
+body,html{
+  background-color: #fff;
+}
+.table-list th,.table-list td{
+  text-align: center;
+}
+.table-list .btn:first-child{
+  margin-right: 7px;
+}
+.radius{
+ -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.mr-10{
+  margin-right: 10px!important;
+}
+.table-row{
+  padding: 15px 0px;
+  background-color: #fff;
+}

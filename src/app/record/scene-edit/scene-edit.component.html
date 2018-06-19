@@ -1,24 +1,24 @@
 <div class="c-content-inner">
-  <div class="modal-body row">
+  <div class="modal-body row ">
     <label>{{recordSceneEditTitle}}</label>
     <button aria-label="Close" class="close" type="button" (click)="close()">
       <span aria-hidden="true">×</span>
     </button>
   </div>
-  <div class="row">
+  <div class="row list">
     <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">编码：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordSceneRequest.recordScene.recordNo" placeholder="编码">
+      <label class="col-md-5 col-form-label text-right float-left">编码：</label>
+      <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.recordNo" placeholder="编码">
     </div>
     <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">项目名称：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordSceneRequest.recordScene.projectName" placeholder="项目名称">
+      <label class="col-md-5 col-form-label text-right float-left">项目名称：</label>
+      <input type="text" class="form-control col-md-7 " [(ngModel)]="recordSceneRequest.recordScene.projectName" placeholder="项目名称">
     </div>
   </div>
-  <div class="row">
+  <div class="row list">
     <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">调查类型：</label>
-      <select class="form-control" [(ngModel)]="recordSceneRequest.recordScene.inquiryType">
+      <label class="col-md-5 col-form-label text-right float-left">调查类型：</label>
+      <select class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryType">
         <option value="">请选择</option>
         <option value="0">预评价</option>
         <option value="1">类比</option>
@@ -27,34 +27,42 @@
       </select>
     </div>
     <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">调查对象：</label>
-      <select #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany" (change)="changeCompany(select.value)">
+      <label class="col-md-5 col-form-label text-right float-left">调查对象：</label>
+      <select class="col-md-7" #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany" (change)="changeCompany(select.value)">
         <option value="">--请选择单位--</option>
-        <option *ngFor="let item of companyData;" value="{{item.id}}" >{{item.companyName}}</option>
+        <option *ngFor="let item of companyData;" value="{{item.id}}">{{item.companyName}}</option>
       </select>
     </div>
   </div>
-  <div class="row">
+  <div class="row list">
     <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">调查人：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordSceneRequest.recordScene.inquiryPerson" placeholder="调查人">
+      <label class="col-md-5 col-form-label text-right float-left">调查人：</label>
+      <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryPerson" placeholder="调查人">
     </div>
     <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">用人单位陪同人签字：</label>
-      <select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee" >
+      <label class="col-md-5 col-form-label text-right float-left">调查日期：</label>
+      <div class="input-group col-md-7">
+        <input class="form-control" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="recordSceneRequest.recordScene.inquiryDate" placeholder="调查日期">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row list">
+    <div class="col-md-12">
+      <label style="padding: 0px;" class="col-md-4 col-form-label text-right float-left">用人单位陪同人签字：</label>
+      <select class="col-md-4" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee" >
         <option value="">--请选择陪同人--</option>
         <option *ngFor="let item of employeeData;" value="{{item.id}}" >{{item.empName}}</option>
       </select>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">调查日期：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordSceneRequest.recordScene.inquiryDate" placeholder="调查日期">
-    </div>
-  </div>
-  <div class="row">
-    <table>
+  <div class="row" style="padding: 10px;">
+    <table class="table table-bordered table-hover">
       <tr>
         <td>序号</td>
         <td>职业卫生调查内容</td>
@@ -70,9 +78,9 @@
     </table>
   </div>
   <div class="row">
-    <div class="col-md-4">
-      <button type="button" (click)="addEditSubmit()">确定</button>
-      <button type="button" (click)="close()">取消</button>
+    <div class="op-btn">
+      <button type="button" class="btn btn-success" (click)="submitData()">确&ngsp;&ngsp;定</button>
+      <button type="button" class="btn btn-outline-success" (click)="close()">取&ngsp;&ngsp;消</button>
     </div>
   </div>
 </div>

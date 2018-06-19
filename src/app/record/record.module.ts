@@ -13,12 +13,20 @@ import { PreEvaluationManageComponent } from './pre-evaluation-manage/pre-evalua
 import { PreEvaluationEditComponent } from './pre-evaluation-edit/pre-evaluation-edit.component';
 import { ControlEffectManageComponent } from './control-effect-manage/control-effect-manage.component';
 import { ControlEffectEditComponent } from './control-effect-edit/control-effect-edit.component';
+import { PresentSituationManageComponent } from './present-situation-manage/present-situation-manage.component';
+import { WorkLogManageComponent } from './work-log-manage/work-log-manage.component';
+import { ProductManageComponent } from './product-manage/product-manage.component';
+import { EquipmentManageComponent } from './equipment-manage/equipment-manage.component';
+import { EquipmentLayoutManageComponent } from './equipment-layout-manage/equipment-layout-manage.component';
+import { HazardFactorsManageComponent } from './hazard-factors-manage/hazard-factors-manage.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     SimpleDataTableModule,
     RecordRoutingModule
@@ -27,15 +35,12 @@ import { ControlEffectEditComponent } from './control-effect-edit/control-effect
     SceneEditComponent,
     PostPersonelComponent,
     PreEvaluationEditComponent,
-    ControlEffectEditComponent,
-    PresentSituationEditComponent,
-    WorkLogEditComponent,
-    ProductEditComponent,
-    EquipmentEditComponent,
-    EquipmentLayoutEditComponent,
-    HazardFactorsEditComponent
+    ControlEffectEditComponent
   ],
   declarations: [
+    EquipmentManageComponent,
+    EquipmentLayoutManageComponent,
+    HazardFactorsManageComponent,
     PostPersonelComponent,
     RecordComponent,
     SceneEditComponent,
@@ -43,8 +48,11 @@ import { ControlEffectEditComponent } from './control-effect-edit/control-effect
     SceneDetailComponent,
     PreEvaluationManageComponent,
     PreEvaluationEditComponent,
+    PresentSituationManageComponent,
+    ProductManageComponent,
     ControlEffectManageComponent,
     ControlEffectEditComponent,
+    WorkLogManageComponent
   ]
 })
 export class RecordModule { }

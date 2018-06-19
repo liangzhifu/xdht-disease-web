@@ -73,7 +73,7 @@ export class SceneManageComponent implements OnInit {
    * 修改--职业卫生现场调查记录
    */
   editScene(id) {
-    // 获取用户数据
+    // 获取职业卫生现场调查记录数据
     this.httpService.get(SystemConstant.RECORD_SCENE_DETAIL + '/' + id).subscribe({
       next: (data) => {
         this.openEditScene(data);
@@ -89,9 +89,9 @@ export class SceneManageComponent implements OnInit {
   /**
    * 打开修改(职业卫生现场调查记录)对话框
    */
-  openEditScene(userData) {
-    const modalRef = this.ngbModal.open(UserEditComponent);
-    modalRef.componentInstance.userData = userData;
+  openEditScene(recordSceneData) {
+    const modalRef = this.ngbModal.open(SceneEditComponent);
+    modalRef.componentInstance.recordSceneRequest = recordSceneData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {

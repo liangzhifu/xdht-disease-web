@@ -17,7 +17,6 @@ import { ConfirmConfig } from '../../modal/confirm/confirm-config';
   styleUrls: ['./menu-manage.component.scss']
 })
 export class MenuManageComponent implements OnInit {
-  url: String;
   method: 'post';
 
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
@@ -36,7 +35,6 @@ export class MenuManageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.url = SystemConstant.MENU_PAGE_LIST;
   }
 
   /**

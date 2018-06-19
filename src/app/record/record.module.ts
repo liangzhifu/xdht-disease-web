@@ -13,7 +13,6 @@ import { PreEvaluationManageComponent } from './pre-evaluation-manage/pre-evalua
 import { PreEvaluationEditComponent } from './pre-evaluation-edit/pre-evaluation-edit.component';
 import { ControlEffectManageComponent } from './control-effect-manage/control-effect-manage.component';
 import { ControlEffectEditComponent } from './control-effect-edit/control-effect-edit.component';
-import { PresentSituationComponent } from './present-situation/present-situation.component';
 
 @NgModule({
   imports: [
@@ -40,7 +39,6 @@ import { PresentSituationComponent } from './present-situation/present-situation
     PreEvaluationEditComponent,
     ControlEffectManageComponent,
     ControlEffectEditComponent,
-    PresentSituationComponent
   ]
 })
 export class RecordModule { }

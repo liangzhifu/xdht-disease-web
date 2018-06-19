@@ -29,7 +29,8 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
   entryComponents: [
     UserEditComponent,
     RoleEditComponent,
-    MenuEditComponent
+    MenuEditComponent,
+    CompanyEditComponent
   ],
   declarations: [
     MenuManageComponent,

@@ -62,10 +62,17 @@ export class MainComponent implements OnInit {
     }, {
       'id': '105',
       'parentId': '101',
-      'name': '公司管理',
+      'name': '企业基本信息管理',
       'keyWord': 'modal',
       'icon': 'fa-columns',
       'url': '/main/sys/companyManage'
+    }, {
+      'id': '106',
+      'parentId': '101',
+      'name': '职工档案信息管理',
+      'keyWord': 'modal',
+      'icon': 'fa-columns',
+      'url': '/main/sys/menuManage'
     }
     ]
   }, {

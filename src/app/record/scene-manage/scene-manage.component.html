@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-4">
       <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
-      <button class="btn btn-secondary" (click)="addScene();"><i class="fa fa-plus fa-fw"></i> 新增</button>
+      <button class="btn btn-success" (click)="addScene();"><i class="fa fa-plus fa-fw"></i> 新增</button>
     </div>
   </div>
   </div>
@@ -44,8 +44,8 @@
               <td>{{item.inquiryCompanyEmployee }}</td>
               <td>{{item.inquiryDate}}</td>
               <td>
-                <button class="btn btn-warning radius" type="button" (click)="editScene(item.id)">修改</button>
-                <button class="btn btn-danger radius" type="button" (click)="delScene(item.id, item.projectName)">删除</button>
+                <button class="btn btn-warning radius" type="button" (click)="editScene(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+                <button class="btn btn-danger radius" type="button" (click)="delScene(item.id, item.projectName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
               </td>
             </tr>
           </tbody>

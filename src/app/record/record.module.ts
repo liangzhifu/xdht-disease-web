@@ -19,7 +19,7 @@ import { ProductManageComponent } from './product-manage/product-manage.componen
 import { EquipmentManageComponent } from './equipment-manage/equipment-manage.component';
 import { EquipmentLayoutManageComponent } from './equipment-layout-manage/equipment-layout-manage.component';
 import { HazardFactorsManageComponent } from './hazard-factors-manage/hazard-factors-manage.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [

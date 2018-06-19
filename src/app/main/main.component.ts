@@ -6,6 +6,7 @@ import { TitleService } from '../core/title/title.service';
 import { ConfirmConfig } from '../modal/confirm/confirm-config';
 import { ModalService } from '../modal/modal.service';
 import { SessionStorageService } from '../core/storage/session-storage.service';
+import {EquipmentLayoutManageComponent} from '../record/equipment-layout-manage/equipment-layout-manage.component';
 
 @Component({
   selector: 'app-main',
@@ -146,7 +147,50 @@ export class MainComponent implements OnInit {
         'keyWord': 'jsfp',
         'icon': 'fa-cogs',
         'url': '/main/record/recordControlEffect'
-      }]
+      }, {
+        'id': '34',
+        'parentId': '301',
+        'name': '用人单位概况调查表（现状评价）',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordPresentSituation'
+      }, {
+        'id': '35',
+        'parentId': '301',
+        'name': '工作日写实记录表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordWorkLog'
+      }, {
+        'id': '36',
+        'parentId': '301',
+        'name': '物料及产品调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordProduct'
+      }, {
+        'id': '37',
+        'parentId': '301',
+        'name': '设备设施调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordEquipment'
+      }, {
+        'id': '38',
+        'parentId': '301',
+        'name': '设备设施布局调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordEquipmentLayout'
+      }, {
+        'id': '39',
+        'parentId': '301',
+        'name': '职业病危害因素调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordHazardFactors'
+      }
+      ]
     }
 
 

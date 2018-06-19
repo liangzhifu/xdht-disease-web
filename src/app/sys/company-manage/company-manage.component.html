@@ -1,8 +1,13 @@
 <div class="c-content-inner">
   <div class="row">
     <div class="col-md-4">
-      <label class="col-md-4 col-form-label text-right">公司名称：</label>
-      <input type="text" class="form-control" [(ngModel)]="param.companyName" placeholder="公司名称...">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">公司名称：</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" (input)="param.companyName = $event.target.value"
+                 placeholder="请输入公司名...">
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
@@ -10,36 +15,33 @@
         <button class="btn btn-primary" (click)="addCompany();"><i class="fa fa-search fa-fw"></i> 新增</button>
       </div>
     </div>
-  </div>
-  <div class="row">
+
     <div class="col-md-12">
       <p class="c-line-title"></p>
     </div>
-  </div>
-  <div class="row">
+
     <div class="col-md-12">
 
       <div #sdt=simpleDataTable appSimpleDataTable>
         <table width="100%">
           <tr>
-            <th>单位名称</th>
+            <th>企业名称</th>
+            <th>状态</th>
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;let i = index">
             <td>{{item.companyName}}</td>
+            <td>{{item.status | statusReform}}</td>
             <td>
               <button type="button" (click)="editCompany(item.id)">修改</button>
-              <button type="button" (click)="delCompany(item.id, item.userName)">删除</button>
+              <button type="button" (click)="delCompany(item.id, item.companyName)">删除</button>
             </td>
           </tr>
         </table>
         <div class="c-mt15">
           <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>
-

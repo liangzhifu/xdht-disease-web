@@ -26,6 +26,8 @@ export class SceneEditComponent implements OnInit {
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
   companyData: any;
   employeeData: any;
+  addFlag: boolean;
+  action = '';
   // 输入填写内容
   @Input() recordSceneRequest = {
     'recordScene' : {
@@ -46,8 +48,6 @@ export class SceneEditComponent implements OnInit {
       'questionnaireName': ''
     }]
   };
-  addFlag: boolean;
-  action = '';
   constructor(
     private ngbModal: NgbModal,
     private modalService: ModalService,
@@ -76,7 +76,7 @@ export class SceneEditComponent implements OnInit {
       }
     });
     // 获取单位列表
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_ALL_LIST, {} ).subscribe({
       next: (data) => {
         this.companyData = data;
       },

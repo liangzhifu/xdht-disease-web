@@ -27,7 +27,13 @@ import { ControlEffectEditComponent } from './control-effect-edit/control-effect
     SceneEditComponent,
     PostPersonelComponent,
     PreEvaluationEditComponent,
-    ControlEffectEditComponent
+    ControlEffectEditComponent,
+    PresentSituationEditComponent,
+    WorkLogEditComponent,
+    ProductEditComponent,
+    EquipmentEditComponent,
+    EquipmentLayoutEditComponent,
+    HazardFactorsEditComponent
   ],
   declarations: [
     PostPersonelComponent,

@@ -15,6 +15,8 @@ import { CompanyManageComponent } from './company-manage/company-manage.componen
 import { EmployeeManageComponent } from './employee-manage/employee-manage.component';
 import { CompanyOfficeManageComponent } from './company-office-manage/company-office-manage.component';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
+import { MenuChooseComponent } from './menu-choose/menu-choose.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
     CommonModule,
     CoreModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     SimpleDataTableModule,
     SysRoutingModule
@@ -29,6 +32,7 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
   entryComponents: [
     UserEditComponent,
     RoleEditComponent,
+    MenuChooseComponent,
     MenuEditComponent,
     CompanyEditComponent
   ],
@@ -43,7 +47,8 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
     CompanyManageComponent,
     EmployeeManageComponent,
     CompanyOfficeManageComponent,
-    CompanyEditComponent
+    CompanyEditComponent,
+    MenuChooseComponent
   ]
 })
 export class SysModule { }

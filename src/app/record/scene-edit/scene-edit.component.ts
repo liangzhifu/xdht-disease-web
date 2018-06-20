@@ -76,7 +76,7 @@ export class SceneEditComponent implements OnInit {
       }
     });
     // 获取单位列表
-    this.httpService.post(SystemConstant.COMPANY_ALL_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.companyData = data;
       },
@@ -110,9 +110,9 @@ export class SceneEditComponent implements OnInit {
   /**
    * 提交
    */
-  addEditSubmit() {
+  submitData() {
     for (let i = 0; i < this.recordSceneRequest.recordScenQuestionnaireList.length; i ++) {
-      if ($('#checkbox-' + this.recordSceneRequest.recordScenQuestionnaireList[i].id).is(':checked')) {
+      if ($('#checkbox-' + this.recordSceneRequest.recordScenQuestionnaireList[i].questionnaireId).is(':checked')) {
         this.recordSceneRequest.recordScenQuestionnaireList[i].generatorRecord = '1';
       } else {
         this.recordSceneRequest.recordScenQuestionnaireList[i].generatorRecord = '0';
@@ -130,6 +130,7 @@ export class SceneEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

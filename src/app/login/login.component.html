@@ -11,16 +11,20 @@
           <div class="form-group row">
             <div class="col-12">
               <input class="form-control " type="text" formControlName="loginCode" placeholder="请输入用户名..." >
-              <div class="c-validator-invalid" [hidden]="!(loginForm.controls['loginCode'].errors)">
-                用户名必填
+              <div *ngIf="loginForm.controls['loginCode'].errors && (loginForm.controls['loginCode'].dirty || loginForm.controls['loginCode'].touched)">
+                <div class="c-validator-invalid">
+                  用户名必填
+                </div>
               </div>
             </div>
           </div>
           <div class="form-group row">
             <div class="col-12">
               <input class="form-control" type="password" formControlName="password" placeholder="请输入密码...">
-              <div class="c-validator-invalid" [hidden]="!(loginForm.controls['password'].errors)">
-                密码必填
+              <div *ngIf="loginForm.controls['password'].errors && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                <div class="c-validator-invalid">
+                  密码必填
+                </div>
               </div>
             </div>
           </div>

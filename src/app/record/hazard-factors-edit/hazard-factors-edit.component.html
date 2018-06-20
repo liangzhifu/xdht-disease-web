@@ -1,3 +1,49 @@
-<p>
-  hazard-factors-edit works!
-</p>
+<div class="c-content-inner">
+  <div class="modal-body row">
+    <label>{{recordHazardFactorsEditTitle}}</label>
+    <button aria-label="Close" class="close" type="button" (click)="close()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label class="col-md-5 col-form-label text-right">编码：</label>
+      <input type="text" class="form-control" [(ngModel)]="recordHazardFactorsInputRequest.recordHazardFactors.hazardFactorsNo" placeholder="编码" >
+    </div>
+    <div class="col-md-6">
+      <label class="col-md-5 col-form-label text-right">核实情况：</label>
+      <input type="text" class="form-control" [(ngModel)]="recordHazardFactorsInputRequest.recordHazardFactors.verificationResult" placeholder="核实情况">
+    </div>
+  </div>
+  <div class="row">
+    <table>
+      <tr>
+        <td><button (click)="addOffice()">增加</button>车间/部门</td>
+        <td>工艺过程</td>
+        <td>职业病危害因素</td>
+        <td>暴露方式</td>
+        <td>暴露时间</td>
+        <td>备注</td>
+        <td>操作</td>
+      </tr>
+      <tr [(ngModel)]="recordHazardFactorsInputRequest.recordHazardFactorsDataList" *ngFor="let item of recordHazardFactorsInputRequest.recordHazardFactorsDataList;">
+        <td>
+          <select #select [(ngModel)]="item.officeId" >
+            <option value="">--请选择部门--</option>
+            <option *ngFor="let office of recordHazardFactorsInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
+          </select>
+        </td>
+        <td><input type="text" [(ngModel)]="item.processName"></td>
+        <td><input type="text" [(ngModel)]="item.hazardFactors"></td>
+        <td><input type="text" [(ngModel)]="item.exposureMode"></td>
+        <td><input type="text" [(ngModel)]="item.exposureTime"></td>
+        <td><input type="text" [(ngModel)]="item.remarks"></td>
+        <td><button (click)="delOffice(item)">删除</button></td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <button (click)="submitData()">提交</button>
+    <button (click)="close()">取消</button>
+  </div>
+</div>

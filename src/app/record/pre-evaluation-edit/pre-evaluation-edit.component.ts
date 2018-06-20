@@ -6,7 +6,7 @@ import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 @Component({
   selector: 'app-pre-evaluation-edit',
   templateUrl: './pre-evaluation-edit.component.html',

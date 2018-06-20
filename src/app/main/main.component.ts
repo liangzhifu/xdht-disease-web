@@ -189,6 +189,55 @@ export class MainComponent implements OnInit {
         'keyWord': 'jsfp',
         'icon': 'fa-cogs',
         'url': '/main/record/recordHazardFactors'
+      }, {
+        'id': '40',
+        'parentId': '301',
+        'name': '防噪声设施调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordAntiNoise'
+      }, {
+        'id': '41',
+        'parentId': '301',
+        'name': '防高温设施调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordTemperature'
+      }, {
+        'id': '42',
+        'parentId': '301',
+        'name': '其他防护设施调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordOtherProtective'
+      }, {
+        'id': '43',
+        'parentId': '301',
+        'name': '个体防护用品调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordIndividualProtective'
+      }, {
+        'id': '44',
+        'parentId': '301',
+        'name': '应急设施调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordEmergencyFacilities'
+      }, {
+        'id': '45',
+        'parentId': '301',
+        'name': '职业病危害告知设施调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordInformingFacilities'
+      }, {
+        'id': '46',
+        'parentId': '301',
+        'name': '职业卫生管理情况调查表',
+        'keyWord': 'jsfp',
+        'icon': 'fa-cogs',
+        'url': '/main/record/recordHealthManagement'
       }
       ]
     }

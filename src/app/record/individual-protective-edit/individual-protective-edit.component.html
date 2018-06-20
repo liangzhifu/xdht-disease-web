@@ -1,0 +1,56 @@
+<div class="c-content-inner">
+  <div class="modal-body row">
+    <label>{{recordIndividualProtectiveEditTitle}}</label>
+    <button aria-label="Close" class="close" type="button" (click)="close()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label class="col-md-5 col-form-label text-right">编码：</label>
+      <input type="text" class="form-control" [(ngModel)]="recordIndividualProtectiveInputRequest.recordIndividualProtective.individualProtectiveEquipmentNo" placeholder="编码" >
+    </div>
+    <div class="col-md-6">
+      <label class="col-md-5 col-form-label text-right">核实情况：</label>
+      <input type="text" class="form-control" [(ngModel)]="recordIndividualProtectiveInputRequest.recordIndividualProtective.verificationResult" placeholder="核实情况">
+    </div>
+  </div>
+  <div class="row">
+    <table>
+      <tr>
+        <td><button (click)="addOffice()">增加</button>车间/部门</td>
+        <td>工种/岗位</td>
+        <td>接触职业病危害因素</td>
+        <td>防护用品名称</td>
+        <td>技术参数</td>
+        <td>数量</td>
+        <td>使用情况</td>
+        <td>操作</td>
+      </tr>
+      <tr *ngFor="let item of recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList;" [(ngModel)]="recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList" >
+        <td>
+          <select #select [(ngModel)]="item.companyOfficeId" >
+            <option value="">--请选择部门--</option>
+            <option *ngFor="let office of recordIndividualProtectiveInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
+          </select>
+        </td>
+        <td>
+          <select #select [(ngModel)]="item.postId" >
+            <option value="">--请选择岗位--</option>
+            <option *ngFor="let post of recordIndividualProtectiveInputRequest.sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+          </select>
+        </td>
+        <td><input type="text" [(ngModel)]="item.hazardFactors"></td>
+        <td><input type="text" [(ngModel)]="item.protectiveEquipment"></td>
+        <td><input type="text" [(ngModel)]="item.technicalParameter"></td>
+        <td><input type="number" [(ngModel)]="item.number"></td>
+        <td><input type="text" [(ngModel)]="item.usaged"></td>
+        <td><button (click)="delOffice(item)">删除</button></td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <button (click)="submitData()">提交</button>
+    <button (click)="close()">取消</button>
+  </div>
+</div>

@@ -10,6 +10,7 @@ import { ConfirmConfig } from '../../modal/confirm/confirm-config';
 import { ModalService } from '../../modal/modal.service';
 import { HttpService } from '../../core/http/http.service';
 import { ToastService } from '../../toast/toast.service';
+import {RoleChooseComponent} from '../role-choose/role-choose.component';
 
 @Component({
   selector: 'app-user-manage',
@@ -36,7 +37,7 @@ export class UserManageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.url = SystemConstant.USER_LIST;
+    this.url = SystemConstant.USER_PAGE_LIST;
   }
 
   /**
@@ -84,7 +85,7 @@ export class UserManageComponent implements OnInit {
    */
   openEditUser(userData) {
     const modalRef = this.ngbModal.open(UserEditComponent);
-    modalRef.componentInstance.userData = userData;
+    modalRef.componentInstance.sysUser = userData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -121,5 +122,22 @@ export class UserManageComponent implements OnInit {
         });
       }
     );
+  }
+
+  /**
+   * 分配用户角色
+   * @param userId
+   */
+  editUserRole(userId) {
+    const modalRef = this.ngbModal.open(RoleChooseComponent);
+    modalRef.componentInstance.userId = userId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+          this.search();
+        }
+      },
+      () => {}
+    ).catch();
   }
 }

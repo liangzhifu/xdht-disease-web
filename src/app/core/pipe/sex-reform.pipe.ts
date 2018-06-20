@@ -15,7 +15,7 @@ export class SexReformPipe implements PipeTransform {
         chineseSex = '女';
         break;
       default:
-        chineseSex = '未知性别';
+        chineseSex = '';
         break;
 
     }

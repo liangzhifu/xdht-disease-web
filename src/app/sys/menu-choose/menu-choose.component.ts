@@ -1,6 +1,14 @@
 import {Component, OnInit, ElementRef, Input} from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+
 import 'ztree';
-import 'jquery'
+import 'jquery';
+import {ToastConfig} from '../../toast/toast-config';
+import {ToastType} from '../../toast/toast-type.enum';
+import {SystemConstant} from '../../core/class/system-constant';
+import {HttpService} from '../../core/http/http.service';
+import {ToastService} from '../../toast/toast.service';
+import {WaitService} from '../../core/wait/wait.service';
 declare var $: any;
 
 
@@ -17,43 +25,100 @@ export class MenuChooseComponent implements OnInit {
       simpleData: {
         enable: true
       }
+    },
+    check: {
+      enable: true,
+      chkStyle: 'checkbox',
+      autoCheckTrigger: true,
+      chkboxType: {Y: 'p', N: 's'}
     }
   };
-  zNodes = [
-    { id: 1, pId: 0, name: '父节点1 - 展开', open: true },
-    { id: 11, pId: 1, name: '父节点11 - 折叠' },
-    { id: 111, pId: 11, name: '叶子节点111' },
-    { id: 112, pId: 11, name: '叶子节点112' },
-    { id: 113, pId: 11, name: '叶子节点113' },
-    { id: 114, pId: 11, name: '叶子节点114' },
-    { id: 12, pId: 1, name: '父节点12 - 折叠' },
-    { id: 121, pId: 12, name: '叶子节点121' },
-    { id: 122, pId: 12, name: '叶子节点122' },
-    { id: 123, pId: 12, name: '叶子节点123' },
-    { id: 124, pId: 12, name: '叶子节点124' },
-    { id: 13, pId: 1, name: '父节点13 - 没有子节点', isParent: true },
-    { id: 2, pId: 0, name: '父节点2 - 折叠' },
-    { id: 21, pId: 2, name: '父节点21 - 展开', open: true },
-    { id: 211, pId: 21, name: '叶子节点211' },
-    { id: 212, pId: 21, name: '叶子节点212' },
-    { id: 213, pId: 21, name: '叶子节点213' },
-    { id: 214, pId: 21, name: '叶子节点214' },
-    { id: 22, pId: 2, name: '父节点22 - 折叠' },
-    { id: 221, pId: 22, name: '叶子节点221' },
-    { id: 222, pId: 22, name: '叶子节点222' },
-    { id: 223, pId: 22, name: '叶子节点223' },
-    { id: 224, pId: 22, name: '叶子节点224' },
-    { id: 23, pId: 2, name: '父节点23 - 折叠' },
-    { id: 231, pId: 23, name: '叶子节点231' },
-    { id: 232, pId: 23, name: '叶子节点232' },
-    { id: 233, pId: 23, name: '叶子节点233' },
-    { id: 234, pId: 23, name: '叶子节点234' },
-    { id: 3, pId: 0, name: '父节点3 - 没有子节点', isParent: true }
-  ];
-  constructor(public el: ElementRef) { }
+  zNodes = null;
+  constructor(
+    public el: ElementRef,
+    private activeModal: NgbActiveModal,
+    private httpService: HttpService,
+    private toastService: ToastService,
+    private waitService: WaitService
+  ) { }
 
   ngOnInit() {
-    $.fn.zTree.init($('#ztree'), this.setting, this.zNodes);
+    this.httpService.get(SystemConstant.MENU_ZTREE_LIST).subscribe({
+      next: (data) => {
+        this.zNodes = data;
+        $.fn.zTree.init($('#ztree'), this.setting, this.zNodes);
+        // 获取角色菜单
+        this.getRoleMenu();
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取用户菜单失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {}
+    });
   }
 
+  /**
+   * 获取角色菜单关联
+   */
+  getRoleMenu() {
+    const zTree = $.fn.zTree.getZTreeObj('ztree');
+    this.httpService.post(SystemConstant.ROLE_MENU_LIST, {roleId: this.roleId}).subscribe({
+      next: (data) => {
+        for (let i = 0; i < data.length; i ++) {
+          const sysRoleMenu = data[i];
+          const menuId = sysRoleMenu.menuId;
+          const node = zTree.getNodeByParam('id', menuId);
+          node.checked = true;
+          zTree.updateNode(node);
+        }
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取角色菜单关联失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {
+      }
+    });
+  }
+
+  /**
+   * 关闭角色修改框
+   */
+  close() {
+    this.activeModal.dismiss('failed');
+  }
+
+  /**
+   * 提交数据
+   */
+  submitData() {
+    const treeObj = $.fn.zTree.getZTreeObj('ztree');
+    const nodes = treeObj.getCheckedNodes();
+    let menuIds = '';
+    if (nodes != null) {
+      for (let i = 0; i < nodes.length; i++) {
+        menuIds += ',' + nodes[i].id;
+      }
+      if (menuIds !== '') {
+        menuIds = menuIds.substring(1);
+      }
+    }
+    this.waitService.wait(true);
+    this.httpService.post(SystemConstant.ROLE_MENU_EDIT, {roleId: this.roleId, menuIds: menuIds}).subscribe({
+      next: (data) => {
+        const toastCfg = new ToastConfig(ToastType.SUCCESS, '',  '修改角色菜单成功！', 3000);
+        this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '修改角色菜单失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+        this.activeModal.dismiss('failed');
+      },
+      complete: () => {
+      }
+    });
+    this.waitService.wait(false);
+  }
 }

@@ -11,7 +11,6 @@ import { ToastConfig } from '../toast/toast-config';
 import { SystemConstant } from '../core/class/system-constant';
 import { HttpService } from '../core/http/http.service';
 import { ToastService } from '../toast/toast.service';
-import {EquipmentLayoutManageComponent} from '../record/equipment-layout-manage/equipment-layout-manage.component';
 
 @Component({
   selector: 'app-main',
@@ -37,6 +36,7 @@ export class MainComponent implements OnInit {
    * 菜单数据
    * @type {any[]}
    */
+  menuData = null;
 
   constructor(
     private router: Router,

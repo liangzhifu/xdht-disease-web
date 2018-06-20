@@ -37,7 +37,6 @@ export class MainComponent implements OnInit {
    * 菜单数据
    * @type {any[]}
    */
-  menuData: Array<MenuData> = null;
 
   constructor(
     private router: Router,

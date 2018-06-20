@@ -70,7 +70,6 @@ export class ProductEditComponent implements OnInit {
       const  dataList = this.recordProductInputRequest.recordProductDataList;
       this.recordProductInputRequest.recordProductDataList = [];
       // 项目列表
-      const  officeList = this.recordProductInputRequest.sysCompanyOfficeList;
       for (let i = 0; i < dataList.length; i++) {
         const recordProductData = {
           'id': dataList[i].id,
@@ -84,7 +83,6 @@ export class ProductEditComponent implements OnInit {
           'transportMode': dataList[i].transportMode,
           'annualAmount': dataList[i].annualAmount,
           'relationId': dataList[i].relationId
-          // 'officdName': officeList[i].officeName
         };
         this.recordProductInputRequest.recordProductDataList.push(recordProductData);
       }

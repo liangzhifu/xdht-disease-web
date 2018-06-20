@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpService} from '../../core/http/http.service';
-import {ToastConfig} from '../../toast/toast-config';
-import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import {ConfirmConfig} from '../../modal/confirm/confirm-config';
-import {ToastType} from '../../toast/toast-type.enum';
-import {UserEditComponent} from '../user-edit/user-edit.component';
-import {ModalService} from '../../modal/modal.service';
-import {SystemConstant} from '../../core/class/system-constant';
 import {WaitService} from '../../core/wait/wait.service';
+import {ToastConfig} from '../../toast/toast-config';
+import {ConfirmConfig} from '../../modal/confirm/confirm-config';
+import {SystemConstant} from '../../core/class/system-constant';
+import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import {ModalService} from '../../modal/modal.service';
+import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
+import {ToastType} from '../../toast/toast-type.enum';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CompanyEditComponent} from '../company-edit/company-edit.component';
 
 @Component({
   selector: 'app-company-manage',
@@ -26,7 +26,7 @@ export class CompanyManageComponent implements OnInit {
    * 查询条件
    */
   param: any = {
-    companyName: ''
+    componentName: ''
   };
   constructor(
     private ngbModal: NgbModal,
@@ -50,10 +50,10 @@ export class CompanyManageComponent implements OnInit {
   }
 
   /**
-   * 新增用户
+   * 新增企业
    */
   addCompany() {
-    const modalRef = this.ngbModal.open(UserEditComponent);
+    const modalRef = this.ngbModal.open(CompanyEditComponent, {size: 'lg'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -64,16 +64,16 @@ export class CompanyManageComponent implements OnInit {
   }
 
   /**
-   * 修改用户
+   * 修改企业
    */
-  editCompany(userId) {
-    // 获取用户数据
-    this.httpService.get(SystemConstant.USER_DETAIL + '/' + userId).subscribe({
+  editCompany(companyId) {
+    // 获取企业数据
+    this.httpService.get(SystemConstant.COMPANY_DETAIL + '/' + companyId).subscribe({
       next: (data) => {
-        this.openEditUser(data);
+        this.openEditCompany(data);
       },
       error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取用户详情失败！' + '失败原因：' + err, 3000);
+        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取企业详情失败！' + '失败原因：' + err, 3000);
         this.toastService.toast(toastCfg);
       },
       complete: () => {}
@@ -81,11 +81,11 @@ export class CompanyManageComponent implements OnInit {
   }
 
   /**
-   * 打开修改用户对话框
+   * 打开修改企业对话框
    */
-  openEditUser(userData) {
-    const modalRef = this.ngbModal.open(UserEditComponent);
-    modalRef.componentInstance.userData = userData;
+  openEditCompany(companyData) {
+    const modalRef = this.ngbModal.open(CompanyEditComponent, {size: 'lg'});
+    modalRef.componentInstance.sysCompany = companyData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -96,32 +96,24 @@ export class CompanyManageComponent implements OnInit {
   }
 
   /**
-   * 删除用户
+   * 删除企业
    */
-  delCompany(userId, userName) {
-    const confirmCfg = new ConfirmConfig('确定删除用户：' + userName + '！');
-    this.modalService.confirm(confirmCfg).then(
-      () => {
-        this.httpService.get(SystemConstant.USER_DEL + '?id=' + userId).subscribe({
-          next: (data) => {
-            const status = data.status;
-            if (status === '1') {
-              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
-              this.toastService.toast(toastCfg);
-              this.search();
-            } else {
-              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除用户失败！' + '失败原因：' + data.message, 3000);
-              this.toastService.toast(toastCfg);
-            }
-          },
-          error: (err) => {
-            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除用户失败！' + '失败原因：' + err, 3000);
-            this.toastService.toast(toastCfg);
-          },
-          complete: () => {}
-        });
-      }
-    );
+  delCompany(companyId, companyName) {
+    this.httpService.get(SystemConstant.COMPANY_DEL + '/' + companyId).subscribe({
+      next: (data) => {
+        const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
+        this.toastService.toast(toastCfg);
+        this.search();
+        const status = data.status;
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除用户失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {}
+    });
   }
 
+  editCompanyOffice(companyId) {
+  }
 }

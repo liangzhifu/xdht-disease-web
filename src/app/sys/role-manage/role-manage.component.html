@@ -1,18 +1,14 @@
 <div class="c-content-inner">
   <div class="row">
     <div class="col-md-4">
-      <div class="form-group row">
-        <label class="col-md-4 col-form-label text-right">角色名称：</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" (input)="param.roleName = $event.target.value" placeholder="请输入角色名称...">
-        </div>
-      </div>
+      <label class="col-form-label float-left text-right">角色名称：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.roleName" placeholder="角色名称">
     </div>
     <div class="col-md-4">
-      <div class="form-group">
-        <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
-        <button class="btn btn-primary" (click)="addRole();"><i class="fa fa-search fa-fw"></i> 新增</button>
-      </div>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+      <button class="btn btn-success" (click)="addRole();"><i class="fa fa-plus fa-fw"></i> 新增</button>
     </div>
   </div>
   <div class="row">
@@ -24,7 +20,7 @@
     <div class="col-md-12">
 
       <div #sdt=simpleDataTable appSimpleDataTable>
-        <table width="100%">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
           <tr>
             <th>角色名称</th>
             <th>系统内置</th>
@@ -32,25 +28,22 @@
             <th>备注</th>
             <th>操作</th>
           </tr>
-          <tr *ngFor="let item of sdt.data;let i = index">
+          <tr *ngFor="let item of sdt.data;">
             <td>{{item.roleName}}</td>
-      <!--      <td>{{item.isSys | sysReform}}</td>
-            <td>{{item.status | statusReform}}</td>-->
             <td>{{item.isSys | sysReform}}</td>
             <td>{{item.status | statusReform}}</td>
             <td>{{item.remarks}}</td>
             <td>
-              <button type="button" (click)="editRole(item.id)">修改</button>
-              <button type="button" (click)="delRole(item.id, item.roleName)">删除</button>
+              <button type="button" class="btn btn-info radius mr-10" (click)="editRoleMenu(item.id)"><i class="fa fa-gears fa-fw"></i>分配菜单</button>
+              <button type="button" class="btn btn-warning radius mr-10" (click)="editRole(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+              <button type="button" class="btn btn-danger radius" (click)="delRole(item.id, item.roleName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
             </td>
           </tr>
         </table>
         <div class="c-mt15">
           <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>

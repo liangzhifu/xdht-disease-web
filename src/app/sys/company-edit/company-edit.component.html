@@ -1,3 +1,121 @@
-<p>
-  company-edit works!
-</p>
+<div class="c-content-inner">
+  <form #sysCompanyForm="ngForm">
+    <div class="modal-body row">
+      <label>{{companyEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">公司名称：</label>
+        <input type="hidden" [(ngModel)]="sysCompany.id" name="id">
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.companyName" name="companyName" placeholder="公司名称"
+               [ngClass]="{'warn': !companyName.valid}" #companyName="ngModel" required="required">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">国民经济行业：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.nationalEconomicIndustry" name="nationalEconomicIndustry" placeholder="国民经济行业">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">单位性质：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.companyNature" name="companyNature" placeholder="单位性质">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">职业病危害类别：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.industrialDiseaseCategory" name="industrialDiseaseCategory" placeholder="职业病危害类别">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">所属管辖：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.belongToJurisdiction" name="belongToJurisdiction" placeholder="所属管辖">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">经济类型：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.economicType" name="economicType" placeholder="经济类型">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">联系电话：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.contactNumber" name="contactNumber" placeholder="联系电话">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">传真电话：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.faxPhone" name="faxPhone" placeholder="传真电话">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">法定代表人：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.legalRepresentative" name="legalRepresentative" placeholder="法定代表人">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">联系人姓名：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.contactUsername" name="contactUsername" placeholder="联系人姓名">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">单位注册地址：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.registeredAddress" name="registeredAddress" placeholder="单位注册地址">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">实际经营地址：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.actualOperateAddress" name="actualOperateAddress" placeholder="实际经营地址">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">单位网址：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.companyUrl" name="companyUrl" placeholder="单位网址">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">成立日期：</label>
+        <div class="input-group col-md-8">
+          <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{sysCompany.establishDate}}" id="establishDate" name="establishDate" placeholder="成立日期">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <img src="assets/img/calendar-icon.png"/>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">生产规模：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.productionScale" name="productionScale" placeholder="生产规模">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">主要产品：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.mainProducts" name="mainProducts" placeholder="主要产品">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">主要原辅料：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.mainRawMaterials" name="mainRawMaterials" placeholder="主要原辅料">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">职业病危害因素：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompany.occupationalHazardFactors" name="occupationalHazardFactors" placeholder="职业病危害因素">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-12">
+        <label class="col-md-2 col-form-label text-right float-left">备注信息：</label>
+        <input type="text" class="form-control col-md-9" [(ngModel)]="sysCompany.remarks" name="remarks" placeholder="备注信息">
+      </div>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!sysCompanyForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
+</div>

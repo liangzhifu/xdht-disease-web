@@ -10,6 +10,7 @@ import { SystemConstant} from '../../core/class/system-constant';
 import { ToastConfig } from '../../toast/toast-config';
 import { ToastType } from '../../toast/toast-type.enum';
 import { ConfirmConfig } from '../../modal/confirm/confirm-config';
+import { MenuChooseComponent } from '../menu-choose/menu-choose.component';
 
 @Component({
   selector: 'app-role-manage',
@@ -20,7 +21,6 @@ export class RoleManageComponent implements OnInit {
   url: string;
   method: 'post';
 
-  // paramFormGroup: FormGroup;
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
   /**
    * 查询条件
@@ -36,7 +36,7 @@ export class RoleManageComponent implements OnInit {
     private toastService: ToastService
   ) { }
   ngOnInit() {
-    this.url = SystemConstant.ROLE_LIST;
+    this.url = SystemConstant.ROLE_PAGE_LIST;
   }
 
   /**
@@ -58,8 +58,7 @@ export class RoleManageComponent implements OnInit {
         if (result === 'success') {
           this.search();
         }
-      },
-      // () => {}
+      }
     );
   }
 
@@ -86,7 +85,7 @@ export class RoleManageComponent implements OnInit {
    */
   openEditRole(roleData) {
     const modalRef = this.ngbModal.open(RoleEditComponent);
-    modalRef.componentInstance.roleData = roleData;
+    modalRef.componentInstance.sysRole = roleData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -106,26 +105,40 @@ export class RoleManageComponent implements OnInit {
       () => {
         this.httpService.get(SystemConstant.ROLE_DEL + '?id=' + roleId).subscribe({
           next: (data) => {
-            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
-            this.toastService.toast(toastCfg);
-            this.search();
             const status = data.status;
-            // if (status === '1') {
-            //   const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
-            //   this.toastService.toast(toastCfg);
-            //   this.search();
-            // } else {
-            //   const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除角色失败！1111111' + '失败原因：' + data.message, 3000);
-            //   this.toastService.toast(toastCfg);
-            // }
+            if (status === '1') {
+              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
+              this.toastService.toast(toastCfg);
+              this.search();
+            } else {
+              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除角色失败！' + '失败原因：' + data.message, 3000);
+              this.toastService.toast(toastCfg);
+            }
           },
           error: (err) => {
-            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除角色失败!！' + '失败原因：' + err, 3000);
+            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除角色失败！' + '失败原因：' + err, 3000);
             this.toastService.toast(toastCfg);
           },
           complete: () => {}
         });
       }
     );
+  }
+
+  /**
+   * 分配角色菜单
+   * @param roleId
+   */
+  editRoleMenu(roleId) {
+    const modalRef = this.ngbModal.open(MenuChooseComponent);
+    modalRef.componentInstance.roleId = roleId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+          this.search();
+        }
+      },
+      () => {}
+    ).catch();
   }
 }

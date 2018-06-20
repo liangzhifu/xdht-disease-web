@@ -1,6 +1,3 @@
-*{
-
-}
 .col-md-5,.col-md-7,.col-md-4,.col-md-12{
   padding: 0px;
   color: #333;
@@ -23,8 +20,12 @@ label{
   border-color: #ced4da;
   color: #333;
 }
-table th,table td{
+.table-list th,.table-list td{
   text-align: center;
+}
+.table-list th{
+  background-color: #4682B4;
+  color: #fff;
 }
 .op-btn{
   text-align: center;

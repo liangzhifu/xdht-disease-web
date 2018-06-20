@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WaitService } from '../../core/wait/wait.service';
 import { HttpService } from '../../core/http/http.service';
@@ -7,7 +7,8 @@ import { ToastConfig } from '../../toast/toast-config';
 import { ToastType } from '../../toast/toast-type.enum';
 import { ToastService } from '../../toast/toast.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {ModalService} from '../../modal/modal.service';
+import { ModalService } from '../../modal/modal.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-role-edit',
@@ -16,7 +17,13 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class RoleEditComponent implements OnInit {
 
-  @Input() roleData: any = null;
+  @Input() sysRole: any = {
+    'id' : '',
+    'roleName' : '',
+    'isSys' : '',
+    'status' : '',
+    'remarks' : '',
+  };
   addFlag: boolean;
   roleEditTitle: string;
   action = '';
@@ -39,7 +46,7 @@ export class RoleEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.roleData === undefined || this.roleData === null) {
+    if (this.sysRole.id === undefined || this.sysRole.id === null || this.sysRole.id == '') {
       this.action = '新增';
       this.addFlag = true;
       this.roleEditTitle = '新增角色';
@@ -47,11 +54,6 @@ export class RoleEditComponent implements OnInit {
       this.action = '修改';
       this.addFlag = false;
       this.roleEditTitle = '修改角色';
-      this.roleEditFormGroup.controls['id'].setValue(this.roleData.id);
-      this.roleEditFormGroup.controls['roleName'].setValue(this.roleData.roleName);
-      this.roleEditFormGroup.controls['isSys'].setValue(this.roleData.isSys);
-      this.roleEditFormGroup.controls['status'].setValue(this.roleData.status);
-      this.roleEditFormGroup.controls['remarks'].setValue(this.roleData.remarks);
     }
   }
 
@@ -64,7 +66,7 @@ export class RoleEditComponent implements OnInit {
   /**
    * 提交角色信息
    */
-  roleEditSubmit() {
+  submitData() {
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {
@@ -72,19 +74,11 @@ export class RoleEditComponent implements OnInit {
     } else {
       url = SystemConstant.ROLE_EDIT;
     }
-    this.httpService.post(url, this.roleEditFormGroup.value).subscribe({
+    this.httpService.post(url, this.sysRole).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '角色成功！', 3000);
         this.toastService.toast(toastCfg);
         this.activeModal.close('success');
-        const status = data.status;
-        // if (status === '0') {
-        //
-        // } else {
-        //   const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '角色失败！' + '失败原因：' + data.message, 3000);
-        //   this.toastService.toast(toastCfg);
-        //   this.activeModal.dismiss('failed');
-        // }
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '角色失败！' + '失败原因：' + err, 3000);

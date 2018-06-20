@@ -1,14 +1,15 @@
 <div class="c-content-inner">
   <div class="row">
     <div class="col-md-4">
-      <label class="col-md-4 col-form-label text-right">公司名称：</label>
-      <input type="text" class="form-control" [(ngModel)]="param.companyName" placeholder="公司名称...">
+      <label class="col-form-label float-left text-right">公司名称：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.companyName"
+             placeholder="请输入公司名...">
     </div>
     <div class="col-md-4">
-      <div class="form-group">
-        <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
-        <button class="btn btn-primary" (click)="addCompany();"><i class="fa fa-search fa-fw"></i> 新增</button>
-      </div>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+      <button class="btn btn-success" (click)="addCompany();"><i class="fa fa-plus fa-fw"></i> 新增</button>
     </div>
   </div>
   <div class="row">
@@ -18,28 +19,27 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-
       <div #sdt=simpleDataTable appSimpleDataTable>
-        <table width="100%">
+        <table  width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
           <tr>
-            <th>单位名称</th>
+            <th>企业名称</th>
+            <th>状态</th>
             <th>操作</th>
           </tr>
-          <tr *ngFor="let item of sdt.data;let i = index">
+          <tr *ngFor="let item of sdt.data;">
             <td>{{item.companyName}}</td>
+            <td>{{item.status | statusReform}}</td>
             <td>
-              <button type="button" (click)="editCompany(item.id)">修改</button>
-              <button type="button" (click)="delCompany(item.id, item.userName)">删除</button>
+              <button type="button" class="btn btn-info radius mr-10" (click)="editCompanyOffice(item.id)"><i class="fa fa-gears fa-fw"></i>部门管理</button>
+              <button type="button" class="btn btn-warning radius mr-10" (click)="editCompany(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+              <button type="button" class="btn btn-danger radius" (click)="delCompany(item.id, item.companyName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
             </td>
           </tr>
         </table>
         <div class="c-mt15">
           <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>
-

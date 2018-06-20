@@ -34,6 +34,11 @@ import { InformingFacilitiesManageComponent } from './informing-facilities-manag
 import { InformingFacilitiesEditComponent } from './informing-facilities-edit/informing-facilities-edit.component';
 import { HealthManagementManageComponent } from './health-management-manage/health-management-manage.component';
 import { HealthManagementEditComponent } from './health-management-edit/health-management-edit.component';
+import {EquipmentLayoutEditComponent} from './equipment-layout-edit/equipment-layout-edit.component';
+import {EquipmentEditComponent} from './equipment-edit/equipment-edit.component';
+import {ProductEditComponent} from './product-edit/product-edit.component';
+import {WorkLogEditComponent} from './work-log-edit/work-log-edit.component';
+import {PresentSituationEditComponent} from './present-situation-edit/present-situation-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -63,7 +68,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IndividualProtectiveEditComponent,
     EmergencyFacilitiesEditComponent,
     InformingFacilitiesEditComponent,
-    HealthManagementEditComponent
+    HealthManagementEditComponent,
     ControlEffectEditComponent
   ],
   declarations: [
@@ -99,9 +104,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     InformingFacilitiesManageComponent,
     InformingFacilitiesEditComponent,
     HealthManagementManageComponent,
-    HealthManagementEditComponent
+    HealthManagementEditComponent,
     ControlEffectManageComponent,
     ControlEffectEditComponent,
+    PresentSituationEditComponent,
+    WorkLogEditComponent,
     WorkLogManageComponent
   ]
 })

@@ -6,6 +6,9 @@ import { RoleManageComponent } from './role-manage/role-manage.component';
 import { MenuManageComponent } from './menu-manage/menu-manage.component';
 import {CompanyManageComponent} from './company-manage/company-manage.component';
 import {CompanyOfficeManageComponent} from './company-office-manage/company-office-manage.component';
+import {EmployeeManageComponent} from './employee-manage/employee-manage.component';
+import {EmpoiyeeInfoComponent} from './empoiyee-info/empoiyee-info.component';
+import {EmployeeEditComponent} from './employee-edit/employee-edit.component';
 
 /**
  * 系统管理路由
@@ -19,7 +22,10 @@ const sysRoutes: Routes = [
       {path: 'roleManage', component: RoleManageComponent},
       {path: 'menuManage', component: MenuManageComponent},
       {path: 'companyManage', component: CompanyManageComponent},
-      {path: 'companyOfficeManage', component: CompanyOfficeManageComponent}
+      {path: 'companyOfficeManage', component: CompanyOfficeManageComponent},
+      {path: 'empoiyeeInfo', component: EmpoiyeeInfoComponent},
+      {path: 'employeeEdit', component: EmployeeEditComponent},
+      {path: 'employeeManage', component: EmployeeManageComponent}
 
     ]
   }

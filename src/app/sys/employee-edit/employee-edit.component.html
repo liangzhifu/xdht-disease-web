@@ -1,0 +1,308 @@
+<div class="c-content-inner">
+  <div class="modal-body row">
+    <label>{{companyEditTitle}}</label>
+    <button aria-label="Close" class="close" type="button" (click)="close()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <!-- -->
+  <h4 align="center">职工信息</h4>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">部门：</label>
+        <div class="col-md-8">
+          <input type="hidden" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.id">
+          <select #select [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.officeId" >
+            <option value="">--请选择部门--</option>
+            <option *ngFor="let office of sysEmpoiyeeRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">姓名：</label>
+        <div class="col-md-8">
+          <input type="text" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empName">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">性别：</label>
+        <div class="col-md-8">
+          <input type="radio" value="0" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empSex">男
+          <input type="radio" value="1" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empSex">女
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">籍贯：</label>
+        <div class="col-md-8">
+          <input type="text" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empNative">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">婚姻：</label>
+        <div class="col-md-8">
+          <input type="text" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empMarriage">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">文化程度：</label>
+        <div class="col-md-8">
+          <input type="text" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empEducation">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">嗜好：</label>
+        <div class="col-md-8">
+          <input type="text" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empHobby">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">参加工作时间：</label>
+        <div class="col-md-8">
+          <input type="text" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empWorkDate">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">身份证号：</label>
+        <div class="col-md-8">
+          <input type="text" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.empIdentityNumber">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">备注：</label>
+        <div class="col-md-8">
+          <textarea [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.remarks"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- -->
+  <h4 align="center">职业史及职业病危害接触史</h4>
+  <button (click)="addJob()">增加记录</button>
+  <div *ngFor="let employeeJob of sysEmpoiyeeRequest.sysEmployeeJobList;let i = index">
+    <h5 style="display: inline">记录{{i+1}}</h5><h6 align="right"><button (click)="delJob(i)">删除</button></h6>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">开始时间：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeJob.beginDate" placeholder="例如1999-09-09">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">结束时间：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeJob.endDate" placeholder="例如1999-09-09">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">工作单位：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeJob.companyName" placeholder="工种单位">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">工种：</label>
+          <div class="col-md-8">
+            <select #select [(ngModel)]="employeeJob.workType" >
+              <option value="">--请选择工种--</option>
+              <option *ngFor="let workType of sysEmpoiyeeRequest.sysWorkTypeList;" value="{{workType.id}}" >{{workType.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">噪声检测结果：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeJob.noiseDetectionResults" placeholder="噪声检测结果">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">防护措施：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeJob.protectiveMeasures" placeholder="防护措施">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- -->
+  <h4 align="center">既往病史</h4>
+  <button (click)="addCase()">增加病史</button>
+  <div *ngFor="let employeeCase of sysEmpoiyeeRequest.sysEmployeeCaseList;let i = index">
+    <h5 style="display: inline">病史{{i+1}}</h5><h6 align="right"><button (click)="delCase(i)">删除</button></h6>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">疾病名称：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeCase.caseName" placeholder="疾病名称">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">诊断时间：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeCase.diagnosisDate" placeholder="例如1999-09-09">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">诊断医院：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeCase.diagnosisHospital" placeholder="诊断医院">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">治疗结果：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeCase.treatmentResults" placeholder="治疗结果">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">备注：</label>
+          <div class="col-md-8">
+            <textarea [(ngModel)]="employeeCase.remarks"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- -->
+  <h4 align="center">职业病诊断</h4>
+  <button (click)="addDisease()">增加诊断</button>
+  <div *ngFor="let employeeDisease of sysEmpoiyeeRequest.sysEmployeeDiseaseList;let i = index">
+    <h5 style="display: inline">诊断{{i+1}}</h5><h6 align="right"><button (click)="delDisease(i)">删除</button></h6>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">职业病名称：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeDisease.diseaseName" placeholder="职业病名称">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">诊断时间：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeDisease.diagnosisDate" placeholder="例如1999-09-09">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">诊断医院：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeDisease.diagnosisHospital" placeholder="诊断医院">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">诊断级别：</label>
+          <div class="col-md-8">
+            <input type="text" [(ngModel)]="employeeDisease.diagnosisLevel" placeholder="诊断级别">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-right">备注：</label>
+          <div class="col-md-8">
+            <textarea [(ngModel)]="employeeDisease.remarks"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- -->
+
+  <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <button type="button" (click)="empoiyeeEditSubmit()">确定</button>
+      <button type="button" (click)="close()">取消</button>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+</div>

@@ -1,14 +1,13 @@
 import {Component, OnInit, ElementRef, Input} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-
-import 'ztree';
-import 'jquery';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {SystemConstant} from '../../core/class/system-constant';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
 import {WaitService} from '../../core/wait/wait.service';
+import 'ztree';
+import 'jquery';
 declare var $: any;
 
 

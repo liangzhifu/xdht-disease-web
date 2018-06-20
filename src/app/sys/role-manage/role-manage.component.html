@@ -28,7 +28,7 @@
             <th>备注</th>
             <th>操作</th>
           </tr>
-          <tr *ngFor="let item of sdt.data;let i = index">
+          <tr *ngFor="let item of sdt.data;">
             <td>{{item.roleName}}</td>
             <td>{{item.isSys | sysReform}}</td>
             <td>{{item.status | statusReform}}</td>

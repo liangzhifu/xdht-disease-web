@@ -76,7 +76,7 @@ export class SceneEditComponent implements OnInit {
       }
     });
     // 获取单位列表
-    this.httpService.post(SystemConstant.COMPANY_ALL_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.companyData = data;
       },

@@ -2,20 +2,21 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ModalService} from '../../modal/modal.service';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
 import {ToastType} from '../../toast/toast-type.enum';
-
+import 'jquery';
+declare var $: any;
 @Component({
   selector: 'app-company-edit',
   templateUrl: './company-edit.component.html',
   styleUrls: ['./company-edit.component.scss']
 })
 export class CompanyEditComponent implements OnInit {
-  @Input() sysCompanyRequest = {
+  @Input() sysCompany = {
       id: '',
       companyName: '',
       nationalEconomicIndustry: '',
@@ -51,7 +52,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const preEvaluationId = this.sysCompanyRequest.id;
+    const preEvaluationId = this.sysCompany.id;
     console.log(preEvaluationId);
     if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
       this.action = '新增';
@@ -74,7 +75,8 @@ export class CompanyEditComponent implements OnInit {
   /**
    * 提交企业信息
    */
-  companyEditSubmit() {
+  submitData() {
+    this.sysCompany.establishDate = $('#establishDate').val();
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {
@@ -82,7 +84,7 @@ export class CompanyEditComponent implements OnInit {
     } else {
       url = SystemConstant.COMPANY_EDIT;
     }
-    this.httpService.post(url, this.sysCompanyRequest).subscribe({
+    this.httpService.post(url, this.sysCompany).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

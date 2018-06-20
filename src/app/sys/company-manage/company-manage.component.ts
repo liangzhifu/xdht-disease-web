@@ -53,7 +53,7 @@ export class CompanyManageComponent implements OnInit {
    * 新增企业
    */
   addCompany() {
-    const modalRef = this.ngbModal.open(CompanyEditComponent);
+    const modalRef = this.ngbModal.open(CompanyEditComponent, {size: 'lg'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -84,8 +84,8 @@ export class CompanyManageComponent implements OnInit {
    * 打开修改企业对话框
    */
   openEditCompany(companyData) {
-    const modalRef = this.ngbModal.open(CompanyEditComponent);
-    modalRef.componentInstance.sysCompanyRequest = companyData;
+    const modalRef = this.ngbModal.open(CompanyEditComponent, {size: 'lg'});
+    modalRef.componentInstance.sysCompany = companyData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -114,4 +114,6 @@ export class CompanyManageComponent implements OnInit {
     });
   }
 
+  editCompanyOffice(companyId) {
+  }
 }

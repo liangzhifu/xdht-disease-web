@@ -29,6 +29,7 @@ const recordRoutes: Routes = [
     component: RecordComponent,
     children: [
       {path: 'recordSceneManage', component: SceneManageComponent},
+      {path: 'recordSceneDetail', component: SceneDetailComponent},
       {path: 'recordPreEvaManage', component: PreEvaluationManageComponent},
       {path: 'recordPresentSituation', component: PresentSituationManageComponent},
       {path: 'recordControlEffect', component: ControlEffectManageComponent},
@@ -36,7 +37,6 @@ const recordRoutes: Routes = [
       {path: 'recordProduct', component: ProductManageComponent},
       {path: 'recordEquipment', component: EquipmentManageComponent},
       {path: 'recordEquipmentLayout', component: EquipmentLayoutManageComponent},
-      {path: 'recordSceneDetail', component: SceneDetailComponent},
       {path: 'recordHazardFactors', component: HazardFactorsManageComponent},
       {path: 'recordAntiNoise', component: AntiNoiseManageComponent},
       {path: 'recordTemperature', component: TemperatureProtectionManageComponent},

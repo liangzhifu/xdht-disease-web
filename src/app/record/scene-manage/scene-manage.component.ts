@@ -11,7 +11,6 @@ import {ToastService} from '../../toast/toast.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {SceneEditComponent} from '../scene-edit/scene-edit.component';
-import {SceneDetailComponent} from '../scene-detail/scene-detail.component';
 
 @Component({
   selector: 'app-record-scene-manage',
@@ -65,10 +64,6 @@ export class SceneManageComponent implements OnInit {
     );
   }
 
-  open() {
-    this.router.navigate(['/main/record/recordSceneDetail'], {queryParams: {id: 1}});
-  }
-
   /**
    * 修改--职业卫生现场调查记录
    */
@@ -91,17 +86,7 @@ export class SceneManageComponent implements OnInit {
    * @param id
    */
   detailScene(id) {
-    // 获取职业卫生现场调查记录数据
-    this.httpService.get(SystemConstant.RECORD_SCENE_DETAIL + '/' + id).subscribe({
-      next: (data) => {
-        this.openDetailScene(data);
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取用户详情失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
+    this.router.navigate(['/main/record/recordSceneDetail'], {queryParams: {id: id}});
   }
 
   /**
@@ -118,45 +103,22 @@ export class SceneManageComponent implements OnInit {
       }
     );
   }
-  /**
-   * 打开详情职业卫生现场调查记录)对话框
-   */
-  openDetailScene(recordSceneData) {
-    const modalRef = this.ngbModal.open(SceneDetailComponent);
-    modalRef.componentInstance.recordSceneRequest = recordSceneData;
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-          this.search();
-        }
-      }
-    );
-  }
 
   /**
    * 删除--职业卫生现场调查记录
    */
-  delScene(userId, userName) {
-    const confirmCfg = new ConfirmConfig('确定删除用户：' + userName + '！');
+  delScene(id, projectName) {
+    const confirmCfg = new ConfirmConfig('确定删除现场调查记录：' + projectName + '！');
     this.modalService.confirm(confirmCfg).then(
       () => {
-        this.httpService.get(SystemConstant.USER_DEL + '?id=' + userId).subscribe({
+        this.httpService.get(SystemConstant.USER_DEL + '?id=' + id).subscribe({
           next: (data) => {
-            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
+            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除现场调查记录成功！', 3000);
             this.toastService.toast(toastCfg);
             this.search();
-            const status = data.status;
-            // if (status === '0') {
-            //   const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
-            //   this.toastService.toast(toastCfg);
-            //   this.search();
-            // } else {
-            //   const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除用户失败！' + '失败原因：' + data.message, 3000);
-            //   this.toastService.toast(toastCfg);
-            // }
           },
           error: (err) => {
-            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除用户失败！' + '失败原因：' + err, 3000);
+            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除现场调查记录失败！' + '失败原因：' + err, 3000);
             this.toastService.toast(toastCfg);
           },
           complete: () => {}

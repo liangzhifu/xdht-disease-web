@@ -147,7 +147,7 @@ export class SceneEditComponent implements OnInit {
    */
   changeCompany(companyId) {
     const param = {'companyId': companyId};
-    this.httpService.post(SystemConstant.COMPANY_EMPLOYEE_LIST, param).subscribe({
+    this.httpService.post(SystemConstant.EMPLOYEE_ALL_LIST, param).subscribe({
       next: (data) => {
         this.employeeData = data;
       },

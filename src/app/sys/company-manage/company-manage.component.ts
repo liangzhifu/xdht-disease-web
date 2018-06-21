@@ -99,19 +99,23 @@ export class CompanyManageComponent implements OnInit {
    * 删除企业
    */
   delCompany(companyId, companyName) {
-    this.httpService.get(SystemConstant.COMPANY_DEL + '/' + companyId).subscribe({
-      next: (data) => {
-        const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
-        this.toastService.toast(toastCfg);
-        this.search();
-        const status = data.status;
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除用户失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
+    const confirmCfg = new ConfirmConfig('确定删除企业：' + companyName + '！');
+    this.modalService.confirm(confirmCfg).then(
+      () => {
+        this.httpService.get(SystemConstant.COMPANY_DEL + '?id=' + companyId).subscribe({
+          next: (data) => {
+              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除企业成功！', 3000);
+              this.toastService.toast(toastCfg);
+              this.search();
+          },
+          error: (err) => {
+            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除企业失败！' + '失败原因：' + err, 3000);
+            this.toastService.toast(toastCfg);
+          },
+          complete: () => {}
+        });
+      }
+    );
   }
 
   /**

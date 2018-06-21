@@ -20,6 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoleChooseComponent } from './role-choose/role-choose.component';
 import { CompanyOfficeEditComponent } from './company-office-edit/company-office-edit.component';
 
+import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
+import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
 
 @NgModule({
   imports: [
@@ -56,6 +58,16 @@ import { CompanyOfficeEditComponent } from './company-office-edit/company-office
     SysComponent,
     UserEditComponent,
     UserManageComponent
+    UserManageComponent,
+    CompanyManageComponent,
+    EmployeeManageComponent,
+    CompanyOfficeManageComponent,
+    CompanyEditComponent,
+    MenuChooseComponent,
+    RoleChooseComponent,
+    CompanyEditComponent,
+    EmployeeEditComponent,
+    EmpoiyeeInfoComponent
   ]
 })
 export class SysModule { }

@@ -1,106 +1,53 @@
 <div class="c-content-inner">
-  <form [formGroup]="menuEditFormGroup">
+  <form #sysMenuForm="ngForm">
     <div class="modal-body row">
       <label>{{menuEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <div class="row">
+    <div class="row list">
       <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">菜单名称：</label>
-          <div class="col-md-7">
-            <input type="hidden" formControlName="id">
-            <input type="text" class="form-control" formControlName="menuName" placeholder="菜单名称">
-          </div>
-        </div>
+        <label class="col-md-5 col-form-label text-right float-left">菜单名称：</label>
+        <input type="hidden" [(ngModel)]="sysMenu.id" name="id">
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysMenu.menuName" name="menuName" placeholder="菜单名称"
+               [ngClass]="{'warn': !menuName.valid}" #menuName="ngModel" required="required">
       </div>
       <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">菜单类型：</label>
-          <div class="col-md-7">
-            <select class="form-control" formControlName="menuType" >
-                <option value="">--请选择--</option>
-                <option value="1">菜单</option>
-                <option value="2">权限</option>
-            </select>
-
-          </div>
-        </div>
+        <label class="col-md-5 col-form-label text-right float-left">菜单类型：</label>
+        <select class="form-control col-md-7" [(ngModel)]="sysMenu.menuType" name="menuType"
+                [ngClass]="{'warn': !menuType.valid}" #menuType="ngModel" required="required">
+          <option value="">--请选择--</option>
+          <option value="1">菜单</option>
+          <option value="2">权限</option>
+        </select>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">链接：</label>
-          <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="menuHref" placeholder="链接">
-          </div>
-        </div>
+        <label class="col-md-5 col-form-label text-right float-left">链接：</label>
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysMenu.menuHref" name="menuHref" placeholder="链接">
       </div>
       <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">图标：</label>
-          <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="menuIcon" placeholder="图标">
-          </div>
-        </div>
+        <label class="col-md-5 col-form-label text-right float-left">图标：</label>
+        <select class="form-control col-md-7" [(ngModel)]="sysMenu.menuIcon" name="menuIcon">
+          <option value="">--请选择--</option>
+          <option value="fa-wrench">fa-wrench</option>
+        </select>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">颜色：</label>
-          <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="menuColor" placeholder="颜色">
-          </div>
-        </div>
+        <label class="col-md-5 col-form-label text-right float-left">权限标识：</label>
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysMenu.permission" name="permission" placeholder="权限标识">
       </div>
       <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">状态：</label>
-          <div class="col-md-7">
-            <select class="form-control" formControlName="status" >
-              <option value="">--请选择--</option>
-              <option value="0">正常</option>
-              <option value="1">删除</option>
-              <option value="2">停用</option>
-            </select>
-          </div>
-        </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">权限标识：</label>
-          <div class="col-md-7">
-            <input type="text" class="form-control" formControlName="permission" placeholder="颜色">
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">是否显示：</label>
-          <div class="col-md-7">
-            <select class="form-control" formControlName="isShow" >
-              <option value="">--请选择--</option>
-              <option value="1">显示</option>
-              <option value="0">隐藏</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-      </div>
-      <div class="col-md-4">
-        <button type="button" (click)="menuEditSubmit()">确定</button>
-        <button type="button" (click)="close()">取消</button>
-      </div>
-      <div class="col-md-4">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!sysMenuForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>
   </form>

@@ -18,7 +18,13 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { MenuChooseComponent } from './menu-choose/menu-choose.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoleChooseComponent } from './role-choose/role-choose.component';
+import { CompanyOfficeEditComponent } from './company-office-edit/company-office-edit.component';
 
+import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
+import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
+import { DictionaryManageComponent } from './dictionary-manage/dictionary-manage.component';
+import { DictionaryEditComponent } from './dictionary-edit/dictionary-edit.component';
+import {EditPasswordComponent} from './edit-password/edit-password.component';
 
 @NgModule({
   imports: [
@@ -31,18 +37,29 @@ import { RoleChooseComponent } from './role-choose/role-choose.component';
     SysRoutingModule
   ],
   entryComponents: [
-    UserEditComponent,
-    RoleEditComponent,
+    CompanyEditComponent,
+    CompanyOfficeEditComponent,
+    CompanyOfficeManageComponent,
+    DictionaryEditComponent,
     MenuChooseComponent,
     MenuEditComponent,
-    CompanyEditComponent,
-    RoleChooseComponent
+    RoleChooseComponent,
+    RoleEditComponent,
+    UserEditComponent
   ],
   declarations: [
-    MenuManageComponent,
+    CompanyEditComponent,
+    CompanyManageComponent,
+    CompanyOfficeEditComponent,
+    CompanyOfficeManageComponent,
+    EditPasswordComponent,
+    EmployeeManageComponent,
+    MenuChooseComponent,
     MenuEditComponent,
-    RoleManageComponent,
+    MenuManageComponent,
+    RoleChooseComponent,
     RoleEditComponent,
+    RoleManageComponent,
     SysComponent,
     UserEditComponent,
     UserManageComponent,
@@ -51,7 +68,12 @@ import { RoleChooseComponent } from './role-choose/role-choose.component';
     CompanyOfficeManageComponent,
     CompanyEditComponent,
     MenuChooseComponent,
-    RoleChooseComponent
+    RoleChooseComponent,
+    CompanyEditComponent,
+    EmployeeEditComponent,
+    EmpoiyeeInfoComponent,
+    DictionaryManageComponent,
+    DictionaryEditComponent
   ]
 })
 export class SysModule { }

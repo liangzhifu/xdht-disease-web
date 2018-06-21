@@ -20,8 +20,6 @@ export class RoleEditComponent implements OnInit {
   @Input() sysRole: any = {
     'id' : '',
     'roleName' : '',
-    'isSys' : '',
-    'status' : '',
     'remarks' : '',
   };
   addFlag: boolean;

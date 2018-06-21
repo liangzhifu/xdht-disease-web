@@ -22,7 +22,11 @@ export class MenuChooseComponent implements OnInit {
   setting = {
     data: {
       simpleData: {
-        enable: true
+        enable: true,
+        pIdKey: 'parentId'
+      },
+      key: {
+        name: 'menuName'
       }
     },
     check: {
@@ -42,7 +46,7 @@ export class MenuChooseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.httpService.get(SystemConstant.MENU_ZTREE_LIST).subscribe({
+    this.httpService.post(SystemConstant.MENU_ZTREE_LIST, {}).subscribe({
       next: (data) => {
         this.zNodes = data;
         $.fn.zTree.init($('#ztree'), this.setting, this.zNodes);

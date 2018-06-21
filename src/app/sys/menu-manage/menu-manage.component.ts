@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import { WaitService } from '../../core/wait/wait.service';
+import { Component, OnInit } from '@angular/core';
 import { ToastService } from '../../toast/toast.service';
 import { ModalService } from '../../modal/modal.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +8,11 @@ import { MenuEditComponent} from '../menu-edit/menu-edit.component';
 import { ToastType } from '../../toast/toast-type.enum';
 import { ToastConfig } from '../../toast/toast-config';
 import { ConfirmConfig } from '../../modal/confirm/confirm-config';
+import 'ztree';
+import 'jquery';
+import {AlertConfig} from '../../modal/alert/alert-config';
+import {AlertType} from '../../modal/alert/alert-type';
+declare var $: any;
 
 @Component({
   selector: 'app-menu-manage',
@@ -17,44 +20,78 @@ import { ConfirmConfig } from '../../modal/confirm/confirm-config';
   styleUrls: ['./menu-manage.component.scss']
 })
 export class MenuManageComponent implements OnInit {
-  method: 'post';
-
-  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
-  /**
-   * 查询条件
-   */
-  param: any = {
-    menuName: ''
+  setting = {
+    data: {
+      simpleData: {
+        enable: true,
+        pIdKey: 'parentId'
+      },
+      key: {
+        name: 'menuName'
+      }
+    },
+    check: {
+      enable: true,
+      chkStyle: 'radio',
+      radioType: 'all'
+    }
   };
+  zNodes = [];
   constructor(
     private ngbModal: NgbModal,
-    private waitService: WaitService,
-    private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private modalService: ModalService
   ) { }
 
   ngOnInit() {
+    this.openZTree();
   }
 
   /**
-   * 查询方法
+   * 打开部门树
    */
-  search() {
-    this.waitService.wait(true);
-    this.sdhp.search();
-    this.waitService.wait(false);
+  openZTree() {
+    this.httpService.post(SystemConstant.MENU_ZTREE_LIST, {}).subscribe({
+      next: (data) => {
+        this.zNodes = data;
+        $.fn.zTree.init($('#ztree'), this.setting, this.zNodes);
+        const treeObj = $.fn.zTree.getZTreeObj('ztree');
+        treeObj.expandAll(true);
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取部门失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {}
+    });
   }
 
   /**
    * 添加
    */
   addMenu() {
+    let parentId = 0;
+    let mgrType = '';
+    const treeObj = $.fn.zTree.getZTreeObj('ztree');
+    const nodes = treeObj.getCheckedNodes(true);
+    if (nodes !== undefined && nodes !== null) {
+      for (let i = 0; i < nodes.length; i++) {
+        parentId = nodes[i].id;
+        mgrType = nodes[i].mgrType;
+      }
+    }
+    if (mgrType === '2') {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '菜单添加', '权限不能添加下级菜单！');
+      this.modalService.alert(alertConfig);
+      return false;
+    }
     const modalRef = this.ngbModal.open(MenuEditComponent);
+    modalRef.componentInstance.parentId = parentId;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
-          this.search();
+          this.openZTree();
         }
       }
     );
@@ -63,7 +100,19 @@ export class MenuManageComponent implements OnInit {
   /**
    * 修改
    */
-  editMenu(menuId) {
+  editMenu() {
+    let menuId = 0;
+    const treeObj = $.fn.zTree.getZTreeObj('ztree');
+    const nodes = treeObj.getCheckedNodes(true);
+    if (nodes === undefined || nodes === null || nodes.length === 0) {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '菜单修改', '必须选择一个菜单！');
+      this.modalService.alert(alertConfig);
+      return false;
+    } else {
+      for (let i = 0; i < nodes.length; i++) {
+        menuId = nodes[i].id;
+      }
+    }
     // 获取菜单数据
     this.httpService.get(SystemConstant.MENU_DETAIL + '/' + menuId).subscribe({
       next: (data) => {
@@ -76,16 +125,17 @@ export class MenuManageComponent implements OnInit {
       complete: () => {}
     });
   }
+
   /**
    * 打开修改菜单对话框
    */
   openEditMenu(menuData) {
     const modalRef = this.ngbModal.open(MenuEditComponent);
-    modalRef.componentInstance.menuData = menuData;
+    modalRef.componentInstance.sysMenu = menuData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
-          this.search();
+          this.openZTree();
         }
       }
     );
@@ -96,24 +146,29 @@ export class MenuManageComponent implements OnInit {
    * @param menuId
    * @param menuName
    */
-  delMenu(menuId, menuName) {
+  delMenu() {
+    let menuId = 0;
+    let menuName = '';
+    const treeObj = $.fn.zTree.getZTreeObj('ztree');
+    const nodes = treeObj.getCheckedNodes(true);
+    if (nodes === undefined || nodes === null || nodes.length === 0) {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '菜单删除', '必须选择一个菜单！');
+      this.modalService.alert(alertConfig);
+      return false;
+    } else {
+      for (let i = 0; i < nodes.length; i++) {
+        menuId = nodes[i].id;
+        menuName = nodes[i].menuName;
+      }
+    }
     const confirmCfg = new ConfirmConfig('确定删除菜单：' + menuName + '！');
     this.modalService.confirm(confirmCfg).then(
       () => {
-        this.httpService.get(SystemConstant.MENU_DEL + '/' + menuId).subscribe({
+        this.httpService.post(SystemConstant.MENU_DEL + '?id=' + menuId, {}).subscribe({
           next: (data) => {
             const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除菜单成功！', 3000);
             this.toastService.toast(toastCfg);
-            this.search();
-            const status = data.status;
-            // if (status === '0') {
-            //   const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除菜单成功！', 3000);
-            //   this.toastService.toast(toastCfg);
-            //   this.search();
-            // } else {
-            //   const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除菜单失败！' + '失败原因：' + data.message, 3000);
-            //   this.toastService.toast(toastCfg);
-            // }
+            this.openZTree();
           },
           error: (err) => {
             const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除菜单失败！' + '失败原因：' + err, 3000);
@@ -124,9 +179,5 @@ export class MenuManageComponent implements OnInit {
       }
     );
   }
-
-
-
-
 
 }

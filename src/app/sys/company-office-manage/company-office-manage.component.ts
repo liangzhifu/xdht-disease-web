@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyOfficeEditComponent} from '../company-office-edit/company-office-edit.component';
-import 'ztree';
-import 'jquery';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {SystemConstant} from '../../core/class/system-constant';
@@ -11,6 +9,8 @@ import {ToastService} from '../../toast/toast.service';
 import {ModalService} from '../../modal/modal.service';
 import {AlertConfig} from '../../modal/alert/alert-config';
 import {AlertType} from '../../modal/alert/alert-type';
+import 'ztree';
+import 'jquery';
 declare var $: any;
 
 @Component({
@@ -42,7 +42,7 @@ export class CompanyOfficeManageComponent implements OnInit {
     private ngbModal: NgbModal,
     private httpService: HttpService,
     private toastService: ToastService,
-    private modalService: ModalService,
+    private modalService: ModalService
   ) { }
 
   ngOnInit() {

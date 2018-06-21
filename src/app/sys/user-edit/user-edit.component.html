@@ -15,7 +15,7 @@
       </div>
       <div class="col-md-6">
         <label class="col-md-5 col-form-label text-right float-left">登录名：</label>
-        <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.loginCode" name="loginCode" placeholder="登录名"
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.loginCode" name="loginCode" placeholder="登录名" [disabled]="!addFlag"
                [ngClass]="{'warn': !loginCode.valid}" #loginCode="ngModel" required="required">
       </div>
     </div>

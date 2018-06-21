@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
                   user.userAvatar = './assets/img/user-header.png';
                   this.sessionStorage.setObject('user', user);
                   this.getSysInfo();
-                  this.router.navigate(['/main']).then();
                 } else {
                   this.loginError = '用户名或密码错误！';
                 }
@@ -84,6 +83,18 @@ export class LoginComponent implements OnInit {
       },
       complete: () => {
       }
+    });
+    // 获取菜单
+    this.httpService.get(SystemConstant.MENU_LIST).subscribe({
+      next: (data) => {
+        this.sessionStorage.setObject('menu', data);
+        this.router.navigate(['/main']).then();
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取用户菜单失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {}
     });
   }
 }

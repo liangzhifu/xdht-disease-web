@@ -24,6 +24,7 @@ import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
 import { DictionaryManageComponent } from './dictionary-manage/dictionary-manage.component';
 import { DictionaryEditComponent } from './dictionary-edit/dictionary-edit.component';
+import {EditPasswordComponent} from './edit-password/edit-password.component';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { DictionaryEditComponent } from './dictionary-edit/dictionary-edit.compo
     CompanyManageComponent,
     CompanyOfficeEditComponent,
     CompanyOfficeManageComponent,
+    EditPasswordComponent,
     EmployeeManageComponent,
     MenuChooseComponent,
     MenuEditComponent,

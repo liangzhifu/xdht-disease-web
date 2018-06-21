@@ -22,6 +22,8 @@ import { CompanyOfficeEditComponent } from './company-office-edit/company-office
 
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
+import { DictionaryManageComponent } from './dictionary-manage/dictionary-manage.component';
+import { DictionaryEditComponent } from './dictionary-edit/dictionary-edit.component';
 
 @NgModule({
   imports: [
@@ -37,6 +39,7 @@ import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
     CompanyEditComponent,
     CompanyOfficeEditComponent,
     CompanyOfficeManageComponent,
+    DictionaryEditComponent,
     MenuChooseComponent,
     MenuEditComponent,
     RoleChooseComponent,
@@ -57,7 +60,6 @@ import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
     RoleManageComponent,
     SysComponent,
     UserEditComponent,
-    UserManageComponent
     UserManageComponent,
     CompanyManageComponent,
     EmployeeManageComponent,
@@ -67,7 +69,9 @@ import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
     RoleChooseComponent,
     CompanyEditComponent,
     EmployeeEditComponent,
-    EmpoiyeeInfoComponent
+    EmpoiyeeInfoComponent,
+    DictionaryManageComponent,
+    DictionaryEditComponent
   ]
 })
 export class SysModule { }

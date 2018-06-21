@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { SessionStorageService } from '../core/storage/session-storage.service';
 import { SystemConstant } from '../core/class/system-constant';
 import { UserData } from '../core/class/user-data';
+import {ToastConfig} from '../toast/toast-config';
+import {ToastType} from '../toast/toast-type.enum';
+import {HttpService} from '../core/http/http.service';
+import {ToastService} from '../toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +23,9 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private httpClient: HttpClient,
     private formBuilder: FormBuilder,
-    private sessionStorage: SessionStorageService
+    private sessionStorage: SessionStorageService,
+    private httpService: HttpService,
+    private toastService: ToastService
   ) {
     this.loginForm = this.formBuilder.group({
       loginCode : ['', Validators.required ],
@@ -30,6 +36,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * 登录
+   */
   login () {
       this.httpClient.post(SystemConstant.GET_TOKEN, this.loginForm.value)
         .subscribe(
@@ -43,6 +52,7 @@ export class LoginComponent implements OnInit {
                   user.userName = LoginResponse.userName;
                   user.userAvatar = './assets/img/user-header.png';
                   this.sessionStorage.setObject('user', user);
+                  this.getSysInfo();
                   this.router.navigate(['/main']).then();
                 } else {
                   this.loginError = '用户名或密码错误！';
@@ -57,5 +67,23 @@ export class LoginComponent implements OnInit {
             },
             complete: () => {}
           });
-    }
+  }
+
+  /**
+   * 获取系统信息
+   */
+  getSysInfo() {
+    // 获取字典表类型
+    this.httpService.post(SystemConstant.DICTIONARY_TYPE_LIST, {}).subscribe({
+      next: (data) => {
+        this.sessionStorage.setObject('dictionary_type', data);
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取字典类型数据失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {
+      }
+    });
+  }
 }

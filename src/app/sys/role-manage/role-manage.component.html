@@ -23,15 +23,11 @@
         <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
           <tr>
             <th>角色名称</th>
-            <th>系统内置</th>
-            <th>状态</th>
             <th>备注</th>
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;">
             <td>{{item.roleName}}</td>
-            <td>{{item.isSys | sysReform}}</td>
-            <td>{{item.status | statusReform}}</td>
             <td>{{item.remarks}}</td>
             <td>
               <button type="button" class="btn btn-info radius mr-10" (click)="editRoleMenu(item.id)"><i class="fa fa-gears fa-fw"></i>分配菜单</button>

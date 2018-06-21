@@ -10,6 +10,7 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {CompanyOfficeManageComponent} from '../company-office-manage/company-office-manage.component';
+import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 
 @Component({
   selector: 'app-company-manage',
@@ -99,7 +100,7 @@ export class CompanyManageComponent implements OnInit {
    * 删除企业
    */
   delCompany(companyId, companyName) {
-    const confirmCfg = new ConfirmConfig('确定删除企业：' + companyName + '！');
+    const confirmCfg: ConfirmConfig = new ConfirmConfig('确定删除企业：' + companyName + '！');
     this.modalService.confirm(confirmCfg).then(
       () => {
         this.httpService.get(SystemConstant.COMPANY_DEL + '?id=' + companyId).subscribe({

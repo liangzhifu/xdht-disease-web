@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
-import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 import {SystemConstant} from '../../core/class/system-constant';
 import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import {ModalService} from '../../modal/modal.service';
@@ -10,6 +9,7 @@ import {ToastService} from '../../toast/toast.service';
 import {ToastType} from '../../toast/toast-type.enum';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
+import {CompanyOfficeManageComponent} from '../company-office-manage/company-office-manage.component';
 
 @Component({
   selector: 'app-company-manage',
@@ -114,6 +114,18 @@ export class CompanyManageComponent implements OnInit {
     });
   }
 
+  /**
+   * 修改公司部门
+   * @param companyId
+   */
   editCompanyOffice(companyId) {
+    const modalRef = this.ngbModal.open(CompanyOfficeManageComponent, {size: 'lg'});
+    modalRef.componentInstance.companyId = companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+        }
+      }
+    );
   }
 }

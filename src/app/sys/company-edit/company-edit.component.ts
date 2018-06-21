@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
-import {FormBuilder} from '@angular/forms';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ModalService} from '../../modal/modal.service';
 import {HttpService} from '../../core/http/http.service';
@@ -44,7 +43,6 @@ export class CompanyEditComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private httpService: HttpService,
-    private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
     private waitService: WaitService
@@ -89,7 +87,6 @@ export class CompanyEditComponent implements OnInit {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
         this.activeModal.close('success');
-        const status = data.status;
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

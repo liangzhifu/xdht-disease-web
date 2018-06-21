@@ -18,6 +18,7 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { MenuChooseComponent } from './menu-choose/menu-choose.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoleChooseComponent } from './role-choose/role-choose.component';
+import { CompanyOfficeEditComponent } from './company-office-edit/company-office-edit.component';
 
 
 @NgModule({
@@ -31,27 +32,30 @@ import { RoleChooseComponent } from './role-choose/role-choose.component';
     SysRoutingModule
   ],
   entryComponents: [
-    UserEditComponent,
-    RoleEditComponent,
+    CompanyEditComponent,
+    CompanyOfficeEditComponent,
+    CompanyOfficeManageComponent,
     MenuChooseComponent,
     MenuEditComponent,
-    CompanyEditComponent,
-    RoleChooseComponent
+    RoleChooseComponent,
+    RoleEditComponent,
+    UserEditComponent
   ],
   declarations: [
-    MenuManageComponent,
+    CompanyEditComponent,
+    CompanyManageComponent,
+    CompanyOfficeEditComponent,
+    CompanyOfficeManageComponent,
+    EmployeeManageComponent,
+    MenuChooseComponent,
     MenuEditComponent,
-    RoleManageComponent,
+    MenuManageComponent,
+    RoleChooseComponent,
     RoleEditComponent,
+    RoleManageComponent,
     SysComponent,
     UserEditComponent,
-    UserManageComponent,
-    CompanyManageComponent,
-    EmployeeManageComponent,
-    CompanyOfficeManageComponent,
-    CompanyEditComponent,
-    MenuChooseComponent,
-    RoleChooseComponent
+    UserManageComponent
   ]
 })
 export class SysModule { }

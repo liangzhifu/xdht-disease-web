@@ -1,41 +1,79 @@
 <div class="c-content-inner">
-  <div class="row">
+  <div class="modal-body row ">
+    <label>{{recordSceneTitle}}</label>
+    <button aria-label="Close" class="close" type="button" (click)="close()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="row list">
     <div class="col-md-6">
-      编号：
+      <label class="col-md-5 col-form-label text-right float-left">编码：</label>
+      {{recordSceneRequest.recordScene.recordNo}}
     </div>
     <div class="col-md-6">
-      项目名称：{{sceneMap.projectName}}
+      <label class="col-md-5 col-form-label text-right float-left">项目名称：</label>
+      {{recordSceneRequest.recordScene.projectName}}
     </div>
   </div>
-  <div class="row">
+  <div class="row list">
     <div class="col-md-6">
-      调查类型：
+      <label class="col-md-5 col-form-label text-right float-left">调查类型：</label>
+      <select class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryType" disabled="disabled">
+        <option value="">请选择</option>
+        <option value="0">预评价</option>
+        <option value="1">类比</option>
+        <option value="2">控制效果评价</option>
+        <option value="3">现状评价</option>
+      </select>
     </div>
     <div class="col-md-6">
-      调查对象：
+      <label class="col-md-5 col-form-label text-right float-left">调查对象：</label>
+      <select class="col-md-7" #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany"  disabled="disabled">
+        <option value="">--请选择单位--</option>
+        <option *ngFor="let item of companyData;" value="{{item.id}}">{{item.companyName}}</option>
+      </select>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-4">
-      调查人：
+  <div class="row list">
+    <div class="col-md-6">
+      <label class="col-md-5 col-form-label text-right float-left">调查人：</label>
+      {{recordSceneRequest.recordScene.inquiryPerson}}
     </div>
-    <div class="col-md-4">
-      陪同人：
+    <div class="col-md-6">
+      <label class="col-md-5 col-form-label text-right float-left">调查日期：</label>
+      <div class="input-group col-md-7">
+        {{recordSceneRequest.recordScene.inquiryDate}}
+      </div>
     </div>
-    <div class="col-md-4">
-      调查日期：
+
+  </div>
+  <div class="row list">
+    <div class="col-md-12">
+      <label style="padding: 0px;" class="col-md-4 col-form-label text-right float-left">用人单位陪同人签字：</label>
+      <div class="input-group col-md-7">
+        {{recordSceneRequest.recordScene.inquiryCompanyEmployeeName}}
+      </div>
     </div>
   </div>
-  <table width="100%">
-    <tr>
-      <td>序号</td>
-      <td>职业卫生调查内容</td>
-      <td>操作</td>
-    </tr>
-    <tr *ngFor="let item of scenQuestionnaireMapList; let i = index">
-      <td>{{i + 1}}</td>
-      <td>{{item.questionnaireName}}</td>
-      <td><button (click)="editRecord(item.questionnaireAlias)">编辑</button></td>
-    </tr>
-  </table>
+  <div class="row" style="padding: 10px;">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-light">
+      <tr>
+        <th>序号</th>
+        <th>职业卫生调查内容</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{item.questionnaireName}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="op-btn">
+      <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+    </div>
+  </div>
 </div>

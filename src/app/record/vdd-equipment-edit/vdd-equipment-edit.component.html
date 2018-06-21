@@ -1,0 +1,56 @@
+<div class="c-content-inner">
+  <div class="modal-body row">
+    <label>{{recordVddEquipmentEditTitle}}</label>
+    <button aria-label="Close" class="close" type="button" (click)="close()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label class="col-md-5 col-form-label text-right">编码：</label>
+      <input type="text" class="form-control" [(ngModel)]="recordVddEquipmentInputRequest.recordVddEquipment.vddEquipmentNo" placeholder="编码" >
+    </div>
+    <div class="col-md-6">
+      <label class="col-md-5 col-form-label text-right">核实情况：</label>
+      <input type="text" class="form-control" [(ngModel)]="recordVddEquipmentInputRequest.recordVddEquipment.verificationResult" placeholder="核实情况">
+    </div>
+  </div>
+  <div class="row">
+    <table>
+      <tr>
+        <td><button (click)="addOffice()">增加</button>车间/部门</td>
+        <td>工种/岗位</td>
+        <td>作业地点</td>
+        <td>毒物或粉尘名称</td>
+        <td>通风排毒除尘设施名称</td>
+        <td>数量</td>
+        <td>运行维护情况</td>
+        <td>操作</td>
+      </tr>
+      <tr *ngFor="let item of recordVddEquipmentInputRequest.recordVddEquipmentDataList;" [(ngModel)]="recordVddEquipmentInputRequest.recordVddEquipmentDataList" >
+        <td>
+          <select #select [(ngModel)]="item.officeId" >
+            <option value="">--请选择部门--</option>
+            <option *ngFor="let office of recordVddEquipmentInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
+          </select>
+        </td>
+        <td>
+          <select #select [(ngModel)]="item.postId" >
+            <option value="">--请选择岗位--</option>
+            <option *ngFor="let post of recordVddEquipmentInputRequest.sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+          </select>
+        </td>
+        <td><input type="text" [(ngModel)]="item.workPlace"></td>
+        <td><input type="text" [(ngModel)]="item.poisonOrDustName"></td>
+        <td><input type="text" [(ngModel)]="item.vddEquipmentName"></td>
+        <td><input type="number" [(ngModel)]="item.number"></td>
+        <td><input type="text" [(ngModel)]="item.operationAndMaintenance"></td>
+        <td><button (click)="delOffice(item)">删除</button></td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <button (click)="submitData()">提交</button>
+    <button (click)="close()">取消</button>
+  </div>
+</div>

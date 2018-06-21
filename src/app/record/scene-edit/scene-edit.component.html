@@ -55,10 +55,19 @@
   <div class="row list">
     <div class="col-md-12">
       <label style="padding: 0px;" class="col-md-4 col-form-label text-right float-left">用人单位陪同人签字：</label>
-      <select class="col-md-4" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee" >
-        <option value="">--请选择陪同人--</option>
+    <!--  <select class="col-md-4" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee" >
+        <option value="">&#45;&#45;请选择陪同人&#45;&#45;</option>
         <option *ngFor="let item of employeeData;" value="{{item.id}}" >{{item.empName}}</option>
-      </select>
+      </select>-->
+      <div class="input-group col-md-7">
+        <input class="form-control"  [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployeeName" placeholder="陪同人">
+        <input class="form-control"  type="hidden" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee" >
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="selectEmployee()" type="button">
+            <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row" style="padding: 10px;">
@@ -83,8 +92,8 @@
   </div>
   <div class="row">
     <div class="op-btn">
-      <button type="button" class="btn btn-success" (click)="submitData()">确&ngsp;&ngsp;定</button>
-      <button type="button" class="btn btn-outline-success" (click)="close()">取&ngsp;&ngsp;消</button>
+      <button type="button" class="btn btn-success" (click)="submitData()">确&nbsp;&nbsp;定</button>
+      <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
     </div>
   </div>
 </div>

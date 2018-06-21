@@ -40,6 +40,9 @@ import {ProductEditComponent} from './product-edit/product-edit.component';
 import {WorkLogEditComponent} from './work-log-edit/work-log-edit.component';
 import {PresentSituationEditComponent} from './present-situation-edit/present-situation-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {VddEquipmentEditComponent} from './vdd-equipment-edit/vdd-equipment-edit.component';
+import {VddEquipmentManageComponent} from './vdd-equipment-manage/vdd-equipment-manage.component';
+import { SelectEmployeeComponent } from './select-employee/select-employee.component';
 
 @NgModule({
   imports: [
@@ -69,7 +72,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EmergencyFacilitiesEditComponent,
     InformingFacilitiesEditComponent,
     HealthManagementEditComponent,
-    ControlEffectEditComponent
+    ControlEffectEditComponent,
+    VddEquipmentEditComponent,
+    SelectEmployeeComponent
   ],
   declarations: [
     EquipmentManageComponent,
@@ -109,7 +114,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ControlEffectEditComponent,
     PresentSituationEditComponent,
     WorkLogEditComponent,
-    WorkLogManageComponent
-  ]
+    WorkLogManageComponent,
+    VddEquipmentEditComponent,
+    VddEquipmentManageComponent,
+    SelectEmployeeComponent
+]
 })
 export class RecordModule { }

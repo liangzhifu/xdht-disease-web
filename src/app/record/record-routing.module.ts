@@ -18,6 +18,7 @@ import {IndividualProtectiveManageComponent} from './individual-protective-manag
 import {EmergencyFacilitiesManageComponent} from './emergency-facilities-manage/emergency-facilities-manage.component';
 import {InformingFacilitiesManageComponent} from './informing-facilities-manage/informing-facilities-manage.component';
 import {HealthManagementManageComponent} from './health-management-manage/health-management-manage.component';
+import {VddEquipmentManageComponent} from './vdd-equipment-manage/vdd-equipment-manage.component';
 
 /**
  * 调查表管理路由
@@ -43,7 +44,8 @@ const recordRoutes: Routes = [
       {path: 'recordIndividualProtective', component: IndividualProtectiveManageComponent},
       {path: 'recordEmergencyFacilities', component: EmergencyFacilitiesManageComponent},
       {path: 'recordInformingFacilities', component: InformingFacilitiesManageComponent},
-      {path: 'recordHealthManagement', component: HealthManagementManageComponent}
+      {path: 'recordHealthManagement', component: HealthManagementManageComponent},
+      {path: 'recordVddEquipment', component: VddEquipmentManageComponent}
     ]
   }
 ];

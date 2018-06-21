@@ -1,23 +1,23 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {WaitService} from '../../core/wait/wait.service';
-import {HttpService} from '../../core/http/http.service';
-import {ModalService} from '../../modal/modal.service';
 import {Router} from '@angular/router';
 import {ToastService} from '../../toast/toast.service';
+import {HttpService} from '../../core/http/http.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {WaitService} from '../../core/wait/wait.service';
+import {ModalService} from '../../modal/modal.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
-import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
-import {HealthManagementEditComponent} from '../health-management-edit/health-management-edit.component';
+import {ToastConfig} from '../../toast/toast-config';
+import {VddEquipmentEditComponent} from '../vdd-equipment-edit/vdd-equipment-edit.component';
 
 @Component({
-  selector: 'app-health-management-manage',
-  templateUrl: './health-management-manage.component.html',
-  styleUrls: ['./health-management-manage.component.scss']
+  selector: 'app-vdd-equipment-manage',
+  templateUrl: './vdd-equipment-manage.component.html',
+  styleUrls: ['./vdd-equipment-manage.component.scss']
 })
-export class HealthManagementManageComponent implements OnInit {
+export class VddEquipmentManageComponent implements OnInit {
   url: String;
   method: 'post';
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
@@ -25,7 +25,7 @@ export class HealthManagementManageComponent implements OnInit {
    * 查询条件
    */
   param: any = {
-    healthManagementNo: ''
+    vddEquipmentNo: ''
   };
   constructor(
     private ngbModal: NgbModal,
@@ -37,7 +37,7 @@ export class HealthManagementManageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.url = SystemConstant.HEALTH_MANAGEMENT_PAGE_LIST;
+    this.url = SystemConstant.VDD_EQUIPMENT_PAGE_LIST;
   }
   /**
    * 查询
@@ -47,12 +47,11 @@ export class HealthManagementManageComponent implements OnInit {
     this.sdhp.search();
     this.waitService.wait(false);
   }
-
   /**
-   * 新增--职业卫生管理情况调查表
+   * 新增--通风排毒除尘设施调查表
    */
-  addHealthManagement() {
-    const modalRef = this.ngbModal.open(HealthManagementEditComponent);
+  addVddEquipment() {
+    const modalRef = this.ngbModal.open(VddEquipmentEditComponent);
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -61,20 +60,12 @@ export class HealthManagementManageComponent implements OnInit {
       }
     );
   }
-
   /**
-   * 打开详细内容页（TODO）
+   * 修改--通风排毒除尘设施调查表
    */
-  open() {
-    this.router.navigate(['/main/record/recordPreEvaluationDetail'], {queryParams: {id: 1}});
-  }
-
-  /**
-   * 修改--职业卫生管理情况调查表
-   */
-  editHealthManagement(id) {
-    // 获取用户数据
-    this.httpService.get(SystemConstant.HEALTH_MANAGEMENT_DETAIL + '/' + id).subscribe({
+  editVddEquipment(id) {
+    // 获取数据
+    this.httpService.get(SystemConstant.VDD_EQUIPMENT_DETAIL + '/' + id).subscribe({
       next: (data) => {
         this.openEdit(data);
       },
@@ -85,13 +76,12 @@ export class HealthManagementManageComponent implements OnInit {
       complete: () => {}
     });
   }
-
   /**
-   * 打开修改(职业卫生管理情况调查表)对话框
+   * 打开修改(通风排毒除尘设施调查表)对话框
    */
   openEdit(myData) {
-    const modalRef = this.ngbModal.open(HealthManagementEditComponent);
-    modalRef.componentInstance.recordHealthManagementInputRequest = myData;
+    const modalRef = this.ngbModal.open(VddEquipmentEditComponent);
+    modalRef.componentInstance.recordVddEquipmentInputRequest = myData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -100,15 +90,14 @@ export class HealthManagementManageComponent implements OnInit {
       }
     );
   }
-
   /**
-   * 删除--职业卫生管理情况调查表
+   * 删除--通风排毒除尘设施调查表
    */
-  delHealthManagement(id) {
+  delVddEquipment(id) {
     const confirmCfg = new ConfirmConfig('确定删除！');
     this.modalService.confirm(confirmCfg).then(
       () => {
-        this.httpService.post(SystemConstant.HEALTH_MANAGEMENT_DEL + '/' + id , {} ).subscribe({
+        this.httpService.post(SystemConstant.VDD_EQUIPMENT_DEL + '/' + id , {} ).subscribe({
           next: (data) => {
             const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除成功！', 3000);
             this.toastService.toast(toastCfg);
@@ -123,4 +112,5 @@ export class HealthManagementManageComponent implements OnInit {
       }
     );
   }
+
 }

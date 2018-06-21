@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpService } from '../../core/http/http.service';
-import { ToastConfig } from '../../toast/toast-config';
-import { SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import { ConfirmConfig } from '../../modal/confirm/confirm-config';
-import { ToastType } from '../../toast/toast-type.enum';
-import { UserEditComponent } from '../../sys/user-edit/user-edit.component';
-import { ModalService } from '../../modal/modal.service';
-import { SystemConstant} from '../../core/class/system-constant';
-import { WaitService } from '../../core/wait/wait.service';
-import { ToastService } from '../../toast/toast.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {HttpService} from '../../core/http/http.service';
+import {ToastConfig} from '../../toast/toast-config';
+import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import {ConfirmConfig} from '../../modal/confirm/confirm-config';
+import {ToastType} from '../../toast/toast-type.enum';
+import {ModalService} from '../../modal/modal.service';
+import {SystemConstant} from '../../core/class/system-constant';
+import {WaitService} from '../../core/wait/wait.service';
+import {ToastService} from '../../toast/toast.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
 import {SceneEditComponent} from '../scene-edit/scene-edit.component';
+import {SceneDetailComponent} from '../scene-detail/scene-detail.component';
 
 @Component({
   selector: 'app-record-scene-manage',
@@ -87,10 +87,42 @@ export class SceneManageComponent implements OnInit {
   }
 
   /**
+   * 详情
+   * @param id
+   */
+  detailScene(id) {
+    // 获取职业卫生现场调查记录数据
+    this.httpService.get(SystemConstant.RECORD_SCENE_DETAIL + '/' + id).subscribe({
+      next: (data) => {
+        this.openDetailScene(data);
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取用户详情失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {}
+    });
+  }
+
+  /**
    * 打开修改(职业卫生现场调查记录)对话框
    */
   openEditScene(recordSceneData) {
     const modalRef = this.ngbModal.open(SceneEditComponent);
+    modalRef.componentInstance.recordSceneRequest = recordSceneData;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+          this.search();
+        }
+      }
+    );
+  }
+  /**
+   * 打开详情职业卫生现场调查记录)对话框
+   */
+  openDetailScene(recordSceneData) {
+    const modalRef = this.ngbModal.open(SceneDetailComponent);
     modalRef.componentInstance.recordSceneRequest = recordSceneData;
     modalRef.result.then(
       (result) => {

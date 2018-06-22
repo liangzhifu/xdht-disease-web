@@ -72,7 +72,7 @@ export class EmployeeManageComponent implements OnInit {
    */
   openEmployeeInfo(employeeData) {
     const modalRef = this.ngbModal.open(EmpoiyeeInfoComponent);
-    modalRef.componentInstance.sysEmpoiyeeRequest = employeeData;
+    modalRef.componentInstance.sysEmployeeRequest = employeeData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -117,7 +117,7 @@ export class EmployeeManageComponent implements OnInit {
    */
   openEditEmployee(employeeData) {
     const modalRef = this.ngbModal.open(EmployeeEditComponent, {size: 'x1'});
-    modalRef.componentInstance.sysEmpoiyeeRequest = employeeData;
+    modalRef.componentInstance.sysEmployeeRequest = employeeData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {

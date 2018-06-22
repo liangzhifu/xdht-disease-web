@@ -93,7 +93,7 @@ export class SceneManageComponent implements OnInit {
    * 打开修改(职业卫生现场调查记录)对话框
    */
   openEditScene(recordSceneData) {
-    const modalRef = this.ngbModal.open(SceneEditComponent);
+    const modalRef = this.ngbModal.open(SceneEditComponent, {size: 'lg'});
     modalRef.componentInstance.recordSceneRequest = recordSceneData;
     modalRef.result.then(
       (result) => {

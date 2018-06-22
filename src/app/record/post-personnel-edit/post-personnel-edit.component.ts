@@ -52,7 +52,7 @@ export class PostPersonnelEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordPostPersonnelInputRequest.sysCompanyOfficeList = data;
       },
@@ -106,8 +106,17 @@ export class PostPersonnelEditComponent implements OnInit {
    */
   addOffice() {
     const index = this.recordPostPersonnelInputRequest.recordPostPersonnelDataList.length;
-    this.recordPostPersonnelInputRequest.recordPostPersonnelDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'perShift' : '', 'totalNumber' : '', 'dayOfWeek' : '', 'classOfDate' : '', 'hourOfClass' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.recordPostPersonnelInputRequest.recordPostPersonnelDataList[index] = {
+      id : '',
+      companyOfficeId : '',
+      postId : '',
+      perShift : '',
+      totalNumber : '',
+      dayOfWeek : '',
+      classOfDate : '',
+      hourOfClass : '',
+      relationId : ''};
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordPostPersonnelInputRequest.sysCompanyOfficeList = data;
       },

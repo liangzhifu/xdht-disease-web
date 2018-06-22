@@ -21,10 +21,7 @@ import {HealthManagementManageComponent} from './health-management-manage/health
 import {VddEquipmentManageComponent} from './vdd-equipment-manage/vdd-equipment-manage.component';
 import {CompanySummaryManageComponent} from './company-summary-manage/company-summary-manage.component';
 import {EmployeeSummaryManageComponent} from './employee-summary-manage/employee-summary-manage.component';
-import {PostPersonelComponent} from './post-personel/post-personel.component';
 import {PostPersonnelManageComponent} from './post-personnel-manage/post-personnel-manage.component';
-import {CompanySummaryManageComponent} from './company-summary-manage/company-summary-manage.component';
-import {EmployeeSummaryManageComponent} from './employee-summary-manage/employee-summary-manage.component';
 
 /**
  * 调查表管理路由
@@ -53,9 +50,6 @@ const recordRoutes: Routes = [
       {path: 'recordInformingFacilities', component: InformingFacilitiesManageComponent},
       {path: 'recordHealthManagement', component: HealthManagementManageComponent},
       {path: 'recordVddEquipment', component: VddEquipmentManageComponent},
-      {path: 'employeeSummaryManage', component: EmployeeSummaryManageComponent},
-      {path: 'companySummaryManage', component: CompanySummaryManageComponent}
-      {path: 'recordHealthManagement', component: HealthManagementManageComponent},
       {path: 'employeeSummaryManage', component: EmployeeSummaryManageComponent},
       {path: 'companySummaryManage', component: CompanySummaryManageComponent}
     ]

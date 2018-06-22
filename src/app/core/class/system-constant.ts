@@ -166,7 +166,7 @@ export const SystemConstant = Object.freeze({
   TEMPERATURE_DEL: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordTemperatureProtectionFacilities/delete',
   TEMPERATURE_DETAIL: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordTemperatureProtectionFacilities/detail',
   // 防高温设施调查表-数据表配置
-  // TEMPERATURE_DATA_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordTemperatureProtectionFacilitiesData/recordList',
+
   // 其他防护设施调查表 配置
   OTHER_PROTECTIVE_PAGE_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordOtherProtectiveFacilities/pageList',
   OTHER_PROTECTIVE_ADD: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordOtherProtectiveFacilities/add',
@@ -182,7 +182,6 @@ export const SystemConstant = Object.freeze({
   INDIVIDUAL_PROTECTIVE_DEL: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordIndividualProtectiveEquipment/delete',
   INDIVIDUAL_PROTECTIVE_DETAIL: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordIndividualProtectiveEquipment/detail',
   // 个体防护用品调查表-数据表配置
-  // INDIVIDUAL_PROTECTIVE_DATA_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordIndividualProtectiveEquipmentData/recordList',
   // 应急设施调查表 配置
   EMERGENCY_FACILITIES_PAGE_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordEmergencyFacilities/pageList',
   EMERGENCY_FACILITIES_ADD: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordEmergencyFacilities/add',
@@ -221,7 +220,7 @@ export const SystemConstant = Object.freeze({
   SYS_POST_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysPost/recordList',
 
   // 获取调查表 配置
-  SYS_QUESTIONNAIRE: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + 'sysQuestionnaire/selectOne'
+  SYS_QUESTIONNAIRE: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + 'sysQuestionnaire/selectOne',
 
   // 企业体检信息
   COMPANY_SUMMARY_MANAGE_PAGE: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordCompanySummary/recordPage',

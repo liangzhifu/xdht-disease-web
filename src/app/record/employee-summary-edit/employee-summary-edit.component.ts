@@ -84,7 +84,7 @@ export class EmployeeSummaryEditComponent implements OnInit {
 
   ngOnInit() {
     // 新增时获取部门列表
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.employeeSummaryRequest.sysCompanyOfficeList = data;
       },

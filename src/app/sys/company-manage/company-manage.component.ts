@@ -11,7 +11,6 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {CompanyOfficeManageComponent} from '../company-office-manage/company-office-manage.component';
-import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 
 @Component({
   selector: 'app-company-manage',

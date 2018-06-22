@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
@@ -8,6 +8,11 @@ import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
+import {AlertType} from '../../modal/alert/alert-type';
+import {AlertConfig} from '../../modal/alert/alert-config';
+import {CompanyOfficeChooseComponent} from '../company-office-choose/company-office-choose.component';
+import 'jquery';
+declare var $: any;
 
 @Component({
   selector: 'app-employee-edit',
@@ -17,65 +22,62 @@ import {ModalService} from '../../modal/modal.service';
 export class EmployeeEditComponent implements OnInit {
 
   @Input() sysEmpoiyeeRequest = {
-    'sysEmployee': {
-      'id': '',
-      'officeId': '',
-      'empName': '',
-      'empSex': '',
-      'empNative': '',
-      'empMarriage': '',
-      'empEducation': '',
-      'empHobby': '',
-      'empWorkDate': '',
-      'empIdentityNumber': '',
-      'status': '',
-      'remarks': ''
+    sysEmployee: {
+      id: '',
+      officeId: '',
+      empName: '',
+      empSex: '',
+      empNative: '',
+      empMarriage: '',
+      empEducation: '',
+      empHobby: '',
+      empWorkDate: '',
+      empIdentityNumber: ''
     },
-    'sysEmployeeJobList': [{
-      'id': '',
-      'employeeId': '',
-      'beginDate': '',
-      'endDate': '',
-      'companyName': '',
-      'workType': '',
-      'noiseDetectionResults': '',
-      'protectiveMeasures': '',
-      'status': ''
+    sysCompanyOffice: {
+      id : '',
+      companyId: '',
+      officeName: ''
+    },
+    sysEmployeeJobList: [{
+      id: '',
+      employeeId: '',
+      beginDate: '',
+      endDate: '',
+      companyName: '',
+      workType: '',
+      noiseDetectionResults: '',
+      protectiveMeasures: '',
+      status: ''
     }],
-    'sysEmployeeCaseList': [{
-      'id': '',
-      'employeeId': '',
-      'caseName': '',
-      'diagnosisDate': '',
-      'diagnosisHospital': '',
-      'treatmentResults': '',
-      'remarks': '',
-      'status': ''
+    sysEmployeeCaseList: [{
+      id: '',
+      employeeId: '',
+      caseName: '',
+      diagnosisDate: '',
+      diagnosisHospital: '',
+      treatmentResults: '',
+      remarks: '',
+      status: ''
     }],
-    'sysEmployeeDiseaseList': [{
-      'id': '',
-      'employeeId': '',
-      'diseaseName': '',
-      'diagnosisDate': '',
-      'diagnosisHospital': '',
-      'diagnosisLevel': '',
-      'remarks': '',
-      'status': ''
-    }],
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
-    }],
-    'sysWorkTypeList': [{
-      'id': '',
-      'name': ''
+    sysEmployeeDiseaseList: [{
+      id: '',
+      employeeId: '',
+      diseaseName: '',
+      diagnosisDate: '',
+      diagnosisHospital: '',
+      diagnosisLevel: '',
+      remarks: '',
+      status: ''
     }]
   };
-  empoiyeeEditTitle: string;
+  companyList = [{id: '', companyName: ''}];
+  sysWorkTypeList = [{id: '', name: ''}];
+  employeeEditTitle: string;
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
     private modalService: ModalService,
     private httpService: HttpService,
     private formBuilder: FormBuilder,
@@ -86,32 +88,32 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const preEvaluationId = this.sysEmpoiyeeRequest.sysEmployee.id;
-    console.log(preEvaluationId);
-    // 新增时获取部门列表
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    // 获取部门列表
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.sysEmpoiyeeRequest.sysCompanyOfficeList = data;
+        this.companyList = data;
       },
       complete: () => {
       }
     });
-    // 新增时获取工种列表
+    // 获取工种列表
     this.httpService.post(SystemConstant.WORK_TYPE_LIST, {} ).subscribe({
       next: (data) => {
-        this.sysEmpoiyeeRequest.sysWorkTypeList = data;
+        this.sysWorkTypeList = data;
       },
       complete: () => {
       }
     });
+    const preEvaluationId = this.sysEmpoiyeeRequest.sysEmployee.id;
+    console.log(preEvaluationId);
     if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
       this.action = '新增';
       this.addFlag = true;
-      this.empoiyeeEditTitle = '新增职工信息';
+      this.employeeEditTitle = '新增职工信息';
     } else {
       this.action = '修改';
       this.addFlag = false;
-      this.empoiyeeEditTitle = '修改职工信息';
+      this.employeeEditTitle = '修改职工信息';
     }
   }
 
@@ -125,13 +127,25 @@ export class EmployeeEditComponent implements OnInit {
   /**
    * 提交职工信息
    */
-  empoiyeeEditSubmit() {
+  submitData() {
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.EMPLOYEE_ADD;
     } else {
       url = SystemConstant.EMPLOYEE_EDIT;
+    }
+    this.sysEmpoiyeeRequest.sysEmployee.officeId = this.sysEmpoiyeeRequest.sysCompanyOffice.id;
+    this.sysEmpoiyeeRequest.sysEmployee.empWorkDate = $('#sysEmployeeEmpWorkDate').val();
+    for (let i = 0; i < this.sysEmpoiyeeRequest.sysEmployeeCaseList.length; i++) {
+      this.sysEmpoiyeeRequest.sysEmployeeCaseList[i].diagnosisDate = $('#employeeCase_' + i + '_diagnosisDate').val();
+    }
+    for (let i = 0; i < this.sysEmpoiyeeRequest.sysEmployeeDiseaseList.length; i++) {
+      this.sysEmpoiyeeRequest.sysEmployeeDiseaseList[i].diagnosisDate = $('#employeeDisease_' + i + '_diagnosisDate').val();
+    }
+    for (let i = 0; i < this.sysEmpoiyeeRequest.sysEmployeeJobList.length; i++) {
+      this.sysEmpoiyeeRequest.sysEmployeeJobList[i].beginDate = $('#employeeJob_' + i + '_beginDate').val();
+      this.sysEmpoiyeeRequest.sysEmployeeJobList[i].endDate = $('#employeeJob_' + i + '_endDate').val();
     }
     this.httpService.post(url, this.sysEmpoiyeeRequest).subscribe({
       next: (data) => {
@@ -173,12 +187,7 @@ export class EmployeeEditComponent implements OnInit {
    */
   delJob(index) {
     const count = this.sysEmpoiyeeRequest.sysEmployeeJobList.length;
-    if (count > 1) {
-      this.sysEmpoiyeeRequest.sysEmployeeJobList.splice(index, 1);
-    } else {
-      const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '至少一条职业史！', 3000);
-      this.toastService.toast(toastCfg);
-    }
+    this.sysEmpoiyeeRequest.sysEmployeeJobList.splice(index, 1);
   }
   /**
    * 增加病史
@@ -201,12 +210,7 @@ export class EmployeeEditComponent implements OnInit {
    */
   delCase(i) {
     const count = this.sysEmpoiyeeRequest.sysEmployeeCaseList.length;
-    if (count > 1) {
-      this.sysEmpoiyeeRequest.sysEmployeeCaseList.splice(i, 1);
-    } else {
-      const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '至少一条病史！', 3000);
-      this.toastService.toast(toastCfg);
-    }
+    this.sysEmpoiyeeRequest.sysEmployeeCaseList.splice(i, 1);
   }
   /**
    * 增加诊断结果
@@ -229,11 +233,29 @@ export class EmployeeEditComponent implements OnInit {
    */
   delDisease(i) {
     const count = this.sysEmpoiyeeRequest.sysEmployeeDiseaseList.length;
-    if (count > 1) {
-      this.sysEmpoiyeeRequest.sysEmployeeDiseaseList.splice(i, 1);
-    } else {
-      const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '至少一条诊断结果！', 3000);
-      this.toastService.toast(toastCfg);
+    this.sysEmpoiyeeRequest.sysEmployeeDiseaseList.splice(i, 1);
+  }
+
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice() {
+    const companyId = this.sysEmpoiyeeRequest.sysCompanyOffice.companyId;
+    if (companyId === undefined || companyId === null || companyId === '') {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, null, '请先选择一个公司！');
+      this.modalService.alert(alertConfig);
+      return false;
     }
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.sysEmpoiyeeRequest.sysCompanyOffice.id = sysCompanyOffice.id;
+          this.sysEmpoiyeeRequest.sysCompanyOffice.officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
   }
 }

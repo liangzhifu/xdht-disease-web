@@ -9,6 +9,9 @@ import {WaitService} from '../../core/wait/wait.service';
 import {ActivatedRoute} from '@angular/router';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
+import {PostPersonnelEditComponent} from '../post-personnel-edit/post-personnel-edit.component';
+import {ControlEffectEditComponent} from '../control-effect-edit/control-effect-edit.component';
+import {PresentSituationEditComponent} from '../present-situation-edit/present-situation-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -17,8 +20,8 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class SceneDetailComponent implements OnInit {
 
-  recordSceneTitle: '职业卫生现场调查记录-详情';
   companyData: any;
+  editComponent: any;
   // 输入填写内容
   @Input() recordSceneRequest = {
     'recordScene': {
@@ -76,4 +79,43 @@ export class SceneDetailComponent implements OnInit {
     });
   }
 
+  openRecordEdit(questionnaireId, sceneId) {
+    console.log('sceneId:' + sceneId)
+    console.log('questionnaireId:' + questionnaireId);
+    let myUrl;
+    switch (questionnaireId) {
+      case (1) : this.editComponent = PostPersonnelEditComponent;
+                  myUrl = SystemConstant.POST_PERSONNEL_DETAIL;
+                  break;
+      case (2) : this.editComponent = ControlEffectEditComponent;
+                  myUrl = SystemConstant.CONTROL_EFFECT_DETAIL;
+                  break;
+      case (3) : this.editComponent = PresentSituationEditComponent;
+                  myUrl = SystemConstant.PRESENT_SITUATION_DETAIL;
+                  break;
+      case (4) : this.editComponent = PostPersonnelEditComponent;
+                  myUrl = SystemConstant.POST_PERSONNEL_DETAIL;
+                  break;
+    }
+    // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)
+    this.httpService.get(myUrl + '/' + sceneId).subscribe({
+      next: (data) => {
+        const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
+        modalRef.componentInstance.recordPostPersonnelInputRequest = data;
+        modalRef.result.then(
+          (result) => {
+            if (result === 'success') {
+              console.log('操作成功');
+            }
+          }
+        );
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取职业卫生现场调查记录数据失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {}
+    });
+
+  }
 }

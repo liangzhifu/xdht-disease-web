@@ -47,6 +47,8 @@ import { CompanySummaryManageComponent } from './company-summary-manage/company-
 import { CompanySummaryEditComponent } from './company-summary-edit/company-summary-edit.component';
 import { EmployeeSummaryManageComponent } from './employee-summary-manage/employee-summary-manage.component';
 import { EmployeeSummaryEditComponent } from './employee-summary-edit/employee-summary-edit.component';
+import { PostPersonnelManageComponent } from './post-personnel-manage/post-personnel-manage.component';
+import { PostPersonnelEditComponent } from './post-personnel-edit/post-personnel-edit.component';
 
 @NgModule({
   imports: [
@@ -78,6 +80,9 @@ import { EmployeeSummaryEditComponent } from './employee-summary-edit/employee-s
     HealthManagementEditComponent,
     ControlEffectEditComponent,
     VddEquipmentEditComponent,
+    SelectEmployeeComponent,
+    PostPersonnelManageComponent,
+    PostPersonnelEditComponent
     SelectEmployeeComponent,
     CompanySummaryEditComponent,
     EmployeeSummaryEditComponent,
@@ -130,5 +135,9 @@ import { EmployeeSummaryEditComponent } from './employee-summary-edit/employee-s
     EmployeeSummaryManageComponent,
     EmployeeSummaryEditComponent
   ]
+    SelectEmployeeComponent,
+    PostPersonnelManageComponent,
+    PostPersonnelEditComponent
+]
 })
 export class RecordModule { }

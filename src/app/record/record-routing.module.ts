@@ -23,6 +23,8 @@ import {CompanySummaryManageComponent} from './company-summary-manage/company-su
 import {EmployeeSummaryManageComponent} from './employee-summary-manage/employee-summary-manage.component';
 import {PostPersonelComponent} from './post-personel/post-personel.component';
 import {PostPersonnelManageComponent} from './post-personnel-manage/post-personnel-manage.component';
+import {CompanySummaryManageComponent} from './company-summary-manage/company-summary-manage.component';
+import {EmployeeSummaryManageComponent} from './employee-summary-manage/employee-summary-manage.component';
 
 /**
  * 调查表管理路由
@@ -33,7 +35,6 @@ const recordRoutes: Routes = [
     component: RecordComponent,
     children: [
       {path: 'recordSceneManage', component: SceneManageComponent},
-      {path: 'recordSceneDetail', component: SceneDetailComponent},
       {path: 'recordPreEvaManage', component: PreEvaluationManageComponent},
       {path: 'recordPresentSituation', component: PresentSituationManageComponent},
       {path: 'recordControlEffect', component: ControlEffectManageComponent},
@@ -42,6 +43,7 @@ const recordRoutes: Routes = [
       {path: 'recordPostPersonnel', component: PostPersonnelManageComponent},
       {path: 'recordEquipment', component: EquipmentManageComponent},
       {path: 'recordEquipmentLayout', component: EquipmentLayoutManageComponent},
+      {path: 'recordSceneDetail', component: SceneDetailComponent},
       {path: 'recordHazardFactors', component: HazardFactorsManageComponent},
       {path: 'recordAntiNoise', component: AntiNoiseManageComponent},
       {path: 'recordTemperature', component: TemperatureProtectionManageComponent},
@@ -51,6 +53,9 @@ const recordRoutes: Routes = [
       {path: 'recordInformingFacilities', component: InformingFacilitiesManageComponent},
       {path: 'recordHealthManagement', component: HealthManagementManageComponent},
       {path: 'recordVddEquipment', component: VddEquipmentManageComponent},
+      {path: 'employeeSummaryManage', component: EmployeeSummaryManageComponent},
+      {path: 'companySummaryManage', component: CompanySummaryManageComponent}
+      {path: 'recordHealthManagement', component: HealthManagementManageComponent},
       {path: 'employeeSummaryManage', component: EmployeeSummaryManageComponent},
       {path: 'companySummaryManage', component: CompanySummaryManageComponent}
     ]

@@ -49,6 +49,10 @@ import { EmployeeSummaryManageComponent } from './employee-summary-manage/employ
 import { EmployeeSummaryEditComponent } from './employee-summary-edit/employee-summary-edit.component';
 import { PostPersonnelManageComponent } from './post-personnel-manage/post-personnel-manage.component';
 import { PostPersonnelEditComponent } from './post-personnel-edit/post-personnel-edit.component';
+import { CompanySummaryManageComponent } from './company-summary-manage/company-summary-manage.component';
+import { CompanySummaryEditComponent } from './company-summary-edit/company-summary-edit.component';
+import { EmployeeSummaryManageComponent } from './employee-summary-manage/employee-summary-manage.component';
+import { EmployeeSummaryEditComponent } from './employee-summary-edit/employee-summary-edit.component';
 
 @NgModule({
   imports: [
@@ -86,9 +90,11 @@ import { PostPersonnelEditComponent } from './post-personnel-edit/post-personnel
     SelectEmployeeComponent,
     CompanySummaryEditComponent,
     EmployeeSummaryEditComponent,
+    CompanySummaryEditComponent,
+    EmployeeSummaryEditComponent,
     ControlEffectEditComponent
   ],
-  declarations: [
+    declarations: [
     EquipmentManageComponent,
     EquipmentLayoutManageComponent,
     HazardFactorsManageComponent,
@@ -130,6 +136,11 @@ import { PostPersonnelEditComponent } from './post-personnel-edit/post-personnel
     VddEquipmentEditComponent,
     VddEquipmentManageComponent,
     SelectEmployeeComponent,
+    CompanySummaryManageComponent,
+    CompanySummaryEditComponent,
+    EmployeeSummaryManageComponent,
+    EmployeeSummaryEditComponent
+    WorkLogManageComponent,
     CompanySummaryManageComponent,
     CompanySummaryEditComponent,
     EmployeeSummaryManageComponent,

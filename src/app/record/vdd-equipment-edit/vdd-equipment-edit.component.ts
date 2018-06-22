@@ -51,7 +51,7 @@ export class VddEquipmentEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordVddEquipmentInputRequest.sysCompanyOfficeList = data;
       },
@@ -106,7 +106,7 @@ export class VddEquipmentEditComponent implements OnInit {
   addOffice() {
     const index = this.recordVddEquipmentInputRequest.recordVddEquipmentDataList.length;
     this.recordVddEquipmentInputRequest.recordVddEquipmentDataList[index] = { 'id' : '', 'officeId' : '', 'postId' : '', 'workPlace' : '', 'vddEquipmentName' : '', 'poisonOrDustName' : '', 'number' : '' , 'operationAndMaintenance' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordVddEquipmentInputRequest.sysCompanyOfficeList = data;
       },

@@ -46,7 +46,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordEmergencyFacilitiesInputRequest.sysCompanyOfficeList = data;
       },
@@ -94,7 +94,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
   addOffice() {
     const index = this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList.length;
     this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList[index] = { 'id' : '', 'officeId' : '', 'workPlace' : '', 'emergencyFacilities' : '', 'number' : '', 'technicalParameter' : '',  'operationAndMaintenance' : '',  'hazardFactors' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordEmergencyFacilitiesInputRequest.sysCompanyOfficeList = data;
       },

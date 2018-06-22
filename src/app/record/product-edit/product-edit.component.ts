@@ -56,7 +56,7 @@ export class ProductEditComponent implements OnInit {
       this.addFlag = true;
       this.recordProductEditTitle = '新增--';
       // 新增时 部门id 获取部门列表
-      this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+      this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
         next: (data) => {
           this.recordProductInputRequest.sysCompanyOfficeList = data;
         },
@@ -103,7 +103,7 @@ export class ProductEditComponent implements OnInit {
   addOffice() {
     const index = this.recordProductInputRequest.recordProductDataList.length;
     this.recordProductInputRequest.recordProductDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'processName' : '', 'productType' : '', 'productName' : '', 'productShape' : '', 'chemicalComposition' : '', 'storageMode' : '', 'transportMode' : '', 'annualAmount' : '', 'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordProductInputRequest.sysCompanyOfficeList = data;
       },

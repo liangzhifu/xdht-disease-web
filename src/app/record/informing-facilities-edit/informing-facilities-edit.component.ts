@@ -45,7 +45,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordInformingFacilitiesInputRequest.sysCompanyOfficeList = data;
       },
@@ -93,7 +93,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
   addOffice() {
     const index = this.recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList.length;
     this.recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'processName' : '', 'hazardFactors' : '', 'informingFacilities' : '', 'settingPlace' : '', 'remarks' : '',   'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordInformingFacilitiesInputRequest.sysCompanyOfficeList = data;
       },

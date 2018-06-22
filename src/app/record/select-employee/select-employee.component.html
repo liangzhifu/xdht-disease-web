@@ -1,33 +1,48 @@
 <div class="c-content-inner">
   <div class="modal-body row ">
-    <label>{{sysEmployeeTitle}}</label>
+    <label>{{selectEmployeeTitle}}</label>
     <button aria-label="Close" class="close" type="button" (click)="close()">
       <span aria-hidden="true">×</span>
     </button>
   </div>
-  <div class="row" style="padding: 10px;">
-    <table class="table table-bordered table-hover">
-      <thead class="thead-light">
-      <tr>
-        <th>序号</th>
-        <th>陪同人姓名</th>
-        <th>选择</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of sysEmployeeRequest.sysEmployeeList; let i = index" >
-        <td>{{i+1}}</td>
-        <td>{{item.empName}}</td>
-        <td>
-          <input type="checkbox" id="checkbox-{{item.id}}" (click)="updateSelection(item)"  >
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">姓名：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empName" placeholder="请输入职工姓名...">
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div #sdt="simpleDataTable" appSimpleDataTable>
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th></th>
+            <th>姓名</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td><input type="radio" value="{{i}}" name="employeeRadio"></td>
+            <td>{{item.empName}}</td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="op-btn">
-      <button type="button" class="btn btn-success" (click)="submitData()">确&nbsp;&nbsp;定</button>
+      <button type="button" class="btn btn-success" (click)="submitData()" >确&nbsp;&nbsp;定</button>
       <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
     </div>
   </div>

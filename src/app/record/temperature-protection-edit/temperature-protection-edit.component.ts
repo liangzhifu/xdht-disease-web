@@ -50,7 +50,7 @@ export class TemperatureProtectionEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordTemperatureInputRequest.sysCompanyOfficeList = data;
       },
@@ -105,7 +105,7 @@ export class TemperatureProtectionEditComponent implements OnInit {
   addOffice() {
     const index = this.recordTemperatureInputRequest.recordTemperatureDataList.length;
     this.recordTemperatureInputRequest.recordTemperatureDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'workPlace' : '', 'productiveHeatSource' : '', 'temperatureProtectionFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordTemperatureInputRequest.sysCompanyOfficeList = data;
       },

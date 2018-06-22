@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
+import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 import {SystemConstant} from '../../core/class/system-constant';
 import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import {ModalService} from '../../modal/modal.service';
@@ -10,7 +11,6 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {CompanyOfficeManageComponent} from '../company-office-manage/company-office-manage.component';
-import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 
 @Component({
   selector: 'app-company-manage',

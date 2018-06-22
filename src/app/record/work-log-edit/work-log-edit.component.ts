@@ -6,7 +6,7 @@ import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
-import * as $ from 'jquery';
+
 @Component({
   selector: 'app-work-log-edit',
   templateUrl: './work-log-edit.component.html',
@@ -53,7 +53,7 @@ export class WorkLogEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordWorkLogInputRequest.sysCompanyOfficeList = data;
       },
@@ -75,7 +75,7 @@ export class WorkLogEditComponent implements OnInit {
       this.addFlag = true;
       this.recordWorkLogEditTitle = '新增--工作日写实记录表';
       // 新增时 部门id 获取部门列表
-      // this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+      // this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       //   next: (data) => {
       //     this.recordWorkLogInputRequest.sysCompanyOfficeList = data;
       //   },
@@ -128,8 +128,18 @@ export class WorkLogEditComponent implements OnInit {
    */
   addOffice() {
     const index = this.recordWorkLogInputRequest.recordWorkLogDataList.length;
-    this.recordWorkLogInputRequest.recordWorkLogDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'personOfClass' : '', 'workHours' : '', 'workPlace' : '', 'workContent' : '', 'hazardFactors' : '', 'remarks' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.recordWorkLogInputRequest.recordWorkLogDataList[index] = {
+      id : '',
+      companyOfficeId : '',
+      postId : '',
+      personOfClass : '',
+      workHours : '',
+      workPlace : '',
+      workContent : '',
+      hazardFactors : '',
+      remarks : '',
+      relationId : ''};
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordWorkLogInputRequest.sysCompanyOfficeList = data;
       },

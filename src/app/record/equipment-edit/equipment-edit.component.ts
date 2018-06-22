@@ -52,7 +52,7 @@ export class EquipmentEditComponent implements OnInit {
       this.addFlag = true;
       this.recordEquipmentEditTitle = '新增--';
       // 新增时 部门id 获取部门列表
-      this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+      this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
         next: (data) => {;
           this.recordEquipmentInputRequest.sysCompanyOfficeList = data;
         },
@@ -96,7 +96,7 @@ export class EquipmentEditComponent implements OnInit {
   addOffice() {
     const index = this.recordEquipmentInputRequest.recordEquipmentDataList.length;
     this.recordEquipmentInputRequest.recordEquipmentDataList[index] = { 'id' : '', 'officdId' : '', 'officdName' : '', 'processName' : '', 'equipmentName' : '', 'epuipmentNumber' : '', 'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {;
         this.recordEquipmentInputRequest.sysCompanyOfficeList = data;
       },

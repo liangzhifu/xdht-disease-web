@@ -1,12 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import * as $ from 'jquery';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ModalService} from '../../modal/modal.service';
 import {FormBuilder} from '@angular/forms';
 import {ToastService} from '../../toast/toast.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {HttpService} from '../../core/http/http.service';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {SceneEditComponent} from '../scene-edit/scene-edit.component';
+import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import {SystemConstant} from '../../core/class/system-constant';
+import {AlertType} from '../../modal/alert/alert-type';
+import {AlertConfig} from '../../modal/alert/alert-config';
+import {SimpleDataTableDirective} from '../../simple-data-table/simple-data-table.directive';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-select-employee',
@@ -14,14 +18,17 @@ import {SceneEditComponent} from '../scene-edit/scene-edit.component';
   styleUrls: ['./select-employee.component.scss']
 })
 export class SelectEmployeeComponent implements OnInit {
-  sysEmployeeTitle: string;
-  sysEmployeeRequest = {
-    'sysEmployeeList': [{
-      'id': '',
-      'empName': ''
-    }]
+  @Input() companyId = '';
+  selectEmployeeTitle: string;
+  param = {
+    companyId: '',
+    empName: ''
   };
+  url: String;
+  method: 'post';
 
+  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
+  @ViewChild('sdt', undefined) sdt: SimpleDataTableDirective;
   constructor(
     private ngbModal: NgbModal,
     private modalService: ModalService,
@@ -34,18 +41,9 @@ export class SelectEmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sysEmployeeTitle = '选择陪同人';
-  }
-
-  updateSelection(item) {
-    console.log('item.id:' + item.id)
-    // item.checked = true;
-    const dataList = this.sysEmployeeRequest.sysEmployeeList;
-    for (let i = 0; i < dataList.length; i++) {
-      $('#checkbox-' + dataList[i].id).checked = false;
-    }
-    $('#checkbox-' + item.id).checked = true;
-
+    this.param.companyId = this.companyId;
+    this.selectEmployeeTitle = '选择人员';
+    this.url = SystemConstant.EMPLOYEE_PAGE_LIST;
   }
 
   /**
@@ -56,25 +54,34 @@ export class SelectEmployeeComponent implements OnInit {
   }
 
   /**
+   * 查询
+   */
+  search() {
+    this.waitService.wait(true);
+    this.sdhp.search();
+    this.waitService.wait(false);
+  }
+
+  /**
    * 提交
    */
   submitData() {
-    const dataList = this.sysEmployeeRequest.sysEmployeeList;
-    for (let i = 0; i < dataList.length; i++) {
-      if ($('#checkbox-' + dataList[i].id).is(':checked')) {
-        const modalRef = this.ngbModal.open(SceneEditComponent);
-        modalRef.componentInstance.recordSceneRequest.recordScene.inquiryCompanyEmployee = dataList[i].id;
-        modalRef.componentInstance.recordSceneRequest.recordScene.inquiryCompanyEmployeeName = dataList[i].empName;
-        modalRef.result.then(
-          (result) => {
-            if (result === 'success') {
-              // this.search();
-            }
-          }
-        );
-        this.activeModal.dismiss('failed');
-
-      }
+    let sysEmployee = {
+      id : 0,
+      empName: ''
+    };
+    const index = $('input[name="employeeRadio"]:checked').val();
+    if (index === undefined || index === null) {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '人员选择', '必须选择一个人员！');
+      this.modalService.alert(alertConfig);
+      return false;
+    } else {
+      const data = this.sdt.data[index];
+      sysEmployee = {
+        id : data.id,
+        empName: data.empName
+      };
     }
+    this.activeModal.close({success: 'success', sysEmployee: sysEmployee});
   }
 }

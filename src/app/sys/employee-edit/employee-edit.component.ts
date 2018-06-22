@@ -21,7 +21,7 @@ declare var $: any;
 })
 export class EmployeeEditComponent implements OnInit {
 
-  @Input() sysEmpoiyeeRequest = {
+  @Input() sysEmployeeRequest = {
     sysEmployee: {
       id: '',
       officeId: '',
@@ -104,7 +104,7 @@ export class EmployeeEditComponent implements OnInit {
       complete: () => {
       }
     });
-    const preEvaluationId = this.sysEmpoiyeeRequest.sysEmployee.id;
+    const preEvaluationId = this.sysEmployeeRequest.sysEmployee.id;
     console.log(preEvaluationId);
     if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
       this.action = '新增';
@@ -135,19 +135,19 @@ export class EmployeeEditComponent implements OnInit {
     } else {
       url = SystemConstant.EMPLOYEE_EDIT;
     }
-    this.sysEmpoiyeeRequest.sysEmployee.officeId = this.sysEmpoiyeeRequest.sysCompanyOffice.id;
-    this.sysEmpoiyeeRequest.sysEmployee.empWorkDate = $('#sysEmployeeEmpWorkDate').val();
-    for (let i = 0; i < this.sysEmpoiyeeRequest.sysEmployeeCaseList.length; i++) {
-      this.sysEmpoiyeeRequest.sysEmployeeCaseList[i].diagnosisDate = $('#employeeCase_' + i + '_diagnosisDate').val();
+    this.sysEmployeeRequest.sysEmployee.officeId = this.sysEmployeeRequest.sysCompanyOffice.id;
+    this.sysEmployeeRequest.sysEmployee.empWorkDate = $('#sysEmployeeEmpWorkDate').val();
+    for (let i = 0; i < this.sysEmployeeRequest.sysEmployeeCaseList.length; i++) {
+      this.sysEmployeeRequest.sysEmployeeCaseList[i].diagnosisDate = $('#employeeCase_' + i + '_diagnosisDate').val();
     }
-    for (let i = 0; i < this.sysEmpoiyeeRequest.sysEmployeeDiseaseList.length; i++) {
-      this.sysEmpoiyeeRequest.sysEmployeeDiseaseList[i].diagnosisDate = $('#employeeDisease_' + i + '_diagnosisDate').val();
+    for (let i = 0; i < this.sysEmployeeRequest.sysEmployeeDiseaseList.length; i++) {
+      this.sysEmployeeRequest.sysEmployeeDiseaseList[i].diagnosisDate = $('#employeeDisease_' + i + '_diagnosisDate').val();
     }
-    for (let i = 0; i < this.sysEmpoiyeeRequest.sysEmployeeJobList.length; i++) {
-      this.sysEmpoiyeeRequest.sysEmployeeJobList[i].beginDate = $('#employeeJob_' + i + '_beginDate').val();
-      this.sysEmpoiyeeRequest.sysEmployeeJobList[i].endDate = $('#employeeJob_' + i + '_endDate').val();
+    for (let i = 0; i < this.sysEmployeeRequest.sysEmployeeJobList.length; i++) {
+      this.sysEmployeeRequest.sysEmployeeJobList[i].beginDate = $('#employeeJob_' + i + '_beginDate').val();
+      this.sysEmployeeRequest.sysEmployeeJobList[i].endDate = $('#employeeJob_' + i + '_endDate').val();
     }
-    this.httpService.post(url, this.sysEmpoiyeeRequest).subscribe({
+    this.httpService.post(url, this.sysEmployeeRequest).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
@@ -169,8 +169,8 @@ export class EmployeeEditComponent implements OnInit {
    * 增加职业史
    */
   addJob() {
-    const index = this.sysEmpoiyeeRequest.sysEmployeeJobList.length;
-    this.sysEmpoiyeeRequest.sysEmployeeJobList[index] = {
+    const index = this.sysEmployeeRequest.sysEmployeeJobList.length;
+    this.sysEmployeeRequest.sysEmployeeJobList[index] = {
       'id': '',
       'employeeId': '',
       'beginDate': '',
@@ -186,15 +186,15 @@ export class EmployeeEditComponent implements OnInit {
    * 删除职业史
    */
   delJob(index) {
-    const count = this.sysEmpoiyeeRequest.sysEmployeeJobList.length;
-    this.sysEmpoiyeeRequest.sysEmployeeJobList.splice(index, 1);
+    const count = this.sysEmployeeRequest.sysEmployeeJobList.length;
+    this.sysEmployeeRequest.sysEmployeeJobList.splice(index, 1);
   }
   /**
    * 增加病史
    */
   addCase() {
-    const index = this.sysEmpoiyeeRequest.sysEmployeeCaseList.length;
-    this.sysEmpoiyeeRequest.sysEmployeeCaseList[index] = {
+    const index = this.sysEmployeeRequest.sysEmployeeCaseList.length;
+    this.sysEmployeeRequest.sysEmployeeCaseList[index] = {
       'id': '',
       'employeeId': '',
       'caseName': '',
@@ -209,15 +209,15 @@ export class EmployeeEditComponent implements OnInit {
    * 删除病史
    */
   delCase(i) {
-    const count = this.sysEmpoiyeeRequest.sysEmployeeCaseList.length;
-    this.sysEmpoiyeeRequest.sysEmployeeCaseList.splice(i, 1);
+    const count = this.sysEmployeeRequest.sysEmployeeCaseList.length;
+    this.sysEmployeeRequest.sysEmployeeCaseList.splice(i, 1);
   }
   /**
    * 增加诊断结果
    */
   addDisease() {
-    const index = this.sysEmpoiyeeRequest.sysEmployeeDiseaseList.length;
-    this.sysEmpoiyeeRequest.sysEmployeeDiseaseList[index] = {
+    const index = this.sysEmployeeRequest.sysEmployeeDiseaseList.length;
+    this.sysEmployeeRequest.sysEmployeeDiseaseList[index] = {
       'id': '',
       'employeeId': '',
       'diseaseName': '',
@@ -232,15 +232,15 @@ export class EmployeeEditComponent implements OnInit {
    * 删除诊断结果
    */
   delDisease(i) {
-    const count = this.sysEmpoiyeeRequest.sysEmployeeDiseaseList.length;
-    this.sysEmpoiyeeRequest.sysEmployeeDiseaseList.splice(i, 1);
+    const count = this.sysEmployeeRequest.sysEmployeeDiseaseList.length;
+    this.sysEmployeeRequest.sysEmployeeDiseaseList.splice(i, 1);
   }
 
   /**
    * 选择部门
    */
   searchEmployeeOffice() {
-    const companyId = this.sysEmpoiyeeRequest.sysCompanyOffice.companyId;
+    const companyId = this.sysEmployeeRequest.sysCompanyOffice.companyId;
     if (companyId === undefined || companyId === null || companyId === '') {
       const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, null, '请先选择一个公司！');
       this.modalService.alert(alertConfig);
@@ -252,8 +252,8 @@ export class EmployeeEditComponent implements OnInit {
       (result) => {
         if (result.success === 'success') {
           const sysCompanyOffice = result.sysCompanyOffice;
-          this.sysEmpoiyeeRequest.sysCompanyOffice.id = sysCompanyOffice.id;
-          this.sysEmpoiyeeRequest.sysCompanyOffice.officeName = sysCompanyOffice.officeName;
+          this.sysEmployeeRequest.sysCompanyOffice.id = sysCompanyOffice.id;
+          this.sysEmployeeRequest.sysCompanyOffice.officeName = sysCompanyOffice.officeName;
         }
       }
     );

@@ -46,7 +46,7 @@ export class MenuEditComponent implements OnInit {
     } else {
       this.action = '修改';
       this.addFlag = false;
-      this.menuEditTitle = '修改用户';
+      this.menuEditTitle = '修改菜单';
     }
   }
 

@@ -60,7 +60,7 @@ export class MenuManageComponent implements OnInit {
         treeObj.expandAll(true);
       },
       error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取部门失败！' + '失败原因：' + err, 3000);
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取菜单失败！' + '失败原因：' + err, 3000);
         this.toastService.toast(toastCfg);
       },
       complete: () => {}

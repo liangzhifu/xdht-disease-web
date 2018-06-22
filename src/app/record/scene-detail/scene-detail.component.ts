@@ -1,13 +1,15 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SystemConstant} from '../../core/class/system-constant';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ModalService} from '../../modal/modal.service';
 import {FormBuilder} from '@angular/forms';
 import {WaitService} from '../../core/wait/wait.service';
-import * as $ from 'jquery';
+import {ActivatedRoute} from '@angular/router';
+import {ToastConfig} from '../../toast/toast-config';
+import {ToastType} from '../../toast/toast-type.enum';
+
 @Component({
   selector: 'app-record-scene-detail',
   templateUrl: './scene-detail.component.html',
@@ -15,15 +17,8 @@ import * as $ from 'jquery';
 })
 export class SceneDetailComponent implements OnInit {
 
-  recordSceneTitle: string;
-  // 查询问卷列表
-  url: String;
-  method: 'post';
-
-  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
+  recordSceneTitle: '职业卫生现场调查记录-详情';
   companyData: any;
-  addFlag: boolean;
-  action = '';
   // 输入填写内容
   @Input() recordSceneRequest = {
     'recordScene': {
@@ -52,8 +47,8 @@ export class SceneDetailComponent implements OnInit {
     private httpService: HttpService,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    private activeModal: NgbActiveModal,
-    private waitService: WaitService
+    private waitService: WaitService,
+    private activeRoute: ActivatedRoute
   ) {
     // 获取单位列表
     this.httpService.post(SystemConstant.COMPANY_LIST, {}).subscribe({
@@ -63,18 +58,22 @@ export class SceneDetailComponent implements OnInit {
       complete: () => {
       }
     });
-
-
   }
 
   ngOnInit() {
-    this.recordSceneTitle = '职业卫生现场调查记录-详情';
+    this.activeRoute.queryParams.subscribe(params => {
+      const id = params['id'];
+      this.httpService.get(SystemConstant.RECORD_SCENE_DETAIL + '/' + id).subscribe({
+        next: (data) => {
+          this.recordSceneRequest = data;
+        },
+        error: (err) => {
+          const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取职业卫生现场调查记录数据失败！' + '失败原因：' + err, 3000);
+          this.toastService.toast(toastCfg);
+        },
+        complete: () => {}
+      });
+    });
   }
 
-  /**
-   * 关闭对话框
-   */
-  close() {
-    this.activeModal.dismiss('failed');
-  }
 }

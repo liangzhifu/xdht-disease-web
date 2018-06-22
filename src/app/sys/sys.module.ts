@@ -18,9 +18,14 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { MenuChooseComponent } from './menu-choose/menu-choose.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoleChooseComponent } from './role-choose/role-choose.component';
+import { CompanyOfficeEditComponent } from './company-office-edit/company-office-edit.component';
 
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
+import { DictionaryManageComponent } from './dictionary-manage/dictionary-manage.component';
+import { DictionaryEditComponent } from './dictionary-edit/dictionary-edit.component';
+import {EditPasswordComponent} from './edit-password/edit-password.component';
+import { CompanyOfficeChooseComponent } from './company-office-choose/company-office-choose.component';
 
 @NgModule({
   imports: [
@@ -33,18 +38,31 @@ import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
     SysRoutingModule
   ],
   entryComponents: [
-    UserEditComponent,
-    RoleEditComponent,
+    CompanyEditComponent,
+    CompanyOfficeChooseComponent,
+    CompanyOfficeEditComponent,
+    CompanyOfficeManageComponent,
+    DictionaryEditComponent,
+    EmployeeEditComponent,
     MenuChooseComponent,
     MenuEditComponent,
-    CompanyEditComponent,
-    RoleChooseComponent
+    RoleChooseComponent,
+    RoleEditComponent,
+    UserEditComponent
   ],
   declarations: [
-    MenuManageComponent,
+    CompanyEditComponent,
+    CompanyManageComponent,
+    CompanyOfficeEditComponent,
+    CompanyOfficeManageComponent,
+    EditPasswordComponent,
+    EmployeeManageComponent,
+    MenuChooseComponent,
     MenuEditComponent,
-    RoleManageComponent,
+    MenuManageComponent,
+    RoleChooseComponent,
     RoleEditComponent,
+    RoleManageComponent,
     SysComponent,
     UserEditComponent,
     UserManageComponent,
@@ -56,7 +74,10 @@ import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
     RoleChooseComponent,
     CompanyEditComponent,
     EmployeeEditComponent,
-    EmpoiyeeInfoComponent
+    EmpoiyeeInfoComponent,
+    DictionaryManageComponent,
+    DictionaryEditComponent,
+    CompanyOfficeChooseComponent
   ]
 })
 export class SysModule { }

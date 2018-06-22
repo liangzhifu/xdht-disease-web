@@ -21,7 +21,14 @@ export class PostPersonelComponent implements OnInit {
       'verificationResult': ''
     },
     'recordPostPersonnelDataList' : [{
-      'id' : ''
+      'id' : '',
+      'companyOfficeId' : '',
+      'postId' : '',
+      'perShift' : '',
+      'totalNumber' : '',
+      'dayOfWeek' : '',
+      'classOfDate' : '',
+      'hourOfClass' : ''
     }]
   };
   addFlag: boolean;
@@ -56,7 +63,7 @@ export class PostPersonelComponent implements OnInit {
    */
   addOffice() {
     const index = this.recordPostPersonnelRequest.recordPostPersonnelDataList.length;
-    this.recordPostPersonnelRequest.recordPostPersonnelDataList[index] = { 'id' : ''};
+    this.recordPostPersonnelRequest.recordPostPersonnelDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'perShift' : '', 'totalNumber' : '', 'dayOfWeek' : '', 'classOfDate' : '', 'hourOfClass' : ''};
   }
 
   /**

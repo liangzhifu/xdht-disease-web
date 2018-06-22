@@ -1,14 +1,15 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { HttpService } from '../../core/http/http.service';
-import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import { ToastType } from '../../toast/toast-type.enum';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ModalService } from '../../modal/modal.service';
-import { ToastService } from '../../toast/toast.service';
-import { WaitService } from '../../core/wait/wait.service';
-import { ToastConfig } from '../../toast/toast-config';
-import { SystemConstant} from '../../core/class/system-constant';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {HttpService} from '../../core/http/http.service';
+import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import {ToastType} from '../../toast/toast-type.enum';
+import {FormBuilder} from '@angular/forms';
+import {ModalService} from '../../modal/modal.service';
+import {ToastService} from '../../toast/toast.service';
+import {WaitService} from '../../core/wait/wait.service';
+import {ToastConfig} from '../../toast/toast-config';
+import {SystemConstant} from '../../core/class/system-constant';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SelectEmployeeComponent} from '../select-employee/select-employee.component';
 import * as $ from 'jquery';
 
 @Component({
@@ -31,13 +32,14 @@ export class SceneEditComponent implements OnInit {
   // 输入填写内容
   @Input() recordSceneRequest = {
     'recordScene' : {
-      'id': '',
+      'id' : '',
       'recordNo' : '',
       'projectName' : '',
       'inquiryType' : '',
       'inquiryPerson' : '',
       'inquiryCompany' : '',
       'inquiryCompanyEmployee' : '',
+      'inquiryCompanyEmployeeName' : '',
       'inquiryDate': ''
     },
     'recordScenQuestionnaireList' : [{
@@ -154,6 +156,22 @@ export class SceneEditComponent implements OnInit {
       complete: () => {
       }
     });
+  }
+
+  /**
+   * 选择陪同人
+   */
+  selectEmployee() {
+      const modalRef = this.ngbModal.open(SelectEmployeeComponent, {size: 'lg'});
+      modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;
+      modalRef.result.then(
+        (result) => {
+          if (result.success === 'success') {
+            this.recordSceneRequest.recordScene.inquiryCompanyEmployee = result.sysEmployee.id;
+            this.recordSceneRequest.recordScene.inquiryCompanyEmployeeName = result.sysEmployee.empName;
+          }
+        }
+      );
   }
 
 }

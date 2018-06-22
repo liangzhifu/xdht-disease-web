@@ -50,7 +50,7 @@ export class AntiNoiseEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordAntiNoiseInputRequest.sysCompanyOfficeList = data;
       },
@@ -104,7 +104,7 @@ export class AntiNoiseEditComponent implements OnInit {
   addOffice() {
     const index = this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList.length;
     this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'workPlace' : '', 'noiseSource' : '', 'noiseProtectionFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordAntiNoiseInputRequest.sysCompanyOfficeList = data;
       },

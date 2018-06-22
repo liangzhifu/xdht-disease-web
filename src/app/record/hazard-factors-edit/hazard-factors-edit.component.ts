@@ -45,7 +45,7 @@ export class HazardFactorsEditComponent implements OnInit {
     private waitService: WaitService
   ) {
 // 获取部门列表
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordHazardFactorsInputRequest.sysCompanyOfficeList = data;
       },
@@ -95,7 +95,7 @@ export class HazardFactorsEditComponent implements OnInit {
   addOffice() {
     const index = this.recordHazardFactorsInputRequest.recordHazardFactorsDataList.length;
     this.recordHazardFactorsInputRequest.recordHazardFactorsDataList[index] = { 'id' : '', 'officeId' : '', 'processName' : '', 'hazardFactors' : '', 'exposureMode' : '', 'exposureTime' : '', 'remarks' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordHazardFactorsInputRequest.sysCompanyOfficeList = data;
       },

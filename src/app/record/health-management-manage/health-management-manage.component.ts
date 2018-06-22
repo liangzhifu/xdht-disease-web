@@ -91,7 +91,7 @@ export class HealthManagementManageComponent implements OnInit {
    */
   openEdit(myData) {
     const modalRef = this.ngbModal.open(HealthManagementEditComponent);
-    modalRef.componentInstance.recordHealthManagementRequest = myData;
+    modalRef.componentInstance.recordHealthManagementInputRequest = myData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {

@@ -56,16 +56,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.userData = this.sessionStorageService.getObject('user');
-    this.httpService.get(SystemConstant.MENU_LIST).subscribe({
-      next: (data) => {
-        this.menuData = data;
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取用户菜单失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
+    this.menuData = this.sessionStorageService.getObject('menu');
   }
   /**
    * 切换导航
@@ -91,14 +82,14 @@ export class MainComponent implements OnInit {
    * 个人资料
    */
   userInfo() {
-    this.router.navigate(['/main/sys/user/userInfo']).then();
+    this.router.navigate(['/main/sys/userInfo']).then();
   }
 
   /**
    * 修改密码
    */
   passwordEdit() {
-    this.router.navigate(['/main/sys/user/editPassword']).then();
+    this.router.navigate(['/main/sys/editPassword']).then();
   }
 
   /**

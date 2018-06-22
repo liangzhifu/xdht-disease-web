@@ -72,7 +72,7 @@ export class EmployeeManageComponent implements OnInit {
    */
   openEmployeeInfo(employeeData) {
     const modalRef = this.ngbModal.open(EmpoiyeeInfoComponent);
-    modalRef.componentInstance.sysEmpoiyeeRequest = employeeData;
+    modalRef.componentInstance.sysEmployeeRequest = employeeData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -85,7 +85,7 @@ export class EmployeeManageComponent implements OnInit {
    * 新增职工
    */
   addEmployee() {
-    const modalRef = this.ngbModal.open(EmployeeEditComponent);
+    const modalRef = this.ngbModal.open(EmployeeEditComponent, {size: 'x1'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -116,8 +116,8 @@ export class EmployeeManageComponent implements OnInit {
    * 打开修改职工对话框
    */
   openEditEmployee(employeeData) {
-    const modalRef = this.ngbModal.open(EmployeeEditComponent);
-    modalRef.componentInstance.sysEmpoiyeeRequest = employeeData;
+    const modalRef = this.ngbModal.open(EmployeeEditComponent, {size: 'x1'});
+    modalRef.componentInstance.sysEmployeeRequest = employeeData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {

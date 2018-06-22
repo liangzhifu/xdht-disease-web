@@ -117,7 +117,4 @@ export class CompanyManageComponent implements OnInit {
       }
     );
   }
-
-  editCompanyOffice(companyId) {
-  }
 }

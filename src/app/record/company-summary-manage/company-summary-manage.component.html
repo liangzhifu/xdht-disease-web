@@ -1,0 +1,64 @@
+<script src="employee-manage.component.ts"></script>
+<div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-right">检查机构：</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" (input)="param.inspectionAgency = $event.target.value" placeholder="检查机构...">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+        <button class="btn btn-primary" (click)="addCompanySummary();"><i class="fa fa-search fa-fw"></i> 新增</button>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+    <div class="col-md-12">
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table width="100%">
+          <tr>
+            <th>检查日期</th>
+            <th>检查机构</th>
+            <th>体检种类</th>
+            <th>应检人数</th>
+            <th>实检人数</th>
+            <th>未见异常</th>
+            <th>复查</th>
+            <th>疑似</th>
+            <th>禁忌证</th>
+            <th>其他疾患</th>
+            <th>备注</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td>{{item.inspectionDate}}</td>
+            <td>{{item.inspectionAgency}}</td>
+            <td>{{item.physicalExaminationType}}</td>
+            <td>{{item.inspectedNumber}}</td>
+            <td>{{item.actualInspectdNumber}}</td>
+            <td>{{item.noAbnormality}}</td>
+            <td>{{item.reviewNumber}}</td>
+            <td>{{item.doubtfulNumber}}</td>
+            <td>{{item.tabooNumber}}</td>
+            <td>{{item.otherDiseasesNumber}}</td>
+            <td>{{item.remarks}}</td>
+            <td>{{item.status | statusReform}}</td>
+            <td>
+              <button type="button" (click)="editCompanySummary(item.id)">修改</button>
+              <button type="button" (click)="delCompanySummary(item.id, item.inspectionDate)">删除</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

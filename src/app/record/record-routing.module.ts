@@ -18,6 +18,8 @@ import {IndividualProtectiveManageComponent} from './individual-protective-manag
 import {EmergencyFacilitiesManageComponent} from './emergency-facilities-manage/emergency-facilities-manage.component';
 import {InformingFacilitiesManageComponent} from './informing-facilities-manage/informing-facilities-manage.component';
 import {HealthManagementManageComponent} from './health-management-manage/health-management-manage.component';
+import {CompanySummaryManageComponent} from './company-summary-manage/company-summary-manage.component';
+import {EmployeeSummaryManageComponent} from './employee-summary-manage/employee-summary-manage.component';
 
 /**
  * 调查表管理路由
@@ -43,7 +45,9 @@ const recordRoutes: Routes = [
       {path: 'recordIndividualProtective', component: IndividualProtectiveManageComponent},
       {path: 'recordEmergencyFacilities', component: EmergencyFacilitiesManageComponent},
       {path: 'recordInformingFacilities', component: InformingFacilitiesManageComponent},
-      {path: 'recordHealthManagement', component: HealthManagementManageComponent}
+      {path: 'recordHealthManagement', component: HealthManagementManageComponent},
+      {path: 'employeeSummaryManage', component: EmployeeSummaryManageComponent},
+      {path: 'companySummaryManage', component: CompanySummaryManageComponent}
     ]
   }
 ];

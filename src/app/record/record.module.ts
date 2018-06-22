@@ -40,6 +40,10 @@ import {ProductEditComponent} from './product-edit/product-edit.component';
 import {WorkLogEditComponent} from './work-log-edit/work-log-edit.component';
 import {PresentSituationEditComponent} from './present-situation-edit/present-situation-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CompanySummaryManageComponent } from './company-summary-manage/company-summary-manage.component';
+import { CompanySummaryEditComponent } from './company-summary-edit/company-summary-edit.component';
+import { EmployeeSummaryManageComponent } from './employee-summary-manage/employee-summary-manage.component';
+import { EmployeeSummaryEditComponent } from './employee-summary-edit/employee-summary-edit.component';
 
 @NgModule({
   imports: [
@@ -69,9 +73,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EmergencyFacilitiesEditComponent,
     InformingFacilitiesEditComponent,
     HealthManagementEditComponent,
+    CompanySummaryEditComponent,
+    EmployeeSummaryEditComponent,
     ControlEffectEditComponent
   ],
-  declarations: [
+    declarations: [
     EquipmentManageComponent,
     EquipmentLayoutManageComponent,
     HazardFactorsManageComponent,
@@ -109,7 +115,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ControlEffectEditComponent,
     PresentSituationEditComponent,
     WorkLogEditComponent,
-    WorkLogManageComponent
+    WorkLogManageComponent,
+    CompanySummaryManageComponent,
+    CompanySummaryEditComponent,
+    EmployeeSummaryManageComponent,
+    EmployeeSummaryEditComponent
   ]
 })
 export class RecordModule { }

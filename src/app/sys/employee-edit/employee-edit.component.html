@@ -1,6 +1,6 @@
 <div class="c-content-inner">
   <div class="modal-body row">
-    <label>{{companyEditTitle}}</label>
+    <label>{{employeeSummaryEditTitle}}</label>
     <button aria-label="Close" class="close" type="button" (click)="close()">
       <span aria-hidden="true">×</span>
     </button>
@@ -12,7 +12,7 @@
       <div class="form-group row">
         <label class="col-md-4 col-form-label text-right">部门：</label>
         <div class="col-md-8">
-          <input type="hidden" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.id">
+          <input type="hidden" [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.id" name="id">
           <select #select [(ngModel)]="sysEmpoiyeeRequest.sysEmployee.officeId" >
             <option value="">--请选择部门--</option>
             <option *ngFor="let office of sysEmpoiyeeRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>

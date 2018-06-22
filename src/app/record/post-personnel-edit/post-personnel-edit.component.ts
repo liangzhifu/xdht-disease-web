@@ -2,10 +2,14 @@ import {Component, Input, OnInit} from '@angular/core';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastService} from '../../toast/toast.service';
 import {HttpService} from '../../core/http/http.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
+import {AlertConfig} from '../../modal/alert/alert-config';
+import {AlertType} from '../../modal/alert/alert-type';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
+import {ModalService} from '../../modal/modal.service';
 
 @Component({
   selector: 'app-post-personnel-edit',
@@ -20,6 +24,11 @@ export class PostPersonnelEditComponent implements OnInit {
       'postPersonnelNo': '',
       'verificationResult': '',
       'sceneId' : ''
+    },
+    sysCompanyOffice: {
+      id : '',
+      companyId: '',
+      officeName: ''
     },
     'recordPostPersonnelDataList': [{
       'id': '',
@@ -46,12 +55,16 @@ export class PostPersonnelEditComponent implements OnInit {
   };
   addFlag: boolean;
   action = '';
+  companyList = [{id: '', companyName: ''}];
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
     private waitService: WaitService
   ) {
+
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.recordPostPersonnelInputRequest.sysCompanyOfficeList = data;
@@ -69,6 +82,14 @@ export class PostPersonnelEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    // 获取部门列表
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      complete: () => {
+      }
+    });
     const relationId = this.recordPostPersonnelInputRequest.recordPostPersonnel.id;
     if (relationId === undefined || relationId === null || relationId === '') {
       this.addFlag = true;
@@ -159,6 +180,29 @@ export class PostPersonnelEditComponent implements OnInit {
       }
     });
     this.waitService.wait(false);
+  }
+
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice() {
+    const companyId = this.recordPostPersonnelInputRequest.sysCompanyOffice.companyId;
+    if (companyId === undefined || companyId === null || companyId === '') {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, null, '请先选择一个公司！');
+      this.modalService.alert(alertConfig);
+      return false;
+    }
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordPostPersonnelInputRequest.sysCompanyOffice.id = sysCompanyOffice.id;
+          this.recordPostPersonnelInputRequest.sysCompanyOffice.officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
   }
 
 }

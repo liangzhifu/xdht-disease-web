@@ -9,8 +9,8 @@ import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {SystemConstant} from '../../core/class/system-constant';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import * as $ from 'jquery';
 import {SelectEmployeeComponent} from '../select-employee/select-employee.component';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-record-scene-edit',
@@ -162,12 +162,13 @@ export class SceneEditComponent implements OnInit {
    * 选择陪同人
    */
   selectEmployee() {
-      const modalRef = this.ngbModal.open(SelectEmployeeComponent);
-      modalRef.componentInstance.sysEmployeeRequest.sysEmployeeList = this.employeeData ;
+      const modalRef = this.ngbModal.open(SelectEmployeeComponent, {size: 'lg'});
+      modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;
       modalRef.result.then(
         (result) => {
-          if (result === 'success') {
-            // this.search();
+          if (result.success === 'success') {
+            this.recordSceneRequest.recordScene.inquiryCompanyEmployee = result.sysEmployee.id;
+            this.recordSceneRequest.recordScene.inquiryCompanyEmployeeName = result.sysEmployee.empName;
           }
         }
       );

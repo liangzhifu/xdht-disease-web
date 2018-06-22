@@ -43,6 +43,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {VddEquipmentEditComponent} from './vdd-equipment-edit/vdd-equipment-edit.component';
 import {VddEquipmentManageComponent} from './vdd-equipment-manage/vdd-equipment-manage.component';
 import { SelectEmployeeComponent } from './select-employee/select-employee.component';
+import { CompanySummaryManageComponent } from './company-summary-manage/company-summary-manage.component';
+import { CompanySummaryEditComponent } from './company-summary-edit/company-summary-edit.component';
+import { EmployeeSummaryManageComponent } from './employee-summary-manage/employee-summary-manage.component';
+import { EmployeeSummaryEditComponent } from './employee-summary-edit/employee-summary-edit.component';
 
 @NgModule({
   imports: [
@@ -74,7 +78,10 @@ import { SelectEmployeeComponent } from './select-employee/select-employee.compo
     HealthManagementEditComponent,
     ControlEffectEditComponent,
     VddEquipmentEditComponent,
-    SelectEmployeeComponent
+    SelectEmployeeComponent,
+    CompanySummaryEditComponent,
+    EmployeeSummaryEditComponent,
+    ControlEffectEditComponent
   ],
   declarations: [
     EquipmentManageComponent,
@@ -117,7 +124,11 @@ import { SelectEmployeeComponent } from './select-employee/select-employee.compo
     WorkLogManageComponent,
     VddEquipmentEditComponent,
     VddEquipmentManageComponent,
-    SelectEmployeeComponent
-]
+    SelectEmployeeComponent,
+    CompanySummaryManageComponent,
+    CompanySummaryEditComponent,
+    EmployeeSummaryManageComponent,
+    EmployeeSummaryEditComponent
+  ]
 })
 export class RecordModule { }

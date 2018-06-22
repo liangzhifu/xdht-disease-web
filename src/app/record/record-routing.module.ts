@@ -19,6 +19,8 @@ import {EmergencyFacilitiesManageComponent} from './emergency-facilities-manage/
 import {InformingFacilitiesManageComponent} from './informing-facilities-manage/informing-facilities-manage.component';
 import {HealthManagementManageComponent} from './health-management-manage/health-management-manage.component';
 import {VddEquipmentManageComponent} from './vdd-equipment-manage/vdd-equipment-manage.component';
+import {CompanySummaryManageComponent} from './company-summary-manage/company-summary-manage.component';
+import {EmployeeSummaryManageComponent} from './employee-summary-manage/employee-summary-manage.component';
 
 /**
  * 调查表管理路由
@@ -29,7 +31,6 @@ const recordRoutes: Routes = [
     component: RecordComponent,
     children: [
       {path: 'recordSceneManage', component: SceneManageComponent},
-      {path: 'recordSceneDetail', component: SceneDetailComponent},
       {path: 'recordPreEvaManage', component: PreEvaluationManageComponent},
       {path: 'recordPresentSituation', component: PresentSituationManageComponent},
       {path: 'recordControlEffect', component: ControlEffectManageComponent},
@@ -37,6 +38,7 @@ const recordRoutes: Routes = [
       {path: 'recordProduct', component: ProductManageComponent},
       {path: 'recordEquipment', component: EquipmentManageComponent},
       {path: 'recordEquipmentLayout', component: EquipmentLayoutManageComponent},
+      {path: 'recordSceneDetail', component: SceneDetailComponent},
       {path: 'recordHazardFactors', component: HazardFactorsManageComponent},
       {path: 'recordAntiNoise', component: AntiNoiseManageComponent},
       {path: 'recordTemperature', component: TemperatureProtectionManageComponent},
@@ -45,7 +47,9 @@ const recordRoutes: Routes = [
       {path: 'recordEmergencyFacilities', component: EmergencyFacilitiesManageComponent},
       {path: 'recordInformingFacilities', component: InformingFacilitiesManageComponent},
       {path: 'recordHealthManagement', component: HealthManagementManageComponent},
-      {path: 'recordVddEquipment', component: VddEquipmentManageComponent}
+      {path: 'recordVddEquipment', component: VddEquipmentManageComponent},
+      {path: 'employeeSummaryManage', component: EmployeeSummaryManageComponent},
+      {path: 'companySummaryManage', component: CompanySummaryManageComponent}
     ]
   }
 ];

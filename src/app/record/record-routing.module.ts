@@ -19,6 +19,8 @@ import {EmergencyFacilitiesManageComponent} from './emergency-facilities-manage/
 import {InformingFacilitiesManageComponent} from './informing-facilities-manage/informing-facilities-manage.component';
 import {HealthManagementManageComponent} from './health-management-manage/health-management-manage.component';
 import {VddEquipmentManageComponent} from './vdd-equipment-manage/vdd-equipment-manage.component';
+import {PostPersonelComponent} from './post-personel/post-personel.component';
+import {PostPersonnelManageComponent} from './post-personnel-manage/post-personnel-manage.component';
 
 /**
  * 调查表管理路由
@@ -35,6 +37,7 @@ const recordRoutes: Routes = [
       {path: 'recordControlEffect', component: ControlEffectManageComponent},
       {path: 'recordWorkLog', component: WorkLogManageComponent},
       {path: 'recordProduct', component: ProductManageComponent},
+      {path: 'recordPostPersonnel', component: PostPersonnelManageComponent},
       {path: 'recordEquipment', component: EquipmentManageComponent},
       {path: 'recordEquipmentLayout', component: EquipmentLayoutManageComponent},
       {path: 'recordHazardFactors', component: HazardFactorsManageComponent},

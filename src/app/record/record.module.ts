@@ -43,6 +43,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {VddEquipmentEditComponent} from './vdd-equipment-edit/vdd-equipment-edit.component';
 import {VddEquipmentManageComponent} from './vdd-equipment-manage/vdd-equipment-manage.component';
 import { SelectEmployeeComponent } from './select-employee/select-employee.component';
+import { PostPersonnelManageComponent } from './post-personnel-manage/post-personnel-manage.component';
+import { PostPersonnelEditComponent } from './post-personnel-edit/post-personnel-edit.component';
 
 @NgModule({
   imports: [
@@ -74,7 +76,9 @@ import { SelectEmployeeComponent } from './select-employee/select-employee.compo
     HealthManagementEditComponent,
     ControlEffectEditComponent,
     VddEquipmentEditComponent,
-    SelectEmployeeComponent
+    SelectEmployeeComponent,
+    PostPersonnelManageComponent,
+    PostPersonnelEditComponent
   ],
   declarations: [
     EquipmentManageComponent,
@@ -117,7 +121,9 @@ import { SelectEmployeeComponent } from './select-employee/select-employee.compo
     WorkLogManageComponent,
     VddEquipmentEditComponent,
     VddEquipmentManageComponent,
-    SelectEmployeeComponent
+    SelectEmployeeComponent,
+    PostPersonnelManageComponent,
+    PostPersonnelEditComponent
 ]
 })
 export class RecordModule { }

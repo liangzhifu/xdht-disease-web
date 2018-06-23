@@ -14,6 +14,7 @@ import {ControlEffectEditComponent} from '../control-effect-edit/control-effect-
 import {PresentSituationEditComponent} from '../present-situation-edit/present-situation-edit.component';
 import {PreEvaluationEditComponent} from '../pre-evaluation-edit/pre-evaluation-edit.component';
 import {AntiNoiseEditComponent} from '../anti-noise-edit/anti-noise-edit.component';
+import {EmergencyFacilitiesEditComponent} from '../emergency-facilities-edit/emergency-facilities-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -83,11 +84,9 @@ export class SceneDetailComponent implements OnInit {
 
   openRecordEdit(questionnaireId, sceneId) {
     let myUrl;
-    let recordInputReuqest;
     switch (questionnaireId) {
       case (1) : this.editComponent = PreEvaluationEditComponent;
                   myUrl = SystemConstant.PRE_EVALUATION_DETAIL;
-                  recordInputReuqest = 'recordPreEvaluationRequest';
                   break;
       case (2) : this.editComponent = ControlEffectEditComponent;
                   myUrl = SystemConstant.CONTROL_EFFECT_DETAIL;
@@ -98,15 +97,17 @@ export class SceneDetailComponent implements OnInit {
       case (4) : this.editComponent = PostPersonnelEditComponent;
                   myUrl = SystemConstant.POST_PERSONNEL_DETAIL;
                   break;
-      case (5) : this.editComponent = AntiNoiseEditComponent;
+      case (11) : this.editComponent = AntiNoiseEditComponent;
                   myUrl = SystemConstant.ANTI_NOISE_DETAIL;
+                  break;
+      case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
+                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
     }
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)
     this.httpService.get(myUrl + '/' + sceneId).subscribe({
       next: (data) => {
         const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
-        // modalRef.componentInstance.recordPostPersonnelInputRequest = data;
           modalRef.componentInstance.recordData = data;
           modalRef.result.then(
           (result) => {

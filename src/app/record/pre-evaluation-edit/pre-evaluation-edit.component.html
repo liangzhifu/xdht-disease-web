@@ -9,11 +9,11 @@
     <div class="row list">
       <div class="col-md-6">
         <label class="col-md-4 col-form-label text-right float-left">编码：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordPreEvaluationRequest.recordPreEvaluation.preEvaluationNo" name="recordPreEvaluation.preEvaluationNo" placeholder="编码" >
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordPreEvaluation.preEvaluationNo" name="recordPreEvaluation.preEvaluationNo" placeholder="编码" >
       </div>
       <div class="col-md-6">
         <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordPreEvaluationRequest.recordPreEvaluation.verificationResult" name="recordPreEvaluation.verificationResult" placeholder="核实情况">
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordPreEvaluation.verificationResult" name="recordPreEvaluation.verificationResult" placeholder="核实情况">
       </div>
     </div>
     <div class="row">
@@ -24,10 +24,10 @@
             <th>调查结果</th>
             <th>备注</th>
           </tr>
-          <tr *ngFor="let item of recordPreEvaluationRequest.recordPreEvaluationDataList;let i = index;">
+          <tr *ngFor="let item of recordData.recordPreEvaluationDataList;let i = index;">
             <td>{{item.projectName}}</td>
             <td><input type="text" [(ngModel)]="item.surveyResults" name="item{{i}}.surveyResults"></td>
-            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.surveyResults"></td>
+            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks"></td>
           </tr>
         </table>
       </div>

@@ -15,6 +15,16 @@ import {PresentSituationEditComponent} from '../present-situation-edit/present-s
 import {PreEvaluationEditComponent} from '../pre-evaluation-edit/pre-evaluation-edit.component';
 import {AntiNoiseEditComponent} from '../anti-noise-edit/anti-noise-edit.component';
 import {EmergencyFacilitiesEditComponent} from '../emergency-facilities-edit/emergency-facilities-edit.component';
+import {WorkLogEditComponent} from '../work-log-edit/work-log-edit.component';
+import {ProductEditComponent} from '../product-edit/product-edit.component';
+import {EquipmentEditComponent} from '../equipment-edit/equipment-edit.component';
+import {EquipmentLayoutEditComponent} from '../equipment-layout-edit/equipment-layout-edit.component';
+import {HazardFactorsEditComponent} from '../hazard-factors-edit/hazard-factors-edit.component';
+import {VddEquipmentEditComponent} from '../vdd-equipment-edit/vdd-equipment-edit.component';
+import {TemperatureProtectionEditComponent} from '../temperature-protection-edit/temperature-protection-edit.component';
+import {OtherProtectiveEditComponent} from '../other-protective-edit/other-protective-edit.component';
+import {IndividualProtectiveEditComponent} from '../individual-protective-edit/individual-protective-edit.component';
+import {InformingFacilitiesEditComponent} from '../informing-facilities-edit/informing-facilities-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -97,10 +107,59 @@ export class SceneDetailComponent implements OnInit {
       case (4) : this.editComponent = PostPersonnelEditComponent;
                   myUrl = SystemConstant.POST_PERSONNEL_DETAIL;
                   break;
+      case (5) : this.editComponent = WorkLogEditComponent;
+                  myUrl = SystemConstant.WORK_LOG_DETAIL;
+                  break;
+      case (6) : this.editComponent = ProductEditComponent;
+                  myUrl = SystemConstant.PRODUCT_DETAIL;
+                  break;
+      case (7) : this.editComponent = EquipmentEditComponent;
+                  myUrl = SystemConstant.EQUIPMENT_DETAIL;
+                  break;
+      case (8) : this.editComponent = EquipmentLayoutEditComponent;
+                  myUrl = SystemConstant.EQUIPMENT_LAYOUT_DETAIL;
+                  break;
+      case (9) : this.editComponent = HazardFactorsEditComponent;
+                  myUrl = SystemConstant.HAZARD_FACTORS_DETAIL;
+                  break;
+      case (10) : this.editComponent = VddEquipmentEditComponent;
+                  myUrl = SystemConstant.VDD_EQUIPMENT_DETAIL;
+                  break;
       case (11) : this.editComponent = AntiNoiseEditComponent;
                   myUrl = SystemConstant.ANTI_NOISE_DETAIL;
                   break;
+      case (12) : this.editComponent = TemperatureProtectionEditComponent;
+                  myUrl = SystemConstant.TEMPERATURE_DETAIL;
+                  break;
+      case (13) : this.editComponent = OtherProtectiveEditComponent;
+                  myUrl = SystemConstant.OTHER_PROTECTIVE_DETAIL;
+                  break;
+      case (14) : this.editComponent = IndividualProtectiveEditComponent;
+                  myUrl = SystemConstant.INDIVIDUAL_PROTECTIVE_DETAIL;
+                  break;
       case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
+                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  break;
+                  // 一下模块需要更改（19 除外）
+      case (16) : this.editComponent = EmergencyFacilitiesEditComponent;
+                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  break;
+      case (17) : this.editComponent = EmergencyFacilitiesEditComponent;
+                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  break;
+      case (18) : this.editComponent = EmergencyFacilitiesEditComponent;
+                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  break;
+      case (19) : this.editComponent = InformingFacilitiesEditComponent;
+                  myUrl = SystemConstant.INFORMING_FACILITIES_DETAIL;
+                  break;
+      case (20) : this.editComponent = EmergencyFacilitiesEditComponent;
+                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  break;
+      case (21) : this.editComponent = EmergencyFacilitiesEditComponent;
+                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  break;
+      case (22) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
     }
@@ -109,6 +168,7 @@ export class SceneDetailComponent implements OnInit {
       next: (data) => {
         const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
           modalRef.componentInstance.recordData = data;
+        modalRef.componentInstance.sceneId = sceneId;
           modalRef.result.then(
           (result) => {
             if (result === 'success') {

@@ -168,6 +168,7 @@ export class SceneDetailComponent implements OnInit {
       next: (data) => {
         const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
           modalRef.componentInstance.recordData = data;
+        modalRef.componentInstance.sceneId = sceneId;
           modalRef.result.then(
           (result) => {
             if (result === 'success') {

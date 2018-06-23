@@ -1,16 +1,15 @@
 <div class="c-content-inner">
   <form #employeeSummaryForm="ngForm">
     <div class="modal-body row">
-      <label>{{companySummaryEditTitle}}</label>
+      <label>{{employeeSummaryEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
         <span aria-hidden="true">×</span>
       </button>
     </div>
     <div class="row list">
       <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">部门：</label>
         <input type="hidden" [(ngModel)]="employeeSummaryRequest.employeeSummary.id" name="id">
-        <input type="hidden" [(ngModel)]="companySummary.id" name="id">
+        <label class="col-md-4 col-form-label text-right float-left">部门：</label>
         <select #select [(ngModel)]="employeeSummaryRequest.employeeSummary.officeId" name="officeId">
           <option value="">--请选择部门--</option>
           <option *ngFor="let office of employeeSummaryRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
@@ -20,7 +19,7 @@
         <label class="col-md-4 col-form-label text-right float-left">工种：</label>
           <select #select [(ngModel)]="employeeSummaryRequest.employeeSummary.workType" name="workType">
             <option value="">--请选择工种--</option>
-            <option *ngFor="let workType of employeeSummaryRequest.sysWorkTypeList;" value="{{workType.id}}" >{{workType.name}}</option>
+            <option *ngFor="let sysPost of employeeSummaryRequest.SysPostList;" value="{{sysPost.id}}" >{{sysPost.postName}}</option>
           </select>
       </div>
     </div>
@@ -43,6 +42,24 @@
       <div class="col-md-6">
         <label class="col-md-4 col-form-label text-right float-left">接噪工龄：</label>
         <input type="text" class="form-control col-md-8" [(ngModel)]="employeeSummaryRequest.employeeSummary.contactTime" name="contactTime" placeholder="接噪工龄">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">体检日期：</label>
+        <div class="input-group col-md-8">
+          <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{employeeSummaryRequest.employeeSummary.inspectDate}}" id="inspectDate" name="inspectDate" placeholder="体检日期">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <img src="assets/img/calendar-icon.png"/>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">初检/复检：</label>
+        <input type="radio" value="0" [(ngModel)]="employeeSummaryRequest.employeeSummary.inspect" name="inspect">初检
+        <input type="radio" value="1" [(ngModel)]="employeeSummaryRequest.employeeSummary.inspect" name="inspect">复检
       </div>
     </div>
     <div class="row list">

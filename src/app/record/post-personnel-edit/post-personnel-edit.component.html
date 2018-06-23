@@ -7,13 +7,20 @@
     </div>
     <div class="row list">
       <div class="col-md-6">
+        sceneID : <input type="text" [(ngModel)]="recordPostPersonnelInputRequest.recordPostPersonnel.sceneId">
         <label class="col-md-5 col-form-label text-right float-left">编码：</label>
-        <input type="hidden" [(ngModel)]="recordPostPersonnelInputRequest.recordPostPersonnel.sceneId">
         <input type="text" class="form-control" [(ngModel)]="recordPostPersonnelInputRequest.recordPostPersonnel.postPersonnelNo" placeholder="编码" >
       </div>
       <div class="col-md-6">
         <label class="col-md-5 col-form-label text-right float-left">核实情况：</label>
         <input type="text" class="form-control" [(ngModel)]="recordPostPersonnelInputRequest.recordPostPersonnel.verificationResult" placeholder="核实情况">
+      </div>
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">公司：</label>
+        <select class="form-control col-md-7" [(ngModel)]="recordPostPersonnelInputRequest.sysCompanyOffice.companyId" name="sysCompanyOfficeCompanyId">
+          <option value=""></option>
+          <option *ngFor="let item of companyList;" value="{{item.id}}">{{item.companyName}}</option>
+        </select>
       </div>
     </div>
   <table width="100%" border="1" cellpadding="0" cellspacing="0" style="table-layout:fixed; text-align:center;" >
@@ -32,10 +39,14 @@
     <tr *ngFor="let item of recordPostPersonnelInputRequest.recordPostPersonnelDataList;"  >
       <td></td>
       <td width="20px;">
-        <select #select [(ngModel)]="item.companyOfficeId" >
-          <option value="">--请选择部门--</option>
+        <label class="col-md-4 col-form-label text-right float-left">部门：</label>
+        <input type="hidden" [(ngModel)]="recordPostPersonnelInputRequest.sysCompanyOffice.id" name="sysCompanyOfficeId">
+        <input type="text" class="form-control col-md-5 float-left" [(ngModel)]="recordPostPersonnelInputRequest.sysCompanyOffice.officeName" name="sysCompanyOfficeName" readonly>
+        <button class="btn btn-primary" (click)="searchEmployeeOffice();">查询</button>
+       <!-- <select #select [(ngModel)]="item.companyOfficeId" >
+          <option value="">&#45;&#45;请选择部门&#45;&#45;</option>
           <option *ngFor="let office of recordPostPersonnelInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
-        </select>
+        </select>-->
       </td>
       <td width="20px;">
         <select #select [(ngModel)]="item.postId" >

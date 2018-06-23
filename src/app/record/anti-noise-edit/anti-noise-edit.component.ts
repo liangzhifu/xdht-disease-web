@@ -14,11 +14,12 @@ import {ToastConfig} from '../../toast/toast-config';
 })
 export class AntiNoiseEditComponent implements OnInit {
   recordAntiNoiseEditTitle: string;
-  @Input() recordAntiNoiseInputRequest = {
+  @Input() recordData = {
     'recordAntiNoiseFacilities': {
       'id': '',
       'antiNoiseFacilitiesNo': '',
-      'verificationResult': ''
+      'verificationResult': '',
+      'sceneId': ''
     },
     'recordAntiNoiseFacilitiesDataList': [{
       'id': '',
@@ -52,14 +53,14 @@ export class AntiNoiseEditComponent implements OnInit {
   ) {
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordAntiNoiseInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
     });
     this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordAntiNoiseInputRequest.sysPostList = data;
+        this.recordData.sysPostList = data;
       },
       complete: () => {
       }
@@ -67,15 +68,15 @@ export class AntiNoiseEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordAntiNoiseInputRequest.recordAntiNoiseFacilities.id;
+    const relationId = this.recordData.recordAntiNoiseFacilities.id;
     if (relationId === undefined || relationId === null || relationId === '') {
       this.addFlag = true;
       this.recordAntiNoiseEditTitle = '新增--防噪声设施调查表';
     } else {
       this.addFlag = false;
       this.recordAntiNoiseEditTitle = '修改--防噪声设施调查表';
-      const  dataList = this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList;
-      this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList = [];
+      const  dataList = this.recordData.recordAntiNoiseFacilitiesDataList;
+      this.recordData.recordAntiNoiseFacilitiesDataList = [];
 
       for (let i = 0; i < dataList.length; i++) {
         const recordAntiNoiseData = {
@@ -88,7 +89,7 @@ export class AntiNoiseEditComponent implements OnInit {
           'operationAndMaintenance': dataList[i].operationAndMaintenance,
           'relationId': dataList[i].relationId
         };
-        this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList.push(recordAntiNoiseData);
+        this.recordData.recordAntiNoiseFacilitiesDataList.push(recordAntiNoiseData);
       }
     }
   }
@@ -102,11 +103,11 @@ export class AntiNoiseEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList.length;
-    this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'workPlace' : '', 'noiseSource' : '', 'noiseProtectionFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
+    const index = this.recordData.recordAntiNoiseFacilitiesDataList.length;
+    this.recordData.recordAntiNoiseFacilitiesDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'workPlace' : '', 'noiseSource' : '', 'noiseProtectionFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordAntiNoiseInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -117,8 +118,8 @@ export class AntiNoiseEditComponent implements OnInit {
    * 删除一行
    */
   delOffice(item) {
-    const index = this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList.indexOf(item);
-    this.recordAntiNoiseInputRequest.recordAntiNoiseFacilitiesDataList.splice(index, index + 1);
+    const index = this.recordData.recordAntiNoiseFacilitiesDataList.indexOf(item);
+    this.recordData.recordAntiNoiseFacilitiesDataList.splice(index, index + 1);
   }
 
   /**
@@ -134,7 +135,7 @@ export class AntiNoiseEditComponent implements OnInit {
       url = SystemConstant.ANTI_NOISE_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordAntiNoiseInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

@@ -84,8 +84,6 @@ export const SystemConstant = Object.freeze({
   // 工种信息
   WORK_TYPE_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysWorkType/sysWorkTypeList',
 
-  // 建设项目(预评价)配置
-  PRE_EVALUATION_PROJECT_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordPreEvaluationProject/listAll',
   // 建设项目概况调查表（预评价） 配置
   PRE_EVALUATION_PAGE_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordPreEvaluation/pageList',
   PRE_EVALUATION_ADD: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordPreEvaluation/add',

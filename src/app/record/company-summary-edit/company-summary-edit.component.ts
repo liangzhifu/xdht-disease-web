@@ -21,6 +21,7 @@ export class CompanySummaryEditComponent implements OnInit {
     id: '',
     companyId: '',
     inspectionDate: '',
+    inspectionDateDatepicker: '',
     inspectionAgency: '',
     physicalExaminationType: '',
     inspectedNumber: '',
@@ -33,6 +34,7 @@ export class CompanySummaryEditComponent implements OnInit {
     status: '',
     remarks: ''
   };
+  companyList = [{id: '', companyName: ''}];
   companySummaryEditTitle: string;
   addFlag: boolean;
   action = '';
@@ -47,6 +49,14 @@ export class CompanySummaryEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    // 获取企业列表
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      complete: () => {
+      }
+    });
     const preEvaluationId = this.companySummary.id;
     console.log(preEvaluationId);
     if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {

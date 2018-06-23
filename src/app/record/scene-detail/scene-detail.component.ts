@@ -101,7 +101,7 @@ export class SceneDetailComponent implements OnInit {
     this.httpService.get(myUrl + '/' + sceneId).subscribe({
       next: (data) => {
         const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
-        modalRef.componentInstance.recordPostPersonnelInputRequest = data;
+        modalRef.componentInstance.recordRequest = data;
         modalRef.result.then(
           (result) => {
             if (result === 'success') {

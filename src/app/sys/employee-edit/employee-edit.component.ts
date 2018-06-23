@@ -72,7 +72,7 @@ export class EmployeeEditComponent implements OnInit {
     }]
   };
   companyList = [{id: '', companyName: ''}];
-  sysWorkTypeList = [{id: '', name: ''}];
+  sysWorkTypeList = [{id: '', postName: ''}];
   employeeEditTitle: string;
   addFlag: boolean;
   action = '';
@@ -97,7 +97,7 @@ export class EmployeeEditComponent implements OnInit {
       }
     });
     // 获取工种列表
-    this.httpService.post(SystemConstant.WORK_TYPE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
         this.sysWorkTypeList = data;
       },

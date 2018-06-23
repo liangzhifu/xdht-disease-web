@@ -28,6 +28,8 @@
             <th rowspan="3">性别</th>
             <th rowspan="3">年龄</th>
             <th rowspan="3">接噪工龄</th>
+            <th rowspan="3">体检日期</th>
+            <th rowspan="3">初检/复检</th>
             <th rowspan="3">职业病危害因素</th>
             <th colspan="7">内科</th>
             <th rowspan="3">耳</th>
@@ -78,9 +80,11 @@
             <td>{{item.officeId}}</td>
             <td>{{item.workType}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.sex}}</td>
+            <td>{{item.sex | sexReform}}</td>
             <td>{{item.age}}</td>
             <td>{{item.contactTime}}</td>
+            <td>{{item.inspectDate}}</td>
+            <td>{{item.inspect | inspectReform}}</td>
             <td>{{item.hazardFactor}}</td>
             <td>{{item.bloodPressureShrink}}</td>
             <td>{{item.bloodPressureDiastole}}</td>
@@ -116,7 +120,7 @@
             <td>{{item.status | statusReform}}</td>
             <td>
               <button type="button" class="btn btn-warning radius mr-10" (click)="editEmployeeSummary(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
-              <button type="button" class="btn btn-danger radius" (click)="delEmployeeSummary(item.id, item.companyName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+              <button type="button" class="btn btn-danger radius" (click)="delEmployeeSummary(item.id, item.name)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
             </td>
           </tr>
         </table>

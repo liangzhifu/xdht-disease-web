@@ -125,7 +125,7 @@
             <td>
               <select #select [(ngModel)]="employeeJob.workType"  name="employeeJob_{{i}}_workType">
                 <option value="">--请选择工种--</option>
-                <option *ngFor="let workType of sysWorkTypeList;" value="{{workType.id}}" >{{workType.name}}</option>
+                <option *ngFor="let workType of sysWorkTypeList;" value="{{workType.id}}" >{{workType.postName}}</option>
               </select>
             </td>
             <td><input type="text" [(ngModel)]="employeeJob.noiseDetectionResults" name="employeeJob_{{i}}_noiseDetectionResults"></td>

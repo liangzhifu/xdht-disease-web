@@ -92,7 +92,7 @@ export class SceneDetailComponent implements OnInit {
     });
   }
 
-  openRecordEdit(questionnaireId, sceneId) {
+  openRecordEdit(questionnaireId) {
     let myUrl;
     switch (questionnaireId) {
       case (1) : this.editComponent = PreEvaluationEditComponent;
@@ -164,11 +164,12 @@ export class SceneDetailComponent implements OnInit {
                   break;
     }
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)
-    this.httpService.get(myUrl + '/' + sceneId).subscribe({
+    this.httpService.get(myUrl + '/' + this.recordSceneRequest.recordScene.id).subscribe({
       next: (data) => {
         const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
           modalRef.componentInstance.recordData = data;
-        modalRef.componentInstance.sceneId = sceneId;
+          modalRef.componentInstance.sceneId = this.recordSceneRequest.recordScene.id;
+          modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;
           modalRef.result.then(
           (result) => {
             if (result === 'success') {

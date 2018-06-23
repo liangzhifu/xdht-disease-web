@@ -57,7 +57,7 @@
       <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index">
         <td>{{i+1}}</td>
         <td>{{item.questionnaireName}}--{{item.questionnaireAlias}}--{{recordSceneRequest.recordScene.id}}--{{item.questionnaireId}}</td>
-        <td><button class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId, recordSceneRequest.recordScene.id)"><i class="fa fa-edit fa-fw"></i>修改</button></td>
+        <td><button class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)"><i class="fa fa-edit fa-fw"></i>修改</button></td>
       </tr>
       </tbody>
     </table>

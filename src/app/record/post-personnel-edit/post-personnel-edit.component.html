@@ -1,4 +1,5 @@
 <div class="c-content-inner">
+  <form #postPersonnelForm="ngForm">
     <div class="modal-body row ">
       <label>{{recordPostPersonnelEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
@@ -7,65 +8,54 @@
     </div>
     <div class="row list">
       <div class="col-md-6">
-        sceneID : <input type="text" [(ngModel)]="recordPostPersonnelInputRequest.recordPostPersonnel.sceneId">
-        <label class="col-md-5 col-form-label text-right float-left">编码：</label>
-        <input type="text" class="form-control" [(ngModel)]="recordPostPersonnelInputRequest.recordPostPersonnel.postPersonnelNo" placeholder="编码" >
+        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordPostPersonnel.postPersonnelNo" name="recordPostPersonnel.postPersonnelNo" placeholder="编码" >
       </div>
       <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">核实情况：</label>
-        <input type="text" class="form-control" [(ngModel)]="recordPostPersonnelInputRequest.recordPostPersonnel.verificationResult" placeholder="核实情况">
-      </div>
-      <div class="col-md-4 xdht-row-col">
-        <label class="col-md-4 col-form-label text-right float-left">公司：</label>
-        <select class="form-control col-md-7" [(ngModel)]="recordPostPersonnelInputRequest.sysCompanyOffice.companyId" name="sysCompanyOfficeCompanyId">
-          <option value=""></option>
-          <option *ngFor="let item of companyList;" value="{{item.id}}">{{item.companyName}}</option>
-        </select>
+        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordPostPersonnel.verificationResult" name="recordPostPersonnel.verificationResult" placeholder="核实情况">
       </div>
     </div>
-  <table width="100%" border="1" cellpadding="0" cellspacing="0" style="table-layout:fixed; text-align:center;" >
-    <tr>
-      <td style="align-content: center"><button (click)="addOffice()">增加</button></td>
-      <td>车间/部门</td>
-      <td>工种/岗位</td>
-      <td>天/周</td>
-      <td>班/天</td>
-      <td>小时/班</td>
-      <td>每班</td>
-      <td>总定员</td>
-      <td>操作</td>
-    </tr>
-    <!--<tr *ngFor="let item of recordPostPersonnelInputRequest.recordPostPersonnelDataList;" [(ngModel)]="recordPostPersonnelInputRequest.recordPostPersonnelDataList" >-->
-    <tr *ngFor="let item of recordPostPersonnelInputRequest.recordPostPersonnelDataList;"  >
-      <td></td>
-      <td width="20px;">
-        <label class="col-md-4 col-form-label text-right float-left">部门：</label>
-        <input type="hidden" [(ngModel)]="recordPostPersonnelInputRequest.sysCompanyOffice.id" name="sysCompanyOfficeId">
-        <input type="text" class="form-control col-md-5 float-left" [(ngModel)]="recordPostPersonnelInputRequest.sysCompanyOffice.officeName" name="sysCompanyOfficeName" readonly>
-        <button class="btn btn-primary" (click)="searchEmployeeOffice();">查询</button>
-       <!-- <select #select [(ngModel)]="item.companyOfficeId" >
-          <option value="">&#45;&#45;请选择部门&#45;&#45;</option>
-          <option *ngFor="let office of recordPostPersonnelInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
-        </select>-->
-      </td>
-      <td width="20px;">
-        <select #select [(ngModel)]="item.postId" >
-          <option value="">--请选择岗位--</option>
-          <option *ngFor="let post of recordPostPersonnelInputRequest.sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
-        </select>
-      </td>
-      <td width="10px;"><input type="number" [(ngModel)]="item.dayOfWeek"></td>
-      <td><input type="number" [(ngModel)]="item.classOfDate"></td>
-      <td><input type="number" [(ngModel)]="item.hourOfClass"></td>
-      <td><input type="number" [(ngModel)]="item.perShift"></td>
-      <td><input type="number" [(ngModel)]="item.totalNumber"></td>
-      <td><button (click)="delOffice(item)">删除</button></td>
-    </tr>
-  </table>
+    <div class="row">
+      <div class="col-md-12">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>车间/部门</th>
+            <th>工种/岗位</th>
+            <th>天/周</th>
+            <th>班/天</th>
+            <th>小时/班</th>
+            <th>每班</th>
+            <th>总定员</th>
+            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+          </tr>
+          <tr *ngFor="let item of recordData.recordPostPersonnelDataList;let i=index;"  >
+            <td>
+              <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{i}}.companyOfficeId">
+              <input type="text" [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
+              <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
+            </td>
+            <td width="20px;">
+              <select #select [(ngModel)]="item.postId" name="item{{i}}.postId">
+                <option value="">--请选择岗位--</option>
+                <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+              </select>
+            </td>
+            <td><input type="number" [(ngModel)]="item.dayOfWeek" name="item{{i}}.dayOfWeek"></td>
+            <td><input type="number" [(ngModel)]="item.classOfDate" name="item{{i}}.classOfDate"></td>
+            <td><input type="number" [(ngModel)]="item.hourOfClass" name="item{{i}}.hourOfClass"></td>
+            <td><input type="number" [(ngModel)]="item.perShift" name="item{{i}}.perShift"></td>
+            <td><input type="number" [(ngModel)]="item.totalNumber" name="item{{i}}.totalNumber"></td>
+            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
     <div class="row">
       <div class="op-btn">
-        <button type="button" class="btn btn-success"  (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success" [disabled]="!postPersonnelForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>
+  </form>
 </div>

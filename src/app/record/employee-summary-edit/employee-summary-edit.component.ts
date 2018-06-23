@@ -8,6 +8,8 @@ import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
+import 'jquery';
+declare var $: any;
 
 @Component({
   selector: 'app-employee-summary-edit',
@@ -24,6 +26,8 @@ export class EmployeeSummaryEditComponent implements OnInit {
       name: '',
       sex: '',
       age: '',
+      inspectDate: '',
+      inspect: '',
       contactTime: '',
       hazardFactor: '',
       bloodPressureShrink: '',
@@ -64,9 +68,9 @@ export class EmployeeSummaryEditComponent implements OnInit {
       'officeName': '',
       'status': ''
     }],
-    'sysWorkTypeList': [{
+    'SysPostList': [{
       'id': '',
-      'name': ''
+      'postName': ''
     }]
   };
   employeeSummaryEditTitle: string;
@@ -92,9 +96,9 @@ export class EmployeeSummaryEditComponent implements OnInit {
       }
     });
     // 新增时获取工种列表
-    this.httpService.post(SystemConstant.WORK_TYPE_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
-        this.employeeSummaryRequest.sysWorkTypeList = data;
+        this.employeeSummaryRequest.SysPostList = data;
       },
       complete: () => {
       }
@@ -104,25 +108,26 @@ export class EmployeeSummaryEditComponent implements OnInit {
     if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
       this.action = '新增';
       this.addFlag = true;
-      this.employeeSummaryEditTitle = '新增企业体检信息';
+      this.employeeSummaryEditTitle = '新增职工体检信息';
     } else {
       this.action = '修改';
       this.addFlag = false;
-      this.employeeSummaryEditTitle = '修改企业体检信息';
+      this.employeeSummaryEditTitle = '修改职工体检信息';
     }
   }
 
   /**
-   * 关闭企业体检信息修改框
+   * 关闭职工体检信息修改框
    */
   close() {
     this.activeModal.dismiss('failed');
   }
 
   /**
-   * 提交企业体检信息信息
+   * 提交职工体检信息信息
    */
   submitData() {
+    this.employeeSummaryRequest.employeeSummary.inspectDate = $('#inspectDate').val();
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {

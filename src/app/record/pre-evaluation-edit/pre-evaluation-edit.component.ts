@@ -15,6 +15,7 @@ import {ToastConfig} from '../../toast/toast-config';
 export class PreEvaluationEditComponent implements OnInit {
   recordPreEvaluationEditTitle: string;
   @Input() sceneId = 0;
+  @Input() companyId = 0;
   @Input() recordData = {
     recordPreEvaluation: {
       id: '',

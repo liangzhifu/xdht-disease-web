@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {WaitService} from '../../core/wait/wait.service';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
+import {ModalService} from '../../modal/modal.service';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-emergency-facilities-edit',
@@ -14,74 +16,55 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class EmergencyFacilitiesEditComponent implements OnInit {
   recordEmergencyFacilitiesEditTitle: string;
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
   @Input() recordData = {
-    'recordEmergencyFacilities': {
-      'id': '',
-      'emergencyFacilitiesNo': '',
-      'verificationResult': ''
+    recordEmergencyFacilities: {
+      id: '',
+      emergencyFacilitiesNo: '',
+      verificationResult: '',
+      sceneId : 0
     },
-    'recordEmergencyFacilitiesDataList': [{
-      'id': '',
-      'officeId': '',
-      'workPlace': '',
-      'emergencyFacilities': '',
-      'number': '',
-      'operationAndMaintenance': '',
-      'technicalParameter': '',
-      'hazardFactors': '',
-      'relationId': ''
-    }],
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
+    recordEmergencyFacilitiesDataList: [{
+      id: '',
+      officeId: '',
+      officeName: '',
+      workPlace: '',
+      emergencyFacilities: '',
+      number: '',
+      operationAndMaintenance: '',
+      technicalParameter: '',
+      hazardFactors: '',
+      relationId: ''
     }]
-
   };
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
   }
 
   ngOnInit() {
-    // const relationId = this.recordData.recordEmergencyFacilities.id;
-    // if (relationId === undefined || relationId === null || relationId === '') {
-    console.log('recordDAa:' + this.recordData.sysCompanyOfficeList);
-    if (this.recordData.recordEmergencyFacilities === null ) {
+    if (this.recordData.recordEmergencyFacilities === null
+      || this.recordData.recordEmergencyFacilities === null
+      || this.recordData.recordEmergencyFacilities.id === '') {
       this.addFlag = true;
       this.recordEmergencyFacilitiesEditTitle = '新增--应急设施调查表';
+      this.recordData.recordEmergencyFacilities = {
+        id: '',
+        emergencyFacilitiesNo: '',
+        verificationResult: '',
+        sceneId : 0
+      };
     } else {
       this.addFlag = false;
       this.recordEmergencyFacilitiesEditTitle = '修改--应急设施调查表';
-      const  dataList = this.recordData.recordEmergencyFacilitiesDataList;
-      this.recordData.recordEmergencyFacilitiesDataList = [];
-
-      for (let i = 0; i < dataList.length; i++) {
-        const recordEmergencyFacilitiesData = {
-          'id': dataList[i].id,
-          'officeId': dataList[i].officeId,
-          'workPlace': dataList[i].workPlace,
-          'emergencyFacilities': dataList[i].emergencyFacilities,
-          'number': dataList[i].number,
-          'operationAndMaintenance': dataList[i].operationAndMaintenance,
-          'technicalParameter': dataList[i].technicalParameter,
-          'hazardFactors': dataList[i].hazardFactors,
-          'relationId': dataList[i].relationId
-        };
-        this.recordData.recordEmergencyFacilitiesDataList.push(recordEmergencyFacilitiesData);
-      }
     }
   }
   /**
@@ -94,15 +77,22 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
+    if (this.recordData.recordEmergencyFacilitiesDataList === null) {
+      this.recordData.recordEmergencyFacilitiesDataList = [];
+    }
     const index = this.recordData.recordEmergencyFacilitiesDataList.length;
-    this.recordData.recordEmergencyFacilitiesDataList[index] = { 'id' : '', 'officeId' : '', 'workPlace' : '', 'emergencyFacilities' : '', 'number' : '', 'technicalParameter' : '',  'operationAndMaintenance' : '',  'hazardFactors' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
+    this.recordData.recordEmergencyFacilitiesDataList[index] = {
+        id: '',
+        officeId: '',
+        officeName: '',
+        workPlace: '',
+        emergencyFacilities: '',
+        number: '',
+        operationAndMaintenance: '',
+        technicalParameter: '',
+        hazardFactors: '',
+        relationId: ''
+    };
   }
 
   /**
@@ -110,7 +100,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
    */
   delOffice(item) {
     const index = this.recordData.recordEmergencyFacilitiesDataList.indexOf(item);
-    this.recordData.recordEmergencyFacilitiesDataList.splice(index, index + 1);
+    this.recordData.recordEmergencyFacilitiesDataList.splice(index,  1);
   }
 
   /**
@@ -122,6 +112,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.EMERGENCY_FACILITIES_ADD;
+      this.recordData.recordEmergencyFacilities.sceneId = this.sceneId;
     } else {
       url = SystemConstant.EMERGENCY_FACILITIES_EDIT;
     }
@@ -140,5 +131,20 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
     });
     this.waitService.wait(false);
   }
-
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice(index) {
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = this.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordData.recordEmergencyFacilitiesDataList[index].officeId = sysCompanyOffice.id;
+          this.recordData.recordEmergencyFacilitiesDataList[index].officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
+  }
 }

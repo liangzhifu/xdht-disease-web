@@ -1,56 +1,64 @@
 <div class="c-content-inner">
-  <div class="modal-body row">
-    <label>{{recordIndividualProtectiveEditTitle}}</label>
-    <button aria-label="Close" class="close" type="button" (click)="close()">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">编码：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordData.recordIndividualProtective.individualProtectiveEquipmentNo" placeholder="编码" >
+  <form #individualProtectiveForm="ngForm">
+    <div class="modal-body row ">
+      <label>{{recordIndividualProtectiveEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">核实情况：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordData.recordIndividualProtective.verificationResult" placeholder="核实情况">
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordIndividualProtective.individualProtectiveEquipmentNo"
+               name="recordOtherProtective.otherProtectiveFacilitiesNo" placeholder="编码" >
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordIndividualProtective.verificationResult"
+               name="recordOtherProtective.verificationResult" placeholder="核实情况">
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <table>
-      <tr>
-        <td><button (click)="addOffice()">增加</button>车间/部门</td>
-        <td>工种/岗位</td>
-        <td>接触职业病危害因素</td>
-        <td>防护用品名称</td>
-        <td>技术参数</td>
-        <td>数量</td>
-        <td>使用情况</td>
-        <td>操作</td>
-      </tr>
-      <tr *ngFor="let item of recordData.recordIndividualProtectiveDataList;" [(ngModel)]="recordData.recordIndividualProtectiveDataList" >
-        <td>
-          <select #select [(ngModel)]="item.companyOfficeId" >
-            <option value="">--请选择部门--</option>
-            <option *ngFor="let office of recordData.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
-          </select>
-        </td>
-        <td>
-          <select #select [(ngModel)]="item.postId" >
-            <option value="">--请选择岗位--</option>
-            <option *ngFor="let post of recordData.sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
-          </select>
-        </td>
-        <td><input type="text" [(ngModel)]="item.hazardFactors"></td>
-        <td><input type="text" [(ngModel)]="item.protectiveEquipment"></td>
-        <td><input type="text" [(ngModel)]="item.technicalParameter"></td>
-        <td><input type="number" [(ngModel)]="item.number"></td>
-        <td><input type="text" [(ngModel)]="item.usaged"></td>
-        <td><button (click)="delOffice(item)">删除</button></td>
-      </tr>
-    </table>
-  </div>
-  <div class="row">
-    <button (click)="submitData()">提交</button>
-    <button (click)="close()">取消</button>
-  </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>车间/部门</th>
+            <th>工种/岗位</th>
+            <th>接触职业病危害因素</th>
+            <th>防护用品名称</th>
+            <th>技术参数</th>
+            <th>数量</th>
+            <th>使用情况</th>
+            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+          </tr>
+          <tr *ngFor="let item of recordData.recordIndividualProtectiveDataList;let i=index;"  >
+            <td>
+              <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{i}}.companyOfficeId">
+              <input type="text" [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
+              <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
+            </td>
+            <td width="20px;">
+              <select #select [(ngModel)]="item.postId" name="item{{i}}.postId">
+                <option value="">--请选择岗位--</option>
+                <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+              </select>
+            </td>
+            <td><input type="text" [(ngModel)]="item.hazardFactors" name="item{{i}}.hazardFactors"></td>
+            <td><input type="text" [(ngModel)]="item.protectiveEquipment" name="item{{i}}.protectiveEquipment"></td>
+            <td><input type="text" [(ngModel)]="item.protectiveFacilities" name="item{{i}}.protectiveFacilities"></td>
+            <td><input type="text" [(ngModel)]="item.technicalParameter" name="item{{i}}.technicalParameter"></td>
+            <td><input type="number" [(ngModel)]="item.number" name="item{{i}}.number"></td>
+            <td><input type="text" [(ngModel)]="item.usage" name="item{{i}}.usage"></td>
+            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!individualProtectiveForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
 </div>

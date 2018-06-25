@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ToastService} from '../../toast/toast.service';
 import {HttpService} from '../../core/http/http.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
+import {ModalService} from '../../modal/modal.service';
 
 @Component({
   selector: 'app-vdd-equipment-edit',
@@ -14,50 +16,42 @@ import {ToastConfig} from '../../toast/toast-config';
 })
 export class VddEquipmentEditComponent implements OnInit {
   recordVddEquipmentEditTitle: string;
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
   @Input() recordData = {
-    'recordVddEquipment': {
-      'id': '',
-      'vddEquipmentNo': '',
-      'verificationResult': ''
+    recordVddEquipment: {
+      id: '',
+      vddEquipmentNo: '',
+      verificationResult: '',
+      sceneId : 0
     },
-    'recordVddEquipmentDataList': [{
-      'id': '',
-      'officeId': '',
-      'postId': '',
-      'workPlace': '',
-      'vddEquipmentName': '',
-      'poisonOrDustName': '',
-      'number': '',
-      'operationAndMaintenance': '',
-      'relationId': ''
+    recordVddEquipmentDataList: [{
+      id: '',
+      officeId: '',
+      officeName: '',
+      postId: '',
+      workPlace: '',
+      vddEquipmentName: '',
+      poisonOrDustName: '',
+      number: '',
+      operationAndMaintenance: '',
+      relationId: ''
     }],
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
-    }],
-    'sysPostList': [{
-      'id': '',
-      'postName': '',
-      'status': ''
+    sysPostList: [{
+      id: '',
+      postName: ''
     }]
-
   };
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
     this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
         this.recordData.sysPostList = data;
@@ -68,30 +62,20 @@ export class VddEquipmentEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordData.recordVddEquipment.id;
-    if (relationId === undefined || relationId === null || relationId === '') {
+    if (this.recordData.recordVddEquipment === null
+      || this.recordData.recordVddEquipment.id === null
+      || this.recordData.recordVddEquipment.id === '') {
       this.addFlag = true;
       this.recordVddEquipmentEditTitle = '新增--通风排毒除尘设施调查表';
+      this.recordData.recordVddEquipment = {
+        id: '',
+        vddEquipmentNo: '',
+        verificationResult: '',
+        sceneId : 0
+      };
     } else {
       this.addFlag = false;
       this.recordVddEquipmentEditTitle = '修改--通风排毒除尘设施调查表';
-      const  dataList = this.recordData.recordVddEquipmentDataList;
-      this.recordData.recordVddEquipmentDataList = [];
-
-      for (let i = 0; i < dataList.length; i++) {
-        const recordVddEquipmentData = {
-          'id': dataList[i].id,
-          'officeId': dataList[i].officeId,
-          'postId': dataList[i].postId,
-          'workPlace': dataList[i].workPlace,
-          'vddEquipmentName': dataList[i].vddEquipmentName,
-          'poisonOrDustName': dataList[i].poisonOrDustName,
-          'number': dataList[i].number,
-          'operationAndMaintenance': dataList[i].operationAndMaintenance,
-          'relationId': dataList[i].relationId
-        };
-        this.recordData.recordVddEquipmentDataList.push(recordVddEquipmentData);
-      }
     }
   }
   /**
@@ -104,15 +88,22 @@ export class VddEquipmentEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
+    if (this.recordData.recordVddEquipmentDataList === null) {
+      this.recordData.recordVddEquipmentDataList = [];
+    }
     const index = this.recordData.recordVddEquipmentDataList.length;
-    this.recordData.recordVddEquipmentDataList[index] = { 'id' : '', 'officeId' : '', 'postId' : '', 'workPlace' : '', 'vddEquipmentName' : '', 'poisonOrDustName' : '', 'number' : '' , 'operationAndMaintenance' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
+    this.recordData.recordVddEquipmentDataList[index] = {
+      id: '',
+      officeId: '',
+      officeName: '',
+      postId: '',
+      workPlace: '',
+      vddEquipmentName: '',
+      poisonOrDustName: '',
+      number: '',
+      operationAndMaintenance: '',
+      relationId: ''
+    };
   }
 
   /**
@@ -132,6 +123,7 @@ export class VddEquipmentEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.VDD_EQUIPMENT_ADD;
+      this.recordData.recordVddEquipment.sceneId = this.sceneId;
     } else {
       url = SystemConstant.VDD_EQUIPMENT_EDIT;
     }
@@ -151,4 +143,20 @@ export class VddEquipmentEditComponent implements OnInit {
     this.waitService.wait(false);
   }
 
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice(index) {
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = this.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordData.recordVddEquipmentDataList[index].officeId = sysCompanyOffice.id;
+          this.recordData.recordVddEquipmentDataList[index].officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
+  }
 }

@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SystemConstant} from '../../core/class/system-constant';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {WaitService} from '../../core/wait/wait.service';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
+import {ModalService} from '../../modal/modal.service';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-informing-facilities-edit',
@@ -14,70 +16,54 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class InformingFacilitiesEditComponent implements OnInit {
   recordInformingFacilitiesEditTitle: string;
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
   @Input() recordData = {
-    'recordInformingFacilities': {
-      'id': '',
-      'informingFacilitiesNo': '',
-      'verificationResult': ''
+    recordInformingFacilities: {
+      id: '',
+      informingFacilitiesNo: '',
+      verificationResult: '',
+      sceneId : 0
     },
-    'recordInformingFacilitiesDataList': [{
-      'id': '',
-      'companyOfficeId': '',
-      'processName': '',
-      'hazardFactors': '',
-      'informingFacilities': '',
-      'settingPlace': '',
-      'remarks': '',
-      'relationId': ''
-    }],
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
+    recordInformingFacilitiesDataList: [{
+      id: '',
+      companyOfficeId: '',
+      officeName: '',
+      processName: '',
+      hazardFactors: '',
+      informingFacilities: '',
+      settingPlace: '',
+      remarks: '',
+      relationId: ''
     }]
-
   };
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
   }
 
   ngOnInit() {
-    const relationId = this.recordData.recordInformingFacilities.id;
-    if (relationId === undefined || relationId === null || relationId === '') {
+    if (this.recordData.recordInformingFacilities === null
+      || this.recordData.recordInformingFacilities === null
+      || this.recordData.recordInformingFacilities.id === '') {
       this.addFlag = true;
       this.recordInformingFacilitiesEditTitle = '新增--职业病危害告知设施调查表';
+      this.recordData.recordInformingFacilities = {
+        id: '',
+        informingFacilitiesNo: '',
+        verificationResult: '',
+        sceneId : 0
+      };
     } else {
       this.addFlag = false;
       this.recordInformingFacilitiesEditTitle = '修改--职业病危害告知设施调查表';
-      const  dataList = this.recordData.recordInformingFacilitiesDataList;
-      this.recordData.recordInformingFacilitiesDataList = [];
-
-      for (let i = 0; i < dataList.length; i++) {
-        const recordInformingFacilitiesData = {
-          'id': dataList[i].id,
-          'companyOfficeId': dataList[i].companyOfficeId,
-          'processName': dataList[i].processName,
-          'hazardFactors': dataList[i].hazardFactors,
-          'informingFacilities': dataList[i].informingFacilities,
-          'settingPlace': dataList[i].settingPlace,
-          'remarks': dataList[i].remarks,
-          'relationId': dataList[i].relationId
-        };
-        this.recordData.recordInformingFacilitiesDataList.push(recordInformingFacilitiesData);
-      }
     }
   }
 
@@ -91,15 +77,21 @@ export class InformingFacilitiesEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
+    if (this.recordData.recordInformingFacilitiesDataList === null) {
+      this.recordData.recordInformingFacilitiesDataList = [];
+    }
     const index = this.recordData.recordInformingFacilitiesDataList.length;
-    this.recordData.recordInformingFacilitiesDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'processName' : '', 'hazardFactors' : '', 'informingFacilities' : '', 'settingPlace' : '', 'remarks' : '',   'relationId' : ''};
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
+    this.recordData.recordInformingFacilitiesDataList[index] = {
+        id: '',
+        companyOfficeId: '',
+        officeName: '',
+        processName: '',
+        hazardFactors: '',
+        informingFacilities: '',
+        settingPlace: '',
+        remarks: '',
+        relationId: ''
+    };
   }
 
   /**
@@ -119,6 +111,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.INFORMING_FACILITIES_ADD;
+      this.recordData.recordInformingFacilities.sceneId = this.sceneId;
     } else {
       url = SystemConstant.INFORMING_FACILITIES_EDIT;
     }
@@ -138,5 +131,20 @@ export class InformingFacilitiesEditComponent implements OnInit {
     this.waitService.wait(false);
   }
 
-
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice(index) {
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = this.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordData.recordInformingFacilitiesDataList[index].companyOfficeId = sysCompanyOffice.id;
+          this.recordData.recordInformingFacilities[index].officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
+  }
 }

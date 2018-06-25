@@ -2,11 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {HttpService} from '../../core/http/http.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastService} from '../../toast/toast.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import * as $ from 'jquery';
+import {ModalService} from '../../modal/modal.service';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 @Component({
   selector: 'app-equipment-layout-edit',
   templateUrl: './equipment-layout-edit.component.html',
@@ -14,33 +16,32 @@ import * as $ from 'jquery';
 })
 export class EquipmentLayoutEditComponent implements OnInit {
   recordEquipmentLayoutEditTitle: string;
-  @Input() recordEquipmentLayoutInputRequest = {
-    'recordEquipmentLayout': {
-      'id': '',
-      'equipmentLayoutNo': '',
-      'verificationResult': ''
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
+  @Input() recordData = {
+    recordEquipmentLayout: {
+      id: '',
+      equipmentLayoutNo: '',
+      verificationResult: '',
+      sceneId : 0
     },
-    'recordEquipmentLayoutDataList': [{
-      'id': '',
-      'officdId': '',
-      'processAndEquipment': '',
-      'hazardFactors': '',
-      'layoutDetail': '',
-      'remarkds': '',
-      'officdName': '',
-      'relationId': ''
-    }],
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
+    recordEquipmentLayoutDataList: [{
+      officdId: '',
+      id: '',
+      processAndEquipment: '',
+      hazardFactors: '',
+      layoutDetail: '',
+      remarkds: '',
+      officeName: '',
+      relationId: ''
     }]
-
   };
 
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
@@ -48,39 +49,20 @@ export class EquipmentLayoutEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const relationId = this.recordEquipmentLayoutInputRequest.recordEquipmentLayout.id;
-    if (relationId === undefined || relationId === null || relationId === '') {
+    if (this.recordData.recordEquipmentLayout === null
+      || this.recordData.recordEquipmentLayout.id === null
+      || this.recordData.recordEquipmentLayout.id === ''){
       this.addFlag = true;
-      this.recordEquipmentLayoutEditTitle = '新增--';
-      // 新增时 部门id 获取部门列表
-      this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-        next: (data) => {;
-          this.recordEquipmentLayoutInputRequest.sysCompanyOfficeList = data;
-        },
-        complete: () => {
-        }
-      });
+      this.recordEquipmentLayoutEditTitle = '新增--设备设施布局调查表';
+      this.recordData.recordEquipmentLayout = {
+        id: '',
+        equipmentLayoutNo: '',
+        verificationResult: '',
+        sceneId : 0
+      };
     } else {
       this.addFlag = false;
-      this.recordEquipmentLayoutEditTitle = '修改--';
-      // 修改时 获取项目列表
-      const  dataList = this.recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList;
-      this.recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList = [];
-      // 项目列表
-      const  officeList = this.recordEquipmentLayoutInputRequest.sysCompanyOfficeList;
-      for (let i = 0; i < dataList.length; i++) {
-        const recordEquipmentLayoutData = {
-          'id': dataList[i].id,
-          'officdId': dataList[i].officdId,
-          'processAndEquipment': dataList[i].processAndEquipment,
-          'hazardFactors': dataList[i].hazardFactors,
-          'layoutDetail': dataList[i].layoutDetail,
-          'remarkds': dataList[i].remarkds,
-          'relationId': dataList[i].relationId,
-          'officdName': officeList[i].officeName
-        };
-        this.recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList.push(recordEquipmentLayoutData);
-      }
+      this.recordEquipmentLayoutEditTitle = '修改--设备设施布局调查表';
 
     }
   }
@@ -96,22 +78,27 @@ export class EquipmentLayoutEditComponent implements OnInit {
    * 添加部门
    */
   addOffice() {
-    const index = this.recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList.length;
-    this.recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList[index] = { 'id' : '', 'officdId' : '', 'officdName' : '', 'processAndEquipment' : '', 'hazardFactors' : '', 'layoutDetail' : '', 'remarkds' : '', 'relationId' : ''};
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {;
-        this.recordEquipmentLayoutInputRequest.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
+    if (this.recordData.recordEquipmentLayoutDataList === null) {
+      this.recordData.recordEquipmentLayoutDataList = [];
+    }
+    const index = this.recordData.recordEquipmentLayoutDataList.length;
+    this.recordData.recordEquipmentLayoutDataList[index] = {
+        id: '',
+        officdId: '',
+        processAndEquipment: '',
+        hazardFactors: '',
+        layoutDetail: '',
+        remarkds: '',
+        officeName: '',
+        relationId: ''
+    };
   }
   /**
    * 删除部门
    */
   delOffice(item) {
-    const index = this.recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList.indexOf(item);
-    this.recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList.splice(index, index + 1);
+    const index = this.recordData.recordEquipmentLayoutDataList.indexOf(item);
+    this.recordData.recordEquipmentLayoutDataList.splice(index,  1);
 
   }
 
@@ -123,11 +110,13 @@ export class EquipmentLayoutEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.EQUIPMENT_LAYOUT_ADD;
+     this.recordData.recordEquipmentLayoutDataList.slice( 1, this.recordData.recordEquipmentLayoutDataList.length + 1);
+      this.recordData.recordEquipmentLayout.sceneId = this.sceneId;
     } else {
       url = SystemConstant.EQUIPMENT_LAYOUT_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordEquipmentLayoutInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
@@ -140,6 +129,22 @@ export class EquipmentLayoutEditComponent implements OnInit {
       }
     });
     this.waitService.wait(false);
+  }
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice(index) {
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = this.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordData.recordEquipmentLayoutDataList[index].officdId = sysCompanyOffice.id;
+          this.recordData.recordEquipmentLayoutDataList[index].officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
   }
 
 }

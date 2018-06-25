@@ -14,26 +14,23 @@ import * as $ from 'jquery';
 })
 export class PresentSituationEditComponent implements OnInit {
   recordPresentSituationEditTitle: string;
-  @Input() recordPresentSituationRequest = {
-    'recordPresentSituation': {
-      'id': '',
-      'preEvaluationNo': '',
-      'verificationResult': ''
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
+  @Input() recordData = {
+    recordPresentSituation: {
+      id: '',
+      sceneId: 0,
+      preEvaluationNo: '',
+      verificationResult: ''
     },
-    'recordPresentSituationDataList': [{
-      'id': '',
-      'preEvaluationId': '',
-      'preEvaluationProjectId': '',
-      'surveyResults': '',
-      'remarks': '',
-      'projectName': ''
-    }],
-    'recordPresentSituationProjectList': [{
-      'id': '',
-      'projectName': '',
-      'status': ''
+    recordPresentSituationDataList: [{
+      id: '',
+      preEvaluationId: '',
+      preEvaluationProjectId: '',
+      surveyResults: '',
+      remarks: '',
+      projectName: ''
     }]
-
   };
   addFlag: boolean;
   action = '';
@@ -45,24 +42,31 @@ export class PresentSituationEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const preEvaluationId = this.recordPresentSituationRequest.recordPresentSituation.id;
-    if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
+    if (this.recordData.recordPresentSituation === null
+      || this.recordData.recordPresentSituation.id === null
+      || this.recordData.recordPresentSituation.id === '') {
       this.addFlag = true;
       this.recordPresentSituationEditTitle = '新增--用人单位概况调查表（现状评价）';
-      // 新增时 获取项目列表
-      this.httpService.post(SystemConstant.PRESENT_SITUATION_PROJECT_LIST, {} ).subscribe({
+      this.recordData.recordPresentSituation = {
+        id: '',
+        sceneId: this.sceneId,
+        preEvaluationNo: '',
+        verificationResult: ''
+      };
+      // 获取项目列表
+      this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 3} ).subscribe({
         next: (data) => {
-          this.recordPresentSituationRequest.recordPresentSituationDataList = [];
+          this.recordData.recordPresentSituationDataList = [];
           for (let i = 0; i < data.length; i++) {
-            const recordPreEvaluationData = {
+            const recordPresentSituationData = {
               'id': '',
               'preEvaluationId': '',
               'preEvaluationProjectId': data[i].id,
               'surveyResults': '',
               'remarks': '',
-              'projectName': data[i].projectName
+              'projectName': data[i].dictionaryName
             };
-            this.recordPresentSituationRequest.recordPresentSituationDataList.push(recordPreEvaluationData);
+            this.recordData.recordPresentSituationDataList.push(recordPresentSituationData);
           }
         },
         complete: () => {
@@ -71,24 +75,6 @@ export class PresentSituationEditComponent implements OnInit {
     } else {
       this.addFlag = false;
       this.recordPresentSituationEditTitle = '修改--用人单位概况调查表（现状评价）';
-      // 修改时获取项目列表
-      const  dataList = this.recordPresentSituationRequest.recordPresentSituationDataList;
-      this.recordPresentSituationRequest.recordPresentSituationDataList = [];
-      // 项目列表
-      const  projectList = this.recordPresentSituationRequest.recordPresentSituationProjectList;
-      for (let i = 0; i < dataList.length; i++) {
-        // console.log('projectList:' + projectList[i].id);
-        const recordPresentSituationData = {
-          'id': dataList[i].id,
-          'preEvaluationId': dataList[i].preEvaluationId,
-          'preEvaluationProjectId': dataList[i].preEvaluationProjectId,
-          'surveyResults': dataList[i].surveyResults,
-          'remarks': dataList[i].remarks,
-          'projectName': projectList[i].projectName
-        };
-        this.recordPresentSituationRequest.recordPresentSituationDataList.push(recordPresentSituationData);
-      }
-
     }
   }
 
@@ -110,7 +96,7 @@ export class PresentSituationEditComponent implements OnInit {
       url = SystemConstant.PRESENT_SITUATION_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordPresentSituationRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

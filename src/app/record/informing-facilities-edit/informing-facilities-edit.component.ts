@@ -14,7 +14,7 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class InformingFacilitiesEditComponent implements OnInit {
   recordInformingFacilitiesEditTitle: string;
-  @Input() recordInformingFacilitiesInputRequest = {
+  @Input() recordData = {
     'recordInformingFacilities': {
       'id': '',
       'informingFacilitiesNo': '',
@@ -47,7 +47,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
   ) {
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordInformingFacilitiesInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -55,15 +55,15 @@ export class InformingFacilitiesEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordInformingFacilitiesInputRequest.recordInformingFacilities.id;
+    const relationId = this.recordData.recordInformingFacilities.id;
     if (relationId === undefined || relationId === null || relationId === '') {
       this.addFlag = true;
       this.recordInformingFacilitiesEditTitle = '新增--职业病危害告知设施调查表';
     } else {
       this.addFlag = false;
       this.recordInformingFacilitiesEditTitle = '修改--职业病危害告知设施调查表';
-      const  dataList = this.recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList;
-      this.recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList = [];
+      const  dataList = this.recordData.recordInformingFacilitiesDataList;
+      this.recordData.recordInformingFacilitiesDataList = [];
 
       for (let i = 0; i < dataList.length; i++) {
         const recordInformingFacilitiesData = {
@@ -76,7 +76,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
           'remarks': dataList[i].remarks,
           'relationId': dataList[i].relationId
         };
-        this.recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList.push(recordInformingFacilitiesData);
+        this.recordData.recordInformingFacilitiesDataList.push(recordInformingFacilitiesData);
       }
     }
   }
@@ -91,11 +91,11 @@ export class InformingFacilitiesEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList.length;
-    this.recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'processName' : '', 'hazardFactors' : '', 'informingFacilities' : '', 'settingPlace' : '', 'remarks' : '',   'relationId' : ''};
+    const index = this.recordData.recordInformingFacilitiesDataList.length;
+    this.recordData.recordInformingFacilitiesDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'processName' : '', 'hazardFactors' : '', 'informingFacilities' : '', 'settingPlace' : '', 'remarks' : '',   'relationId' : ''};
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordInformingFacilitiesInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -107,7 +107,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
    */
   delOffice(index) {
     // const index = this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList.indexOf(item);
-    this.recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList.splice(index, 1 );
+    this.recordData.recordInformingFacilitiesDataList.splice(index, 1 );
   }
 
   /**
@@ -123,7 +123,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
       url = SystemConstant.INFORMING_FACILITIES_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordInformingFacilitiesInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

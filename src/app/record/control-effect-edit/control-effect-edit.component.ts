@@ -6,7 +6,6 @@ import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
-import * as $ from 'jquery';
 @Component({
   selector: 'app-control-effect-edit',
   templateUrl: './control-effect-edit.component.html',
@@ -14,26 +13,23 @@ import * as $ from 'jquery';
 })
 export class ControlEffectEditComponent implements OnInit {
   recordControlEffectEditTitle: string;
-  @Input() recordControlEffectRequest = {
-    'recordControlEffect': {
-      'id': '',
-      'preEvaluationNo': '',
-      'verificationResult': ''
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
+  @Input() recordData = {
+    recordControlEffect: {
+      id: '',
+      sceneId: 0,
+      preEvaluationNo: '',
+      verificationResult: ''
     },
-    'recordControlEffectDataList': [{
-      'id': '',
-      'preEvaluationId': '',
-      'preEvaluationProjectId': '',
-      'surveyResults': '',
-      'remarks': '',
-      'projectName': ''
+    recordControlEffectDataList: [{
+      id: '',
+      preEvaluationId: '',
+      preEvaluationProjectId: '',
+      surveyResults: '',
+      remarks: '',
+      projectName: ''
     }],
-    'recordControlEffectProjectList': [{
-      'id': '',
-      'projectName': '',
-      'status': ''
-    }]
-
   };
   addFlag: boolean;
   action = '';
@@ -45,14 +41,21 @@ export class ControlEffectEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const preEvaluationId = this.recordControlEffectRequest.recordControlEffect.id;
-    if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
+    if (this.recordData.recordControlEffect === null
+      || this.recordData.recordControlEffect.id === null
+      || this.recordData.recordControlEffect.id === '') {
       this.addFlag = true;
       this.recordControlEffectEditTitle = '新增--建设项目概况调查表（控制效果评价） ';
-      // 新增时 获取项目列表
-      this.httpService.post(SystemConstant.CONTROL_EFFECT_PROJECT_LIST, {} ).subscribe({
+      this.recordData.recordControlEffect = {
+        id: '',
+        sceneId: this.sceneId,
+        preEvaluationNo: '',
+        verificationResult: ''
+      };
+      // 获取项目列表
+      this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 2} ).subscribe({
         next: (data) => {
-          this.recordControlEffectRequest.recordControlEffectDataList = [];
+          this.recordData.recordControlEffectDataList = [];
           for (let i = 0; i < data.length; i++) {
             const recordControlEffectData = {
               'id': '',
@@ -60,9 +63,9 @@ export class ControlEffectEditComponent implements OnInit {
               'preEvaluationProjectId': data[i].id,
               'surveyResults': '',
               'remarks': '',
-              'projectName': data[i].projectName
+              'projectName': data[i].dictionaryName
             };
-            this.recordControlEffectRequest.recordControlEffectDataList.push(recordControlEffectData);
+            this.recordData.recordControlEffectDataList.push(recordControlEffectData);
           }
         },
         complete: () => {
@@ -72,23 +75,6 @@ export class ControlEffectEditComponent implements OnInit {
       // 编辑时数据绑定
         this.addFlag = false;
         this.recordControlEffectEditTitle = '修改--建设项目概况调查表（控制效果评价） ';
-        // 修改时获取项目列表
-        const  dataList = this.recordControlEffectRequest.recordControlEffectDataList;
-        this.recordControlEffectRequest.recordControlEffectDataList = [];
-        // 项目列表
-        const  projectList = this.recordControlEffectRequest.recordControlEffectProjectList;
-        for (let i = 0; i < dataList.length; i++) {
-          // console.log('projectList:' + projectList[i].id);
-          const recordControlEffectData = {
-            'id': dataList[i].id,
-            'preEvaluationId': dataList[i].preEvaluationId,
-            'preEvaluationProjectId': dataList[i].preEvaluationProjectId,
-            'surveyResults': dataList[i].surveyResults,
-            'remarks': dataList[i].remarks,
-            'projectName': projectList[i].projectName
-          };
-          this.recordControlEffectRequest.recordControlEffectDataList.push(recordControlEffectData);
-        }
     }
   }
   /**
@@ -110,7 +96,7 @@ export class ControlEffectEditComponent implements OnInit {
       url = SystemConstant.CONTROL_EFFECT_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordControlEffectRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

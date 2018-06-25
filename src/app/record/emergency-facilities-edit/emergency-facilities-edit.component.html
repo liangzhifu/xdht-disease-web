@@ -1,51 +1,63 @@
 <div class="c-content-inner">
-  <div class="modal-body row">
-    <label>{{recordEmergencyFacilitiesEditTitle}}</label>
-    <button aria-label="Close" class="close" type="button" (click)="close()">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">编码：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordEmergencyFacilitiesInputRequest.recordEmergencyFacilities.emergencyFacilitiesNo" placeholder="编码" >
+  <form #sysEmployeeForm="ngForm">
+    <div class="modal-body row ">
+      <label>{{recordEmergencyFacilitiesEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">核实情况：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordEmergencyFacilitiesInputRequest.recordEmergencyFacilities.verificationResult" placeholder="核实情况">
+    <div class="row list">
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+        <input type="hidden"  [(ngModel)]="recordData.recordEmergencyFacilities.sceneId">
+        <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordEmergencyFacilities.emergencyFacilitiesNo"
+           name="emergencyFacilitiesNo"  #emergencyFacilitiesNo="ngModel" placeholder="编码" required="required">
+      </div>
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+        <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordEmergencyFacilities.verificationResult"
+           name="verificationResult"  #verificationResult="ngModel" placeholder="核实情况" required="required">
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <table>
-      <tr>
-        <td><button (click)="addOffice()">增加</button>车间/部门</td>
-        <td>作业地点</td>
-        <td>可致急性损伤的职业病危害因素</td>
-        <td>应急设施</td>
-        <td>技术参数（服务半径、报警浓度、换气次数等）</td>
-        <td>数量(台/套)</td>
-        <td>运行维护情况</td>
-        <td>操作</td>
-      </tr>
-      <tr *ngFor="let item of recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList;" [(ngModel)]="recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList" >
-        <td>
-          <select #select [(ngModel)]="item.officeId" >
-            <option value="">--请选择部门--</option>
-            <option *ngFor="let office of recordEmergencyFacilitiesInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
-          </select>
-        </td>
-        <td><input type="text" [(ngModel)]="item.workPlace"></td>
-        <td><input type="text" [(ngModel)]="item.hazardFactors"></td>
-        <td><input type="text" [(ngModel)]="item.emergencyFacilities"></td>
-        <td><input type="text" [(ngModel)]="item.technicalParameter"></td>
-        <td><input type="number" [(ngModel)]="item.number"></td>
-        <td><input type="text" [(ngModel)]="item.operationAndMaintenance"></td>
-        <td><button (click)="delOffice(item)">删除</button></td>
-      </tr>
-    </table>
-  </div>
-  <div class="row">
-    <button (click)="submitData()">提交</button>
-    <button (click)="close()">取消</button>
-  </div>
+    <div  class="row">
+      <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+          <th><button (click)="addOffice()">增加</button></th>
+          <th>车间/部门</th>
+          <th>作业地点</th>
+          <th>可致急性损伤的职业病危害因素</th>
+          <th>应急设施</th>
+          <th>技术参数（服务半径、报警浓度、换气次数等）</th>
+          <th>数量(台/套)</th>
+          <th>运行维护情况</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of recordData.recordEmergencyFacilitiesDataList;" [(ngModel)]="recordData.recordEmergencyFacilitiesDataList" >
+            <td>
+              <select #select [(ngModel)]="item.officeId">
+                <option value="">--请选择部门--</option>
+                <option *ngFor="let office of recordData.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
+              </select>
+            </td>
+            <td><input type="text" [(ngModel)]="item.workPlace"></td>
+            <td><input type="text" [(ngModel)]="item.hazardFactors"></td>
+            <td><input type="text" [(ngModel)]="item.emergencyFacilities"></td>
+            <td><input type="text" [(ngModel)]="item.technicalParameter"></td>
+            <td><input type="number" [(ngModel)]="item.number"></td>
+            <td><input type="text" [(ngModel)]="item.operationAndMaintenance"></td>
+            <td><button class="btn btn-danger radius mr-10" type="button" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success"  (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
 </div>

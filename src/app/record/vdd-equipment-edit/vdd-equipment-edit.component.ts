@@ -14,7 +14,7 @@ import {ToastConfig} from '../../toast/toast-config';
 })
 export class VddEquipmentEditComponent implements OnInit {
   recordVddEquipmentEditTitle: string;
-  @Input() recordVddEquipmentInputRequest = {
+  @Input() recordData = {
     'recordVddEquipment': {
       'id': '',
       'vddEquipmentNo': '',
@@ -53,14 +53,14 @@ export class VddEquipmentEditComponent implements OnInit {
   ) {
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordVddEquipmentInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
     });
     this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordVddEquipmentInputRequest.sysPostList = data;
+        this.recordData.sysPostList = data;
       },
       complete: () => {
       }
@@ -68,15 +68,15 @@ export class VddEquipmentEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordVddEquipmentInputRequest.recordVddEquipment.id;
+    const relationId = this.recordData.recordVddEquipment.id;
     if (relationId === undefined || relationId === null || relationId === '') {
       this.addFlag = true;
       this.recordVddEquipmentEditTitle = '新增--通风排毒除尘设施调查表';
     } else {
       this.addFlag = false;
       this.recordVddEquipmentEditTitle = '修改--通风排毒除尘设施调查表';
-      const  dataList = this.recordVddEquipmentInputRequest.recordVddEquipmentDataList;
-      this.recordVddEquipmentInputRequest.recordVddEquipmentDataList = [];
+      const  dataList = this.recordData.recordVddEquipmentDataList;
+      this.recordData.recordVddEquipmentDataList = [];
 
       for (let i = 0; i < dataList.length; i++) {
         const recordVddEquipmentData = {
@@ -90,7 +90,7 @@ export class VddEquipmentEditComponent implements OnInit {
           'operationAndMaintenance': dataList[i].operationAndMaintenance,
           'relationId': dataList[i].relationId
         };
-        this.recordVddEquipmentInputRequest.recordVddEquipmentDataList.push(recordVddEquipmentData);
+        this.recordData.recordVddEquipmentDataList.push(recordVddEquipmentData);
       }
     }
   }
@@ -104,11 +104,11 @@ export class VddEquipmentEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordVddEquipmentInputRequest.recordVddEquipmentDataList.length;
-    this.recordVddEquipmentInputRequest.recordVddEquipmentDataList[index] = { 'id' : '', 'officeId' : '', 'postId' : '', 'workPlace' : '', 'vddEquipmentName' : '', 'poisonOrDustName' : '', 'number' : '' , 'operationAndMaintenance' : '',  'relationId' : ''};
+    const index = this.recordData.recordVddEquipmentDataList.length;
+    this.recordData.recordVddEquipmentDataList[index] = { 'id' : '', 'officeId' : '', 'postId' : '', 'workPlace' : '', 'vddEquipmentName' : '', 'poisonOrDustName' : '', 'number' : '' , 'operationAndMaintenance' : '',  'relationId' : ''};
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordVddEquipmentInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -119,8 +119,8 @@ export class VddEquipmentEditComponent implements OnInit {
    * 删除一行
    */
   delOffice(index) {
-    // const index = this.recordVddEquipmentInputRequest.recordVddEquipmentDataList.indexOf(item);
-    this.recordVddEquipmentInputRequest.recordVddEquipmentDataList.splice(index,  1);
+    // const index = this.recordData.recordVddEquipmentDataList.indexOf(item);
+    this.recordData.recordVddEquipmentDataList.splice(index,  1);
   }
 
   /**
@@ -136,7 +136,7 @@ export class VddEquipmentEditComponent implements OnInit {
       url = SystemConstant.VDD_EQUIPMENT_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordVddEquipmentInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

@@ -15,27 +15,24 @@ import {ToastConfig} from '../../toast/toast-config';
 export class HealthManagementEditComponent implements OnInit {
 
   recordHealthManagementEditTitle: string;
-  @Input() recordHealthManagementInputRequest = {
-    'recordHealthManagement': {
-      'id': '',
-      'healthManagementNo': '',
-      'verificationResult': ''
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
+  @Input() recordData = {
+    recordHealthManagement: {
+      id: '',
+      sceneId: 0,
+      healthManagementNo: '',
+      verificationResult: ''
     },
-    'recordHealthManagementDataList': [{
-      'id': '',
-      'healthManagementId': '',
-      'healthManagementProjectId': '',
-      'setUpInfo': '',
-      'implementInfo': '',
-      'remarks': '',
-      'projectName': ''
-    }],
-    'recordHealthManagementProjectList': [{
-      'id': '',
-      'projectName': '',
-      'status': ''
+    recordHealthManagementDataList: [{
+      id: '',
+      healthManagementId: '',
+      healthManagementProjectId: '',
+      setUpInfo: '',
+      implementInfo: '',
+      remarks: '',
+      projectName: ''
     }]
-
   };
   addFlag: boolean;
   action = '';
@@ -50,14 +47,21 @@ export class HealthManagementEditComponent implements OnInit {
 
   ngOnInit() {
 
-    const healthManagementId = this.recordHealthManagementInputRequest.recordHealthManagement.id;
-    if (healthManagementId === undefined || healthManagementId === null || healthManagementId === '') {
+    if (this.recordData.recordHealthManagement === null
+      || this.recordData.recordHealthManagement.id === null
+      || this.recordData.recordHealthManagement.id === '') {
       this.addFlag = true;
       this.recordHealthManagementEditTitle = '新增--建设项目概况调查表';
-      // 新增时 获取项目列表
-      this.httpService.post(SystemConstant.HEALTH_MANAGEMENT_PROJECT_LIST, {} ).subscribe({
+      this.recordData.recordHealthManagement = {
+        id: '',
+        sceneId: this.sceneId,
+        healthManagementNo: '',
+        verificationResult: ''
+      };
+      // 获取项目列表
+      this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 4} ).subscribe({
         next: (data) => {
-          this.recordHealthManagementInputRequest.recordHealthManagementDataList = [];
+          this.recordData.recordHealthManagementDataList = [];
           for (let i = 0; i < data.length; i++) {
             const recordHealthManagementData = {
               'id': '',
@@ -66,9 +70,9 @@ export class HealthManagementEditComponent implements OnInit {
               'setUpInfo': '',
               'implementInfo': '',
               'remarks': '',
-              'projectName': data[i].projectName
+              'projectName': data[i].dictionaryName
             };
-            this.recordHealthManagementInputRequest.recordHealthManagementDataList.push(recordHealthManagementData);
+            this.recordData.recordHealthManagementDataList.push(recordHealthManagementData);
           }
         },
         complete: () => {
@@ -77,23 +81,6 @@ export class HealthManagementEditComponent implements OnInit {
     } else {
       this.addFlag = false;
       this.recordHealthManagementEditTitle = '修改--建设项目概况调查表';
-      // 修改时获取项目列表
-      const  dataList = this.recordHealthManagementInputRequest.recordHealthManagementDataList;
-      this.recordHealthManagementInputRequest.recordHealthManagementDataList = [];
-      // 项目列表
-      const  projectList = this.recordHealthManagementInputRequest.recordHealthManagementProjectList;
-      for (let i = 0; i < dataList.length; i++) {
-        const recordHealthManagementData = {
-          'id': dataList[i].id,
-          'healthManagementId': dataList[i].healthManagementId,
-          'healthManagementProjectId': dataList[i].healthManagementProjectId,
-          'setUpInfo': dataList[i].setUpInfo,
-          'implementInfo': dataList[i].implementInfo,
-          'remarks': dataList[i].remarks,
-          'projectName': projectList[i].projectName
-        };
-        this.recordHealthManagementInputRequest.recordHealthManagementDataList.push(recordHealthManagementData);
-      }
     }
   }
   /**
@@ -115,7 +102,7 @@ export class HealthManagementEditComponent implements OnInit {
       url = SystemConstant.HEALTH_MANAGEMENT_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordHealthManagementInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

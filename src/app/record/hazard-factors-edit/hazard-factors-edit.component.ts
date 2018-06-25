@@ -14,7 +14,7 @@ import {ToastConfig} from '../../toast/toast-config';
 })
 export class HazardFactorsEditComponent implements OnInit {
   recordHazardFactorsEditTitle: string;
-  @Input() recordHazardFactorsInputRequest = {
+  @Input() recordData = {
     'recordHazardFactors': {
       'id': '',
       'hazardFactorsNo': '',
@@ -47,7 +47,7 @@ export class HazardFactorsEditComponent implements OnInit {
 // 获取部门列表
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordHazardFactorsInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -55,7 +55,7 @@ export class HazardFactorsEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordHazardFactorsInputRequest.recordHazardFactors.id;
+    const relationId = this.recordData.recordHazardFactors.id;
     if (relationId === undefined || relationId === null || relationId === '') {
       this.addFlag = true;
       this.recordHazardFactorsEditTitle = '新增--职业病危害因素调查表';
@@ -63,8 +63,8 @@ export class HazardFactorsEditComponent implements OnInit {
       this.addFlag = false;
       this.recordHazardFactorsEditTitle = '修改--职业病危害因素调查表';
       // 修改时 获取内容列表
-      const  dataList = this.recordHazardFactorsInputRequest.recordHazardFactorsDataList;
-      this.recordHazardFactorsInputRequest.recordHazardFactorsDataList = [];
+      const  dataList = this.recordData.recordHazardFactorsDataList;
+      this.recordData.recordHazardFactorsDataList = [];
       // 项目列表
       for (let i = 0; i < dataList.length; i++) {
         const recordHazardFactorsData = {
@@ -77,7 +77,7 @@ export class HazardFactorsEditComponent implements OnInit {
           'remarks': dataList[i].remarks,
           'relationId': dataList[i].relationId
         };
-        this.recordHazardFactorsInputRequest.recordHazardFactorsDataList.push(recordHazardFactorsData);
+        this.recordData.recordHazardFactorsDataList.push(recordHazardFactorsData);
       }
 
     }
@@ -93,11 +93,11 @@ export class HazardFactorsEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordHazardFactorsInputRequest.recordHazardFactorsDataList.length;
-    this.recordHazardFactorsInputRequest.recordHazardFactorsDataList[index] = { 'id' : '', 'officeId' : '', 'processName' : '', 'hazardFactors' : '', 'exposureMode' : '', 'exposureTime' : '', 'remarks' : '',  'relationId' : ''};
+    const index = this.recordData.recordHazardFactorsDataList.length;
+    this.recordData.recordHazardFactorsDataList[index] = { 'id' : '', 'officeId' : '', 'processName' : '', 'hazardFactors' : '', 'exposureMode' : '', 'exposureTime' : '', 'remarks' : '',  'relationId' : ''};
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordHazardFactorsInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -107,8 +107,8 @@ export class HazardFactorsEditComponent implements OnInit {
    * 删除一行
    */
   delOffice(item) {
-    const index = this.recordHazardFactorsInputRequest.recordHazardFactorsDataList.indexOf(item);
-    this.recordHazardFactorsInputRequest.recordHazardFactorsDataList.splice(index, index + 1);
+    const index = this.recordData.recordHazardFactorsDataList.indexOf(item);
+    this.recordData.recordHazardFactorsDataList.splice(index, index + 1);
   }
   /**
    * 提交
@@ -123,7 +123,7 @@ export class HazardFactorsEditComponent implements OnInit {
       url = SystemConstant.HAZARD_FACTORS_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordHazardFactorsInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

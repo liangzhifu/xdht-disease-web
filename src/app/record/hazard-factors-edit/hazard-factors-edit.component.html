@@ -8,11 +8,11 @@
   <div class="row">
     <div class="col-md-6">
       <label class="col-md-5 col-form-label text-right">编码：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordHazardFactorsInputRequest.recordHazardFactors.hazardFactorsNo" placeholder="编码" >
+      <input type="text" class="form-control" [(ngModel)]="recordData.recordHazardFactors.hazardFactorsNo" placeholder="编码" >
     </div>
     <div class="col-md-6">
       <label class="col-md-5 col-form-label text-right">核实情况：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordHazardFactorsInputRequest.recordHazardFactors.verificationResult" placeholder="核实情况">
+      <input type="text" class="form-control" [(ngModel)]="recordData.recordHazardFactors.verificationResult" placeholder="核实情况">
     </div>
   </div>
   <div class="row">
@@ -26,11 +26,11 @@
         <td>备注</td>
         <td>操作</td>
       </tr>
-      <tr [(ngModel)]="recordHazardFactorsInputRequest.recordHazardFactorsDataList" *ngFor="let item of recordHazardFactorsInputRequest.recordHazardFactorsDataList;">
+      <tr [(ngModel)]="recordData.recordHazardFactorsDataList" *ngFor="let item of recordData.recordHazardFactorsDataList;">
         <td>
           <select #select [(ngModel)]="item.officeId" >
             <option value="">--请选择部门--</option>
-            <option *ngFor="let office of recordHazardFactorsInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
+            <option *ngFor="let office of recordData.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
           </select>
         </td>
         <td><input type="text" [(ngModel)]="item.processName"></td>

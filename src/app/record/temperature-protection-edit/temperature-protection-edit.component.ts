@@ -14,7 +14,7 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class TemperatureProtectionEditComponent implements OnInit {
   recordTemperatureEditTitle: string;
-  @Input() recordTemperatureInputRequest = {
+  @Input() recordData = {
     'recordTemperature': {
       'id': '',
       'temperatureProtectionFacilitiesNo': '',
@@ -52,14 +52,14 @@ export class TemperatureProtectionEditComponent implements OnInit {
   ) {
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordTemperatureInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
     });
     this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordTemperatureInputRequest.sysPostList = data;
+        this.recordData.sysPostList = data;
       },
       complete: () => {
       }
@@ -67,15 +67,15 @@ export class TemperatureProtectionEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordTemperatureInputRequest.recordTemperature.id;
+    const relationId = this.recordData.recordTemperature.id;
     if (relationId === undefined || relationId === null || relationId === '') {
       this.addFlag = true;
       this.recordTemperatureEditTitle = '新增--防高温设施调查表';
     } else {
       this.addFlag = false;
       this.recordTemperatureEditTitle = '修改--防高温设施调查表';
-      const  dataList = this.recordTemperatureInputRequest.recordTemperatureDataList;
-      this.recordTemperatureInputRequest.recordTemperatureDataList = [];
+      const  dataList = this.recordData.recordTemperatureDataList;
+      this.recordData.recordTemperatureDataList = [];
 
       for (let i = 0; i < dataList.length; i++) {
         const recordTemperatureData = {
@@ -88,7 +88,7 @@ export class TemperatureProtectionEditComponent implements OnInit {
           'operationAndMaintenance': dataList[i].operationAndMaintenance,
           'relationId': dataList[i].relationId
         };
-        this.recordTemperatureInputRequest.recordTemperatureDataList.push(recordTemperatureData);
+        this.recordData.recordTemperatureDataList.push(recordTemperatureData);
       }
     }
   }
@@ -103,11 +103,11 @@ export class TemperatureProtectionEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordTemperatureInputRequest.recordTemperatureDataList.length;
-    this.recordTemperatureInputRequest.recordTemperatureDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'workPlace' : '', 'productiveHeatSource' : '', 'temperatureProtectionFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
+    const index = this.recordData.recordTemperatureDataList.length;
+    this.recordData.recordTemperatureDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'workPlace' : '', 'productiveHeatSource' : '', 'temperatureProtectionFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordTemperatureInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -118,8 +118,8 @@ export class TemperatureProtectionEditComponent implements OnInit {
    * 删除一行
    */
   delOffice(item) {
-    const index = this.recordTemperatureInputRequest.recordTemperatureDataList.indexOf(item);
-    this.recordTemperatureInputRequest.recordTemperatureDataList.splice(index, index + 1);
+    const index = this.recordData.recordTemperatureDataList.indexOf(item);
+    this.recordData.recordTemperatureDataList.splice(index, index + 1);
   }
 
   /**
@@ -135,7 +135,7 @@ export class TemperatureProtectionEditComponent implements OnInit {
       url = SystemConstant.TEMPERATURE_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordTemperatureInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

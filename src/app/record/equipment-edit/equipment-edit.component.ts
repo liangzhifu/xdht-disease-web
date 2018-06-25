@@ -2,11 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {HttpService} from '../../core/http/http.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastService} from '../../toast/toast.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
 import * as $ from 'jquery';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
+import {ModalService} from '../../modal/modal.service';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 @Component({
   selector: 'app-equipment-edit',
   templateUrl: './equipment-edit.component.html',
@@ -14,32 +16,32 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class EquipmentEditComponent implements OnInit {
   recordEquipmentEditTitle: string;
-  @Input() recordEquipmentInputRequest = {
-    'recordEquipment': {
-      'id': '',
-      'equipmentNo': '',
-      'verificationResult': ''
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
+  @Input() recordData = {
+    recordEquipment: {
+      id: '',
+      equipmentNo: '',
+      verificationResult: '',
+      sceneId : 0
     },
-    'recordEquipmentDataList': [{
-      'id': '',
-      'officdId': '',
-      'officdName': '',
-      'processName': '',
-      'equipmentName': '',
-      'epuipmentNumber': '',
-      'relationId': ''
-    }],
-  'sysCompanyOfficeList': [{
-    'id': '',
-    'officeName': '',
-    'status': ''
-  }]
+    recordEquipmentDataList: [{
+      id: '',
+      officdId: '',
+      officeName: '',
+      processName: '',
+      equipmentName: '',
+      epuipmentNumber: '',
+      relationId: ''
+    }]
 
   };
 
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
@@ -47,38 +49,20 @@ export class EquipmentEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const relationId = this.recordEquipmentInputRequest.recordEquipment.id;
-    if (relationId === undefined || relationId === null || relationId === '') {
+    if (this.recordData.recordEquipment === null
+      || this.recordData.recordEquipment.id === null
+      || this.recordData.recordEquipment.id === '') {
       this.addFlag = true;
-      this.recordEquipmentEditTitle = '新增--';
-      // 新增时 部门id 获取部门列表
-      this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-        next: (data) => {;
-          this.recordEquipmentInputRequest.sysCompanyOfficeList = data;
-        },
-        complete: () => {
-        }
-      });
+      this.recordEquipmentEditTitle = '新增--设备设施调查表';
+      this.recordData.recordEquipment = {
+        id: '',
+        equipmentNo: '',
+        verificationResult: '',
+        sceneId : 0
+      };
     } else {
       this.addFlag = false;
-      this.recordEquipmentEditTitle = '修改--';
-      // 修改时 获取项目列表
-      const  dataList = this.recordEquipmentInputRequest.recordEquipmentDataList;
-      this.recordEquipmentInputRequest.recordEquipmentDataList = [];
-      // 项目列表
-      const  officeList = this.recordEquipmentInputRequest.sysCompanyOfficeList;
-      for (let i = 0; i < dataList.length; i++) {
-        const recordEquipmentData = {
-          'id': dataList[i].id,
-          'officdId': dataList[i].officdId,
-          'processName': dataList[i].processName,
-          'equipmentName': dataList[i].equipmentName,
-          'epuipmentNumber': dataList[i].epuipmentNumber,
-          'relationId': dataList[i].relationId,
-          'officdName': officeList[i].officeName
-        };
-        this.recordEquipmentInputRequest.recordEquipmentDataList.push(recordEquipmentData);
-      }
+      this.recordEquipmentEditTitle = '修改--设备设施调查表';
 
     }
   }
@@ -94,23 +78,27 @@ export class EquipmentEditComponent implements OnInit {
    * 添加部门
    */
   addOffice() {
-    const index = this.recordEquipmentInputRequest.recordEquipmentDataList.length;
-    this.recordEquipmentInputRequest.recordEquipmentDataList[index] = { 'id' : '', 'officdId' : '', 'officdName' : '', 'processName' : '', 'equipmentName' : '', 'epuipmentNumber' : '', 'relationId' : ''};
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {;
-        this.recordEquipmentInputRequest.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
+    if (this.recordData.recordEquipmentDataList === null) {
+      this.recordData.recordEquipmentDataList = [];
+    }
+    const index = this.recordData.recordEquipmentDataList.length;
+    this.recordData.recordEquipmentDataList[index] = {
+      id: '',
+      officdId: '',
+      officeName: '',
+      processName: '',
+      equipmentName: '',
+      epuipmentNumber: '',
+      relationId: ''
+    };
   }
   /**
    * 删除部门
    * @param index 序号
    */
   delOffice(item) {
-    const index = this.recordEquipmentInputRequest.recordEquipmentDataList.indexOf(item);
-    this.recordEquipmentInputRequest.recordEquipmentDataList.splice(index, index + 1);
+    const index = this.recordData.recordEquipmentDataList.indexOf(item);
+    this.recordData.recordEquipmentDataList.splice(index, 1);
   }
 
   /**
@@ -121,11 +109,12 @@ export class EquipmentEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.EQUIPMENT_ADD;
+      this.recordData.recordEquipment.sceneId = this.sceneId;
     } else {
       url = SystemConstant.EQUIPMENT_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordEquipmentInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
@@ -138,6 +127,23 @@ export class EquipmentEditComponent implements OnInit {
       }
     });
     this.waitService.wait(false);
+  }
+
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice(index) {
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = this.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordData.recordEquipmentDataList[index].officdId = sysCompanyOffice.id;
+          this.recordData.recordEquipmentDataList[index].officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
   }
 
 }

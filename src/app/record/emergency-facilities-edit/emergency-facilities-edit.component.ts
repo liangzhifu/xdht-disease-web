@@ -14,7 +14,7 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class EmergencyFacilitiesEditComponent implements OnInit {
   recordEmergencyFacilitiesEditTitle: string;
-  @Input() recordEmergencyFacilitiesInputRequest = {
+  @Input() recordData = {
     'recordEmergencyFacilities': {
       'id': '',
       'emergencyFacilitiesNo': '',
@@ -48,7 +48,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
   ) {
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordEmergencyFacilitiesInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -56,15 +56,17 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilities.id;
-    if (relationId === undefined || relationId === null || relationId === '') {
+    // const relationId = this.recordData.recordEmergencyFacilities.id;
+    // if (relationId === undefined || relationId === null || relationId === '') {
+    console.log('recordDAa:' + this.recordData.sysCompanyOfficeList);
+    if (this.recordData.recordEmergencyFacilities === null ) {
       this.addFlag = true;
-      this.recordEmergencyFacilitiesEditTitle = '新增--个体防护用品调查表';
+      this.recordEmergencyFacilitiesEditTitle = '新增--应急设施调查表';
     } else {
       this.addFlag = false;
-      this.recordEmergencyFacilitiesEditTitle = '修改--个体防护用品调查表';
-      const  dataList = this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList;
-      this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList = [];
+      this.recordEmergencyFacilitiesEditTitle = '修改--应急设施调查表';
+      const  dataList = this.recordData.recordEmergencyFacilitiesDataList;
+      this.recordData.recordEmergencyFacilitiesDataList = [];
 
       for (let i = 0; i < dataList.length; i++) {
         const recordEmergencyFacilitiesData = {
@@ -78,7 +80,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
           'hazardFactors': dataList[i].hazardFactors,
           'relationId': dataList[i].relationId
         };
-        this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList.push(recordEmergencyFacilitiesData);
+        this.recordData.recordEmergencyFacilitiesDataList.push(recordEmergencyFacilitiesData);
       }
     }
   }
@@ -92,11 +94,11 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList.length;
-    this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList[index] = { 'id' : '', 'officeId' : '', 'workPlace' : '', 'emergencyFacilities' : '', 'number' : '', 'technicalParameter' : '',  'operationAndMaintenance' : '',  'hazardFactors' : '',  'relationId' : ''};
+    const index = this.recordData.recordEmergencyFacilitiesDataList.length;
+    this.recordData.recordEmergencyFacilitiesDataList[index] = { 'id' : '', 'officeId' : '', 'workPlace' : '', 'emergencyFacilities' : '', 'number' : '', 'technicalParameter' : '',  'operationAndMaintenance' : '',  'hazardFactors' : '',  'relationId' : ''};
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordEmergencyFacilitiesInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -107,8 +109,8 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
    * 删除一行
    */
   delOffice(item) {
-    const index = this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList.indexOf(item);
-    this.recordEmergencyFacilitiesInputRequest.recordEmergencyFacilitiesDataList.splice(index, index + 1);
+    const index = this.recordData.recordEmergencyFacilitiesDataList.indexOf(item);
+    this.recordData.recordEmergencyFacilitiesDataList.splice(index, index + 1);
   }
 
   /**
@@ -124,7 +126,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
       url = SystemConstant.EMERGENCY_FACILITIES_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordEmergencyFacilitiesInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

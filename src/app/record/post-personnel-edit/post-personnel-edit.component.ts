@@ -38,10 +38,7 @@ export class PostPersonnelEditComponent implements OnInit {
       postPersonnelId: ''
     }]
   };
-  sysPostList: [{
-    id: '',
-    postName: ''
-  }];
+
   addFlag: boolean;
   action = '';
 
@@ -53,13 +50,6 @@ export class PostPersonnelEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
-      next: (data) => {
-        this.sysPostList = data;
-      },
-      complete: () => {
-      }
-    });
   }
 
   ngOnInit() {

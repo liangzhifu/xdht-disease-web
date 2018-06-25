@@ -8,11 +8,11 @@
   <div class="row">
     <div class="col-md-6">
       <label class="col-md-5 col-form-label text-right">编码：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordInformingFacilitiesInputRequest.recordInformingFacilities.informingFacilitiesNo" placeholder="编码" >
+      <input type="text" class="form-control" [(ngModel)]="recordData.recordInformingFacilities.informingFacilitiesNo" placeholder="编码" >
     </div>
     <div class="col-md-6">
       <label class="col-md-5 col-form-label text-right">核实情况：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordInformingFacilitiesInputRequest.recordInformingFacilities.verificationResult" placeholder="核实情况">
+      <input type="text" class="form-control" [(ngModel)]="recordData.recordInformingFacilities.verificationResult" placeholder="核实情况">
     </div>
   </div>
   <div class="row">
@@ -28,11 +28,11 @@
         <td>备注</td>
         <td>操作</td>
       </tr>
-      <tr *ngFor="let item of recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList; let i = index " [(ngModel)]="recordInformingFacilitiesInputRequest.recordInformingFacilitiesDataList" >
+      <tr *ngFor="let item of recordData.recordInformingFacilitiesDataList; let i = index " [(ngModel)]="recordData.recordInformingFacilitiesDataList" >
         <td>
           <select #select [(ngModel)]="item.companyOfficeId" >
             <option value="">--请选择部门--</option>
-            <option *ngFor="let office of recordInformingFacilitiesInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
+            <option *ngFor="let office of recordData.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
           </select>
         </td>
         <td><input type="text" [(ngModel)]="item.processName"></td>

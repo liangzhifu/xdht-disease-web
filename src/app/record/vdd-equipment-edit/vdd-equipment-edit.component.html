@@ -8,11 +8,11 @@
   <div class="row">
     <div class="col-md-6">
       <label class="col-md-5 col-form-label text-right">编码：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordVddEquipmentInputRequest.recordVddEquipment.vddEquipmentNo" placeholder="编码" >
+      <input type="text" class="form-control" [(ngModel)]="recordData.recordVddEquipment.vddEquipmentNo" placeholder="编码" >
     </div>
     <div class="col-md-6">
       <label class="col-md-5 col-form-label text-right">核实情况：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordVddEquipmentInputRequest.recordVddEquipment.verificationResult" placeholder="核实情况">
+      <input type="text" class="form-control" [(ngModel)]="recordData.recordVddEquipment.verificationResult" placeholder="核实情况">
     </div>
   </div>
   <div class="row">
@@ -27,17 +27,17 @@
         <td>运行维护情况</td>
         <td>操作</td>
       </tr>
-      <tr *ngFor="let item of recordVddEquipmentInputRequest.recordVddEquipmentDataList;" [(ngModel)]="recordVddEquipmentInputRequest.recordVddEquipmentDataList" >
+      <tr *ngFor="let item of recordData.recordVddEquipmentDataList;" [(ngModel)]="recordData.recordVddEquipmentDataList" >
         <td>
           <select #select [(ngModel)]="item.officeId" >
             <option value="">--请选择部门--</option>
-            <option *ngFor="let office of recordVddEquipmentInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
+            <option *ngFor="let office of recordData.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
           </select>
         </td>
         <td>
           <select #select [(ngModel)]="item.postId" >
             <option value="">--请选择岗位--</option>
-            <option *ngFor="let post of recordVddEquipmentInputRequest.sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+            <option *ngFor="let post of recordData.sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
           </select>
         </td>
         <td><input type="text" [(ngModel)]="item.workPlace"></td>

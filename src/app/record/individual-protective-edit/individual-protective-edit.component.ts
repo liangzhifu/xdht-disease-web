@@ -14,7 +14,7 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class IndividualProtectiveEditComponent implements OnInit {
   recordIndividualProtectiveEditTitle: string;
-  @Input() recordIndividualProtectiveInputRequest = {
+  @Input() recordData = {
     'recordIndividualProtective': {
       'id': '',
       'individualProtectiveEquipmentNo': '',
@@ -53,14 +53,14 @@ export class IndividualProtectiveEditComponent implements OnInit {
   ) {
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordIndividualProtectiveInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
     });
     this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordIndividualProtectiveInputRequest.sysPostList = data;
+        this.recordData.sysPostList = data;
       },
       complete: () => {
       }
@@ -68,15 +68,15 @@ export class IndividualProtectiveEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordIndividualProtectiveInputRequest.recordIndividualProtective.id;
+    const relationId = this.recordData.recordIndividualProtective.id;
     if (relationId === undefined || relationId === null || relationId === '') {
       this.addFlag = true;
       this.recordIndividualProtectiveEditTitle = '新增--个体防护用品调查表';
     } else {
       this.addFlag = false;
       this.recordIndividualProtectiveEditTitle = '修改--个体防护用品调查表';
-      const  dataList = this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList;
-      this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList = [];
+      const  dataList = this.recordData.recordIndividualProtectiveDataList;
+      this.recordData.recordIndividualProtectiveDataList = [];
 
       for (let i = 0; i < dataList.length; i++) {
         const recordIndividualProtectiveData = {
@@ -90,7 +90,7 @@ export class IndividualProtectiveEditComponent implements OnInit {
           'usaged': dataList[i].usaged,
           'relationId': dataList[i].relationId
         };
-        this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList.push(recordIndividualProtectiveData);
+        this.recordData.recordIndividualProtectiveDataList.push(recordIndividualProtectiveData);
       }
     }
   }
@@ -104,11 +104,11 @@ export class IndividualProtectiveEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList.length;
-    this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'hazardFactors' : '', 'protectiveEquipment' : '', 'technicalParameter' : '', 'number' : '', 'usaged' : '', 'relationId' : '' };
+    const index = this.recordData.recordIndividualProtectiveDataList.length;
+    this.recordData.recordIndividualProtectiveDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'hazardFactors' : '', 'protectiveEquipment' : '', 'technicalParameter' : '', 'number' : '', 'usaged' : '', 'relationId' : '' };
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordIndividualProtectiveInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -119,8 +119,8 @@ export class IndividualProtectiveEditComponent implements OnInit {
    * 删除一行
    */
   delOffice(item) {
-    const index = this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList.indexOf(item);
-    this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList.splice(index, 1);
+    const index = this.recordData.recordIndividualProtectiveDataList.indexOf(item);
+    this.recordData.recordIndividualProtectiveDataList.splice(index, 1);
   }
 
   /**
@@ -136,7 +136,7 @@ export class IndividualProtectiveEditComponent implements OnInit {
       url = SystemConstant.INDIVIDUAL_PROTECTIVE_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordIndividualProtectiveInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

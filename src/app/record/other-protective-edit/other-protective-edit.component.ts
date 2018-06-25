@@ -14,7 +14,7 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class OtherProtectiveEditComponent implements OnInit {
   recordOtherProtectiveEditTitle: string;
-  @Input() recordOtherProtectiveInputRequest = {
+  @Input() recordData = {
     'recordOtherProtective': {
       'id': '',
       'otherProtectiveFacilitiesNo': '',
@@ -52,14 +52,14 @@ export class OtherProtectiveEditComponent implements OnInit {
   ) {
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordOtherProtectiveInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
     });
     this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordOtherProtectiveInputRequest.sysPostList = data;
+        this.recordData.sysPostList = data;
       },
       complete: () => {
       }
@@ -67,15 +67,15 @@ export class OtherProtectiveEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const relationId = this.recordOtherProtectiveInputRequest.recordOtherProtective.id;
+    const relationId = this.recordData.recordOtherProtective.id;
     if (relationId === undefined || relationId === null || relationId === '') {
       this.addFlag = true;
       this.recordOtherProtectiveEditTitle = '新增--其他防护设施调查表';
     } else {
       this.addFlag = false;
       this.recordOtherProtectiveEditTitle = '修改--其他防护设施调查表';
-      const  dataList = this.recordOtherProtectiveInputRequest.recordOtherProtectiveDataList;
-      this.recordOtherProtectiveInputRequest.recordOtherProtectiveDataList = [];
+      const  dataList = this.recordData.recordOtherProtectiveDataList;
+      this.recordData.recordOtherProtectiveDataList = [];
 
       for (let i = 0; i < dataList.length; i++) {
         const recordOtherProtectiveData = {
@@ -88,7 +88,7 @@ export class OtherProtectiveEditComponent implements OnInit {
           'operationAndMaintenance': dataList[i].operationAndMaintenance,
           'relationId': dataList[i].relationId
         };
-        this.recordOtherProtectiveInputRequest.recordOtherProtectiveDataList.push(recordOtherProtectiveData);
+        this.recordData.recordOtherProtectiveDataList.push(recordOtherProtectiveData);
       }
     }
   }
@@ -103,11 +103,11 @@ export class OtherProtectiveEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordOtherProtectiveInputRequest.recordOtherProtectiveDataList.length;
-    this.recordOtherProtectiveInputRequest.recordOtherProtectiveDataList[index] = { 'id' : '', 'officeId' : '', 'postId' : '', 'workPlace' : '', 'hazardFactors' : '', 'protectiveFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
+    const index = this.recordData.recordOtherProtectiveDataList.length;
+    this.recordData.recordOtherProtectiveDataList[index] = { 'id' : '', 'officeId' : '', 'postId' : '', 'workPlace' : '', 'hazardFactors' : '', 'protectiveFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordOtherProtectiveInputRequest.sysCompanyOfficeList = data;
+        this.recordData.sysCompanyOfficeList = data;
       },
       complete: () => {
       }
@@ -118,8 +118,8 @@ export class OtherProtectiveEditComponent implements OnInit {
    * 删除一行
    */
   delOffice(item) {
-    const index = this.recordOtherProtectiveInputRequest.recordOtherProtectiveDataList.indexOf(item);
-    this.recordOtherProtectiveInputRequest.recordOtherProtectiveDataList.splice(index, index + 1);
+    const index = this.recordData.recordOtherProtectiveDataList.indexOf(item);
+    this.recordData.recordOtherProtectiveDataList.splice(index, index + 1);
   }
 
   /**
@@ -135,7 +135,7 @@ export class OtherProtectiveEditComponent implements OnInit {
       url = SystemConstant.OTHER_PROTECTIVE_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordOtherProtectiveInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

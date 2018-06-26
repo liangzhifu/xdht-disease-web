@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
@@ -11,7 +11,9 @@ import {ModalService} from '../../modal/modal.service';
 import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
 import {CompanyOfficeChooseComponent} from '../company-office-choose/company-office-choose.component';
+import {FileUploader} from 'ng2-file-upload';
 import 'jquery';
+import {SessionStorageService} from '../../core/storage/session-storage.service';
 declare var $: any;
 
 @Component({
@@ -20,7 +22,13 @@ declare var $: any;
   styleUrls: ['./employee-edit.component.scss']
 })
 export class EmployeeEditComponent implements OnInit {
-
+  @Input()
+  change: any;
+  defImg: string;
+  authToken: string;
+  @Input()
+  defType: Number = 1;
+  uploader: FileUploader;
   @Input() sysEmployeeRequest = {
     sysEmployee: {
       id: '',
@@ -83,11 +91,20 @@ export class EmployeeEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
-    private waitService: WaitService
+    private waitService: WaitService,
+    private sessionStorageService: SessionStorageService
   ) {
   }
 
   ngOnInit() {
+    this.authToken = this.sessionStorageService.get('token');
+    this.uploader = new FileUploader({
+      url: SystemConstant.FILE_UPLOAD,
+      method: 'POST',
+      itemAlias: 'uploadFile',
+      authToken: this.authToken,
+      authTokenHeader: 'authorization'
+    });
     // 获取部门列表
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
@@ -257,5 +274,49 @@ export class EmployeeEditComponent implements OnInit {
         }
       }
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    this.uploader = new FileUploader({
+      url: SystemConstant.FILE_UPLOAD,
+      method: 'POST',
+      itemAlias: 'uploadFile',
+      authToken: this.authToken,
+      authTokenHeader: 'authorization'
+    });
+  }
+
+// C: 定义事件，选择文件
+  selectedFileOnChanged(event: any) {
+    // 打印文件选择名称
+    this.uploadFile();
+  }
+  // D: 定义事件，上传文件
+  uploadFile() {
+    // 上传
+    this.uploader.queue[0].onSuccess = function (response, status, headers) {
+      // 上传文件成功
+      if (status === 200) {
+        // 上传文件后获取服务器返回的数据
+        const ret = JSON.parse(response);
+        if ( ret.code === 100 ) {
+          // 此处无法 this.formModel.controls[this.name].setValue(this.defImg);  因此在html中增加hidden域，然后触犯隐藏域的单击事件
+          $('#upload-file-id').val(ret.content);
+          $('#upload-file-id').trigger('click');
+        } else {
+          alert('文件上传失败:' + ret.message);
+        }
+      } else {
+        // 上传文件后获取服务器返回的数据错误
+        alert('文件上传失败');
+      }
+    };
+    this.uploader.queue[0].upload(); // 开始上传
+  }
+
+  changeModel() {
+    this.defImg = 'assets/img/employee/' + $('#upload-file-id').val();
+    this.uploader.queue[0].remove(); // 上传过移除原有图片信息
   }
 }

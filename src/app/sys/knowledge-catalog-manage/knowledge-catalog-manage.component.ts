@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastService } from '../../toast/toast.service';
-import { ModalService } from '../../modal/modal.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpService } from '../../core/http/http.service';
-import { SystemConstant } from '../../core/class/system-constant';
-import { MenuEditComponent} from '../menu-edit/menu-edit.component';
-import { ToastType } from '../../toast/toast-type.enum';
-import { ToastConfig } from '../../toast/toast-config';
-import { ConfirmConfig } from '../../modal/confirm/confirm-config';
-import {AlertConfig} from '../../modal/alert/alert-config';
-import {AlertType} from '../../modal/alert/alert-type';
 import 'ztree';
 import 'jquery';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastService} from '../../toast/toast.service';
+import {ModalService} from '../../modal/modal.service';
+import {HttpService} from '../../core/http/http.service';
+import {ToastConfig} from '../../toast/toast-config';
+import {ToastType} from '../../toast/toast-type.enum';
+import {SystemConstant} from '../../core/class/system-constant';
+import {AlertConfig} from '../../modal/alert/alert-config';
+import {MenuEditComponent} from '../menu-edit/menu-edit.component';
+import {AlertType} from '../../modal/alert/alert-type';
+import {ConfirmConfig} from '../../modal/confirm/confirm-config';
+import {KnowledgeCatalogEditComponent} from '../knowledge-catalog-edit/knowledge-catalog-edit.component';
 declare var $: any;
 
 @Component({
-  selector: 'app-menu-manage',
-  templateUrl: './menu-manage.component.html',
-  styleUrls: ['./menu-manage.component.scss']
+  selector: 'app-knowledge-catalog-manage',
+  templateUrl: './knowledge-catalog-manage.component.html',
+  styleUrls: ['./knowledge-catalog-manage.component.scss']
 })
-export class MenuManageComponent implements OnInit {
+export class KnowledgeCatalogManageComponent implements OnInit {
   setting = {
     data: {
       simpleData: {
@@ -27,7 +28,7 @@ export class MenuManageComponent implements OnInit {
         pIdKey: 'parentId'
       },
       key: {
-        name: 'menuName'
+        name: 'catalogName'
       }
     },
     check: {
@@ -49,10 +50,10 @@ export class MenuManageComponent implements OnInit {
   }
 
   /**
-   * 打开部门树
+   * 打开知识库目录树
    */
   openZTree() {
-    this.httpService.post(SystemConstant.MENU_ZTREE_LIST, {}).subscribe({
+    this.httpService.post(SystemConstant.KNOWLEDGE_CATALOG_LIST, {}).subscribe({
       next: (data) => {
         this.zNodes = data;
         $.fn.zTree.init($('#ztree'), this.setting, this.zNodes);
@@ -60,7 +61,7 @@ export class MenuManageComponent implements OnInit {
         treeObj.expandAll(true);
       },
       error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取菜单失败！' + '失败原因：' + err, 3000);
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取知识库目录失败！' + '失败原因：' + err, 3000);
         this.toastService.toast(toastCfg);
       },
       complete: () => {}
@@ -70,23 +71,16 @@ export class MenuManageComponent implements OnInit {
   /**
    * 添加
    */
-  addMenu() {
+  addCatalog() {
     let parentId = 0;
-    let mgrType = '';
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
     if (nodes !== undefined && nodes !== null) {
       for (let i = 0; i < nodes.length; i++) {
         parentId = nodes[i].id;
-        mgrType = nodes[i].mgrType;
       }
     }
-    if (mgrType === '2') {
-      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '菜单添加', '权限不能添加下级菜单！');
-      this.modalService.alert(alertConfig);
-      return false;
-    }
-    const modalRef = this.ngbModal.open(MenuEditComponent);
+    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent);
     modalRef.componentInstance.parentId = parentId;
     modalRef.result.then(
       (result) => {
@@ -100,26 +94,26 @@ export class MenuManageComponent implements OnInit {
   /**
    * 修改
    */
-  editMenu() {
-    let menuId = 0;
+  editCatalog() {
+    let id = 0;
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
     if (nodes === undefined || nodes === null || nodes.length === 0) {
-      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '菜单修改', '必须选择一个菜单！');
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '知识库目录修改', '必须选择一个知识库目录！');
       this.modalService.alert(alertConfig);
       return false;
     } else {
       for (let i = 0; i < nodes.length; i++) {
-        menuId = nodes[i].id;
+        id = nodes[i].id;
       }
     }
     // 获取菜单数据
-    this.httpService.get(SystemConstant.MENU_DETAIL + '/' + menuId).subscribe({
+    this.httpService.get(SystemConstant.KNOWLEDGE_CATALOG_DETAIL + '/' + id).subscribe({
       next: (data) => {
-        this.openEditMenu(data);
+        this.openEditKnowledgeCatalog(data);
       },
       error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取菜单详情失败！' + '失败原因：' + err, 3000);
+        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取知识库目录详情失败！' + '失败原因：' + err, 3000);
         this.toastService.toast(toastCfg);
       },
       complete: () => {}
@@ -127,11 +121,11 @@ export class MenuManageComponent implements OnInit {
   }
 
   /**
-   * 打开修改菜单对话框
+   * 打开修改知识库目录对话框
    */
-  openEditMenu(menuData) {
-    const modalRef = this.ngbModal.open(MenuEditComponent);
-    modalRef.componentInstance.sysMenu = menuData;
+  openEditKnowledgeCatalog(data) {
+    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent);
+    modalRef.componentInstance.sysKnowledgeCatalog = data;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -143,35 +137,33 @@ export class MenuManageComponent implements OnInit {
 
   /**
    * 删除
-   * @param menuId
-   * @param menuName
    */
-  delMenu() {
-    let menuId = 0;
-    let menuName = '';
+  delCatalog() {
+    let catalogId = 0;
+    let catalogName = '';
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
     if (nodes === undefined || nodes === null || nodes.length === 0) {
-      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '菜单删除', '必须选择一个菜单！');
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '知识库目录删除', '必须选择一个知识库目录！');
       this.modalService.alert(alertConfig);
       return false;
     } else {
       for (let i = 0; i < nodes.length; i++) {
-        menuId = nodes[i].id;
-        menuName = nodes[i].menuName;
+        catalogId = nodes[i].id;
+        catalogName = nodes[i].catalogName;
       }
     }
-    const confirmCfg = new ConfirmConfig('确定删除菜单：' + menuName + '！');
+    const confirmCfg = new ConfirmConfig('确定删除知识库目录：' + catalogName + '！');
     this.modalService.confirm(confirmCfg).then(
       () => {
-        this.httpService.post(SystemConstant.MENU_DEL + '?id=' + menuId, {}).subscribe({
+        this.httpService.post(SystemConstant.KNOWLEDGE_CATALOG_DEL + '?id=' + catalogId, {}).subscribe({
           next: (data) => {
-            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除菜单成功！', 3000);
+            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除知识库目录成功！', 3000);
             this.toastService.toast(toastCfg);
             this.openZTree();
           },
           error: (err) => {
-            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除菜单失败！' + '失败原因：' + err, 3000);
+            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除知识库目录失败！' + '失败原因：' + err, 3000);
             this.toastService.toast(toastCfg);
           },
           complete: () => {}

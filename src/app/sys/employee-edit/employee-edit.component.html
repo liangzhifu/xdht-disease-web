@@ -79,6 +79,13 @@
           </div>
         </div>
       </div>
+      <div class="col-md-4 xdht-row-col">
+        <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"  placeholder="请选择要上传的文件">
+        <div style="padding-left:125px; padding-top: 10px;">
+          <img [src]="defImg" style="width: 100px;height: 80px;" />
+        </div>
+        <input type="hidden" id="upload-file-id" (click)="changeModel()"  >
+      </div>
     </div>
     <div  class="row">
       <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">

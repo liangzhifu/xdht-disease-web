@@ -26,6 +26,9 @@ import { DictionaryManageComponent } from './dictionary-manage/dictionary-manage
 import { DictionaryEditComponent } from './dictionary-edit/dictionary-edit.component';
 import {EditPasswordComponent} from './edit-password/edit-password.component';
 import { CompanyOfficeChooseComponent } from './company-office-choose/company-office-choose.component';
+import { NoticeManageComponent } from './notice-manage/notice-manage.component';
+import { NoticeEditComponent } from './notice-edit/notice-edit.component';
+import {QuillModule} from 'ngx-quill';
 
 @NgModule({
   imports: [
@@ -35,7 +38,8 @@ import { CompanyOfficeChooseComponent } from './company-office-choose/company-of
     NgbModule,
     ReactiveFormsModule,
     SimpleDataTableModule,
-    SysRoutingModule
+    SysRoutingModule,
+    QuillModule
   ],
   entryComponents: [
     CompanyEditComponent,
@@ -46,6 +50,7 @@ import { CompanyOfficeChooseComponent } from './company-office-choose/company-of
     EmployeeEditComponent,
     MenuChooseComponent,
     MenuEditComponent,
+    NoticeEditComponent,
     RoleChooseComponent,
     RoleEditComponent,
     UserEditComponent
@@ -77,7 +82,9 @@ import { CompanyOfficeChooseComponent } from './company-office-choose/company-of
     EmpoiyeeInfoComponent,
     DictionaryManageComponent,
     DictionaryEditComponent,
-    CompanyOfficeChooseComponent
+    CompanyOfficeChooseComponent,
+    NoticeManageComponent,
+    NoticeEditComponent
   ]
 })
 export class SysModule { }

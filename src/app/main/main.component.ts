@@ -79,13 +79,6 @@ export class MainComponent implements OnInit {
   }
 
   /**
-   * 个人资料
-   */
-  userInfo() {
-    this.router.navigate(['/main/sys/userInfo']).then();
-  }
-
-  /**
    * 修改密码
    */
   passwordEdit() {

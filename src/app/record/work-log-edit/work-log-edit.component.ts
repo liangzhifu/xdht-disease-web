@@ -127,6 +127,7 @@ export class WorkLogEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.WORK_LOG_ADD;
+      this.recordData.recordWorkLog.sceneId = this.sceneId;
     } else {
       url = SystemConstant.WORK_LOG_EDIT;
     }
@@ -135,6 +136,7 @@ export class WorkLogEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

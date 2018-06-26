@@ -37,6 +37,10 @@ export class AntiNoiseEditComponent implements OnInit {
       relationId: ''
     }]
   };
+  sysPostList: [{
+    id: '',
+    postName: ''
+  }];
   addFlag: boolean;
   action = '';
   constructor(
@@ -47,6 +51,13 @@ export class AntiNoiseEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
+    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+      next: (data) => {
+        this.sysPostList = data;
+      },
+      complete: () => {
+      }
+    });
   }
 
   ngOnInit() {
@@ -119,6 +130,7 @@ export class AntiNoiseEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

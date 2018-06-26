@@ -36,12 +36,12 @@ export class VddEquipmentEditComponent implements OnInit {
       number: '',
       operationAndMaintenance: '',
       relationId: ''
-    }],
-    sysPostList: [{
-      id: '',
-      postName: ''
     }]
   };
+  sysPostList: [{
+    id: '',
+    postName: ''
+  }];
   addFlag: boolean;
   action = '';
   constructor(
@@ -54,7 +54,7 @@ export class VddEquipmentEditComponent implements OnInit {
   ) {
     this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
       next: (data) => {
-        this.recordData.sysPostList = data;
+        this.sysPostList = data;
       },
       complete: () => {
       }
@@ -132,6 +132,7 @@ export class VddEquipmentEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

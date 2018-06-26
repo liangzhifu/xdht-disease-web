@@ -48,6 +48,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
+
   }
 
   ngOnInit() {
@@ -121,6 +122,8 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
+
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

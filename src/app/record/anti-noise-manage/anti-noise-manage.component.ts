@@ -7,7 +7,6 @@ import {ModalService} from '../../modal/modal.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {Router} from '@angular/router';
 import {SystemConstant} from '../../core/class/system-constant';
-import {WorkLogEditComponent} from '../work-log-edit/work-log-edit.component';
 import {AntiNoiseEditComponent} from '../anti-noise-edit/anti-noise-edit.component';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';

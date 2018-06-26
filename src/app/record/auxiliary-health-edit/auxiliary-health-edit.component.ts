@@ -106,10 +106,10 @@ export class AuxiliaryHealthEditComponent implements OnInit {
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {
-      url = SystemConstant.BUILDING_AERATION_ADD;
+      url = SystemConstant.RECORD_AUXILIARY_HEALTH_ADD;
       this.recordData.recordAuxiliaryHealth.sceneId = this.sceneId;
     } else {
-      url = SystemConstant.BUILDING_AERATION_EDIT;
+      url = SystemConstant.RECORD_AUXILIARY_HEALTH_EDIT;
     }
     // 保存调查表
     this.httpService.post(url, this.recordData).subscribe({

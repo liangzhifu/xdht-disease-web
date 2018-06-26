@@ -54,6 +54,8 @@ import { BuildingBaseEditComponent } from './building-base-edit/building-base-ed
 import { BuildingAerationManageComponent } from './building-aeration-manage/building-aeration-manage.component';
 import { BuildingAerationEditComponent } from './building-aeration-edit/building-aeration-edit.component';
 import { AuxiliaryHealthEditComponent } from './auxiliary-health-edit/auxiliary-health-edit.component';
+import { RecordFundsEditComponent } from './record-funds-edit/record-funds-edit.component';
+import { HealthCareEditComponent } from './health-care-edit/health-care-edit.component';
 
 @NgModule({
   imports: [
@@ -91,7 +93,9 @@ import { AuxiliaryHealthEditComponent } from './auxiliary-health-edit/auxiliary-
     WorkLogEditComponent,
     BuildingBaseEditComponent,
     BuildingAerationEditComponent,
-    AuxiliaryHealthEditComponent
+    AuxiliaryHealthEditComponent,
+    RecordFundsEditComponent,
+    HealthCareEditComponent
   ],
   declarations: [
     AntiNoiseEditComponent,
@@ -143,6 +147,8 @@ import { AuxiliaryHealthEditComponent } from './auxiliary-health-edit/auxiliary-
     BuildingAerationManageComponent,
     BuildingAerationEditComponent,
     AuxiliaryHealthEditComponent,
+    RecordFundsEditComponent,
+    HealthCareEditComponent,
   ]
 })
 export class RecordModule { }

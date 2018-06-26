@@ -28,6 +28,8 @@ import {InformingFacilitiesEditComponent} from '../informing-facilities-edit/inf
 import {BuildingBaseEditComponent} from '../building-base-edit/building-base-edit.component';
 import {BuildingAerationEditComponent} from '../building-aeration-edit/building-aeration-edit.component';
 import {AuxiliaryHealthEditComponent} from '../auxiliary-health-edit/auxiliary-health-edit.component';
+import {RecordFundsEditComponent} from '../record-funds-edit/record-funds-edit.component';
+import {HealthCareEditComponent} from '../health-care-edit/health-care-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -151,7 +153,7 @@ export class SceneDetailComponent implements OnInit {
                   myUrl = SystemConstant.BUILDING_AERATION_DETAIL;
                   break;
       case (18) : this.editComponent = AuxiliaryHealthEditComponent;
-                  myUrl = SystemConstant.BUILDING_AERATION_DETAIL;
+                  myUrl = SystemConstant.RECORD_AUXILIARY_HEALTH_DETAIL;
                   break;
       case (19) : this.editComponent = InformingFacilitiesEditComponent;
                   myUrl = SystemConstant.INFORMING_FACILITIES_DETAIL;
@@ -159,11 +161,11 @@ export class SceneDetailComponent implements OnInit {
       case (20) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
-      case (21) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (21) : this.editComponent = RecordFundsEditComponent;
+                  myUrl = SystemConstant.FUNDS_DETAIL;
                   break;
-      case (22) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (22) : this.editComponent = HealthCareEditComponent;
+                  myUrl = SystemConstant.RECORD_HEALTH_CARE_DETAIL;
                   break;
     }
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)

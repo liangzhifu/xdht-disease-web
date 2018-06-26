@@ -49,6 +49,11 @@ import { EmployeeSummaryManageComponent } from './employee-summary-manage/employ
 import { EmployeeSummaryEditComponent } from './employee-summary-edit/employee-summary-edit.component';
 import { PostPersonnelManageComponent } from './post-personnel-manage/post-personnel-manage.component';
 import { PostPersonnelEditComponent } from './post-personnel-edit/post-personnel-edit.component';
+import { BuildingBaseManageComponent } from './building-base-manage/building-base-manage.component';
+import { BuildingBaseEditComponent } from './building-base-edit/building-base-edit.component';
+import { BuildingAerationManageComponent } from './building-aeration-manage/building-aeration-manage.component';
+import { BuildingAerationEditComponent } from './building-aeration-edit/building-aeration-edit.component';
+import { AuxiliaryHealthEditComponent } from './auxiliary-health-edit/auxiliary-health-edit.component';
 
 @NgModule({
   imports: [
@@ -83,7 +88,10 @@ import { PostPersonnelEditComponent } from './post-personnel-edit/post-personnel
     SelectEmployeeComponent,
     TemperatureProtectionEditComponent,
     VddEquipmentEditComponent,
-    WorkLogEditComponent
+    WorkLogEditComponent,
+    BuildingBaseEditComponent,
+    BuildingAerationEditComponent,
+    AuxiliaryHealthEditComponent
   ],
   declarations: [
     AntiNoiseEditComponent,
@@ -129,7 +137,12 @@ import { PostPersonnelEditComponent } from './post-personnel-edit/post-personnel
     VddEquipmentEditComponent,
     VddEquipmentManageComponent,
     WorkLogEditComponent,
-    WorkLogManageComponent
+    WorkLogManageComponent,
+    BuildingBaseManageComponent,
+    BuildingBaseEditComponent,
+    BuildingAerationManageComponent,
+    BuildingAerationEditComponent,
+    AuxiliaryHealthEditComponent,
   ]
 })
 export class RecordModule { }

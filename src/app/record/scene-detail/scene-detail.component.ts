@@ -25,6 +25,9 @@ import {TemperatureProtectionEditComponent} from '../temperature-protection-edit
 import {OtherProtectiveEditComponent} from '../other-protective-edit/other-protective-edit.component';
 import {IndividualProtectiveEditComponent} from '../individual-protective-edit/individual-protective-edit.component';
 import {InformingFacilitiesEditComponent} from '../informing-facilities-edit/informing-facilities-edit.component';
+import {BuildingBaseEditComponent} from '../building-base-edit/building-base-edit.component';
+import {BuildingAerationEditComponent} from '../building-aeration-edit/building-aeration-edit.component';
+import {AuxiliaryHealthEditComponent} from '../auxiliary-health-edit/auxiliary-health-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -141,14 +144,14 @@ export class SceneDetailComponent implements OnInit {
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
                   // 一下模块需要更改（19 除外）
-      case (16) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (16) : this.editComponent = BuildingBaseEditComponent;
+                  myUrl = SystemConstant.BUILDING_BASE_DETAIL;
                   break;
-      case (17) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (17) : this.editComponent = BuildingAerationEditComponent;
+                  myUrl = SystemConstant.BUILDING_AERATION_DETAIL;
                   break;
-      case (18) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (18) : this.editComponent = AuxiliaryHealthEditComponent;
+                  myUrl = SystemConstant.BUILDING_AERATION_DETAIL;
                   break;
       case (19) : this.editComponent = InformingFacilitiesEditComponent;
                   myUrl = SystemConstant.INFORMING_FACILITIES_DETAIL;

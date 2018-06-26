@@ -9,6 +9,7 @@ import { CompanyOfficeManageComponent } from './company-office-manage/company-of
 import { EmployeeManageComponent } from './employee-manage/employee-manage.component';
 import { DictionaryManageComponent } from './dictionary-manage/dictionary-manage.component';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
+import {NoticeManageComponent} from './notice-manage/notice-manage.component';
 
 /**
  * 系统管理路由
@@ -25,7 +26,8 @@ const sysRoutes: Routes = [
       {path: 'dictionaryManage', component: DictionaryManageComponent},
       {path: 'menuManage', component: MenuManageComponent},
       {path: 'roleManage', component: RoleManageComponent},
-      {path: 'userManage', component: UserManageComponent}
+      {path: 'userManage', component: UserManageComponent},
+      {path: 'noticeManage', component: NoticeManageComponent}
     ]
   }
 ];

@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
+import {ModalService} from '../../modal/modal.service';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-anti-noise-edit',
@@ -14,83 +16,54 @@ import {ToastConfig} from '../../toast/toast-config';
 })
 export class AntiNoiseEditComponent implements OnInit {
   recordAntiNoiseEditTitle: string;
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
   @Input() recordData = {
-    'recordAntiNoiseFacilities': {
-      'id': '',
-      'antiNoiseFacilitiesNo': '',
-      'verificationResult': '',
-      'sceneId': ''
+    recordAntiNoiseFacilities: {
+      id: '',
+      antiNoiseFacilitiesNo: '',
+      verificationResult: '',
+      sceneId: 0
     },
-    'recordAntiNoiseFacilitiesDataList': [{
-      'id': '',
-      'companyOfficeId': '',
-      'postId': '',
-      'workPlace': '',
-      'noiseSource': '',
-      'noiseProtectionFacilities': '',
-      'operationAndMaintenance': '',
-      'relationId': ''
-    }],
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
-    }],
-    'sysPostList': [{
-      'id': '',
-      'postName': '',
-      'status': ''
+    recordAntiNoiseFacilitiesDataList: [{
+      id: '',
+      companyOfficeId: '',
+      officeName: '',
+      postId: '',
+      workPlace: '',
+      noiseSource: '',
+      noiseProtectionFacilities: '',
+      operationAndMaintenance: '',
+      relationId: ''
     }]
-
   };
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysPostList = data;
-      },
-      complete: () => {
-      }
-    });
   }
 
   ngOnInit() {
-    const relationId = this.recordData.recordAntiNoiseFacilities.id;
-    if (relationId === undefined || relationId === null || relationId === '') {
+    if (this.recordData.recordAntiNoiseFacilities === null
+      || this.recordData.recordAntiNoiseFacilities.id === null
+      || this.recordData.recordAntiNoiseFacilities.id === '') {
       this.addFlag = true;
       this.recordAntiNoiseEditTitle = '新增--防噪声设施调查表';
+      this.recordData.recordAntiNoiseFacilities = {
+        id: '',
+        antiNoiseFacilitiesNo: '',
+        verificationResult: '',
+        sceneId: 0
+      };
     } else {
       this.addFlag = false;
       this.recordAntiNoiseEditTitle = '修改--防噪声设施调查表';
-      const  dataList = this.recordData.recordAntiNoiseFacilitiesDataList;
-      this.recordData.recordAntiNoiseFacilitiesDataList = [];
-
-      for (let i = 0; i < dataList.length; i++) {
-        const recordAntiNoiseData = {
-          'id': dataList[i].id,
-          'companyOfficeId': dataList[i].companyOfficeId,
-          'postId': dataList[i].postId,
-          'workPlace': dataList[i].workPlace,
-          'noiseSource': dataList[i].noiseSource,
-          'noiseProtectionFacilities': dataList[i].noiseProtectionFacilities,
-          'operationAndMaintenance': dataList[i].operationAndMaintenance,
-          'relationId': dataList[i].relationId
-        };
-        this.recordData.recordAntiNoiseFacilitiesDataList.push(recordAntiNoiseData);
-      }
     }
   }
   /**
@@ -103,15 +76,21 @@ export class AntiNoiseEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
+    if (this.recordData.recordAntiNoiseFacilitiesDataList === null) {
+      this.recordData.recordAntiNoiseFacilitiesDataList = [];
+    }
     const index = this.recordData.recordAntiNoiseFacilitiesDataList.length;
-    this.recordData.recordAntiNoiseFacilitiesDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'postId' : '', 'workPlace' : '', 'noiseSource' : '', 'noiseProtectionFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
+    this.recordData.recordAntiNoiseFacilitiesDataList[index] = {
+        id: '',
+        companyOfficeId: '',
+        officeName: '',
+        postId: '',
+        workPlace: '',
+        noiseSource: '',
+        noiseProtectionFacilities: '',
+        operationAndMaintenance: '',
+        relationId: ''
+    };
   }
 
   /**
@@ -119,7 +98,7 @@ export class AntiNoiseEditComponent implements OnInit {
    */
   delOffice(item) {
     const index = this.recordData.recordAntiNoiseFacilitiesDataList.indexOf(item);
-    this.recordData.recordAntiNoiseFacilitiesDataList.splice(index, index + 1);
+    this.recordData.recordAntiNoiseFacilitiesDataList.splice(index, 1);
   }
 
   /**
@@ -131,6 +110,7 @@ export class AntiNoiseEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.ANTI_NOISE_ADD;
+      this.recordData.recordAntiNoiseFacilities.sceneId = this.sceneId;
     } else {
       url = SystemConstant.ANTI_NOISE_EDIT;
     }
@@ -149,6 +129,21 @@ export class AntiNoiseEditComponent implements OnInit {
     });
     this.waitService.wait(false);
   }
-
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice(index) {
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = this.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordData.recordAntiNoiseFacilitiesDataList[index].companyOfficeId = sysCompanyOffice.id;
+          this.recordData.recordAntiNoiseFacilitiesDataList[index].officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
+  }
 
 }

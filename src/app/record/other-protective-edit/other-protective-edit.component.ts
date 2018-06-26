@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ToastService} from '../../toast/toast.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {WaitService} from '../../core/wait/wait.service';
 import {HttpService} from '../../core/http/http.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
+import {ModalService} from '../../modal/modal.service';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-other-protective-edit',
@@ -14,82 +16,54 @@ import {ToastType} from '../../toast/toast-type.enum';
 })
 export class OtherProtectiveEditComponent implements OnInit {
   recordOtherProtectiveEditTitle: string;
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
   @Input() recordData = {
-    'recordOtherProtective': {
-      'id': '',
-      'otherProtectiveFacilitiesNo': '',
-      'verificationResult': ''
+    recordOtherProtective: {
+      id: '',
+      otherProtectiveFacilitiesNo: '',
+      verificationResult: '',
+      sceneId : 0
     },
-    'recordOtherProtectiveDataList': [{
-      'id': '',
-      'officeId': '',
-      'postId': '',
-      'workPlace': '',
-      'hazardFactors': '',
-      'protectiveFacilities': '',
-      'operationAndMaintenance': '',
-      'relationId': ''
-    }],
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
-    }],
-    'sysPostList': [{
-      'id': '',
-      'postName': '',
-      'status': ''
+    recordOtherProtectiveDataList: [{
+      id: '',
+      officeId: '',
+      officeName: '',
+      postId: '',
+      workPlace: '',
+      hazardFactors: '',
+      protectiveFacilities: '',
+      operationAndMaintenance: '',
+      relationId: ''
     }]
-
   };
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysPostList = data;
-      },
-      complete: () => {
-      }
-    });
   }
 
   ngOnInit() {
-    const relationId = this.recordData.recordOtherProtective.id;
-    if (relationId === undefined || relationId === null || relationId === '') {
+    if (this.recordData.recordOtherProtective === null
+      || this.recordData.recordOtherProtective === null
+      || this.recordData.recordOtherProtective.id === '') {
       this.addFlag = true;
       this.recordOtherProtectiveEditTitle = '新增--其他防护设施调查表';
+      this.recordData.recordOtherProtective = {
+        id: '',
+        otherProtectiveFacilitiesNo: '',
+        verificationResult: '',
+        sceneId : 0
+      };
     } else {
       this.addFlag = false;
       this.recordOtherProtectiveEditTitle = '修改--其他防护设施调查表';
-      const  dataList = this.recordData.recordOtherProtectiveDataList;
-      this.recordData.recordOtherProtectiveDataList = [];
-
-      for (let i = 0; i < dataList.length; i++) {
-        const recordOtherProtectiveData = {
-          'id': dataList[i].id,
-          'officeId': dataList[i].officeId,
-          'postId': dataList[i].postId,
-          'workPlace': dataList[i].workPlace,
-          'hazardFactors': dataList[i].hazardFactors,
-          'protectiveFacilities': dataList[i].protectiveFacilities,
-          'operationAndMaintenance': dataList[i].operationAndMaintenance,
-          'relationId': dataList[i].relationId
-        };
-        this.recordData.recordOtherProtectiveDataList.push(recordOtherProtectiveData);
-      }
     }
   }
 
@@ -103,15 +77,21 @@ export class OtherProtectiveEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
+    if (this.recordData.recordOtherProtectiveDataList === null) {
+      this.recordData.recordOtherProtectiveDataList = [];
+    }
     const index = this.recordData.recordOtherProtectiveDataList.length;
-    this.recordData.recordOtherProtectiveDataList[index] = { 'id' : '', 'officeId' : '', 'postId' : '', 'workPlace' : '', 'hazardFactors' : '', 'protectiveFacilities' : '', 'operationAndMaintenance' : '',  'relationId' : ''};
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordData.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
+    this.recordData.recordOtherProtectiveDataList[index] = {
+        id: '',
+        officeId: '',
+        officeName: '',
+        postId: '',
+        workPlace: '',
+        hazardFactors: '',
+        protectiveFacilities: '',
+        operationAndMaintenance: '',
+        relationId: ''
+    };
   }
 
   /**
@@ -119,7 +99,7 @@ export class OtherProtectiveEditComponent implements OnInit {
    */
   delOffice(item) {
     const index = this.recordData.recordOtherProtectiveDataList.indexOf(item);
-    this.recordData.recordOtherProtectiveDataList.splice(index, index + 1);
+    this.recordData.recordOtherProtectiveDataList.splice(index,  1);
   }
 
   /**
@@ -131,6 +111,7 @@ export class OtherProtectiveEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.OTHER_PROTECTIVE_ADD;
+      this.recordData.recordOtherProtective.sceneId = this.sceneId;
     } else {
       url = SystemConstant.OTHER_PROTECTIVE_EDIT;
     }
@@ -149,6 +130,21 @@ export class OtherProtectiveEditComponent implements OnInit {
     });
     this.waitService.wait(false);
   }
-
+  /**
+   * 选择部门
+   */
+  searchEmployeeOffice(index) {
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = this.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordData.recordOtherProtectiveDataList[index].officeId = sysCompanyOffice.id;
+          this.recordData.recordOtherProtectiveDataList[index].officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
+  }
 
 }

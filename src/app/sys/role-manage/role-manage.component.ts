@@ -11,6 +11,7 @@ import { ToastConfig } from '../../toast/toast-config';
 import { ToastType } from '../../toast/toast-type.enum';
 import { ConfirmConfig } from '../../modal/confirm/confirm-config';
 import { MenuChooseComponent } from '../menu-choose/menu-choose.component';
+import {KnowledgeCatalogChooseComponent} from '../knowledge-catalog-choose/knowledge-catalog-choose.component';
 
 @Component({
   selector: 'app-role-manage',
@@ -131,6 +132,23 @@ export class RoleManageComponent implements OnInit {
    */
   editRoleMenu(roleId) {
     const modalRef = this.ngbModal.open(MenuChooseComponent);
+    modalRef.componentInstance.roleId = roleId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+          this.search();
+        }
+      },
+      () => {}
+    ).catch();
+  }
+
+  /**
+   * 分配知识库目录
+   * @param roleId
+   */
+  editRoleKnowledgeCatalog(roleId) {
+    const modalRef = this.ngbModal.open(KnowledgeCatalogChooseComponent);
     modalRef.componentInstance.roleId = roleId;
     modalRef.result.then(
       (result) => {

@@ -29,11 +29,21 @@ import { CompanyOfficeChooseComponent } from './company-office-choose/company-of
 import { NoticeManageComponent } from './notice-manage/notice-manage.component';
 import { NoticeEditComponent } from './notice-edit/notice-edit.component';
 import {QuillModule} from 'ngx-quill';
+import {FileUploadModule} from 'ng2-file-upload';
+import { KnowledgeCatalogManageComponent } from './knowledge-catalog-manage/knowledge-catalog-manage.component';
+import { KnowledgeCatalogChooseComponent } from './knowledge-catalog-choose/knowledge-catalog-choose.component';
+import { KnowledgeCatalogTreeComponent } from './knowledge-catalog-tree/knowledge-catalog-tree.component';
+import { KnowledgeManageComponent } from './knowledge-manage/knowledge-manage.component';
+import { KnowledgeEditComponent } from './knowledge-edit/knowledge-edit.component';
+import { KnowledgeDetailComponent } from './knowledge-detail/knowledge-detail.component';
+import { KnowledgeHistoryComponent } from './knowledge-history/knowledge-history.component';
+import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledge-catalog-edit.component';
 
 @NgModule({
   imports: [
     CommonModule,
     CoreModule,
+    FileUploadModule,
     FormsModule,
     NgbModule,
     ReactiveFormsModule,
@@ -48,6 +58,8 @@ import {QuillModule} from 'ngx-quill';
     CompanyOfficeManageComponent,
     DictionaryEditComponent,
     EmployeeEditComponent,
+    KnowledgeCatalogChooseComponent,
+    KnowledgeCatalogEditComponent,
     MenuChooseComponent,
     MenuEditComponent,
     NoticeEditComponent,
@@ -84,7 +96,15 @@ import {QuillModule} from 'ngx-quill';
     DictionaryEditComponent,
     CompanyOfficeChooseComponent,
     NoticeManageComponent,
-    NoticeEditComponent
+    NoticeEditComponent,
+    KnowledgeCatalogManageComponent,
+    KnowledgeCatalogChooseComponent,
+    KnowledgeCatalogTreeComponent,
+    KnowledgeManageComponent,
+    KnowledgeEditComponent,
+    KnowledgeDetailComponent,
+    KnowledgeHistoryComponent,
+    KnowledgeCatalogEditComponent
   ]
 })
 export class SysModule { }

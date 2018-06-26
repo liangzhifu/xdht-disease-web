@@ -8,10 +8,10 @@ import { MenuEditComponent} from '../menu-edit/menu-edit.component';
 import { ToastType } from '../../toast/toast-type.enum';
 import { ToastConfig } from '../../toast/toast-config';
 import { ConfirmConfig } from '../../modal/confirm/confirm-config';
-import 'ztree';
-import 'jquery';
 import {AlertConfig} from '../../modal/alert/alert-config';
 import {AlertType} from '../../modal/alert/alert-type';
+import 'ztree';
+import 'jquery';
 declare var $: any;
 
 @Component({

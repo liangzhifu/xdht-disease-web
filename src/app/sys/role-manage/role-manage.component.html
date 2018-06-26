@@ -31,6 +31,7 @@
             <td>{{item.remarks}}</td>
             <td>
               <button type="button" class="btn btn-info radius mr-10" (click)="editRoleMenu(item.id)"><i class="fa fa-gears fa-fw"></i>分配菜单</button>
+              <button type="button" class="btn btn-info radius mr-10" (click)="editRoleKnowledgeCatalog(item.id)"><i class="fa fa-gears fa-fw"></i>分配知识库目录</button>
               <button type="button" class="btn btn-warning radius mr-10" (click)="editRole(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
               <button type="button" class="btn btn-danger radius" (click)="delRole(item.id, item.roleName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
             </td>

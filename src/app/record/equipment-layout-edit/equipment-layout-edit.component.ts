@@ -26,8 +26,8 @@ export class EquipmentLayoutEditComponent implements OnInit {
       sceneId : 0
     },
     recordEquipmentLayoutDataList: [{
-      officdId: '',
       id: '',
+      officeId: '',
       processAndEquipment: '',
       hazardFactors: '',
       layoutDetail: '',
@@ -84,7 +84,7 @@ export class EquipmentLayoutEditComponent implements OnInit {
     const index = this.recordData.recordEquipmentLayoutDataList.length;
     this.recordData.recordEquipmentLayoutDataList[index] = {
         id: '',
-        officdId: '',
+        officeId: '',
         processAndEquipment: '',
         hazardFactors: '',
         layoutDetail: '',
@@ -110,7 +110,7 @@ export class EquipmentLayoutEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.EQUIPMENT_LAYOUT_ADD;
-     this.recordData.recordEquipmentLayoutDataList.slice( 1, this.recordData.recordEquipmentLayoutDataList.length + 1);
+     this.recordData.recordEquipmentLayoutDataList.splice( 1, this.recordData.recordEquipmentLayoutDataList.length + 1);
       this.recordData.recordEquipmentLayout.sceneId = this.sceneId;
     } else {
       url = SystemConstant.EQUIPMENT_LAYOUT_EDIT;
@@ -120,6 +120,7 @@ export class EquipmentLayoutEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
@@ -140,7 +141,7 @@ export class EquipmentLayoutEditComponent implements OnInit {
       (result) => {
         if (result.success === 'success') {
           const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordEquipmentLayoutDataList[index].officdId = sysCompanyOffice.id;
+          this.recordData.recordEquipmentLayoutDataList[index].officeId = sysCompanyOffice.id;
           this.recordData.recordEquipmentLayoutDataList[index].officeName = sysCompanyOffice.officeName;
         }
       }

@@ -30,6 +30,7 @@ import {BuildingAerationEditComponent} from '../building-aeration-edit/building-
 import {AuxiliaryHealthEditComponent} from '../auxiliary-health-edit/auxiliary-health-edit.component';
 import {RecordFundsEditComponent} from '../record-funds-edit/record-funds-edit.component';
 import {HealthCareEditComponent} from '../health-care-edit/health-care-edit.component';
+import {HealthManagementEditComponent} from '../health-management-edit/health-management-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',

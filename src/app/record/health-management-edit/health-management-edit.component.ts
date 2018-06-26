@@ -51,7 +51,7 @@ export class HealthManagementEditComponent implements OnInit {
       || this.recordData.recordHealthManagement.id === null
       || this.recordData.recordHealthManagement.id === '') {
       this.addFlag = true;
-      this.recordHealthManagementEditTitle = '新增--建设项目概况调查表';
+      this.recordHealthManagementEditTitle = '新增--职业卫生管理情况调查表';
       this.recordData.recordHealthManagement = {
         id: '',
         sceneId: this.sceneId,
@@ -80,7 +80,7 @@ export class HealthManagementEditComponent implements OnInit {
       });
     } else {
       this.addFlag = false;
-      this.recordHealthManagementEditTitle = '修改--建设项目概况调查表';
+      this.recordHealthManagementEditTitle = '修改--职业卫生管理情况调查表';
     }
   }
   /**
@@ -106,6 +106,7 @@ export class HealthManagementEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

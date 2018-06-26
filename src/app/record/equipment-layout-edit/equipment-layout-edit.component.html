@@ -29,7 +29,7 @@
           </tr>
           <tr *ngFor="let item of recordData.recordEquipmentLayoutDataList;let i=index;"  >
             <td>
-              <input type="hidden" [(ngModel)]="item.officdId" name="item{{i}}.officdId">
+              <input type="hidden" [(ngModel)]="item.officeId" name="item{{i}}.officeId">
               <input type="text" [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
               <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
             </td>

@@ -25,6 +25,11 @@ import {TemperatureProtectionEditComponent} from '../temperature-protection-edit
 import {OtherProtectiveEditComponent} from '../other-protective-edit/other-protective-edit.component';
 import {IndividualProtectiveEditComponent} from '../individual-protective-edit/individual-protective-edit.component';
 import {InformingFacilitiesEditComponent} from '../informing-facilities-edit/informing-facilities-edit.component';
+import {BuildingBaseEditComponent} from '../building-base-edit/building-base-edit.component';
+import {BuildingAerationEditComponent} from '../building-aeration-edit/building-aeration-edit.component';
+import {AuxiliaryHealthEditComponent} from '../auxiliary-health-edit/auxiliary-health-edit.component';
+import {RecordFundsEditComponent} from '../record-funds-edit/record-funds-edit.component';
+import {HealthCareEditComponent} from '../health-care-edit/health-care-edit.component';
 import {HealthManagementEditComponent} from '../health-management-edit/health-management-edit.component';
 
 @Component({
@@ -141,26 +146,27 @@ export class SceneDetailComponent implements OnInit {
       case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
-      case (16) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  // 一下模块需要更改（19 除外）
+      case (16) : this.editComponent = BuildingBaseEditComponent;
+                  myUrl = SystemConstant.BUILDING_BASE_DETAIL;
                   break;
-      case (17) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (17) : this.editComponent = BuildingAerationEditComponent;
+                  myUrl = SystemConstant.BUILDING_AERATION_DETAIL;
                   break;
-      case (18) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (18) : this.editComponent = AuxiliaryHealthEditComponent;
+                  myUrl = SystemConstant.RECORD_AUXILIARY_HEALTH_DETAIL;
                   break;
       case (19) : this.editComponent = InformingFacilitiesEditComponent;
                   myUrl = SystemConstant.INFORMING_FACILITIES_DETAIL;
                   break;
-      case (20) : this.editComponent = HealthManagementEditComponent;
-                  myUrl = SystemConstant.HEALTH_MANAGEMENT_DETAIL;
-                  break;
-      case (21) : this.editComponent = EmergencyFacilitiesEditComponent;
+      case (20) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
-      case (22) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (21) : this.editComponent = RecordFundsEditComponent;
+                  myUrl = SystemConstant.FUNDS_DETAIL;
+                  break;
+      case (22) : this.editComponent = HealthCareEditComponent;
+                  myUrl = SystemConstant.RECORD_HEALTH_CARE_DETAIL;
                   break;
     }
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)

@@ -120,6 +120,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
@@ -142,7 +143,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
         if (result.success === 'success') {
           const sysCompanyOffice = result.sysCompanyOffice;
           this.recordData.recordInformingFacilitiesDataList[index].companyOfficeId = sysCompanyOffice.id;
-          this.recordData.recordInformingFacilities[index].officeName = sysCompanyOffice.officeName;
+          this.recordData.recordInformingFacilitiesDataList[index].officeName = sysCompanyOffice.officeName;
         }
       }
     );

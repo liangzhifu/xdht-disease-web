@@ -41,6 +41,7 @@ export class ControlEffectEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('sceneId:' + this.sceneId);
     if (this.recordData.recordControlEffect === null
       || this.recordData.recordControlEffect.id === null
       || this.recordData.recordControlEffect.id === '') {
@@ -100,6 +101,7 @@ export class ControlEffectEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

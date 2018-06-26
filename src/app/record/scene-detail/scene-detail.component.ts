@@ -25,6 +25,7 @@ import {TemperatureProtectionEditComponent} from '../temperature-protection-edit
 import {OtherProtectiveEditComponent} from '../other-protective-edit/other-protective-edit.component';
 import {IndividualProtectiveEditComponent} from '../individual-protective-edit/individual-protective-edit.component';
 import {InformingFacilitiesEditComponent} from '../informing-facilities-edit/informing-facilities-edit.component';
+import {HealthManagementEditComponent} from '../health-management-edit/health-management-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -140,7 +141,6 @@ export class SceneDetailComponent implements OnInit {
       case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
-                  // 一下模块需要更改（19 除外）
       case (16) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
@@ -153,8 +153,8 @@ export class SceneDetailComponent implements OnInit {
       case (19) : this.editComponent = InformingFacilitiesEditComponent;
                   myUrl = SystemConstant.INFORMING_FACILITIES_DETAIL;
                   break;
-      case (20) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (20) : this.editComponent = HealthManagementEditComponent;
+                  myUrl = SystemConstant.HEALTH_MANAGEMENT_DETAIL;
                   break;
       case (21) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;

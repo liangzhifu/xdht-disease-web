@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import 'ztree';
-import 'jquery';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastService} from '../../toast/toast.service';
 import {ModalService} from '../../modal/modal.service';
@@ -9,10 +7,11 @@ import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {SystemConstant} from '../../core/class/system-constant';
 import {AlertConfig} from '../../modal/alert/alert-config';
-import {MenuEditComponent} from '../menu-edit/menu-edit.component';
 import {AlertType} from '../../modal/alert/alert-type';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 import {KnowledgeCatalogEditComponent} from '../knowledge-catalog-edit/knowledge-catalog-edit.component';
+import 'ztree';
+import 'jquery';
 declare var $: any;
 
 @Component({

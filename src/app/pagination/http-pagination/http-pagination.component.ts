@@ -32,7 +32,6 @@ export class HttpPaginationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getServerData();
   }
 
   /**
@@ -91,7 +90,7 @@ export class HttpPaginationComponent implements OnInit {
    * @param data 数据
    */
   private serverDataProcess(data: any) {
-    if (data && data.total && data.dataList) {
+    if (data && (data.total !== undefined) && (data.total !== null) && data.dataList) {
       this.total = data.total;
       this.onDataChanged.emit(data.dataList);
     } else {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
@@ -10,7 +10,6 @@ import {ToastService} from '../../toast/toast.service';
 import {ModalService} from '../../modal/modal.service';
 import {HttpService} from '../../core/http/http.service';
 import {KnowledgeEditComponent} from '../knowledge-edit/knowledge-edit.component';
-import {KnowledgeCatalogTreeComponent} from '../knowledge-catalog-tree/knowledge-catalog-tree.component';
 
 @Component({
   selector: 'app-knowledge-manage',
@@ -25,7 +24,7 @@ export class KnowledgeManageComponent implements OnInit {
    * 查询条件
    */
   param: any = {
-    catalogId: null,
+    catalogId: 0,
     knowledgeTitle: ''
   };
   constructor(
@@ -62,6 +61,7 @@ export class KnowledgeManageComponent implements OnInit {
    */
   addKnowledge() {
     const modalRef = this.ngbModal.open(KnowledgeEditComponent);
+    modalRef.componentInstance.catalogId = this.param.catalogId;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {

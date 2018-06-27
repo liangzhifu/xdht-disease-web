@@ -154,7 +154,7 @@ export class SceneDetailComponent implements OnInit {
                   myUrl = SystemConstant.BUILDING_AERATION_DETAIL;
                   break;
       case (18) : this.editComponent = AuxiliaryHealthEditComponent;
-                  myUrl = SystemConstant.RECORD_AUXILIARY_HEALTH_DETAIL;
+                  myUrl = SystemConstant.AUXILIARY_HEALTH_DETAIL;
                   break;
       case (19) : this.editComponent = InformingFacilitiesEditComponent;
                   myUrl = SystemConstant.INFORMING_FACILITIES_DETAIL;
@@ -166,7 +166,7 @@ export class SceneDetailComponent implements OnInit {
                   myUrl = SystemConstant.FUNDS_DETAIL;
                   break;
       case (22) : this.editComponent = HealthCareEditComponent;
-                  myUrl = SystemConstant.RECORD_HEALTH_CARE_DETAIL;
+                  myUrl = SystemConstant.HEALTH_CARE_DETAIL;
                   break;
     }
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)

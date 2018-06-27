@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-4">
           <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
-          <button class="btn btn-success" (click)="addKnowledge();"><i class="fa fa-plus fa-fw"></i> 新增</button>
+          <button class="btn btn-success" (click)="addKnowledge();" [disabled]="param.catalogId == 0"><i class="fa fa-plus fa-fw"></i> 新增</button>
         </div>
       </div>
       <div class="row">
@@ -33,7 +33,7 @@
               </tr>
               <tr *ngFor="let item of sdt.data;">
                 <td>{{item.knowledgeTitle}}</td>
-                <td>{{item.knowledgeVersion}}</td>
+                <td>V{{item.knowledgeVersion}}</td>
                 <td>
                   <button type="button" class="btn btn-warning radius mr-10" (click)="editKnowledge(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
                   <button type="button" class="btn btn-danger radius" (click)="delKnowledge(item.id, item.knowledgeTitle)"><i class="fa fa-trash-o fa-fw"></i>删除</button>

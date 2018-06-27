@@ -26,8 +26,12 @@
           </tr>
           <tr *ngFor="let item of recordData.recordHealthCareDataList;let i = index;">
             <td>{{item.projectName}}</td>
-            <td>{{item.surveyResults}}</td>
-            <td>{{item.remarks}}</td>
+            <td>
+              <input type="text" [(ngModel)]="item.surveyResults" name="item{{i}}.surveyResults">
+            </td>
+            <td>
+              <input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks">
+            </td>
           </tr>
         </table>
       </div>

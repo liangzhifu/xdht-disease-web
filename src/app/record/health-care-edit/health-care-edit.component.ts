@@ -95,9 +95,9 @@ export class HealthCareEditComponent implements OnInit {
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {
-      url = SystemConstant.RECORD_HEALTH_CARE_ADD;
+      url = SystemConstant.HEALTH_CARE_ADD;
     } else {
-      url = SystemConstant.RECORD_HEALTH_CARE_EDIT;
+      url = SystemConstant.HEALTH_CARE_EDIT;
     }
     // 保存调查表
     this.httpService.post(url, this.recordData).subscribe({

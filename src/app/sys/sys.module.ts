@@ -60,6 +60,7 @@ import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledg
     EmployeeEditComponent,
     KnowledgeCatalogChooseComponent,
     KnowledgeCatalogEditComponent,
+    KnowledgeEditComponent,
     MenuChooseComponent,
     MenuEditComponent,
     NoticeEditComponent,

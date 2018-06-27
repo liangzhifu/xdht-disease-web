@@ -31,23 +31,23 @@ export class SceneEditComponent implements OnInit {
   action = '';
   // 输入填写内容
   @Input() recordSceneRequest = {
-    'recordScene' : {
-      'id' : '',
-      'recordNo' : '',
-      'projectName' : '',
-      'inquiryType' : '',
-      'inquiryPerson' : '',
-      'inquiryCompany' : '',
-      'inquiryCompanyEmployee' : '',
-      'inquiryCompanyEmployeeName' : '',
-      'inquiryDate': ''
+    recordScene : {
+      id : '',
+      recordNo : '',
+      projectName : '',
+      inquiryType : '',
+      inquiryPerson : '',
+      inquiryCompany : '',
+      inquiryCompanyEmployee : '',
+      inquiryCompanyEmployeeName : '',
+      inquiryDate: ''
     },
-    'recordScenQuestionnaireList' : [{
-      'id': '',
-      'sceneId': '',
-      'questionnaireId' : '',
-      'generatorRecord' : '',
-      'questionnaireName': ''
+    recordScenQuestionnaireList : [{
+      id: '',
+      sceneId: '',
+      questionnaireId : '',
+      generatorRecord : '',
+      questionnaireName: ''
     }]
   };
   constructor(
@@ -59,24 +59,6 @@ export class SceneEditComponent implements OnInit {
     private activeModal: NgbActiveModal,
     private waitService: WaitService
   ) {
-    // 获取问卷的列表
-    this.httpService.post(SystemConstant.QUESTION_LIST, null ).subscribe({
-      next: (data) => {
-        this.recordSceneRequest.recordScenQuestionnaireList = [];
-        for (let i = 0; i < data.length; i ++) {
-          const recordSceneQuestionData = {
-            'id': '',
-            'sceneId': '',
-            'questionnaireId': data[i].id,
-            'generatorRecord' : '',
-            'questionnaireName': data[i].questionnaireName
-          };
-          this.recordSceneRequest.recordScenQuestionnaireList.push(recordSceneQuestionData);
-        }
-      },
-      complete: () => {
-      }
-    });
     // 获取单位列表
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
@@ -85,7 +67,6 @@ export class SceneEditComponent implements OnInit {
       complete: () => {
       }
     });
-
   }
 
   ngOnInit() {
@@ -95,12 +76,31 @@ export class SceneEditComponent implements OnInit {
       this.addFlag = true;
       this.action = '新增';
       this.recordSceneEditTitle = '新增--职业卫生现场调查记录';
+      // 获取问卷的列表
+      this.httpService.post(SystemConstant.QUESTION_LIST, null ).subscribe({
+        next: (data) => {
+          this.recordSceneRequest.recordScenQuestionnaireList = [];
+          for (let i = 0; i < data.length; i ++) {
+            const recordSceneQuestionData = {
+              'id': '',
+              'sceneId': '',
+              'questionnaireId': data[i].id,
+              'generatorRecord' : '',
+              'questionnaireName': data[i].questionnaireName
+            };
+            this.recordSceneRequest.recordScenQuestionnaireList.push(recordSceneQuestionData);
+          }
+        },
+        complete: () => {
+        }
+      });
     } else {
       this.addFlag = false;
       this.action = '修改';
       this.recordSceneEditTitle = '修改--职业卫生现场调查记录';
     }
   }
+
 
   /**
    * 关闭对话框
@@ -113,6 +113,7 @@ export class SceneEditComponent implements OnInit {
    * 提交
    */
   submitData() {
+    this.recordSceneRequest.recordScene.inquiryDate = $('#inquiryDate').val();
     for (let i = 0; i < this.recordSceneRequest.recordScenQuestionnaireList.length; i ++) {
       if ($('#checkbox-' + this.recordSceneRequest.recordScenQuestionnaireList[i].questionnaireId).is(':checked')) {
         this.recordSceneRequest.recordScenQuestionnaireList[i].generatorRecord = '1';

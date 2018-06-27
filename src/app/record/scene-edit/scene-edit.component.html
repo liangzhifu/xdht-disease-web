@@ -42,7 +42,7 @@
     <div class="col-md-6">
       <label class="col-md-4 col-form-label text-right float-left">调查日期：</label>
       <div class="input-group col-md-7">
-        <input class="form-control" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="recordSceneRequest.recordScene.inquiryDate" placeholder="调查日期">
+        <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{recordSceneRequest.recordScene.inquiryDate}}" id="inquiryDate" name="inquiryDate" [(ngModel)]="recordSceneRequest.recordScene.inquiryDate" placeholder="调查日期">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
             <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
@@ -69,11 +69,11 @@
             </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index">
+          <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index" >
               <td>{{i+1}}</td>
               <td>{{item.questionnaireName}}</td>
               <td>
-                <input type="checkbox" id="checkbox-{{item.questionnaireId}}">
+                  <input type="checkbox" id="checkbox-{{item.questionnaireId}}" [checked]="item.generatorRecord == 1">
               </td>
             </tr>
       </tbody>

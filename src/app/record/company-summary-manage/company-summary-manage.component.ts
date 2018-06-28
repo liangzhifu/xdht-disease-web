@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 import {ModalService} from '../../modal/modal.service';
@@ -16,7 +16,7 @@ import {CompanySummaryEditComponent} from '../company-summary-edit/company-summa
   templateUrl: './company-summary-manage.component.html',
   styleUrls: ['./company-summary-manage.component.scss']
 })
-export class CompanySummaryManageComponent implements OnInit {
+export class CompanySummaryManageComponent implements OnInit, AfterViewInit {
   url: String;
   method: 'post';
 
@@ -39,6 +39,10 @@ export class CompanySummaryManageComponent implements OnInit {
     this.url = SystemConstant.COMPANY_SUMMARY_MANAGE_PAGE;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
   /**
    * 查询
    */
@@ -52,7 +56,7 @@ export class CompanySummaryManageComponent implements OnInit {
    * 新增企业体检信息
    */
   addCompanySummary() {
-    const modalRef = this.ngbModal.open(CompanySummaryEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(CompanySummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -83,7 +87,7 @@ export class CompanySummaryManageComponent implements OnInit {
    * 打开修改企业体检信息
    */
   openEditCompanySummary(companySummaryData) {
-    const modalRef = this.ngbModal.open(CompanySummaryEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(CompanySummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.componentInstance.companySummary = companySummaryData;
     modalRef.result.then(
       (result) => {

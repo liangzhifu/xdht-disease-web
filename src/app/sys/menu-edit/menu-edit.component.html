@@ -30,10 +30,7 @@
       </div>
       <div class="col-md-6">
         <label class="col-md-5 col-form-label text-right float-left">图标：</label>
-        <select class="form-control col-md-7" [(ngModel)]="sysMenu.menuIcon" name="menuIcon">
-          <option value="">--请选择--</option>
-          <option value="fa-wrench">fa-wrench</option>
-        </select>
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysMenu.menuIcon" name="menuIcon" placeholder="图标">
       </div>
     </div>
     <div class="row">

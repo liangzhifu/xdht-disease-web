@@ -11,6 +11,9 @@ import { ToastConfig } from '../toast/toast-config';
 import { SystemConstant } from '../core/class/system-constant';
 import { HttpService } from '../core/http/http.service';
 import { ToastService } from '../toast/toast.service';
+import {CompanyEditComponent} from '../sys/company-edit/company-edit.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EditPasswordComponent} from '../sys/edit-password/edit-password.component';
 
 @Component({
   selector: 'app-main',
@@ -39,6 +42,7 @@ export class MainComponent implements OnInit {
   menuData = null;
 
   constructor(
+    private ngbModal: NgbModal,
     private router: Router,
     private httpService: HttpService,
     private activeRoute: ActivatedRoute,
@@ -79,10 +83,10 @@ export class MainComponent implements OnInit {
   }
 
   /**
-   * 修改密码
+   * 打开修改密码对话框
    */
-  passwordEdit() {
-    this.router.navigate(['/main/sys/editPassword']).then();
+  openPasswordEdit() {
+    this.ngbModal.open(EditPasswordComponent, {backdrop: 'static', keyboard: false});
   }
 
   /**

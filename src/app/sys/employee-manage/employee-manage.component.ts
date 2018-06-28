@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ModalService} from '../../modal/modal.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {WaitService} from '../../core/wait/wait.service';
@@ -17,7 +17,7 @@ import {ConfirmConfig} from '../../modal/confirm/confirm-config';
   templateUrl: './employee-manage.component.html',
   styleUrls: ['./employee-manage.component.scss']
 })
-export class EmployeeManageComponent implements OnInit {
+export class EmployeeManageComponent implements OnInit, AfterViewInit {
 
   url: String;
   method: 'post';
@@ -40,6 +40,11 @@ export class EmployeeManageComponent implements OnInit {
   ngOnInit() {
     this.url = SystemConstant.EMPLOYEE_PAGE_LIST;
   }
+
+  ngAfterViewInit() {
+    this.search();
+  }
+
 
   /**
    * 查询
@@ -85,7 +90,7 @@ export class EmployeeManageComponent implements OnInit {
    * 新增职工
    */
   addEmployee() {
-    const modalRef = this.ngbModal.open(EmployeeEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -116,7 +121,7 @@ export class EmployeeManageComponent implements OnInit {
    * 打开修改职工对话框
    */
   openEditEmployee(employeeData) {
-    const modalRef = this.ngbModal.open(EmployeeEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.componentInstance.sysEmployeeRequest = employeeData;
     modalRef.result.then(
       (result) => {

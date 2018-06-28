@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ModalService} from '../../modal/modal.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastService} from '../../toast/toast.service';
@@ -16,7 +16,7 @@ import {EmployeeSummaryEditComponent} from '../employee-summary-edit/employee-su
   templateUrl: './employee-summary-manage.component.html',
   styleUrls: ['./employee-summary-manage.component.scss']
 })
-export class EmployeeSummaryManageComponent implements OnInit {
+export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
   url: String;
   method: 'post';
 
@@ -39,6 +39,10 @@ export class EmployeeSummaryManageComponent implements OnInit {
     this.url = SystemConstant.EMPLOYEE_SUMMARY_PAGE;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
   /**
    * 查询
    */
@@ -52,7 +56,7 @@ export class EmployeeSummaryManageComponent implements OnInit {
    * 新增职工体检信息
    */
   addEmployeeSummary() {
-    const modalRef = this.ngbModal.open(EmployeeSummaryEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(EmployeeSummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -83,7 +87,7 @@ export class EmployeeSummaryManageComponent implements OnInit {
    * 打开修改职工体检信息对话框
    */
   openEmployeeSummary(employeeSummaryData) {
-    const modalRef = this.ngbModal.open(EmployeeSummaryEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(EmployeeSummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.componentInstance.employeeSummaryRequest = employeeSummaryData;
     modalRef.result.then(
       (result) => {

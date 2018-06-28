@@ -42,7 +42,7 @@
             <td>{{item.empIdentityNumber}}</td>
             <td>
               <button class="btn btn-warning radius mr-10" type="button" (click)="editEmployee(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
-              <button class="btn btn-danger radius mr-10" type="button" (click)="delEmployee(item.id, item.projectName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+              <button class="btn btn-danger radius mr-10" type="button" (click)="delEmployee(item.id, item.empName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
               <button class="btn btn-info radius" type="button" (click)="selectEmployeeInfo(item.id, item.projectName)"><i class="fa fa-crosshairs fa-fw"></i>详情</button>
             </td>
           </tr>

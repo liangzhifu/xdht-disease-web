@@ -26,7 +26,7 @@ export class KnowledgeCatalogTreeComponent implements OnInit {
       }
     },
     callback: {
-      onClick: this.zTreeOnClick
+      onClick: this.zTreeOnClick.bind(this)
     }
   };
   zNodes = [];

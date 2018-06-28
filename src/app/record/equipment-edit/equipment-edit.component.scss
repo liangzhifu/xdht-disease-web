@@ -71,3 +71,21 @@ table th,table td{
   background-color: #4682B4;
   color: #fff;
 }
+
+input{
+  width: 100%;
+}
+input.fir-inp{
+  width: 82%;
+  float: left;
+}
+select{
+  height: 36px;
+}
+
+.label-title{
+  padding: 0px;
+}
+.list{
+  padding-left: 15px;
+}

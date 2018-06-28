@@ -146,7 +146,6 @@ export class SceneDetailComponent implements OnInit {
       case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
-                  // 一下模块需要更改（19 除外）
       case (16) : this.editComponent = BuildingBaseEditComponent;
                   myUrl = SystemConstant.BUILDING_BASE_DETAIL;
                   break;
@@ -159,8 +158,8 @@ export class SceneDetailComponent implements OnInit {
       case (19) : this.editComponent = InformingFacilitiesEditComponent;
                   myUrl = SystemConstant.INFORMING_FACILITIES_DETAIL;
                   break;
-      case (20) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (20) : this.editComponent = HealthManagementEditComponent;
+                  myUrl = SystemConstant.HEALTH_MANAGEMENT_DETAIL;
                   break;
       case (21) : this.editComponent = RecordFundsEditComponent;
                   myUrl = SystemConstant.FUNDS_DETAIL;
@@ -172,7 +171,7 @@ export class SceneDetailComponent implements OnInit {
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)
     this.httpService.get(myUrl + '/' + this.recordSceneRequest.recordScene.id).subscribe({
       next: (data) => {
-        const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
+        const modalRef = this.ngbModal.open(this.editComponent, { size: 'w80'});
           modalRef.componentInstance.recordData = data;
           modalRef.componentInstance.sceneId = this.recordSceneRequest.recordScene.id;
           modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;

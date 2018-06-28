@@ -66,7 +66,8 @@ import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledg
     NoticeEditComponent,
     RoleChooseComponent,
     RoleEditComponent,
-    UserEditComponent
+    UserEditComponent,
+    EmpoiyeeInfoComponent
   ],
   declarations: [
     CompanyEditComponent,

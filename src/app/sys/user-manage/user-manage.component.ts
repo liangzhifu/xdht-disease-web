@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import { SystemConstant } from '../../core/class/system-constant';
@@ -17,7 +17,7 @@ import {RoleChooseComponent} from '../role-choose/role-choose.component';
   templateUrl: './user-manage.component.html',
   styleUrls: ['./user-manage.component.scss']
 })
-export class UserManageComponent implements OnInit {
+export class UserManageComponent implements OnInit,AfterViewInit {
   url: String;
   method: 'post';
 
@@ -40,6 +40,10 @@ export class UserManageComponent implements OnInit {
     this.url = SystemConstant.USER_PAGE_LIST;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
   /**
    * 查询
    */
@@ -53,7 +57,7 @@ export class UserManageComponent implements OnInit {
    * 新增用户
    */
   addUser() {
-    const modalRef = this.ngbModal.open(UserEditComponent);
+    const modalRef = this.ngbModal.open(UserEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -84,7 +88,7 @@ export class UserManageComponent implements OnInit {
    * 打开修改用户对话框
    */
   openEditUser(userData) {
-    const modalRef = this.ngbModal.open(UserEditComponent);
+    const modalRef = this.ngbModal.open(UserEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.sysUser = userData;
     modalRef.result.then(
       (result) => {

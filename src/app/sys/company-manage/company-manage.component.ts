@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
@@ -17,7 +17,7 @@ import {CompanyOfficeManageComponent} from '../company-office-manage/company-off
   templateUrl: './company-manage.component.html',
   styleUrls: ['./company-manage.component.scss']
 })
-export class CompanyManageComponent implements OnInit {
+export class CompanyManageComponent implements OnInit,AfterViewInit {
 
   url: String;
   method: 'post';
@@ -41,6 +41,11 @@ export class CompanyManageComponent implements OnInit {
     this.url = SystemConstant.COMPANY_PAGE_LIST;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
+
   /**
    * 查询
    */
@@ -54,7 +59,7 @@ export class CompanyManageComponent implements OnInit {
    * 新增企业
    */
   addCompany() {
-    const modalRef = this.ngbModal.open(CompanyEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(CompanyEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -85,7 +90,7 @@ export class CompanyManageComponent implements OnInit {
    * 打开修改企业对话框
    */
   openEditCompany(companyData) {
-    const modalRef = this.ngbModal.open(CompanyEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(CompanyEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.componentInstance.sysCompany = companyData;
     modalRef.result.then(
       (result) => {

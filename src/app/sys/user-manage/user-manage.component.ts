@@ -57,7 +57,7 @@ export class UserManageComponent implements OnInit,AfterViewInit {
    * 新增用户
    */
   addUser() {
-    const modalRef = this.ngbModal.open(UserEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(UserEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -88,7 +88,7 @@ export class UserManageComponent implements OnInit,AfterViewInit {
    * 打开修改用户对话框
    */
   openEditUser(userData) {
-    const modalRef = this.ngbModal.open(UserEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(UserEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.sysUser = userData;
     modalRef.result.then(
       (result) => {

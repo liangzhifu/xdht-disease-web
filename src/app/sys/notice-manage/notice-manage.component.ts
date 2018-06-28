@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ModalService} from '../../modal/modal.service';
@@ -9,14 +9,13 @@ import {ToastService} from '../../toast/toast.service';
 import {NoticeEditComponent} from '../notice-edit/notice-edit.component';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
-import {SceneEditComponent} from '../../record/scene-edit/scene-edit.component';
 
 @Component({
   selector: 'app-notice-manage',
   templateUrl: './notice-manage.component.html',
   styleUrls: ['./notice-manage.component.scss']
 })
-export class NoticeManageComponent implements OnInit {
+export class NoticeManageComponent implements OnInit,AfterViewInit {
   url: String;
   method: 'post';
 
@@ -39,6 +38,10 @@ export class NoticeManageComponent implements OnInit {
     this.url = SystemConstant.NOTICE_PAGE_LIST;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
   /**
    * 查询
    */
@@ -52,7 +55,7 @@ export class NoticeManageComponent implements OnInit {
    * 新增公告
    */
   addNotice() {
-    const modalRef = this.ngbModal.open(NoticeEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(NoticeEditComponent, {size: 'lg', backdrop: 'static', keyboard: false});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -80,7 +83,7 @@ export class NoticeManageComponent implements OnInit {
   }
 
   openEditNotice(noticeData) {
-    const modalRef = this.ngbModal.open(NoticeEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(NoticeEditComponent, {size: 'lg', backdrop: 'static', keyboard: false});
     modalRef.componentInstance.sysNotice = noticeData;
     modalRef.result.then(
       (result) => {

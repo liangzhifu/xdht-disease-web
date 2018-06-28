@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
@@ -16,7 +16,7 @@ import {KnowledgeEditComponent} from '../knowledge-edit/knowledge-edit.component
   templateUrl: './knowledge-manage.component.html',
   styleUrls: ['./knowledge-manage.component.scss']
 })
-export class KnowledgeManageComponent implements OnInit {
+export class KnowledgeManageComponent implements OnInit, AfterViewInit {
   url: String;
   method: 'post';
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
@@ -37,6 +37,10 @@ export class KnowledgeManageComponent implements OnInit {
 
   ngOnInit() {
     this.url = SystemConstant.KNOWLEDGE_PAGE_LIST;
+  }
+
+  ngAfterViewInit() {
+    this.search();
   }
 
   /**
@@ -60,7 +64,7 @@ export class KnowledgeManageComponent implements OnInit {
    * 新增
    */
   addKnowledge() {
-    const modalRef = this.ngbModal.open(KnowledgeEditComponent);
+    const modalRef = this.ngbModal.open(KnowledgeEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.catalogId = this.param.catalogId;
     modalRef.result.then(
       (result) => {
@@ -92,7 +96,7 @@ export class KnowledgeManageComponent implements OnInit {
    * 打开修改知识库对话框
    */
   openEditKnowledge(data) {
-    const modalRef = this.ngbModal.open(KnowledgeEditComponent);
+    const modalRef = this.ngbModal.open(KnowledgeEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.sysKnowledge = data;
     modalRef.result.then(
       (result) => {

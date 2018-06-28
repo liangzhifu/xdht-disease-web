@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {HttpService} from '../../core/http/http.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
@@ -17,7 +17,7 @@ import {SceneEditComponent} from '../scene-edit/scene-edit.component';
   templateUrl: './scene-manage.component.html',
   styleUrls: ['./scene-manage.component.scss']
 })
-export class SceneManageComponent implements OnInit {
+export class SceneManageComponent implements OnInit, AfterViewInit {
   url: String;
   method: 'post';
 
@@ -41,6 +41,10 @@ export class SceneManageComponent implements OnInit {
     this.url = SystemConstant.RECORD_SCENE_PAGE_LIST;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
   /**
    * 查询
    */
@@ -54,7 +58,7 @@ export class SceneManageComponent implements OnInit {
    * 新增--职业卫生现场调查记录
    */
   addScene() {
-    const modalRef = this.ngbModal.open(SceneEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(SceneEditComponent, {size: 'lg', backdrop: 'static', keyboard: false});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -93,7 +97,7 @@ export class SceneManageComponent implements OnInit {
    * 打开修改(职业卫生现场调查记录)对话框
    */
   openEditScene(recordSceneData) {
-    const modalRef = this.ngbModal.open(SceneEditComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(SceneEditComponent, {size: 'lg', backdrop: 'static', keyboard: false});
     modalRef.componentInstance.recordSceneRequest = recordSceneData;
     modalRef.result.then(
       (result) => {

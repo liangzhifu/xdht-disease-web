@@ -79,7 +79,7 @@ export class KnowledgeCatalogManageComponent implements OnInit {
         parentId = nodes[i].id;
       }
     }
-    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent);
+    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.parentId = parentId;
     modalRef.result.then(
       (result) => {
@@ -123,7 +123,7 @@ export class KnowledgeCatalogManageComponent implements OnInit {
    * 打开修改知识库目录对话框
    */
   openEditKnowledgeCatalog(data) {
-    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent);
+    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.sysKnowledgeCatalog = data;
     modalRef.result.then(
       (result) => {

@@ -109,16 +109,10 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
     this.modalService.confirm(confirmCfg).then(
       () => {
         this.httpService.get(SystemConstant.ROLE_DEL + '?id=' + roleId).subscribe({
-          next: (data) => {
-            const status = data.status;
-            if (status === '1') {
-              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
-              this.toastService.toast(toastCfg);
-              this.search();
-            } else {
-              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除角色失败！' + '失败原因：' + data.message, 3000);
-              this.toastService.toast(toastCfg);
-            }
+          next: () => {
+            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
+            this.toastService.toast(toastCfg);
+            this.search();
           },
           error: (err) => {
             const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除角色失败！' + '失败原因：' + err, 3000);

@@ -17,14 +17,14 @@
         <div class="col-md-6">
           <label class="col-md-3 col-form-label text-right float-left" for="loginCode"><span style="color:red;">*</span>登录名：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.loginCode" name="loginCode" id="loginCode" [readonly]="!addFlag"
-                 [ngClass]="{'warn': !loginCode.valid}" #loginCode="ngModel" required="required" maxlength="20">
+                 [ngClass]="{'warn': !loginCode.valid}" #loginCode="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9]{0,20}$">
         </div>
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
           <label class="col-md-3 col-form-label text-right float-left" for="password"><span style="color:red;">*</span>密码：</label>
           <input type="password" class="form-control col-md-7" [(ngModel)]="sysUser.password" name="password" id="password" [readonly]="!addFlag"
-                 [ngClass]="{'warn': !password.valid}" #password="ngModel" required="required" maxlength="50">
+                 [ngClass]="{'warn': !password.valid}" #password="ngModel" required="required" maxlength="50" pattern="^[a-zA-Z0-9_-!]{0,20}$">
         </div>
         <div class="col-md-6">
           <label class="col-md-3 col-form-label text-right float-left" for="mgrType"><span style="color:red;">*</span>管理员：</label>

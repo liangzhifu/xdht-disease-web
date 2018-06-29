@@ -1,30 +1,32 @@
-<div class="c-content-inner">
+<div>
   <form #sysDictionaryForm="ngForm">
-    <div class="modal-body row ">
-      <label>{{dictionaryEditTitle}}</label>
+    <div class="modal-header">
+      <label class="modal-title">{{dictionaryEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">类型：</label>
-        <input type="hidden" [(ngModel)]="sysDictionary.id" name="id">
-        <select class="form-control col-md-7" [(ngModel)]="sysDictionary.dictionaryTypeId" name="dictionaryTypeId"
-                [ngClass]="{'warn': !dictionaryTypeId.valid}" #dictionaryTypeId="ngModel" required="required">
-          <option value=""></option>
-          <option *ngFor="let item of dictionaryTypeList;" value="{{item.id}}">{{item.dictionaryTypeName}}</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">值：</label>
-        <input type="text" class="form-control col-md-7" [(ngModel)]="sysDictionary.dictionaryName" name="dictionaryName" placeholder="值"
-               [ngClass]="{'warn': !dictionaryName.valid}" #dictionaryName="ngModel" required="required">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="dictionaryTypeId">类型：</label>
+          <input type="hidden" [(ngModel)]="sysDictionary.id" name="id">
+          <select class="form-control col-md-7" [(ngModel)]="sysDictionary.dictionaryTypeId" name="dictionaryTypeId" id="dictionaryTypeId"
+                  [ngClass]="{'warn': !dictionaryTypeId.valid}" #dictionaryTypeId="ngModel" required="required">
+            <option value=""></option>
+            <option *ngFor="let item of dictionaryTypeList;" value="{{item.id}}">{{item.dictionaryTypeName}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="dictionaryName">值：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="sysDictionary.dictionaryName" name="dictionaryName" id="dictionaryName"
+                 [ngClass]="{'warn': !dictionaryName.valid}" #dictionaryName="ngModel" required="required" maxlength="100">
+        </div>
       </div>
     </div>
-    <div class="row">
+    <div class="modal-footer">
       <div class="op-btn">
-        <button type="button" class="btn btn-success" [disabled]="!sysDictionaryForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!sysDictionaryForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>

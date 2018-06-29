@@ -57,7 +57,7 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
    * 添加角色
    */
   addRole() {
-    const modalRef = this.ngbModal.open(RoleEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(RoleEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -89,7 +89,7 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
    * 打开修改角色对话框
    */
   openEditRole(roleData) {
-    const modalRef = this.ngbModal.open(RoleEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(RoleEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.sysRole = roleData;
     modalRef.result.then(
       (result) => {

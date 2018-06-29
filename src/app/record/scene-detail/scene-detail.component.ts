@@ -104,7 +104,8 @@ export class SceneDetailComponent implements OnInit {
     let options: any = {
       size: 'w80',
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      centered: true
     };
     switch (questionnaireId) {
       case (1) : this.editComponent = PreEvaluationEditComponent;

@@ -1,48 +1,52 @@
 <div class="c-content-inner">
-  <div class="modal-body row">
-    <label>{{recordEquipmentLayoutEditTitle}}</label>
-    <button aria-label="Close" class="close" type="button" (click)="close()">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">编码：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordEquipmentLayoutInputRequest.recordEquipmentLayout.equipmentLayoutNo" placeholder="编码" >
+  <form #equipemntLayoutForm="ngForm">
+    <div class="modal-body row ">
+      <label>{{recordEquipmentLayoutEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">核实情况：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordEquipmentLayoutInputRequest.recordEquipmentLayout.verificationResult" placeholder="核实情况">
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordEquipmentLayout.equipmentLayoutNo" name="recordEquipmentLayout.equipmentLayoutNo" placeholder="编码" >
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordEquipmentLayout.verificationResult" name="recordEquipmentLayout.verificationResult" placeholder="核实情况">
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <table>
-      <tr>
-        <td><button (click)="addOffice()">增加</button>车间/部门</td>
-        <td>工艺过程及设备</td>
-        <td>职业病危害因素</td>
-        <td>布局情况</td>
-        <td>备注</td>
-        <td>操作</td>
-      </tr>
-      <!--<tr *ngFor="let item of recordEquipmentInputRequest.recordEquipmentDataList;">-->
-      <tr [(ngModel)]="recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList" *ngFor="let item of recordEquipmentLayoutInputRequest.recordEquipmentLayoutDataList;">
-        <td>
-          <select #select [(ngModel)]="item.officdId" >
-            <option value="">--请选择部门--</option>
-            <option *ngFor="let office of recordEquipmentLayoutInputRequest.sysCompanyOfficeList;" value="{{office.id}}" >{{office.officeName}}</option>
-          </select>
-        </td>
-        <td><input type="text" [(ngModel)]="item.processAndEquipment"></td>
-        <td><input type="text" [(ngModel)]="item.hazardFactors"></td>
-        <td><input type="text" [(ngModel)]="item.layoutDetail"></td>
-        <td><input type="text" [(ngModel)]="item.remarkds"></td>
-        <td><button (click)="delOffice(item)">删除</button></td>
-      </tr>
-    </table>
-  </div>
-  <div class="row">
-    <button (click)="submitData()">提交</button>
-    <button (click)="close()">取消</button>
-  </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>车间/部门</th>
+            <th>工艺过程及设备</th>
+            <th>职业病危害因素</th>
+            <th>布局情况</th>
+            <th>备注</th>
+            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+          </tr>
+          <tr *ngFor="let item of recordData.recordEquipmentLayoutDataList;let i=index;"  >
+            <td>
+              <input type="hidden" [(ngModel)]="item.officeId" name="item{{i}}.officeId">
+              <input type="text" [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
+              <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
+            </td>
+            <td><input type="text" [(ngModel)]="item.processAndEquipment" name="item{{i}}.processAndEquipment"></td>
+            <td><input type="text" [(ngModel)]="item.hazardFactors" name="item{{i}}.hazardFactors"></td>
+            <td><input type="text" [(ngModel)]="item.layoutDetail" name="item{{i}}.layoutDetail"></td>
+            <td><input type="text" [(ngModel)]="item.remarkds" name="item{{i}}.remarkds"></td>
+            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!equipemntLayoutForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
 </div>

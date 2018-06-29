@@ -6,7 +6,7 @@ import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
-import * as $ from 'jquery';
+
 @Component({
   selector: 'app-pre-evaluation-edit',
   templateUrl: './pre-evaluation-edit.component.html',
@@ -14,26 +14,23 @@ import * as $ from 'jquery';
 })
 export class PreEvaluationEditComponent implements OnInit {
   recordPreEvaluationEditTitle: string;
-  @Input() recordPreEvaluationRequest = {
-    'recordPreEvaluation': {
-      'id': '',
-      'preEvaluationNo': '',
-      'verificationResult': ''
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
+  @Input() recordData = {
+    recordPreEvaluation: {
+      id: '',
+      sceneId: 0,
+      preEvaluationNo: '',
+      verificationResult: ''
     },
-    'recordPreEvaluationDataList': [{
-      'id': '',
-      'preEvaluationId': '',
-      'preEvaluationProjectId': '',
-      'surveyResults': '',
-      'remarks': '',
-      'projectName': ''
-    }],
-    'recordPreEvaluationProjectList': [{
-      'id': '',
-      'projectName': '',
-      'status': ''
+    recordPreEvaluationDataList: [{
+      id: '',
+      preEvaluationId: '',
+      preEvaluationProjectId: '',
+      surveyResults: '',
+      remarks: '',
+      projectName: ''
     }]
-
   };
   addFlag: boolean;
   action = '';
@@ -48,14 +45,21 @@ export class PreEvaluationEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const preEvaluationId = this.recordPreEvaluationRequest.recordPreEvaluation.id;
-    if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
+    if (this.recordData.recordPreEvaluation === null
+      || this.recordData.recordPreEvaluation.id === null
+      || this.recordData.recordPreEvaluation.id === '') {
       this.addFlag = true;
       this.recordPreEvaluationEditTitle = '新增--建设项目概况调查表';
-      // 新增时 获取项目列表
-      this.httpService.post(SystemConstant.PRE_EVALUATION_PROJECT_LIST, {} ).subscribe({
+      this.recordData.recordPreEvaluation = {
+        id: '',
+        sceneId: this.sceneId,
+        preEvaluationNo: '',
+        verificationResult: ''
+      };
+      // 获取项目列表
+      this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 1} ).subscribe({
         next: (data) => {
-          this.recordPreEvaluationRequest.recordPreEvaluationDataList = [];
+          this.recordData.recordPreEvaluationDataList = [];
           for (let i = 0; i < data.length; i++) {
             const recordPreEvaluationData = {
               'id': '',
@@ -63,9 +67,9 @@ export class PreEvaluationEditComponent implements OnInit {
               'preEvaluationProjectId': data[i].id,
               'surveyResults': '',
               'remarks': '',
-              'projectName': data[i].projectName
+              'projectName': data[i].dictionaryName
             };
-            this.recordPreEvaluationRequest.recordPreEvaluationDataList.push(recordPreEvaluationData);
+            this.recordData.recordPreEvaluationDataList.push(recordPreEvaluationData);
           }
         },
         complete: () => {
@@ -74,24 +78,6 @@ export class PreEvaluationEditComponent implements OnInit {
     } else {
       this.addFlag = false;
       this.recordPreEvaluationEditTitle = '修改--建设项目概况调查表';
-      // 修改时获取项目列表
-          const  dataList = this.recordPreEvaluationRequest.recordPreEvaluationDataList;
-          this.recordPreEvaluationRequest.recordPreEvaluationDataList = [];
-          // 项目列表
-          const  projectList = this.recordPreEvaluationRequest.recordPreEvaluationProjectList;
-          for (let i = 0; i < dataList.length; i++) {
-            // console.log('projectList:' + projectList[i].id);
-            const recordPreEvaluationData = {
-              'id': dataList[i].id,
-              'preEvaluationId': dataList[i].preEvaluationId,
-              'preEvaluationProjectId': dataList[i].preEvaluationProjectId,
-              'surveyResults': dataList[i].surveyResults,
-              'remarks': dataList[i].remarks,
-              'projectName': projectList[i].projectName
-            };
-            this.recordPreEvaluationRequest.recordPreEvaluationDataList.push(recordPreEvaluationData);
-          }
-
     }
   }
 
@@ -114,10 +100,11 @@ export class PreEvaluationEditComponent implements OnInit {
       url = SystemConstant.PRE_EVALUATION_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordPreEvaluationRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);

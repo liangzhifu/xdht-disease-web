@@ -1,0 +1,237 @@
+<div class="c-content-inner">
+  <form #sysEmployeeForm="ngForm">
+    <div class="modal-body row ">
+      <label>{{employeeEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row list">
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">姓名：</label>
+        <input type="hidden" [(ngModel)]="sysEmployeeRequest.sysEmployee.id" name="sysEmployee.id">
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empName" name="sysEmployeeEmpName"
+               [ngClass]="{'warn': !sysEmployeeEmpName.valid}" #sysEmployeeEmpName="ngModel" required="required">
+      </div>
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">公司：</label>
+        <select class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.companyId" name="sysCompanyOfficeCompanyId">
+          <option value=""></option>
+          <option *ngFor="let item of companyList;" value="{{item.id}}">{{item.companyName}}</option>
+        </select>
+      </div>
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">部门：</label>
+        <input type="hidden" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.id" name="sysCompanyOfficeId">
+        <input type="text" class="form-control col-md-5 float-left" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.officeName" name="sysCompanyOfficeName" readonly>
+        <button class="btn btn-primary" (click)="searchEmployeeOffice();">查询</button>
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">性别：</label>
+
+        <select class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empSex" name="sysEmployeeEmpSex">
+          <option value=""></option>
+          <option value="0">男</option>
+          <option value="1">女</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="col-md-4 col-form-label text-right float-left">籍贯：</label>
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empNative" name="sysEmployeeEmpNative">
+      </div>
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">婚姻：</label>
+        <select class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empMarriage" name="sysEmployeeEmpMarriage">
+          <option value=""></option>
+          <option value="1">已婚</option>
+          <option value="0">未婚</option>
+        </select>
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">文化程度：</label>
+        <select class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empEducation" name="sysEmployeeEmpEducation">
+          <option value=""></option>
+          <option value="文盲">文盲</option>
+          <option value="初中">初中</option>
+        </select>
+      </div>
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">嗜好：</label>
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empHobby" name="sysEmployeeEmpHobby">
+      </div>
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">身份证号：</label>
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empIdentityNumber" name="sysEmployeeEmpIdentityNumber">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-4 xdht-row-col">
+        <label class="col-md-4 col-form-label text-right float-left">工作时间：</label>
+        <div class="input-group col-md-8">
+          <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{sysEmployeeRequest.sysEmployee.empWorkDate}}" id="sysEmployeeEmpWorkDate" name="sysEmployeeEmpWorkDate">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <img src="assets/img/calendar-icon.png"/>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 xdht-row-col">
+        <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)"  placeholder="请选择要上传的文件">
+        <div style="padding-left:125px; padding-top: 10px;">
+          <img [src]="defImg" style="width: 100px;height: 80px;" />
+        </div>
+        <input type="hidden" id="upload-file-id" (click)="changeModel()"  >
+      </div>
+    </div>
+    <div  class="row">
+      <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th colspan="7">
+              <button class="btn btn-success" (click)="addJob();"><i class="fa fa-plus fa-fw"></i></button>
+              职业史及职业病危害接触史
+            </th>
+          </tr>
+          <tr>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>工作单位</th>
+            <th>工种</th>
+            <th>噪声检测结果</th>
+            <th>防护措施</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employeeJob of sysEmployeeRequest.sysEmployeeJobList;let i = index">
+            <td>
+              <div class="input-group col-md-12">
+                <input class="form-control" ngbDatepicker #employeeJob_i_beginDate="ngbDatepicker" value="{{employeeJob.beginDate}}" id="employeeJob_{{i}}_beginDate" name="employeeJob_{{i}}_beginDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="employeeJob_i_beginDate.toggle()" type="button">
+                    <img src="assets/img/calendar-icon.png"/>
+                  </button>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="input-group col-md-12">
+                <input class="form-control" ngbDatepicker #employeeJob_i_endDate="ngbDatepicker" value="{{employeeJob.endDate}}" id="employeeJob_{{i}}_endDate" name="employeeJob_{{i}}_endDate">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" (click)="employeeJob_i_endDate.toggle()" type="button">
+                    <img src="assets/img/calendar-icon.png"/>
+                  </button>
+                </div>
+              </div>
+            </td>
+            <td><input type="text" [(ngModel)]="employeeJob.companyName" name="employeeJob_{{i}}_companyName"></td>
+            <td>
+              <select #select [(ngModel)]="employeeJob.workType"  name="employeeJob_{{i}}_workType">
+                <option value="">--请选择工种--</option>
+                <option *ngFor="let workType of sysWorkTypeList;" value="{{workType.id}}" >{{workType.postName}}</option>
+              </select>
+            </td>
+            <td><input type="text" [(ngModel)]="employeeJob.noiseDetectionResults" name="employeeJob_{{i}}_noiseDetectionResults"></td>
+            <td><input type="text" [(ngModel)]="employeeJob.protectiveMeasures" name="employeeJob_{{i}}_protectiveMeasures"></td>
+            <td>
+              <button class="btn btn-danger radius mr-10" type="button" (click)="delJob(i)"><i class="fa fa-trash-o fa-fw"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div  class="row">
+      <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+          <th colspan="6">
+            <button class="btn btn-success" (click)="addCase();"><i class="fa fa-plus fa-fw"></i></button>
+            既往病史
+          </th>
+        </tr>
+        <tr>
+          <th>疾病名称</th>
+          <th>诊断时间</th>
+          <th>诊断医院</th>
+          <th>治疗结果</th>
+          <th>备注</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employeeCase of sysEmployeeRequest.sysEmployeeCaseList;let i = index">
+          <td><input type="text" [(ngModel)]="employeeCase.caseName" name="employeeCase_{{i}}_caseName"></td>
+          <td>
+            <div class="input-group col-md-12">
+              <input class="form-control" ngbDatepicker #employeeCase_i="ngbDatepicker" value="{{employeeCase.diagnosisDate}}" id="employeeCase_{{i}}_diagnosisDate" name="employeeCase_{{i}}_diagnosisDate">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="employeeCase_i.toggle()" type="button">
+                  <img src="assets/img/calendar-icon.png"/>
+                </button>
+              </div>
+            </div>
+          </td>
+          <td><input type="text" [(ngModel)]="employeeCase.diagnosisHospital" name="employeeCase_{{i}}_diagnosisHospital"></td>
+          <td><input type="text" [(ngModel)]="employeeCase.treatmentResults" name="employeeCase_{{i}}_treatmentResults"></td>
+          <td><input type="text" [(ngModel)]="employeeCase.remarks" name="employeeCase_{{i}}_remarks"></td>
+          <td>
+            <button class="btn btn-danger radius mr-10" type="button" (click)="delCase(i)"><i class="fa fa-trash-o fa-fw"></i></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div  class="row">
+      <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+          <th colspan="6">
+            <button class="btn btn-success" (click)="addDisease();"><i class="fa fa-plus fa-fw"></i></button>
+            职业病诊断
+          </th>
+        </tr>
+        <tr>
+          <th>职业病名称</th>
+          <th>诊断时间</th>
+          <th>诊断医院</th>
+          <th>诊断级别</th>
+          <th>备注</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employeeDisease of sysEmployeeRequest.sysEmployeeDiseaseList;let i = index">
+          <td><input type="text" [(ngModel)]="employeeDisease.diseaseName" name="employeeDisease_{{i}}_diseaseName"></td>
+          <td>
+            <div class="input-group col-md-12">
+              <input class="form-control" ngbDatepicker #employeeDisease_i="ngbDatepicker" value="{{employeeDisease.diagnosisDate}}" id="employeeDisease_{{i}}_diagnosisDate" name="employeeDisease_{{i}}_diagnosisDate">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="employeeDisease_i.toggle()" type="button">
+                  <img src="assets/img/calendar-icon.png"/>
+                </button>
+              </div>
+            </div>
+          </td>
+          <td><input type="text" [(ngModel)]="employeeDisease.diagnosisHospital" name="employeeDisease_{{i}}_diagnosisHospital"></td>
+          <td><input type="text" [(ngModel)]="employeeDisease.diagnosisLevel" name="employeeDisease_{{i}}_diagnosisLevel"></td>
+          <td><input type="text" [(ngModel)]="employeeDisease.remarks" name="employeeDisease_{{i}}_remarks"></td>
+          <td>
+            <button class="btn btn-danger radius mr-10" type="button" (click)="delDisease(i)"><i class="fa fa-trash-o fa-fw"></i></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!sysEmployeeForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
+</div>

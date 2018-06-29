@@ -1,0 +1,49 @@
+<div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">类型：</label>
+      <select class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.dictionaryTypeId">
+        <option value="">请选择</option>
+        <option *ngFor="let item of dictionaryTypeList;" value="{{item.id}}">{{item.dictionaryTypeName}}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">值：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.dictionaryName" placeholder="请输入姓名...">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+      <button class="btn btn-success" (click)="addDictionary();"><i class="fa fa-plus fa-fw"></i> 新增</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>类型</th>
+            <th>值</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;">
+            <td>{{item.dictionaryTypeId}}</td>
+            <td>{{item.dictionaryName}}</td>
+            <td>
+              <button type="button" class="btn btn-warning radius mr-10" (click)="editDictionary(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+              <button type="button" class="btn btn-danger radius" (click)="delDictionary(item.id, item.dictionaryName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">检查机构：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.inspectionAgency" placeholder="检查机构...">
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+      <button class="btn btn-success" (click)="addCompanySummary();"><i class="fa fa-plus fa-fw"></i> 新增</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>检查日期</th>
+            <th>检查机构</th>
+            <th>体检种类</th>
+            <th>应检人数</th>
+            <th>实检人数</th>
+            <th>未见异常</th>
+            <th>复查</th>
+            <th>疑似</th>
+            <th>禁忌证</th>
+            <th>其他疾患</th>
+            <th>备注</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td>{{item.inspectionDate}}</td>
+            <td>{{item.inspectionAgency}}</td>
+            <td>{{item.physicalExaminationType}}</td>
+            <td>{{item.inspectedNumber}}</td>
+            <td>{{item.actualInspectdNumber}}</td>
+            <td>{{item.noAbnormality}}</td>
+            <td>{{item.reviewNumber}}</td>
+            <td>{{item.doubtfulNumber}}</td>
+            <td>{{item.tabooNumber}}</td>
+            <td>{{item.otherDiseasesNumber}}</td>
+            <td>{{item.remarks}}</td>
+            <td>
+              <button type="button" class="btn btn-warning radius mr-10" (click)="editCompanySummary(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+              <button type="button" class="btn btn-danger radius" (click)="delCompanySummary(item.id, item.inspectionDate)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

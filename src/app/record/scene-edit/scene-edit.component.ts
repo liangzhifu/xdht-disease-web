@@ -1,14 +1,15 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { HttpService } from '../../core/http/http.service';
-import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
-import { ToastType } from '../../toast/toast-type.enum';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ModalService } from '../../modal/modal.service';
-import { ToastService } from '../../toast/toast.service';
-import { WaitService } from '../../core/wait/wait.service';
-import { ToastConfig } from '../../toast/toast-config';
-import { SystemConstant} from '../../core/class/system-constant';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {HttpService} from '../../core/http/http.service';
+import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
+import {ToastType} from '../../toast/toast-type.enum';
+import {FormBuilder} from '@angular/forms';
+import {ModalService} from '../../modal/modal.service';
+import {ToastService} from '../../toast/toast.service';
+import {WaitService} from '../../core/wait/wait.service';
+import {ToastConfig} from '../../toast/toast-config';
+import {SystemConstant} from '../../core/class/system-constant';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SelectEmployeeComponent} from '../select-employee/select-employee.component';
 import * as $ from 'jquery';
 
 @Component({
@@ -30,22 +31,23 @@ export class SceneEditComponent implements OnInit {
   action = '';
   // 输入填写内容
   @Input() recordSceneRequest = {
-    'recordScene' : {
-      'id': '',
-      'recordNo' : '',
-      'projectName' : '',
-      'inquiryType' : '',
-      'inquiryPerson' : '',
-      'inquiryCompany' : '',
-      'inquiryCompanyEmployee' : '',
-      'inquiryDate': ''
+    recordScene : {
+      id : '',
+      recordNo : '',
+      projectName : '',
+      inquiryType : '',
+      inquiryPerson : '',
+      inquiryCompany : '',
+      inquiryCompanyEmployee : '',
+      inquiryCompanyEmployeeName : '',
+      inquiryDate: ''
     },
-    'recordScenQuestionnaireList' : [{
-      'id': '',
-      'sceneId': '',
-      'questionnaireId' : '',
-      'generatorRecord' : '',
-      'questionnaireName': ''
+    recordScenQuestionnaireList : [{
+      id: '',
+      sceneId: '',
+      questionnaireId : '',
+      generatorRecord : '',
+      questionnaireName: ''
     }]
   };
   constructor(
@@ -57,33 +59,14 @@ export class SceneEditComponent implements OnInit {
     private activeModal: NgbActiveModal,
     private waitService: WaitService
   ) {
-    // 获取问卷的列表
-    this.httpService.post(SystemConstant.QUESTION_LIST, null ).subscribe({
-      next: (data) => {
-        this.recordSceneRequest.recordScenQuestionnaireList = [];
-        for (let i = 0; i < data.length; i ++) {
-          const recordSceneQuestionData = {
-            'id': '',
-            'sceneId': '',
-            'questionnaireId': data[i].id,
-            'generatorRecord' : '',
-            'questionnaireName': data[i].questionnaireName
-          };
-          this.recordSceneRequest.recordScenQuestionnaireList.push(recordSceneQuestionData);
-        }
-      },
-      complete: () => {
-      }
-    });
     // 获取单位列表
-    this.httpService.post(SystemConstant.COMPANY_ALL_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
         this.companyData = data;
       },
       complete: () => {
       }
     });
-
   }
 
   ngOnInit() {
@@ -93,12 +76,31 @@ export class SceneEditComponent implements OnInit {
       this.addFlag = true;
       this.action = '新增';
       this.recordSceneEditTitle = '新增--职业卫生现场调查记录';
+      // 获取问卷的列表
+      this.httpService.post(SystemConstant.QUESTION_LIST, null ).subscribe({
+        next: (data) => {
+          this.recordSceneRequest.recordScenQuestionnaireList = [];
+          for (let i = 0; i < data.length; i ++) {
+            const recordSceneQuestionData = {
+              'id': '',
+              'sceneId': '',
+              'questionnaireId': data[i].id,
+              'generatorRecord' : '',
+              'questionnaireName': data[i].questionnaireName
+            };
+            this.recordSceneRequest.recordScenQuestionnaireList.push(recordSceneQuestionData);
+          }
+        },
+        complete: () => {
+        }
+      });
     } else {
       this.addFlag = false;
       this.action = '修改';
       this.recordSceneEditTitle = '修改--职业卫生现场调查记录';
     }
   }
+
 
   /**
    * 关闭对话框
@@ -111,6 +113,7 @@ export class SceneEditComponent implements OnInit {
    * 提交
    */
   submitData() {
+    this.recordSceneRequest.recordScene.inquiryDate = $('#inquiryDate').val();
     for (let i = 0; i < this.recordSceneRequest.recordScenQuestionnaireList.length; i ++) {
       if ($('#checkbox-' + this.recordSceneRequest.recordScenQuestionnaireList[i].questionnaireId).is(':checked')) {
         this.recordSceneRequest.recordScenQuestionnaireList[i].generatorRecord = '1';
@@ -147,13 +150,29 @@ export class SceneEditComponent implements OnInit {
    */
   changeCompany(companyId) {
     const param = {'companyId': companyId};
-    this.httpService.post(SystemConstant.COMPANY_EMPLOYEE_LIST, param).subscribe({
+    this.httpService.post(SystemConstant.EMPLOYEE_ALL_LIST, param).subscribe({
       next: (data) => {
         this.employeeData = data;
       },
       complete: () => {
       }
     });
+  }
+
+  /**
+   * 选择陪同人
+   */
+  selectEmployee() {
+      const modalRef = this.ngbModal.open(SelectEmployeeComponent, {size: 'lg'});
+      modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;
+      modalRef.result.then(
+        (result) => {
+          if (result.success === 'success') {
+            this.recordSceneRequest.recordScene.inquiryCompanyEmployee = result.sysEmployee.id;
+            this.recordSceneRequest.recordScene.inquiryCompanyEmployeeName = result.sysEmployee.empName;
+          }
+        }
+      );
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
@@ -10,13 +10,14 @@ import {ToastService} from '../../toast/toast.service';
 import {ToastType} from '../../toast/toast-type.enum';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
+import {CompanyOfficeManageComponent} from '../company-office-manage/company-office-manage.component';
 
 @Component({
   selector: 'app-company-manage',
   templateUrl: './company-manage.component.html',
   styleUrls: ['./company-manage.component.scss']
 })
-export class CompanyManageComponent implements OnInit {
+export class CompanyManageComponent implements OnInit,AfterViewInit {
 
   url: String;
   method: 'post';
@@ -40,6 +41,11 @@ export class CompanyManageComponent implements OnInit {
     this.url = SystemConstant.COMPANY_PAGE_LIST;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
+
   /**
    * 查询
    */
@@ -53,7 +59,7 @@ export class CompanyManageComponent implements OnInit {
    * 新增企业
    */
   addCompany() {
-    const modalRef = this.ngbModal.open(CompanyEditComponent);
+    const modalRef = this.ngbModal.open(CompanyEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -84,8 +90,8 @@ export class CompanyManageComponent implements OnInit {
    * 打开修改企业对话框
    */
   openEditCompany(companyData) {
-    const modalRef = this.ngbModal.open(CompanyEditComponent);
-    modalRef.componentInstance.sysCompanyRequest = companyData;
+    const modalRef = this.ngbModal.open(CompanyEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
+    modalRef.componentInstance.sysCompany = companyData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -99,19 +105,37 @@ export class CompanyManageComponent implements OnInit {
    * 删除企业
    */
   delCompany(companyId, companyName) {
-    this.httpService.get(SystemConstant.COMPANY_DEL + '/' + companyId).subscribe({
-      next: (data) => {
-        const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
-        this.toastService.toast(toastCfg);
-        this.search();
-        const status = data.status;
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除用户失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
+    const confirmCfg: ConfirmConfig = new ConfirmConfig('确定删除企业：' + companyName + '！');
+    this.modalService.confirm(confirmCfg).then(
+      () => {
+        this.httpService.get(SystemConstant.COMPANY_DEL + '?id=' + companyId).subscribe({
+          next: (data) => {
+              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除企业成功！', 3000);
+              this.toastService.toast(toastCfg);
+              this.search();
+          },
+          error: (err) => {
+            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除企业失败！' + '失败原因：' + err, 3000);
+            this.toastService.toast(toastCfg);
+          },
+          complete: () => {}
+        });
+      }
+    );
   }
 
+  /**
+   * 修改公司部门
+   * @param companyId
+   */
+  editCompanyOffice(companyId) {
+    const modalRef = this.ngbModal.open(CompanyOfficeManageComponent, {size: 'lg'});
+    modalRef.componentInstance.companyId = companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+        }
+      }
+    );
+  }
 }

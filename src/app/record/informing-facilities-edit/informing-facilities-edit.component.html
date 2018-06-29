@@ -1,0 +1,56 @@
+<div class="c-content-inner">
+  <form #informingFacilitiesForm="ngForm">
+    <div class="modal-body row ">
+      <label>{{recordInformingFacilitiesEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordInformingFacilities.informingFacilitiesNo"
+               name="recordInformingFacilities.informingFacilitiesNo" placeholder="编码" >
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordInformingFacilities.verificationResult"
+               name="recordInformingFacilities.verificationResult" placeholder="核实情况">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>车间/部门</th>
+            <th>工艺过程</th>
+            <th>职业病危害因素</th>
+            <th>危害告知设施设置情况(告知卡、警示线、警示标识、公告栏等）</th>
+            <th>设置地点</th>
+            <th>备注</th>
+            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+          </tr>
+          <tr *ngFor="let item of recordData.recordInformingFacilitiesDataList;let i=index;"  >
+            <td>
+              <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{i}}.companyOfficeId">
+              <input type="text" [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
+              <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
+            </td>
+            <td><input type="text" [(ngModel)]="item.processName" name="item{{i}}.processName"></td>
+            <td><input type="text" [(ngModel)]="item.hazardFactors" name="item{{i}}.hazardFactors"></td>
+            <td><input type="text" [(ngModel)]="item.informingFacilities" name="item{{i}}.informingFacilities"></td>
+            <td><input type="text" [(ngModel)]="item.settingPlace" name="item{{i}}.settingPlace"></td>
+            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks"></td>
+            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!informingFacilitiesForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
+</div>

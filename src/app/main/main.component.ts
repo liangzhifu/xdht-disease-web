@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserData } from '../core/class/user-data';
-import { MenuData } from './menu-data';
 import { TitleService } from '../core/title/title.service';
 import { ConfirmConfig } from '../modal/confirm/confirm-config';
 import { ModalService } from '../modal/modal.service';
 import { SessionStorageService } from '../core/storage/session-storage.service';
-import { ToastType } from '../toast/toast-type.enum';
-import { ToastConfig } from '../toast/toast-config';
-import { SystemConstant } from '../core/class/system-constant';
 import { HttpService } from '../core/http/http.service';
 import { ToastService } from '../toast/toast.service';
-import {EquipmentLayoutManageComponent} from '../record/equipment-layout-manage/equipment-layout-manage.component';
+import {CompanyEditComponent} from '../sys/company-edit/company-edit.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EditPasswordComponent} from '../sys/edit-password/edit-password.component';
 
 @Component({
   selector: 'app-main',
@@ -37,9 +35,10 @@ export class MainComponent implements OnInit {
    * 菜单数据
    * @type {any[]}
    */
-  menuData: Array<MenuData> = null;
+  menuData = null;
 
   constructor(
+    private ngbModal: NgbModal,
     private router: Router,
     private httpService: HttpService,
     private activeRoute: ActivatedRoute,
@@ -57,16 +56,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.userData = this.sessionStorageService.getObject('user');
-    this.httpService.get(SystemConstant.MENU_LIST).subscribe({
-      next: (data) => {
-        this.menuData = data;
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取用户菜单失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
+    this.menuData = this.sessionStorageService.getObject('menu');
   }
   /**
    * 切换导航
@@ -89,17 +79,10 @@ export class MainComponent implements OnInit {
   }
 
   /**
-   * 个人资料
+   * 打开修改密码对话框
    */
-  userInfo() {
-    this.router.navigate(['/main/sys/user/userInfo']).then();
-  }
-
-  /**
-   * 修改密码
-   */
-  passwordEdit() {
-    this.router.navigate(['/main/sys/user/editPassword']).then();
+  openPasswordEdit() {
+    this.ngbModal.open(EditPasswordComponent, {backdrop: 'static', keyboard: false});
   }
 
   /**

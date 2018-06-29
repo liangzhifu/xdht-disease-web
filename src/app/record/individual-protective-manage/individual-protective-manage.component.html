@@ -1,0 +1,49 @@
+<div></div><div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right">编号：</label>
+      <input type="text" class="form-control" (input)="param.informingFacilitiesNo = $event.target.value" placeholder="编号">
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+      <button class="btn btn-primary" (click)="addInformingFacilities();"><i class="fa fa-search fa-fw"></i> 新增</button>
+      <button class="btn btn-primary" (click)="open();"><i class="fa fa-search fa-fw"></i> 打开</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table width="100%">
+          <tr>
+            <th>编号</th>
+            <th>核实结果</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td>{{item.informingFacilitiesNo}}</td>
+            <td>{{item.verificationResult}}</td>
+
+            <td>
+              <button type="button" (click)="editInformingFacilities(item.id)">修改</button>
+              <button type="button" (click)="delInformingFacilities(item.id)">删除</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+

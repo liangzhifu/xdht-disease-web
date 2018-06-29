@@ -1,0 +1,51 @@
+<div>
+  <div style="float: left;display: block;">
+    <app-knowledge-catalog-tree (onChangeCatalog)="onChangeCatalog($event)"></app-knowledge-catalog-tree>
+  </div>
+  <div>
+    <div class="c-content-inner">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="col-form-label float-left text-right">标题：</label>
+          <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.knowledgeTitle" placeholder="角色名称">
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+          <button class="btn btn-success" (click)="addKnowledge();" [disabled]="param.catalogId == 0"><i class="fa fa-plus fa-fw"></i> 新增</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="c-line-title"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+
+          <div #sdt=simpleDataTable appSimpleDataTable>
+            <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+              <tr>
+                <th>标题</th>
+                <th>版本</th>
+                <th>操作</th>
+              </tr>
+              <tr *ngFor="let item of sdt.data;">
+                <td>{{item.knowledgeTitle}}</td>
+                <td>V{{item.knowledgeVersion}}</td>
+                <td>
+                  <button type="button" class="btn btn-warning radius mr-10" (click)="editKnowledge(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+                  <button type="button" class="btn btn-danger radius" (click)="delKnowledge(item.id, item.knowledgeTitle)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+                </td>
+              </tr>
+            </table>
+            <div class="c-mt15">
+              <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

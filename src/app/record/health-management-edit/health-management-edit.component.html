@@ -1,0 +1,44 @@
+<div class="c-content-inner">
+  <form #healthManagementForm="ngForm">
+    <div class="modal-body row">
+      <label>{{recordHealthManagementEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordHealthManagement.healthManagementNo" name="recordPreEvaluation.preEvaluationNo" placeholder="编码" >
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordHealthManagement.verificationResult" name="recordPreEvaluation.verificationResult" placeholder="核实情况">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>调查内容</th>
+            <th>建立情况</th>
+            <th>执行情况</th>
+            <th>备注</th>
+          </tr>
+          <tr *ngFor="let item of recordData.recordHealthManagementDataList;let i = index;">
+            <td>{{item.projectName}}</td>
+            <td><input type="text" [(ngModel)]="item.setUpInfo" name="item{{i}}.setUpInfo"></td>
+            <td><input type="text" [(ngModel)]="item.implementInfo" name="item{{i}}.implementInfo"></td>
+            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!healthManagementForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
+</div>

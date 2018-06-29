@@ -1,0 +1,36 @@
+<div class="c-content-inner">
+  <form #sysNoticeForm="ngForm">
+    <div class="modal-body row ">
+      <label>{{noticeEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">标题：</label>
+        <input type="hidden" [(ngModel)]="sysNotice.id" name="id">
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysNotice.noticeTitle" name="noticeTitle"
+               [ngClass]="{'warn': !noticeTitle.valid}" #noticeTitle="ngModel" required="required">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">发布时间：</label>
+        <div class="input-group col-md-8">
+          <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{sysNotice.noticeReleaseDate}}" id="noticeReleaseDate" name="noticeReleaseDate">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <img src="assets/img/calendar-icon.png"/>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <quill-editor #editor (onContentChanged)="contentChanged($event)"></quill-editor>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!sysNoticeForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
+</div>

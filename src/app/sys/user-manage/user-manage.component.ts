@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import { SystemConstant } from '../../core/class/system-constant';
@@ -10,13 +10,14 @@ import { ConfirmConfig } from '../../modal/confirm/confirm-config';
 import { ModalService } from '../../modal/modal.service';
 import { HttpService } from '../../core/http/http.service';
 import { ToastService } from '../../toast/toast.service';
+import {RoleChooseComponent} from '../role-choose/role-choose.component';
 
 @Component({
   selector: 'app-user-manage',
   templateUrl: './user-manage.component.html',
   styleUrls: ['./user-manage.component.scss']
 })
-export class UserManageComponent implements OnInit {
+export class UserManageComponent implements OnInit,AfterViewInit {
   url: String;
   method: 'post';
 
@@ -36,7 +37,11 @@ export class UserManageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.url = SystemConstant.USER_LIST;
+    this.url = SystemConstant.USER_PAGE_LIST;
+  }
+
+  ngAfterViewInit() {
+    this.search();
   }
 
   /**
@@ -52,7 +57,7 @@ export class UserManageComponent implements OnInit {
    * 新增用户
    */
   addUser() {
-    const modalRef = this.ngbModal.open(UserEditComponent);
+    const modalRef = this.ngbModal.open(UserEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -83,8 +88,8 @@ export class UserManageComponent implements OnInit {
    * 打开修改用户对话框
    */
   openEditUser(userData) {
-    const modalRef = this.ngbModal.open(UserEditComponent);
-    modalRef.componentInstance.userData = userData;
+    const modalRef = this.ngbModal.open(UserEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
+    modalRef.componentInstance.sysUser = userData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -121,5 +126,22 @@ export class UserManageComponent implements OnInit {
         });
       }
     );
+  }
+
+  /**
+   * 分配用户角色
+   * @param userId
+   */
+  editUserRole(userId) {
+    const modalRef = this.ngbModal.open(RoleChooseComponent);
+    modalRef.componentInstance.userId = userId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+          this.search();
+        }
+      },
+      () => {}
+    ).catch();
   }
 }

@@ -1,65 +1,27 @@
 <div class="c-content-inner">
-  <form [formGroup]="roleEditFormGroup">
-    <div class="modal-body row">
+  <form #sysRoleForm="ngForm">
+    <div class="modal-body row ">
       <label>{{roleEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
         <span aria-hidden="true">×</span>
       </button>
     </div>
-    <div class="row">
+    <div class="row list">
       <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">角色名称：</label>
-          <div class="col-md-7">
-            <input type="hidden" formControlName="id">
-            <input type="text" class="form-control" formControlName="roleName" placeholder="角色名称">
-          </div>
-        </div>
+        <label class="col-md-5 col-form-label text-right float-left">角色名称：</label>
+        <input type="hidden" [(ngModel)]="sysRole.id" name="id">
+        <input type="text" class="form-control col-md-7" [(ngModel)]="sysRole.roleName" name="roleName" placeholder="角色名称"
+               [ngClass]="{'warn': !roleName.valid}" #roleName="ngModel" required="required">
       </div>
       <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">系统内置：</label>
-          <div class="col-md-7">
-            <select class="form-control" formControlName="isSys">
-              <option value="">--请选择--</option>
-              <option value="1">是</option>
-              <option value="0">否</option>
-            </select>
-          </div>
-        </div>
+        <label class="col-md-5 col-form-label text-right float-left">备注：</label>
+        <input type="text" class="form-control col-md-7 " name="remarks" [(ngModel)]="sysRole.remarks" placeholder="备注">
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">状态：</label>
-          <div class="col-md-7">
-            <select class="form-control" formControlName="status">
-              <option value="" >--请选择--</option>
-              <option value="0">正常</option>
-              <option value="1">删除</option>
-              <option value="2">停用</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group row">
-          <label class="col-md-5 col-form-label text-right">备注：</label>
-          <div class="col-md-7">
-            <input class="form-control" formControlName="remarks" placeholder="备注">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-      </div>
-      <div class="col-md-4">
-        <button type="button" (click)="roleEditSubmit()">确定</button>
-        <button type="button" (click)="close()">取消</button>
-      </div>
-      <div class="col-md-4">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!sysRoleForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>
   </form>

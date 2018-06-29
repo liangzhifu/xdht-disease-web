@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
 import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
@@ -10,17 +10,18 @@ import { SystemConstant} from '../../core/class/system-constant';
 import { ToastConfig } from '../../toast/toast-config';
 import { ToastType } from '../../toast/toast-type.enum';
 import { ConfirmConfig } from '../../modal/confirm/confirm-config';
+import { MenuChooseComponent } from '../menu-choose/menu-choose.component';
+import {KnowledgeCatalogChooseComponent} from '../knowledge-catalog-choose/knowledge-catalog-choose.component';
 
 @Component({
   selector: 'app-role-manage',
   templateUrl: './role-manage.component.html',
   styleUrls: ['./role-manage.component.scss']
 })
-export class RoleManageComponent implements OnInit {
+export class RoleManageComponent implements OnInit,AfterViewInit {
   url: string;
   method: 'post';
 
-  // paramFormGroup: FormGroup;
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
   /**
    * 查询条件
@@ -36,7 +37,11 @@ export class RoleManageComponent implements OnInit {
     private toastService: ToastService
   ) { }
   ngOnInit() {
-    this.url = SystemConstant.ROLE_LIST;
+    this.url = SystemConstant.ROLE_PAGE_LIST;
+  }
+
+  ngAfterViewInit() {
+    this.search();
   }
 
   /**
@@ -52,14 +57,13 @@ export class RoleManageComponent implements OnInit {
    * 添加角色
    */
   addRole() {
-    const modalRef = this.ngbModal.open(RoleEditComponent);
+    const modalRef = this.ngbModal.open(RoleEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
           this.search();
         }
-      },
-      // () => {}
+      }
     );
   }
 
@@ -85,8 +89,8 @@ export class RoleManageComponent implements OnInit {
    * 打开修改角色对话框
    */
   openEditRole(roleData) {
-    const modalRef = this.ngbModal.open(RoleEditComponent);
-    modalRef.componentInstance.roleData = roleData;
+    const modalRef = this.ngbModal.open(RoleEditComponent, {backdrop: 'static', keyboard: false});
+    modalRef.componentInstance.sysRole = roleData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -106,26 +110,57 @@ export class RoleManageComponent implements OnInit {
       () => {
         this.httpService.get(SystemConstant.ROLE_DEL + '?id=' + roleId).subscribe({
           next: (data) => {
-            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
-            this.toastService.toast(toastCfg);
-            this.search();
             const status = data.status;
-            // if (status === '1') {
-            //   const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
-            //   this.toastService.toast(toastCfg);
-            //   this.search();
-            // } else {
-            //   const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除角色失败！1111111' + '失败原因：' + data.message, 3000);
-            //   this.toastService.toast(toastCfg);
-            // }
+            if (status === '1') {
+              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
+              this.toastService.toast(toastCfg);
+              this.search();
+            } else {
+              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除角色失败！' + '失败原因：' + data.message, 3000);
+              this.toastService.toast(toastCfg);
+            }
           },
           error: (err) => {
-            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除角色失败!！' + '失败原因：' + err, 3000);
+            const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除角色失败！' + '失败原因：' + err, 3000);
             this.toastService.toast(toastCfg);
           },
           complete: () => {}
         });
       }
     );
+  }
+
+  /**
+   * 分配角色菜单
+   * @param roleId
+   */
+  editRoleMenu(roleId) {
+    const modalRef = this.ngbModal.open(MenuChooseComponent);
+    modalRef.componentInstance.roleId = roleId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+          this.search();
+        }
+      },
+      () => {}
+    ).catch();
+  }
+
+  /**
+   * 分配知识库目录
+   * @param roleId
+   */
+  editRoleKnowledgeCatalog(roleId) {
+    const modalRef = this.ngbModal.open(KnowledgeCatalogChooseComponent);
+    modalRef.componentInstance.roleId = roleId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+          this.search();
+        }
+      },
+      () => {}
+    ).catch();
   }
 }

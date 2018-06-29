@@ -1,0 +1,97 @@
+<div class="c-content-inner">
+  <form #companySummaryForm="ngForm">
+    <div class="modal-body row">
+      <label>{{companySummaryEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">检查日期：</label>
+        <div class="input-group col-md-8">
+          <input type="hidden" [(ngModel)]="companySummary.id" name="id">
+          <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{companySummary.inspectionDate}}" id="inspectionDate"
+                 name="inspectionDate" placeholder="检查日期">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <img src="assets/img/calendar-icon.png"/>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">单位：</label>
+        <select class="form-control col-md-7" [(ngModel)]="companySummary.companyId" name="companyId"
+                [ngClass]="{'warn': !companyId.valid}" #companyId="ngModel" required="required">
+          <option value=""></option>
+          <option *ngFor="let item of companyList;" value="{{item.id}}">{{item.companyName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">检查机构：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.inspectionAgency"
+               name="inspectionAgency" placeholder="检查机构">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">体检种类：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.physicalExaminationType" name="physicalExaminationType" placeholder="体检种类">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">应检人数：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.inspectedNumber"
+               name="inspectedNumber" placeholder="应检人数">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">实检人数：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.actualInspectdNumber"
+               name="actualInspectdNumber" placeholder="实检人数">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">未见异常：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.noAbnormality"
+               name="noAbnormality" placeholder="未见异常">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">复查：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.reviewNumber"
+               name="reviewNumber" placeholder="复查">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">疑似：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.doubtfulNumber"
+               name="doubtfulNumber" placeholder="疑似">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">禁忌证：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.tabooNumber"
+               name="tabooNumber" placeholder="禁忌证">
+      </div>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">其他疾患：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.otherDiseasesNumber"
+               name="otherDiseasesNumber" placeholder="其他疾患">
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">备注信息：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.remarks" name="remarks" placeholder="备注信息">
+      </div>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!companySummaryForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
+</div>

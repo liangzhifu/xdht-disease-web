@@ -1,18 +1,14 @@
 <div class="c-content-inner">
   <div class="row">
     <div class="col-md-4">
-      <div class="form-group row">
-        <label class="col-md-4 col-form-label text-right">姓名：</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" (input)="param.userName = $event.target.value" placeholder="请输入姓名...">
-        </div>
-      </div>
+      <label class="col-form-label float-left text-right">姓名：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.userName" placeholder="请输入姓名...">
     </div>
     <div class="col-md-4">
-      <div class="form-group">
-        <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
-        <button class="btn btn-primary" (click)="addUser();"><i class="fa fa-search fa-fw"></i> 新增</button>
-      </div>
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+      <button class="btn btn-success" (click)="addUser();"><i class="fa fa-plus fa-fw"></i> 新增</button>
     </div>
   </div>
   <div class="row">
@@ -24,35 +20,32 @@
     <div class="col-md-12">
 
       <div #sdt=simpleDataTable appSimpleDataTable>
-        <table width="100%">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
           <tr>
             <th>用户名称</th>
             <th>登录账号</th>
             <th>电话</th>
             <th>邮箱</th>
             <th>性别</th>
-            <th>状态</th>
             <th>操作</th>
           </tr>
-          <tr *ngFor="let item of sdt.data;let i = index">
+          <tr *ngFor="let item of sdt.data;">
             <td>{{item.userName}}</td>
             <td>{{item.loginCode}}</td>
             <td>{{item.mobile}}</td>
             <td>{{item.email}}</td>
             <td>{{item.sex | sexReform}}</td>
-            <td>{{item.status | statusReform}}</td>
             <td>
-              <button type="button" (click)="editUser(item.id)">修改</button>
-              <button type="button" (click)="delUser(item.id, item.userName)">删除</button>
+              <button type="button" class="btn btn-info radius mr-10" (click)="editUserRole(item.id)"><i class="fa fa-gears fa-fw"></i>分配角色</button>
+              <button type="button" class="btn btn-warning radius mr-10" (click)="editUser(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+              <button type="button" class="btn btn-danger radius" (click)="delUser(item.id, item.userName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
             </td>
           </tr>
         </table>
         <div class="c-mt15">
           <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
         </div>
-
       </div>
-
     </div>
   </div>
 </div>

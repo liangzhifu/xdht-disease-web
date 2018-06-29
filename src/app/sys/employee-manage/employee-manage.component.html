@@ -1,3 +1,56 @@
-<p>
-  employee-manage works!
-</p>
+<div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">职工姓名：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empName" placeholder="请输入职工姓名...">
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+      <button class="btn btn-success" (click)="addEmployee();"><i class="fa fa-plus fa-fw"></i> 新增</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>籍贯</th>
+            <th>婚姻</th>
+            <th>文化程度</th>
+            <th>嗜好</th>
+            <th>参加工作时间</th>
+            <th>身份证号码</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td>{{item.empName}}</td>
+            <td>{{item.empSex | sexReform}}</td>
+            <td>{{item.empNative}}</td>
+            <td>{{item.empMarriage}}</td>
+            <td>{{item.empEducation}}</td>
+            <td>{{item.empHobby}}</td>
+            <td>{{item.empWorkDate}}</td>
+            <td>{{item.empIdentityNumber}}</td>
+            <td>
+              <button class="btn btn-warning radius mr-10" type="button" (click)="editEmployee(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+              <button class="btn btn-danger radius mr-10" type="button" (click)="delEmployee(item.id, item.empName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+              <button class="btn btn-info radius" type="button" (click)="selectEmployeeInfo(item.id, item.projectName)"><i class="fa fa-crosshairs fa-fw"></i>详情</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

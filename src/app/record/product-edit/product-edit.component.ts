@@ -2,11 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {HttpService} from '../../core/http/http.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastService} from '../../toast/toast.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
-import * as $ from 'jquery';
+import {ModalService} from '../../modal/modal.service';
+import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
@@ -14,80 +15,68 @@ import * as $ from 'jquery';
 })
 export class ProductEditComponent implements OnInit {
   recordProductEditTitle: string;
-  @Input() recordProductInputRequest = {
-    'recordProduct': {
-      'id': '',
-      'productNo': '',
-      'verificationResult': ''
+  @Input() sceneId = 0;
+  @Input() companyId = 0;
+  @Input() recordData = {
+    recordProduct: {
+      id: '',
+      productNo: '',
+      verificationResult: '',
+      sceneId : 0
     },
-    'recordProductDataList': [{
-      'id': '',
-      'companyOfficeId': '',
-      // 'officdName': '',
-      'processName': '',
-      'productType': '',
-      'productName': '',
-      'productShape': '',
-      'chemicalComposition': '',
-      'storageMode': '',
-      'transportMode': '',
-      'annualAmount': '',
-      'relationId': ''
-    }],
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
+    recordProductDataList: [{
+      id: '',
+      companyOfficeId: '',
+      officeName: '',
+      processName: '',
+      productType: '',
+      productName: '',
+      productShape: '',
+      chemicalComposition: '',
+      storageMode: '',
+      transportMode: '',
+      annualAmount: '',
+      relationId: ''
     }]
-
   };
+  sysPostList: [{
+    id: '',
+    postName: ''
+  }];
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
+    private modalService: ModalService,
     private httpService: HttpService,
     private activeModal: NgbActiveModal,
     private toastService: ToastService,
     private waitService: WaitService
-  ) { }
+  ) {
+    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+      next: (data) => {
+        this.sysPostList = data;
+      },
+      complete: () => {
+      }
+    });
+  }
 
   ngOnInit() {
-    const relationId = this.recordProductInputRequest.recordProduct.id;
-    if (relationId === undefined || relationId === null || relationId === '') {
+    if (this.recordData.recordProduct === null
+      || this.recordData.recordProduct.id === null
+      || this.recordData.recordProduct.id === '') {
       this.addFlag = true;
-      this.recordProductEditTitle = '新增--';
-      // 新增时 部门id 获取部门列表
-      this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
-        next: (data) => {
-          this.recordProductInputRequest.sysCompanyOfficeList = data;
-        },
-        complete: () => {
-        }
-      });
+      this.recordProductEditTitle = '新增--物料及产品调查表';
+      this.recordData.recordProduct = {
+        id: '',
+        productNo: '',
+        verificationResult: '',
+        sceneId : 0
+      };
     } else {
       this.addFlag = false;
-      this.recordProductEditTitle = '修改--';
-      // 修改时 获取内容列表
-      const  dataList = this.recordProductInputRequest.recordProductDataList;
-      this.recordProductInputRequest.recordProductDataList = [];
-      // 项目列表
-      const  officeList = this.recordProductInputRequest.sysCompanyOfficeList;
-      for (let i = 0; i < dataList.length; i++) {
-        const recordProductData = {
-          'id': dataList[i].id,
-          'companyOfficeId': dataList[i].companyOfficeId,
-          'processName': dataList[i].processName,
-          'productType': dataList[i].productType,
-          'productName': dataList[i].productName,
-          'productShape': dataList[i].productShape,
-          'chemicalComposition': dataList[i].chemicalComposition,
-          'storageMode': dataList[i].storageMode,
-          'transportMode': dataList[i].transportMode,
-          'annualAmount': dataList[i].annualAmount,
-          'relationId': dataList[i].relationId
-          // 'officdName': officeList[i].officeName
-        };
-        this.recordProductInputRequest.recordProductDataList.push(recordProductData);
-      }
+      this.recordProductEditTitle = '修改--物料及产品调查表';
 
     }
   }
@@ -103,22 +92,31 @@ export class ProductEditComponent implements OnInit {
    * 添加一行
    */
   addOffice() {
-    const index = this.recordProductInputRequest.recordProductDataList.length;
-    this.recordProductInputRequest.recordProductDataList[index] = { 'id' : '', 'companyOfficeId' : '', 'processName' : '', 'productType' : '', 'productName' : '', 'productShape' : '', 'chemicalComposition' : '', 'storageMode' : '', 'transportMode' : '', 'annualAmount' : '', 'relationId' : ''};
-    this.httpService.post(SystemConstant.SYS_COMPANY_OFFICE_LIST, {} ).subscribe({
-      next: (data) => {
-        this.recordProductInputRequest.sysCompanyOfficeList = data;
-      },
-      complete: () => {
-      }
-    });
+    if (this.recordData.recordProductDataList === null) {
+      this.recordData.recordProductDataList = [];
+    }
+    const index = this.recordData.recordProductDataList.length;
+    this.recordData.recordProductDataList[index] = {
+      id: '',
+      companyOfficeId: '',
+      officeName: '',
+      processName: '',
+      productType: '',
+      productName: '',
+      productShape: '',
+      chemicalComposition: '',
+      storageMode: '',
+      transportMode: '',
+      annualAmount: '',
+      relationId: ''
+    };
   }
   /**
    * 删除一行
    */
   delOffice(item) {
-    const index = this.recordProductInputRequest.recordProductDataList.indexOf(item);
-    this.recordProductInputRequest.recordProductDataList.splice(index, index + 1);
+    const index = this.recordData.recordProductDataList.indexOf(item);
+    this.recordData.recordProductDataList.splice(index,  1);
   }
 
   /**
@@ -130,14 +128,16 @@ export class ProductEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.PRODUCT_ADD;
+      this.recordData.recordProduct.sceneId = this.sceneId;
     } else {
       url = SystemConstant.PRODUCT_EDIT;
     }
     // 保存调查表
-    this.httpService.post(url, this.recordProductInputRequest).subscribe({
+    this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
+        this.activeModal.close('success');
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
@@ -149,6 +149,22 @@ export class ProductEditComponent implements OnInit {
     this.waitService.wait(false);
   }
 
+  /**
+  * 选择部门
+*/
+  searchEmployeeOffice(index) {
+    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
+    modalRef.componentInstance.companyId = this.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          const sysCompanyOffice = result.sysCompanyOffice;
+          this.recordData.recordProductDataList[index].companyOfficeId = sysCompanyOffice.id;
+          this.recordData.recordProductDataList[index].officeName = sysCompanyOffice.officeName;
+        }
+      }
+    );
+  }
 
 
 }

@@ -1,0 +1,59 @@
+<div class="c-content-inner">
+  <form #temperatureProtectionForm="ngForm">
+    <div class="modal-body row ">
+      <label>{{recordTemperatureEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordTemperature.temperatureProtectionFacilitiesNo" name="recordTemperature.temperatureProtectionFacilitiesNo" placeholder="编码" >
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordTemperature.verificationResult" name="recordTemperature.verificationResult" placeholder="核实情况">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>车间/部门</th>
+            <th>工种/岗位</th>
+            <th>作业地点</th>
+            <th>生产性热源</th>
+            <th>防高温设施保温隔热、通风等）</th>
+            <th>运行维护情况</th>
+            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+          </tr>
+          <tr *ngFor="let item of recordData.recordTemperatureDataList;let i=index;"  >
+            <td>
+              <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{i}}.companyOfficeId">
+              <input type="text" [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
+              <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
+            </td>
+            <td width="20px;">
+              <select #select [(ngModel)]="item.postId" name="item{{i}}.postId">
+                <option value="">--请选择岗位--</option>
+                <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+              </select>
+            </td>
+            <td><input type="text" [(ngModel)]="item.workPlace" name="item{{i}}.workPlace"></td>
+            <td><input type="text" [(ngModel)]="item.productiveHeatSource" name="item{{i}}.productiveHeatSource"></td>
+            <td><input type="text" [(ngModel)]="item.temperatureProtectionFacilities" name="item{{i}}.temperatureProtectionFacilities"></td>
+            <td><input type="text" [(ngModel)]="item.operationAndMaintenance" name="item{{i}}.operationAndMaintenance"></td>
+            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!temperatureProtectionForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
+</div>

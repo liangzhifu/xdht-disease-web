@@ -1,36 +1,42 @@
 <div class="c-content-inner">
-  <div class="modal-body row">
-    <label>{{recordPresentSituationEditTitle}}</label>
-    <button aria-label="Close" class="close" type="button" (click)="close()">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">编码：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordPresentSituationRequest.recordPresentSituation.preEvaluationNo" placeholder="编码" >
+  <form #presentSituationForm="ngForm">
+    <div class="modal-body row">
+      <label>{{recordPresentSituationEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
-    <div class="col-md-6">
-      <label class="col-md-5 col-form-label text-right">核实情况：</label>
-      <input type="text" class="form-control" [(ngModel)]="recordPresentSituationRequest.recordPresentSituation.verificationResult" placeholder="核实情况">
+    <div class="row list">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordPresentSituation.preEvaluationNo" name="recordPreEvaluation.preEvaluationNo" placeholder="编码" >
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordPresentSituation.verificationResult" name="recordPreEvaluation.verificationResult" placeholder="核实情况">
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <table>
-      <tr>
-        <td>调查项目</td>
-        <td>调查结果</td>
-        <td>备注</td>
-      </tr>
-      <tr *ngFor="let item of recordPresentSituationRequest.recordPresentSituationDataList;">
-        <td>{{item.projectName}}</td>
-        <td><input type="text" [(ngModel)]="item.surveyResults"></td>
-        <td><input type="text" [(ngModel)]="item.remarks"></td>
-      </tr>
-    </table>
-  </div>
-  <div class="row">
-    <button (click)="submitData()">提交</button>
-    <button (click)="close()">取消</button>
-  </div>
+    <div class="row">
+      <div class="col-md-12">
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>调查项目</th>
+            <th>调查结果</th>
+            <th>备注</th>
+          </tr>
+          <tr *ngFor="let item of recordData.recordPresentSituationDataList;let i = index;">
+            <td>{{item.projectName}}</td>
+            <td><input type="text" [(ngModel)]="item.surveyResults" name="item{{i}}.surveyResults"></td>
+            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success" [disabled]="!presentSituationForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
 </div>

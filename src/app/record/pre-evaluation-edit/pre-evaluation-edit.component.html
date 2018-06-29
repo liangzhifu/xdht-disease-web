@@ -9,11 +9,15 @@
     <div class="row list">
       <div class="col-md-6">
         <label class="col-form-label text-right float-left label-title">编码：</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordPreEvaluation.preEvaluationNo" name="recordPreEvaluation.preEvaluationNo" placeholder="编码" >
+        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordPreEvaluation.preEvaluationNo"
+               name="recordPreEvaluation.preEvaluationNo" id="preEvaluationNo" [ngClass]="{'warn': !preEvaluationNo.valid}"
+               #preEvaluationNo="ngModel" required="required" maxlength="20" placeholder="编码" >
       </div>
       <div class="col-md-6">
         <label class="col-form-label text-right float-left  label-title">核实情况：</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordPreEvaluation.verificationResult" name="recordPreEvaluation.verificationResult" placeholder="核实情况">
+        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordPreEvaluation.verificationResult"
+               id="verificationResult" [ngClass]="{'warn': !verificationResult.valid}"  name="recordPreEvaluation.verificationResult"
+               #verificationResult="ngModel" required="required" maxlength="100"  placeholder="核实情况">
       </div>
     </div>
     <div class="row">
@@ -26,8 +30,12 @@
           </tr>
           <tr *ngFor="let item of recordData.recordPreEvaluationDataList;let i = index;">
             <td>{{item.projectName}}</td>
-            <td><input type="text" [(ngModel)]="item.surveyResults" name="item{{i}}.surveyResults"></td>
-            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks"></td>
+            <td><input type="text" [(ngModel)]="item.surveyResults" name="item{{i}}.surveyResults"
+                       id="surveyResult" [ngClass]="{'warn': !surveyResult.valid}"
+                       #surveyResult="ngModel" required="required" maxlength="100" ></td>
+            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks"
+                       id="remarks" [ngClass]="{'warn': !remarks.valid}"
+                       #remarks="ngModel" required="required" maxlength="100"></td>
           </tr>
         </table>
       </div>

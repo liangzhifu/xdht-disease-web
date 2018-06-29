@@ -9,11 +9,17 @@
     <div class="row list">
       <div class="col-md-6">
         <label class=" col-form-label text-right float-left label-title">编码：</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordPostPersonnel.postPersonnelNo" name="recordPostPersonnel.postPersonnelNo" placeholder="编码" >
+        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordPostPersonnel.postPersonnelNo"
+               id="postPersonnelNo" [ngClass]="{'warn': !postPersonnelNo.valid}"
+               #postPersonnelNo="ngModel" required="required" maxlength="20"
+               name="recordPostPersonnel.postPersonnelNo" placeholder="编码" >
       </div>
       <div class="col-md-6">
         <label class=" col-form-label text-right float-left label-title">核实情况：</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordPostPersonnel.verificationResult" name="recordPostPersonnel.verificationResult" placeholder="核实情况">
+        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordPostPersonnel.verificationResult"
+               id="verificationResult" [ngClass]="{'warn': !verificationResult.valid}"  name="recordPreEvaluation.verificationResult"
+               #verificationResult="ngModel" required="required" maxlength="100"
+               name="recordPostPersonnel.verificationResult" placeholder="核实情况">
       </div>
     </div>
     <div class="row">

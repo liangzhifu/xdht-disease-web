@@ -104,8 +104,7 @@ export class SceneDetailComponent implements OnInit {
     let options: any = {
       size: 'w80',
       backdrop: 'static',
-      keyboard: false,
-      centered: true
+      keyboard: false
     };
     switch (questionnaireId) {
       case (1) : this.editComponent = PreEvaluationEditComponent;
@@ -137,6 +136,12 @@ export class SceneDetailComponent implements OnInit {
                   break;
       case (4) : this.editComponent = PostPersonnelEditComponent;
                   myUrl = SystemConstant.POST_PERSONNEL_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (5) : this.editComponent = WorkLogEditComponent;
                   myUrl = SystemConstant.WORK_LOG_DETAIL;

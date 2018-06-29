@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RoleEditComponent } from '../role-edit/role-edit.component';
 import { SimpleDataHttpPageComponent } from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
@@ -18,7 +18,7 @@ import {KnowledgeCatalogChooseComponent} from '../knowledge-catalog-choose/knowl
   templateUrl: './role-manage.component.html',
   styleUrls: ['./role-manage.component.scss']
 })
-export class RoleManageComponent implements OnInit {
+export class RoleManageComponent implements OnInit,AfterViewInit {
   url: string;
   method: 'post';
 
@@ -40,6 +40,10 @@ export class RoleManageComponent implements OnInit {
     this.url = SystemConstant.ROLE_PAGE_LIST;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
   /**
    * 查询
    */
@@ -53,7 +57,7 @@ export class RoleManageComponent implements OnInit {
    * 添加角色
    */
   addRole() {
-    const modalRef = this.ngbModal.open(RoleEditComponent);
+    const modalRef = this.ngbModal.open(RoleEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -85,7 +89,7 @@ export class RoleManageComponent implements OnInit {
    * 打开修改角色对话框
    */
   openEditRole(roleData) {
-    const modalRef = this.ngbModal.open(RoleEditComponent);
+    const modalRef = this.ngbModal.open(RoleEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.sysRole = roleData;
     modalRef.result.then(
       (result) => {

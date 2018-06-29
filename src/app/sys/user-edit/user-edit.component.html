@@ -1,63 +1,67 @@
-<div class="c-content-inner">
+<div>
   <form #sysUserForm="ngForm">
-    <div class="modal-body row ">
-      <label>{{userEditTitle}}</label>
+    <div class="modal-header">
+      <label class="modal-title">{{userEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">用户名：</label>
-        <input type="hidden" [(ngModel)]="sysUser.id" name="id">
-        <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.userName" name="userName" placeholder="用户名"
-               [ngClass]="{'warn': !userName.valid}" #userName="ngModel" required="required">
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="userName"><span style="color:red;">*</span>用户名：</label>
+          <input type="hidden" [(ngModel)]="sysUser.id" name="id">
+          <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.userName" name="userName" id="userName"
+                 [ngClass]="{'warn': !userName.valid}" #userName="ngModel" required="required" maxlength="10">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="loginCode"><span style="color:red;">*</span>登录名：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.loginCode" name="loginCode" id="loginCode" [readonly]="!addFlag"
+                 [ngClass]="{'warn': !loginCode.valid}" #loginCode="ngModel" required="required" maxlength="20">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">登录名：</label>
-        <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.loginCode" name="loginCode" placeholder="登录名" [disabled]="!addFlag"
-               [ngClass]="{'warn': !loginCode.valid}" #loginCode="ngModel" required="required">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="password"><span style="color:red;">*</span>密码：</label>
+          <input type="password" class="form-control col-md-7" [(ngModel)]="sysUser.password" name="password" id="password" [readonly]="!addFlag"
+                 [ngClass]="{'warn': !password.valid}" #password="ngModel" required="required" maxlength="50">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="mgrType"><span style="color:red;">*</span>管理员：</label>
+          <select class="form-control col-md-7" [(ngModel)]="sysUser.mgrType" name="mgrType" id="mgrType"
+                  [ngClass]="{'warn': !mgrType.valid}" #mgrType="ngModel" required="required">
+            <option value=""></option>
+            <option value="1">是</option>
+            <option value="0">否</option>
+          </select>
+        </div>
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="mobile">电话：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.mobile" name="mobile" id="mobile" #mobile="ngModel"
+                 pattern="^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))[0-9]{8}$" [ngClass]="{'warn': !mobile.valid}">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="email">邮箱：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.email" name="email" id="email" #email="ngModel" maxlength="50"
+              pattern="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$" [ngClass]="{'warn': !email.valid}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="sex">性别：</label>
+          <select class="form-control col-md-7" [(ngModel)]="sysUser.sex" name="sex" id="sex">
+            <option value=""></option>
+            <option value="0">男</option>
+            <option value="1">女</option>
+          </select>
+        </div>
       </div>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">密码：</label>
-        <input type="password" class="form-control col-md-7" [(ngModel)]="sysUser.password" name="password" placeholder="密码"
-               [ngClass]="{'warn': !password.valid}" #password="ngModel" required="required">
-      </div>
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">管理员：</label>
-        <select class="form-control col-md-7" [(ngModel)]="sysUser.mgrType" name="mgrType"
-                [ngClass]="{'warn': !mgrType.valid}" #mgrType="ngModel" required="required">
-          <option value=""></option>
-          <option value="1">是</option>
-          <option value="0">否</option>
-        </select>
-      </div>
-    </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">电话：</label>
-        <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.mobile" name="mobile" placeholder="电话">
-      </div>
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">邮箱：</label>
-        <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.email" name="email" placeholder="邮箱">
-      </div>
-    </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-5 col-form-label text-right float-left">性别：</label>
-        <select class="form-control col-md-7" [(ngModel)]="sysUser.sex" name="sex">
-          <option value=""></option>
-          <option value="1">女</option>
-          <option value="0">男</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
+    <div class="modal-footer">
       <div class="op-btn">
-        <button type="button" class="btn btn-success" [disabled]="!sysUserForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!sysUserForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>

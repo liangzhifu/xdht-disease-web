@@ -54,7 +54,7 @@ export class AntiNoiseManageComponent implements OnInit {
    * 新增--防噪声设施调查表
    */
   addAntiNoise() {
-    const modalRef = this.ngbModal.open(AntiNoiseEditComponent);
+    const modalRef = this.ngbModal.open(AntiNoiseEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -83,7 +83,7 @@ export class AntiNoiseManageComponent implements OnInit {
    * 打开修改(防噪声设施调查表)对话框
    */
   openEdit(myData) {
-    const modalRef = this.ngbModal.open(AntiNoiseEditComponent);
+    const modalRef = this.ngbModal.open(AntiNoiseEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.recordAntiNoiseInputRequest = myData;
     modalRef.result.then(
       (result) => {

@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserData } from '../core/class/user-data';
-import { MenuData } from './menu-data';
 import { TitleService } from '../core/title/title.service';
 import { ConfirmConfig } from '../modal/confirm/confirm-config';
 import { ModalService } from '../modal/modal.service';
 import { SessionStorageService } from '../core/storage/session-storage.service';
-import { ToastType } from '../toast/toast-type.enum';
-import { ToastConfig } from '../toast/toast-config';
-import { SystemConstant } from '../core/class/system-constant';
 import { HttpService } from '../core/http/http.service';
 import { ToastService } from '../toast/toast.service';
 import {CompanyEditComponent} from '../sys/company-edit/company-edit.component';

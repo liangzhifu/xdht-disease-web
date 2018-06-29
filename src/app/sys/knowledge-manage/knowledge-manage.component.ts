@@ -64,7 +64,7 @@ export class KnowledgeManageComponent implements OnInit, AfterViewInit {
    * 新增
    */
   addKnowledge() {
-    const modalRef = this.ngbModal.open(KnowledgeEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(KnowledgeEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.catalogId = this.param.catalogId;
     modalRef.result.then(
       (result) => {
@@ -96,7 +96,7 @@ export class KnowledgeManageComponent implements OnInit, AfterViewInit {
    * 打开修改知识库对话框
    */
   openEditKnowledge(data) {
-    const modalRef = this.ngbModal.open(KnowledgeEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(KnowledgeEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.sysKnowledge = data;
     modalRef.result.then(
       (result) => {

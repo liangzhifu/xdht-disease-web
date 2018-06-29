@@ -34,6 +34,9 @@ export class KnowledgeCatalogManageComponent implements OnInit {
       enable: true,
       chkStyle: 'radio',
       radioType: 'all'
+    },
+    callback: {
+      onClick: this.zTreeOnClick
     }
   };
   zNodes = [];
@@ -79,7 +82,7 @@ export class KnowledgeCatalogManageComponent implements OnInit {
         parentId = nodes[i].id;
       }
     }
-    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent, {backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.parentId = parentId;
     modalRef.result.then(
       (result) => {
@@ -123,7 +126,7 @@ export class KnowledgeCatalogManageComponent implements OnInit {
    * 打开修改知识库目录对话框
    */
   openEditKnowledgeCatalog(data) {
-    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(KnowledgeCatalogEditComponent, {backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.sysKnowledgeCatalog = data;
     modalRef.result.then(
       (result) => {
@@ -171,4 +174,19 @@ export class KnowledgeCatalogManageComponent implements OnInit {
     );
   }
 
+  /**
+   * 菜单节点点击事件
+   * @param event
+   * @param treeId
+   * @param treeNode
+   */
+  zTreeOnClick(event, treeId, treeNode) {
+    const treeObj = $.fn.zTree.getZTreeObj('ztree');
+    const checked = treeNode.checked;
+    if (checked) {
+      treeObj.checkNode(treeNode, false);
+    } else {
+      treeObj.checkNode(treeNode, true);
+    }
+  }
 }

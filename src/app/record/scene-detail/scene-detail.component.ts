@@ -30,6 +30,7 @@ import {BuildingAerationEditComponent} from '../building-aeration-edit/building-
 import {AuxiliaryHealthEditComponent} from '../auxiliary-health-edit/auxiliary-health-edit.component';
 import {RecordFundsEditComponent} from '../record-funds-edit/record-funds-edit.component';
 import {HealthCareEditComponent} from '../health-care-edit/health-care-edit.component';
+import {HealthManagementEditComponent} from '../health-management-edit/health-management-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -145,6 +146,7 @@ export class SceneDetailComponent implements OnInit {
       case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
+                  // 一下模块需要更改（19 除外）
       case (16) : this.editComponent = BuildingBaseEditComponent;
                   myUrl = SystemConstant.BUILDING_BASE_DETAIL;
                   break;
@@ -170,7 +172,7 @@ export class SceneDetailComponent implements OnInit {
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)
     this.httpService.get(myUrl + '/' + this.recordSceneRequest.recordScene.id).subscribe({
       next: (data) => {
-        const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg', backdrop: 'static', keyboard: false});
+        const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
           modalRef.componentInstance.recordData = data;
           modalRef.componentInstance.sceneId = this.recordSceneRequest.recordScene.id;
           modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;

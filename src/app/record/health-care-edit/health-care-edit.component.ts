@@ -96,6 +96,7 @@ export class HealthCareEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.HEALTH_CARE_ADD;
+      this.recordData.recordHealthCare.sceneId = this.sceneId;
     } else {
       url = SystemConstant.HEALTH_CARE_EDIT;
     }

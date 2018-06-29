@@ -110,21 +110,15 @@ export class KnowledgeManageComponent implements OnInit, AfterViewInit {
   /**
    * 删除知识库
    */
-  delKnowledge(userId, userName) {
-    const confirmCfg = new ConfirmConfig('确定删除知识库：' + userName + '！');
+  delKnowledge(id, knowledgeTitle) {
+    const confirmCfg: ConfirmConfig = new ConfirmConfig('确定删除企业：' + knowledgeTitle + '！');
     this.modalService.confirm(confirmCfg).then(
       () => {
-        this.httpService.get(SystemConstant.KNOWLEDGE_DEL + '?id=' + userId).subscribe({
+        this.httpService.get(SystemConstant.KNOWLEDGE_DEL + '?id=' + id).subscribe({
           next: (data) => {
-            const status = data.status;
-            if (status === '1') {
-              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除知识库成功！', 3000);
-              this.toastService.toast(toastCfg);
-              this.search();
-            } else {
-              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除知识库失败！' + '失败原因：' + data.message, 3000);
-              this.toastService.toast(toastCfg);
-            }
+            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除知识库成功！', 3000);
+            this.toastService.toast(toastCfg);
+            this.search();
           },
           error: (err) => {
             const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除知识库失败！' + '失败原因：' + err, 3000);

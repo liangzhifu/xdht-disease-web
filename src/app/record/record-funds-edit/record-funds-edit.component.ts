@@ -94,6 +94,7 @@ export class RecordFundsEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.FUNDS_ADD;
+      this.recordData.recordFunds.sceneId = this.sceneId;
     } else {
       url = SystemConstant.FUNDS_EDIT;
     }

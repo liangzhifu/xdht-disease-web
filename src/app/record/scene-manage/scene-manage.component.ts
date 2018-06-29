@@ -115,7 +115,7 @@ export class SceneManageComponent implements OnInit, AfterViewInit {
     const confirmCfg = new ConfirmConfig('确定删除现场调查记录：' + projectName + '！');
     this.modalService.confirm(confirmCfg).then(
       () => {
-        this.httpService.get(SystemConstant.USER_DEL + '?id=' + id).subscribe({
+        this.httpService.post(SystemConstant.RECORD_SCENE_DEL +  '/' + id , {} ).subscribe({
           next: (data) => {
             const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除现场调查记录成功！', 3000);
             this.toastService.toast(toastCfg);

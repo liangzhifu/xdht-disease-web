@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-http-page/simple-data-http-page.component';
 import {HttpService} from '../../core/http/http.service';
 import {ModalService} from '../../modal/modal.service';
@@ -10,7 +10,6 @@ import {DictionaryEditComponent} from '../dictionary-edit/dictionary-edit.compon
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
-import {UserEditComponent} from '../user-edit/user-edit.component';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 
 @Component({
@@ -18,7 +17,7 @@ import {ConfirmConfig} from '../../modal/confirm/confirm-config';
   templateUrl: './dictionary-manage.component.html',
   styleUrls: ['./dictionary-manage.component.scss']
 })
-export class DictionaryManageComponent implements OnInit {
+export class DictionaryManageComponent implements OnInit,AfterViewInit {
   url: String;
   method: 'post';
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
@@ -44,6 +43,10 @@ export class DictionaryManageComponent implements OnInit {
     this.url = SystemConstant.DICTIONARY_PAGE_LIST;
   }
 
+  ngAfterViewInit() {
+    this.search();
+  }
+
   /**
    * 查询
    */
@@ -57,7 +60,7 @@ export class DictionaryManageComponent implements OnInit {
    * 新增字典数据
    */
   addDictionary() {
-    const modalRef = this.ngbModal.open(DictionaryEditComponent);
+    const modalRef = this.ngbModal.open(DictionaryEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -89,7 +92,7 @@ export class DictionaryManageComponent implements OnInit {
    * 打开修改对话框
    */
   openEditDictionary(dictionaryData) {
-    const modalRef = this.ngbModal.open(DictionaryEditComponent);
+    const modalRef = this.ngbModal.open(DictionaryEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.sysDictionary = dictionaryData;
     modalRef.result.then(
       (result) => {

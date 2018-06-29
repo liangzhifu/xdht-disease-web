@@ -86,7 +86,7 @@ export class MenuManageComponent implements OnInit {
       this.modalService.alert(alertConfig);
       return false;
     }
-    const modalRef = this.ngbModal.open(MenuEditComponent);
+    const modalRef = this.ngbModal.open(MenuEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.parentId = parentId;
     modalRef.result.then(
       (result) => {
@@ -130,7 +130,7 @@ export class MenuManageComponent implements OnInit {
    * 打开修改菜单对话框
    */
   openEditMenu(menuData) {
-    const modalRef = this.ngbModal.open(MenuEditComponent);
+    const modalRef = this.ngbModal.open(MenuEditComponent, {backdrop: 'static', keyboard: false});
     modalRef.componentInstance.sysMenu = menuData;
     modalRef.result.then(
       (result) => {

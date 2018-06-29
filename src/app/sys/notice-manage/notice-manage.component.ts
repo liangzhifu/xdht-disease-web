@@ -55,7 +55,7 @@ export class NoticeManageComponent implements OnInit,AfterViewInit {
    * 新增公告
    */
   addNotice() {
-    const modalRef = this.ngbModal.open(NoticeEditComponent, {size: 'lg', backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(NoticeEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -83,7 +83,7 @@ export class NoticeManageComponent implements OnInit,AfterViewInit {
   }
 
   openEditNotice(noticeData) {
-    const modalRef = this.ngbModal.open(NoticeEditComponent, {size: 'lg', backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(NoticeEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.sysNotice = noticeData;
     modalRef.result.then(
       (result) => {

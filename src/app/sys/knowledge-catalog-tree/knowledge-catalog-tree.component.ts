@@ -30,6 +30,7 @@ export class KnowledgeCatalogTreeComponent implements OnInit {
     }
   };
   zNodes = [];
+  SurplusHeight: any;
   // 输出
   @Output() onChangeCatalog: EventEmitter<any> = new EventEmitter();
   constructor(
@@ -52,6 +53,12 @@ export class KnowledgeCatalogTreeComponent implements OnInit {
       },
       complete: () => {}
     });
+    this.bodyHeight();
+  }
+
+  bodyHeight() {
+    const bodyHeight = document.documentElement.clientHeight;
+    this.SurplusHeight = (bodyHeight - 90) + 'px';
   }
 
   /**

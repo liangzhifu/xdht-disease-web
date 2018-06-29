@@ -36,9 +36,9 @@
             <td>{{item.email}}</td>
             <td>{{item.sex | sexReform}}</td>
             <td>
-              <button type="button" class="btn btn-info radius mr-10" (click)="editUserRole(item.id)"><i class="fa fa-gears fa-fw"></i>分配角色</button>
-              <button type="button" class="btn btn-warning radius mr-10" (click)="editUser(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
-              <button type="button" class="btn btn-danger radius" (click)="delUser(item.id, item.userName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+              <button type="button" class="btn btn-info radius mr-10" [hidden]="item.id == 1" (click)="editUserRole(item.id)"><i class="fa fa-gears fa-fw"></i>分配角色</button>
+              <button type="button" class="btn btn-warning radius mr-10" [hidden]="item.id == 1" (click)="editUser(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+              <button type="button" class="btn btn-danger radius" [hidden]="item.id == 1" (click)="delUser(item.id, item.userName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
             </td>
           </tr>
         </table>

@@ -1,48 +1,58 @@
-<div class="c-content-inner">
+<div>
   <form #equipmentForm="ngForm">
-    <div class="modal-body row ">
-      <label>{{recordEquipmentEditTitle}}</label>
+    <div class="modal-header">
+      <label class="modal-title">{{recordEquipmentEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-form-label text-right float-left label-title">编码：</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordEquipment.equipmentNo" name="recordEquipment.equipmentNo" placeholder="编码" >
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+          <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordEquipment.equipmentNo" name="recordEquipment.equipmentNo"
+                 #equipmentNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
+                 [ngClass]="{'warn': !equipmentNo.valid}">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+          <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordEquipment.verificationResult" name="recordEquipment.verificationResult"
+                 #verificationResult="ngModel" required="required" maxlength="50"
+                 [ngClass]="{'warn': !verificationResult.valid}">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="col-form-label text-right float-left label-title">核实情况：</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordEquipment.verificationResult" name="recordEquipment.verificationResult" placeholder="核实情况">
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px 15px;">
+          <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+            <tr>
+              <th>车间/部门</th>
+              <th>工艺过程</th>
+              <th>设备名称</th>
+              <th>数量 （台/套）</th>
+              <th><button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+            </tr>
+            <tr *ngFor="let item of recordData.recordEquipmentDataList;let recordIndex=index;"  >
+              <td>
+                <input type="hidden" [(ngModel)]="item.officdId" name="item{{recordIndex}}.officdId">
+                <input type="text" class="form-control col-md-7" style="display: inline"  [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
+                       [ngClass]="{'warn': !officeName_recordIndex.valid}" #officeName_recordIndex="ngModel" required="required">
+                <button class="btn btn-primary" (click)="searchEmployeeOffice(recordIndex);">查询</button>
+              </td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.processName" name="item{{recordIndex}}.processName" maxlength="10"
+                         [ngClass]="{'warn': !processName_recordIndex.valid}" #processName_recordIndex="ngModel" required></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.equipmentName" name="item{{recordIndex}}.equipmentName" maxlength="10"
+                         [ngClass]="{'warn': !equipmentName_recordIndex.valid}" #equipmentName_recordIndex="ngModel" required></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.epuipmentNumber" name="item{{recordIndex}}.epuipmentNumber"
+                         [ngClass]="{'warn': !epuipmentNumber_recordIndex.valid}" #epuipmentNumber_recordIndex="ngModel" pattern="^[0-9]+$" required></td>
+              <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12" style="padding: 0px 15px;">
-        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>车间/部门</th>
-            <th>工艺过程</th>
-            <th>设备名称</th>
-            <th>数量 （台/套）</th>
-            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
-          </tr>
-          <tr *ngFor="let item of recordData.recordEquipmentDataList;let i=index;"  >
-            <td>
-              <input type="hidden" [(ngModel)]="item.officdId" name="item{{i}}.officdId">
-              <input type="text" class="fir-inp"  [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
-              <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
-            </td>
-            <td><input type="text" [(ngModel)]="item.processName" name="item{{i}}.processName"></td>
-            <td><input type="text" [(ngModel)]="item.equipmentName" name="item{{i}}.equipmentName"></td>
-            <td><input type="number" [(ngModel)]="item.epuipmentNumber" name="item{{i}}.epuipmentNumber"></td>
-            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="row">
+    <div class="modal-footer">
       <div class="op-btn">
-        <button type="button" class="btn btn-success" [disabled]="!equipmentForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!equipmentForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>

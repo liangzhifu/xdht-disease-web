@@ -152,9 +152,21 @@ export class SceneDetailComponent implements OnInit {
                   break;
       case (7) : this.editComponent = EquipmentEditComponent;
                   myUrl = SystemConstant.EQUIPMENT_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (8) : this.editComponent = EquipmentLayoutEditComponent;
                   myUrl = SystemConstant.EQUIPMENT_LAYOUT_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (9) : this.editComponent = HazardFactorsEditComponent;
                   myUrl = SystemConstant.HAZARD_FACTORS_DETAIL;
@@ -177,7 +189,6 @@ export class SceneDetailComponent implements OnInit {
       case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
-                  // 一下模块需要更改（19 除外）
       case (16) : this.editComponent = BuildingBaseEditComponent;
                   myUrl = SystemConstant.BUILDING_BASE_DETAIL;
                   break;
@@ -192,12 +203,30 @@ export class SceneDetailComponent implements OnInit {
                   break;
       case (20) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (21) : this.editComponent = RecordFundsEditComponent;
                   myUrl = SystemConstant.FUNDS_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (22) : this.editComponent = HealthCareEditComponent;
                   myUrl = SystemConstant.HEALTH_CARE_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
     }
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)

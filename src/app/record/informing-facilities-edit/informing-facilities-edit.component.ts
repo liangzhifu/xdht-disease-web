@@ -76,7 +76,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
   /**
    * 添加一行
    */
-  addOffice() {
+  addRecord() {
     if (this.recordData.recordInformingFacilitiesDataList === null) {
       this.recordData.recordInformingFacilitiesDataList = [];
     }
@@ -97,8 +97,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
   /**
    * 删除一行
    */
-  delOffice(index) {
-    // const index = this.recordIndividualProtectiveInputRequest.recordIndividualProtectiveDataList.indexOf(item);
+  delRecord(index) {
     this.recordData.recordInformingFacilitiesDataList.splice(index, 1 );
   }
 

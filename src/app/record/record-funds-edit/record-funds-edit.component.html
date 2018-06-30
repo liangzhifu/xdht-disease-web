@@ -1,38 +1,45 @@
-<div class="c-content-inner">
-  <form #preEvaluationForm="ngForm">
-    <div class="modal-body row">
-      <label>{{recordPreEvaluationEditTitle}}</label>
+<div>
+  <form #fundsForm="ngForm">
+    <div class="modal-header">
+      <label class="modal-title">{{recordFundsEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class=" col-form-label text-right float-left label-title">编码：</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordFunds.fundsNo" name="recordFunds.fundsNo" placeholder="编码" >
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordFunds.fundsNo" name="recordFunds.fundsNo"
+                 #fundsNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
+                 [ngClass]="{'warn': !fundsNo.valid}">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordFunds.verificationResult" name="recordFunds.verificationResult"
+                 #verificationResult="ngModel" required="required" maxlength="50"
+                 [ngClass]="{'warn': !verificationResult.valid}">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class=" col-form-label text-right float-left label-title">核实情况：</label>
-        <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordFunds.verificationResult" name="recordFunds.verificationResult" placeholder="核实情况">
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px 15px;">
+          <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+            <tr>
+              <th>调查内容</th>
+              <th>预计或实际支出（万元）</th>
+            </tr>
+            <tr *ngFor="let item of recordData.recordFundsDataList;let recordIndex = index;">
+              <td>{{item.projectName}}</td>
+              <td><input type="text" [(ngModel)]="item.expactOrPay" name="item{{recordIndex}}.expactOrPay" maxlength="20"
+                         [ngClass]="{'warn': !expactOrPay_recordIndex.valid}" #expactOrPay_recordIndex="ngModel" pattern="^[0-9]*"></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12" style="padding: 0px 15px;">
-        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>调查内容</th>
-            <th>预计或实际支出（万元）</th>
-          </tr>
-          <tr *ngFor="let item of recordData.recordFundsDataList;let i = index;">
-            <td>{{item.projectName}}</td>
-            <td><input type="number" [(ngModel)]="item.expactOrPay" name="item{{i}}.expactOrPay"></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="row">
+    <div class="modal-footer">
       <div class="op-btn">
-        <button type="button" class="btn btn-success" [disabled]="!preEvaluationForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!fundsForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>

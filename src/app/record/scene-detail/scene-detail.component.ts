@@ -203,12 +203,30 @@ export class SceneDetailComponent implements OnInit {
                   break;
       case (20) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (21) : this.editComponent = RecordFundsEditComponent;
                   myUrl = SystemConstant.FUNDS_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (22) : this.editComponent = HealthCareEditComponent;
                   myUrl = SystemConstant.HEALTH_CARE_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
     }
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)

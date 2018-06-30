@@ -13,7 +13,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./health-care-edit.component.scss']
 })
 export class HealthCareEditComponent implements OnInit {
-  recordPreEvaluationEditTitle: string;
+  recordHealthCareEditTitle: string;
   @Input() sceneId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
@@ -49,7 +49,7 @@ export class HealthCareEditComponent implements OnInit {
       || this.recordData.recordHealthCare.id === null
       || this.recordData.recordHealthCare.id === '') {
       this.addFlag = true;
-      this.recordPreEvaluationEditTitle = '新增--职业健康监护情况调查表';
+      this.recordHealthCareEditTitle = '新增--职业健康监护情况调查表';
       this.recordData.recordHealthCare = {
         id: '',
         sceneId: 0,
@@ -77,7 +77,7 @@ export class HealthCareEditComponent implements OnInit {
       });
     } else {
       this.addFlag = false;
-      this.recordPreEvaluationEditTitle = '修改--职业健康监护情况调查表';
+      this.recordHealthCareEditTitle = '修改--职业健康监护情况调查表';
     }
   }
 

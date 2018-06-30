@@ -161,6 +161,12 @@ export class SceneDetailComponent implements OnInit {
                   break;
       case (8) : this.editComponent = EquipmentLayoutEditComponent;
                   myUrl = SystemConstant.EQUIPMENT_LAYOUT_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (9) : this.editComponent = HazardFactorsEditComponent;
                   myUrl = SystemConstant.HAZARD_FACTORS_DETAIL;

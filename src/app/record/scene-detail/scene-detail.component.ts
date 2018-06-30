@@ -30,7 +30,6 @@ import {BuildingAerationEditComponent} from '../building-aeration-edit/building-
 import {AuxiliaryHealthEditComponent} from '../auxiliary-health-edit/auxiliary-health-edit.component';
 import {RecordFundsEditComponent} from '../record-funds-edit/record-funds-edit.component';
 import {HealthCareEditComponent} from '../health-care-edit/health-care-edit.component';
-import {HealthManagementEditComponent} from '../health-management-edit/health-management-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -48,8 +47,10 @@ export class SceneDetailComponent implements OnInit {
       'recordNo': '',
       'projectName': '',
       'inquiryType': '',
+      'inquiryTypeName': '',
       'inquiryPerson': '',
       'inquiryCompany': '',
+      'inquiryCompanyName': '',
       'inquiryCompanyEmployee': '',
       'inquiryCompanyEmployeeName': '',
       'inquiryDate': ''
@@ -58,7 +59,7 @@ export class SceneDetailComponent implements OnInit {
       'id': '',
       'sceneId': '',
       'questionnaireId': '',
-      'generatorRecord': '',
+      'generatorRecord': null,
       'questionnaireName': ''
     }]
   };
@@ -100,18 +101,48 @@ export class SceneDetailComponent implements OnInit {
 
   openRecordEdit(questionnaireId) {
     let myUrl;
+    let options: any = {
+      size: 'w80',
+      backdrop: 'static',
+      keyboard: false,
+      centered: true
+    };
     switch (questionnaireId) {
       case (1) : this.editComponent = PreEvaluationEditComponent;
                   myUrl = SystemConstant.PRE_EVALUATION_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (2) : this.editComponent = ControlEffectEditComponent;
                   myUrl = SystemConstant.CONTROL_EFFECT_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (3) : this.editComponent = PresentSituationEditComponent;
                   myUrl = SystemConstant.PRESENT_SITUATION_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (4) : this.editComponent = PostPersonnelEditComponent;
                   myUrl = SystemConstant.POST_PERSONNEL_DETAIL;
+                  options = {
+                    size: 'lg',
+                    backdrop: 'static',
+                    keyboard: false,
+                    centered: true
+                  };
                   break;
       case (5) : this.editComponent = WorkLogEditComponent;
                   myUrl = SystemConstant.WORK_LOG_DETAIL;
@@ -172,7 +203,7 @@ export class SceneDetailComponent implements OnInit {
     // 根据sceneId 编辑绑定该现场调查表下对应的调查表信息(测试范例)
     this.httpService.get(myUrl + '/' + this.recordSceneRequest.recordScene.id).subscribe({
       next: (data) => {
-        const modalRef = this.ngbModal.open(this.editComponent, { size: 'lg'});
+        const modalRef = this.ngbModal.open(this.editComponent, options);
           modalRef.componentInstance.recordData = data;
           modalRef.componentInstance.sceneId = this.recordSceneRequest.recordScene.id;
           modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;

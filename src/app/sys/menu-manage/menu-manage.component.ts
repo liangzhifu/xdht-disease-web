@@ -189,6 +189,11 @@ export class MenuManageComponent implements OnInit {
    */
   zTreeOnClick(event, treeId, treeNode) {
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
-    treeObj.checkNode(treeNode, true);
+    const checked = treeNode.checked;
+    if (checked) {
+      treeObj.checkNode(treeNode, false);
+    } else {
+      treeObj.checkNode(treeNode, true);
+    }
   }
 }

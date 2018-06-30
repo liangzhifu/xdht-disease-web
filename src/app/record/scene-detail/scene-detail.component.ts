@@ -189,7 +189,6 @@ export class SceneDetailComponent implements OnInit {
       case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
                   myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
-                  // 一下模块需要更改（19 除外）
       case (16) : this.editComponent = BuildingBaseEditComponent;
                   myUrl = SystemConstant.BUILDING_BASE_DETAIL;
                   break;

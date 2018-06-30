@@ -54,7 +54,7 @@
               <td><input type="text" class="form-control" [(ngModel)]="item.number" name="item{{recordIndex}}.number"
                          [ngClass]="{'warn': !number_recordIndex.valid}" #number_recordIndex="ngModel" pattern="^[0-9]*$"></td>
               <td><input type="text" class="form-control" [(ngModel)]="item.operationAndMaintenance" name="item{{recordIndex}}.operationAndMaintenance" maxlength="50"></td>
-              <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+              <td><button type="button" class="btn btn-danger radius" (click)="delOffice(recordIndex)"><i class="fa fa-trash-o fa-fw"></i></button></td>
             </tr>
           </table>
         </div>

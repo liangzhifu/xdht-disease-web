@@ -30,6 +30,7 @@ import {BuildingAerationEditComponent} from '../building-aeration-edit/building-
 import {AuxiliaryHealthEditComponent} from '../auxiliary-health-edit/auxiliary-health-edit.component';
 import {RecordFundsEditComponent} from '../record-funds-edit/record-funds-edit.component';
 import {HealthCareEditComponent} from '../health-care-edit/health-care-edit.component';
+import {HealthManagementEditComponent} from '../health-management-edit/health-management-edit.component';
 
 @Component({
   selector: 'app-record-scene-detail',
@@ -201,8 +202,8 @@ export class SceneDetailComponent implements OnInit {
       case (19) : this.editComponent = InformingFacilitiesEditComponent;
                   myUrl = SystemConstant.INFORMING_FACILITIES_DETAIL;
                   break;
-      case (20) : this.editComponent = EmergencyFacilitiesEditComponent;
-                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
+      case (20) : this.editComponent = HealthManagementEditComponent;
+                  myUrl = SystemConstant.HEALTH_MANAGEMENT_DETAIL;
                   options = {
                     size: 'lg',
                     backdrop: 'static',

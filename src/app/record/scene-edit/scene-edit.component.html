@@ -32,9 +32,9 @@
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查对象：</label>
-          <select class="form-control col-md-7" #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany"
-                  name="inquiryCompany" id="inquiryCompany" [ngClass]="{'warn': !inquiryCompany.valid}" #inquiryCompany="ngModel"
-                  required="required" (change)="changeCompany(select.value)">
+          <select class="form-control col-md-7" #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany" [disabled]="!addFlag"
+                  name="inquiryCompany" id="inquiryCompany" [ngClass]="{'warn': !inquiryCompany.valid && addFlag}" #inquiryCompany="ngModel"
+                  required="required" (change)="changeCompany()">
             <option value="">--请选择单位--</option>
             <option *ngFor="let item of companyData;" value="{{item.id}}">{{item.companyName}}</option>
           </select>

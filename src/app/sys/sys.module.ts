@@ -38,6 +38,8 @@ import { KnowledgeEditComponent } from './knowledge-edit/knowledge-edit.componen
 import { KnowledgeDetailComponent } from './knowledge-detail/knowledge-detail.component';
 import { KnowledgeHistoryComponent } from './knowledge-history/knowledge-history.component';
 import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledge-catalog-edit.component';
+import { SystemNoticeManageComponent } from './system-notice-manage/system-notice-manage.component';
+import { SystemNoticeDetailComponent } from './system-notice-detail/system-notice-detail.component';
 
 @NgModule({
   imports: [
@@ -67,7 +69,10 @@ import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledg
     RoleChooseComponent,
     RoleEditComponent,
     UserEditComponent,
-    EmpoiyeeInfoComponent
+    EmpoiyeeInfoComponent,
+    NoticeManageComponent,
+    SystemNoticeManageComponent,
+    SystemNoticeDetailComponent
   ],
   declarations: [
     CompanyEditComponent,
@@ -106,7 +111,9 @@ import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledg
     KnowledgeEditComponent,
     KnowledgeDetailComponent,
     KnowledgeHistoryComponent,
-    KnowledgeCatalogEditComponent
+    KnowledgeCatalogEditComponent,
+    SystemNoticeManageComponent,
+    SystemNoticeDetailComponent
   ]
 })
 export class SysModule { }

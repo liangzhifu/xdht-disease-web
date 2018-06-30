@@ -184,15 +184,9 @@ export class SceneEditComponent implements OnInit {
   /**
    * 根据单位改变单位下的人员
    */
-  changeCompany(companyId) {
-    const param = {'companyId': companyId};
-    this.httpService.post(SystemConstant.EMPLOYEE_ALL_LIST, param).subscribe({
-      next: (data) => {
-        this.employeeData = data;
-      },
-      complete: () => {
-      }
-    });
+  changeCompany() {
+    this.recordSceneRequest.recordScene.inquiryCompanyEmployee = '';
+    this.recordSceneRequest.recordScene.inquiryCompanyEmployeeName = '';
   }
 
   /**

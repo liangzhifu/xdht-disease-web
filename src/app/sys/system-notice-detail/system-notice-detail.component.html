@@ -1,0 +1,34 @@
+<div>
+  <form #sysNoticeForm="ngForm">
+    <div class="modal-header">
+      <label class="modal-title">{{noticeEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>标题：</label>
+          <input type="hidden" [(ngModel)]="sysNotice.id" name="id">
+          <input type="text" class="form-control col-md-8" [(ngModel)]="sysNotice.noticeTitle" name="noticeTitle" readonly>
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left">发布时间：</label>
+          <div class="input-group col-md-8">
+            <input class="form-control"  value="{{sysNotice.noticeReleaseDate}}" id="noticeReleaseDate" name="noticeReleaseDate" readonly>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col-md-6">
+            <label class="col-md-3 col-form-label text-right float-left">内容：</label>
+          </div>
+        </div>
+      </div>
+      <div id="noticeContent" style="border:1px solid #000; height:300px;overflow-y: auto ">
+      </div>
+    </div>
+  </form>
+</div>

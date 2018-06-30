@@ -1,0 +1,27 @@
+<div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>公告标题</th>
+            <th>发布时间</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;">
+            <td><a  href="javascript:void(0);" (click)="openSystemNotice(item.id)">{{item.noticeTitle}}</a></td>
+            <td>{{item.noticeReleaseDate}}</td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

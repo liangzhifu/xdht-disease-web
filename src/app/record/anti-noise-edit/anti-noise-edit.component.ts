@@ -39,7 +39,7 @@ export class AntiNoiseEditComponent implements OnInit {
   };
   sysPostList: [{
     id: '',
-    postName: ''
+    dictionaryName: ''
   }];
   addFlag: boolean;
   action = '';
@@ -51,7 +51,7 @@ export class AntiNoiseEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
       next: (data) => {
         this.sysPostList = data;
       },

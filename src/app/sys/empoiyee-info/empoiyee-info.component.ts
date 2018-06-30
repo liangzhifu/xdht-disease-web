@@ -63,6 +63,7 @@ export class EmpoiyeeInfoComponent implements OnInit {
       'status': ''
     }]
   };
+  sysWorkTypeList = [{id: '', postName: ''}];
   empoiyeeEditTitle: string;
   addFlag: boolean;
   action = '';
@@ -80,6 +81,14 @@ export class EmpoiyeeInfoComponent implements OnInit {
       this.action = '详情';
       this.addFlag = true;
       this.empoiyeeEditTitle = '企业详情';
+    // 获取工种列表
+    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+      next: (data) => {
+        this.sysWorkTypeList = data;
+      },
+      complete: () => {
+      }
+    });
   }
 
   /**

@@ -1,88 +1,106 @@
-<div class="c-content-inner">
-  <div class="modal-body row ">
-    <label>{{recordSceneEditTitle}}</label>
-    <button aria-label="Close" class="close" type="button" (click)="close()">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="row list">
-    <div class="col-md-6">
-      <label class="col-md-4 col-form-label text-right float-left">编码：</label>
-      <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.recordNo" placeholder="编码">
+<div>
+  <form #sceneEditForm="ngForm">
+    <div class="modal-header">
+      <label class="modal-title">{{recordSceneEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-    <div class="col-md-6">
-      <label class="col-md-4 col-form-label text-right float-left">项目名称：</label>
-      <input type="text" class="form-control col-md-7 " [(ngModel)]="recordSceneRequest.recordScene.projectName" placeholder="项目名称">
-    </div>
-  </div>
-  <div class="row list">
-    <div class="col-md-6">
-      <label class="col-md-4 col-form-label text-right float-left">调查类型：</label>
-      <select class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryType">
-        <option value="">请选择</option>
-        <option value="0">预评价</option>
-        <option value="1">类比</option>
-        <option value="2">控制效果评价</option>
-        <option value="3">现状评价</option>
-      </select>
-    </div>
-    <div class="col-md-6">
-      <label class="col-md-4 col-form-label text-right float-left">调查对象：</label>
-      <select class="col-md-7" #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany" (change)="changeCompany(select.value)">
-        <option value="">--请选择单位--</option>
-        <option *ngFor="let item of companyData;" value="{{item.id}}">{{item.companyName}}</option>
-      </select>
-    </div>
-  </div>
-  <div class="row list">
-    <div class="col-md-6">
-      <label class="col-md-4 col-form-label text-right float-left">调查人：</label>
-      <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryPerson" placeholder="调查人">
-    </div>
-    <div class="col-md-6">
-      <label class="col-md-4 col-form-label text-right float-left">调查日期：</label>
-      <div class="input-group col-md-7">
-        <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{recordSceneRequest.recordScene.inquiryDate}}" id="inquiryDate" name="inquiryDate" [(ngModel)]="recordSceneRequest.recordScene.inquiryDate" placeholder="调查日期">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-            <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>编码：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.recordNo"
+                 name="recordNo" id="recordNo" [ngClass]="{'warn': !recordNo.valid}" #recordNo="ngModel"
+                 required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>项目名称：</label>
+          <input type="text" class="form-control col-md-7 " [(ngModel)]="recordSceneRequest.recordScene.projectName"
+                 name="projectName" id="projectName" [ngClass]="{'warn': !projectName.valid}" #projectName="ngModel"
+                 required="required" maxlength="30">
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row list">
-    <div class="col-md-6">
-      <label class="col-md-4 col-form-label text-right float-left">陪同人：</label>
-      <input type="hidden" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee" name="recordSceneInquiryCompanyEmployee">
-      <input type="text" class="form-control col-md-5 float-left" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployeeName" name="recordSceneInquiryCompanyEmployeeName" readonly>
-      <button class="btn btn-primary" (click)="selectEmployee();">查询</button>
-    </div>
-  </div>
-  <div class="row" style="padding: 10px;height: 300px;overflow: scroll;">
-    <table class="table table-bordered table-hover">
-      <thead class="thead-light">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查类型：</label>
+          <select class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryType"
+                  name="inquiryType" id="inquiryType" [ngClass]="{'warn': !inquiryType.valid}" #inquiryType="ngModel" required="required">
+            <option value="">请选择</option>
+            <option *ngFor="let item of inquiryTypeList" value="{{item.id}}">{{item.dictionaryName}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查对象：</label>
+          <select class="form-control col-md-7" #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany" [disabled]="!addFlag"
+                  name="inquiryCompany" id="inquiryCompany" [ngClass]="{'warn': !inquiryCompany.valid && addFlag}" #inquiryCompany="ngModel"
+                  required="required" (change)="changeCompany()">
+            <option value="">--请选择单位--</option>
+            <option *ngFor="let item of companyData;" value="{{item.id}}">{{item.companyName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查人：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryPerson"
+                 name="inquiryPerson" id="inquiryPerson" [ngClass]="{'warn': !inquiryPerson.valid}"  #inquiryPerson="ngModel"
+                 required="required" maxlength="10" placeholder="调查人">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查日期：</label>
+          <div class="input-group col-md-7">
+            <input class="form-control" ngbDatepicker #d="ngbDatepicker" id="inquiryDate" name="inquiryDate"
+                   [ngClass]="{'warn': !inquiryDate.valid}" #inquiryDate="ngModel" required="required"
+                   [(ngModel)]="recordSceneRequest.recordScene.inquiryDatepicker" readonly>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d.toggle();change()" type="button">
+                <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left">陪同人：</label>
+          <input type="hidden" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee"
+                 name="recordSceneInquiryCompanyEmployee">
+          <input type="text" class="form-control col-md-5 float-left"
+                 [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployeeName"
+                 id="inquiryCompanyEmployeeName" required
+                 #inquiryCompanyEmployeeName="ngModel" [ngClass]="{'warn': !inquiryCompanyEmployeeName.valid}"
+                 name="recordSceneInquiryCompanyEmployeeName" readonly >
+          <button class="btn btn-primary" (click)="selectEmployee();" [disabled]="!recordSceneRequest.recordScene.inquiryCompany">查询</button>
+        </div>
+      </div>
+      <div class="row" style="padding: 10px;height: 300px;overflow: scroll;">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-light">
           <tr>
-              <th>序号</th>
-              <th>职业卫生调查内容</th>
-              <th>采用调查表</th>
-            </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index" >
-              <td>{{i+1}}</td>
-              <td>{{item.questionnaireName}}</td>
-              <td>
-                  <input type="checkbox" id="checkbox-{{item.questionnaireId}}" [checked]="item.generatorRecord == 1">
-              </td>
-            </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="row">
-    <div class="op-btn">
-      <button type="button" class="btn btn-success" (click)="submitData()">确&nbsp;&nbsp;定</button>
-      <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+            <th>序号</th>
+            <th>职业卫生调查内容</th>
+            <th>采用调查表</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.questionnaireName}}</td>
+            <td>
+              <input type="checkbox" id="checkbox-{{item.questionnaireId}}" [checked]="item.generatorRecord == 1">
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+    <div class="modal-footer">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!sceneEditForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
 </div>
+

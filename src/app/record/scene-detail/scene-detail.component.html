@@ -1,47 +1,36 @@
 <div class="c-content-inner">
-  <div class="row list">
-    <div class="col-md-3">
-      <label class="col-md-5 col-form-label text-right float-left">编码：</label>
-      {{recordSceneRequest.recordScene.recordNo}}
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+      <label>{{recordSceneRequest.recordScene.recordNo}}</label>
     </div>
-    <div class="col-md-3">
-      <label class="col-md-5 col-form-label text-right float-left">项目名称：</label>
-      {{recordSceneRequest.recordScene.projectName}}
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">项目名称：</label>
+      <label>{{recordSceneRequest.recordScene.projectName}}</label>
     </div>
-    <div class="col-md-3">
-      <label class="col-md-5 col-form-label text-right float-left">调查类型：</label>
-      <select class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryType" disabled="disabled">
-        <option value="">请选择</option>
-        <option value="0">预评价</option>
-        <option value="1">类比</option>
-        <option value="2">控制效果评价</option>
-        <option value="3">现状评价</option>
-      </select>
-    </div>
-    <div class="col-md-3">
-      <label class="col-md-5 col-form-label text-right float-left">调查对象：</label>
-      <select class="col-md-7" #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany"  disabled="disabled">
-        <option value="">--请选择单位--</option>
-        <option *ngFor="let item of companyData;" value="{{item.id}}">{{item.companyName}}</option>
-      </select>
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">调查类型：</label>
+      <label>{{recordSceneRequest.recordScene.inquiryTypeName}}</label>
     </div>
   </div>
-  <div class="row list">
-    <div class="col-md-3">
-      <label class="col-md-5 col-form-label text-right float-left">调查人：</label>
-      {{recordSceneRequest.recordScene.inquiryPerson}}
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">调查对象：</label>
+      <label>{{recordSceneRequest.recordScene.inquiryCompanyName}}</label>
     </div>
-    <div class="col-md-3">
-      <label class="col-md-5 col-form-label text-right float-left">调查日期：</label>
-      <div class="input-group col-md-7">
-        {{recordSceneRequest.recordScene.inquiryDate}}
-      </div>
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">调查人：</label>
+      <label>{{recordSceneRequest.recordScene.inquiryPerson}}</label>
     </div>
-    <div class="col-md-6">
-      <label style="padding: 0px;" class="col-md-4 col-form-label text-right float-left">用人单位陪同人签字：</label>
-      <div class="input-group col-md-7">
-        {{recordSceneRequest.recordScene.inquiryCompanyEmployeeName}}
-      </div>
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">调查日期：</label>
+      <label>{{recordSceneRequest.recordScene.inquiryDate}}</label>
+    </div>
+  </div>
+  <div class="row row-margin-bottom">
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">陪同人：</label>
+      <label>{{recordSceneRequest.recordScene.inquiryCompanyEmployeeName}}</label>
     </div>
   </div>
   <div class="row" style="padding: 10px;">
@@ -55,9 +44,13 @@
       </thead>
       <tbody>
       <tr *ngFor="let item of recordSceneRequest.recordScenQuestionnaireList; let i = index">
-          <td *ngIf="item.generatorRecord == 1">{{i+1}}</td>
-          <td *ngIf="item.generatorRecord == 1">{{item.questionnaireName}}</td>
-          <td *ngIf="item.generatorRecord == 1"><button class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)"><i class="fa fa-edit fa-fw"></i>修改</button></td>
+        <td *ngIf="item.generatorRecord == 1">{{i+1}}</td>
+        <td *ngIf="item.generatorRecord == 1">{{item.questionnaireName}}</td>
+        <td *ngIf="item.generatorRecord == 1">
+          <button class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)">
+            <i class="fa fa-edit fa-fw"></i>编辑
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>

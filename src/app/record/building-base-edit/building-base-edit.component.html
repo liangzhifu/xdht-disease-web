@@ -1,45 +1,54 @@
-<div class="c-content-inner">
+<div>
   <form #buildingBaseForm="ngForm">
-    <div class="modal-body row ">
-      <label>{{recordBuildingBaseEditTitle}}</label>
+    <div class="modal-header">
+      <label class="modal-title">{{recordBuildingBaseEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordBuildingBase.buildingBaseNo" name="recordBuildingBase.buildingBaseNo" placeholder="编码" >
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordBuildingBase.buildingBaseNo" name="recordBuildingBase.buildingBaseNo"
+                 #buildingBaseNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
+                 [ngClass]="{'warn': !buildingBaseNo.valid}">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordBuildingBase.verificationResult" name="recordBuildingBase.verificationResult"
+                 #verificationResult="ngModel" required="required" maxlength="50"
+                 [ngClass]="{'warn': !verificationResult.valid}">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordBuildingBase.verificationResult" name="recordBuildingBase.verificationResult" placeholder="核实情况">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>建筑物名称</th>
-            <th>结构</th>
-            <th>层数</th>
-            <th>建筑面积（m2）</th>
-            <th>采光方式</th>
-            <th>照明方式</th>
-            <th>照明灯具</th>
-            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
-          </tr>
-          <tr *ngFor="let item of recordData.recordBuildingBaseDataList;let i=index;"  >
-            <td><input type="text" [(ngModel)]="item.buildingName" name="item{{i}}.buildingName"></td>
-            <td><input type="text" [(ngModel)]="item.structure" name="item{{i}}.structure"></td>
-            <td><input type="number" [(ngModel)]="item.layers" name="item{{i}}.layers"></td>
-            <td><input type="number" [(ngModel)]="item.builtUpArea" name="item{{i}}.builtUpArea"></td>
-            <td><input type="text" [(ngModel)]="item.lightingMode" name="item{{i}}.lightingMode"></td>
-            <td><input type="text" [(ngModel)]="item.lightingSystem" name="item{{i}}.lightingSystem"></td>
-            <td><input type="text" [(ngModel)]="item.lightingLamps" name="item{{i}}.lightingLamps"></td>
-            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
-          </tr>
-        </table>
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px 15px;">
+          <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+            <tr>
+              <th>建筑物名称</th>
+              <th>结构</th>
+              <th>层数</th>
+              <th>建筑面积（m2）</th>
+              <th>采光方式</th>
+              <th>照明方式</th>
+              <th>照明灯具</th>
+              <th><button class="btn btn-success" (click)="addRecord();"><i class="fa fa-plus fa-fw"></i></button></th>
+            </tr>
+            <tr *ngFor="let item of recordData.recordBuildingBaseDataList;let recordIndex=index;"  >
+              <td><input type="text" class="form-control" [(ngModel)]="item.buildingName" name="item{{recordIndex}}.buildingName" maxlength="50"
+                         [ngClass]="{'warn': !buildingName_recordIndex.valid}" #buildingName_recordIndex="ngModel" required="required"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.structure" name="item{{recordIndex}}.structure" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.layers" name="item{{recordIndex}}.layers" maxlength="20"
+                         [ngClass]="{'warn': !layers_recordIndex.valid}" #layers_recordIndex="ngModel" pattern="^[0-9]*$"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.builtUpArea" name="item{{recordIndex}}.builtUpArea" maxlength="20"
+                         [ngClass]="{'warn': !builtUpArea_recordIndex.valid}" #builtUpArea_recordIndex="ngModel" pattern="^[0-9]*$"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.lightingMode" name="item{{recordIndex}}.lightingMode" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.lightingSystem" name="item{{recordIndex}}.lightingSystem" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.lightingLamps" name="item{{recordIndex}}.lightingLamps" maxlength="50"></td>
+              <td><button type="button" class="btn btn-danger radius" (click)="delRecord(recordIndex)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
     <div class="row">

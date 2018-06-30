@@ -1,59 +1,92 @@
-<div class="c-content-inner">
+<div>
   <form #postPersonnelForm="ngForm">
-    <div class="modal-body row ">
-      <label>{{recordPostPersonnelEditTitle}}</label>
+    <div class="modal-header">
+      <label class="modal-title">{{recordPostPersonnelEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordPostPersonnel.postPersonnelNo" name="recordPostPersonnel.postPersonnelNo" placeholder="编码" >
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left label-title">编码：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordPostPersonnel.postPersonnelNo"
+                 id="postPersonnelNo" [ngClass]="{'warn': !postPersonnelNo.valid}"
+                 #postPersonnelNo="ngModel" required="required" maxlength="20"
+                 name="recordPostPersonnel.postPersonnelNo" pattern="^[a-zA-Z0-9_-]{0,20}$">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left label-title">核实情况：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordPostPersonnel.verificationResult"
+                 id="verificationResult" [ngClass]="{'warn': !verificationResult.valid}"  name="recordPreEvaluation.verificationResult"
+                 #verificationResult="ngModel" required="required" maxlength="100">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordPostPersonnel.verificationResult" name="recordPostPersonnel.verificationResult" placeholder="核实情况">
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px 15px;">
+          <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+            <tr>
+              <th width="25%" rowspan="2">车间/部门</th>
+              <th width="19%" rowspan="2">工种/岗位</th>
+              <th width="30%" colspan="3">工作制度</th>
+              <th width="20%" colspan="2">定员（人）</th>
+              <th width="6%" rowspan="2"><button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+            </tr>
+            <tr>
+              <th width="10%">天/周</th>
+              <th width="10%">班/天</th>
+              <th width="10%">小时/班</th>
+              <th width="10%">每班</th>
+              <th width="10%">总定员</th>
+            </tr>
+            <tr *ngFor="let item of recordData.recordPostPersonnelDataList;let recordIndex=index;"  >
+              <td>
+                <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.companyOfficeId">
+                <input type="text" class="form-control col-md-8" style="display:inline" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
+                       #officeName_recordIndex="ngModel" required="required" [ngClass]="{'warn': !officeName_recordIndex.valid}">
+                <button class="btn btn-primary" (click)="searchEmployeeOffice(recordIndex);">查询</button>
+              </td>
+              <td width="20px;">
+                <select class="form-control" #select [(ngModel)]="item.postId" name="item{{recordIndex}}.postId"
+                        #postId_recordIndex="ngModel" required="required" [ngClass]="{'warn': !postId_recordIndex.valid}">
+                  <option value="">--请选择岗位--</option>
+                  <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+                </select>
+              </td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="item.dayOfWeek" name="item{{recordIndex}}.dayOfWeek"
+                       #dayOfWeek_recordIndex="ngModel" required="required" [ngClass]="{'warn': !dayOfWeek_recordIndex.valid}"
+                        pattern="^[0-7]$">
+              </td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="item.classOfDate" name="item{{recordIndex}}.classOfDate"
+                       #classOfDate_recordIndex="ngModel" required="required" [ngClass]="{'warn': !classOfDate_recordIndex.valid}"
+                       pattern="^[0-9]{1,2}$">
+              </td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="item.hourOfClass" name="item{{recordIndex}}.hourOfClass"
+                       #hourOfClass_recordIndex="ngModel" required="required" [ngClass]="{'warn': !hourOfClass_recordIndex.valid}"
+                       pattern="^[0-9]{1,2}$">
+              </td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="item.perShift" name="item{{recordIndex}}.perShift"
+                       #perShift_recordIndex="ngModel" required="required" [ngClass]="{'warn': !perShift_recordIndex.valid}"
+                       pattern="^[0-9]+$">
+              </td>
+              <td>
+                <input type="text" class="form-control" [(ngModel)]="item.totalNumber" name="item{{recordIndex}}.totalNumber"
+                       #totalNumber_recordIndex="ngModel" required="required" [ngClass]="{'warn': !totalNumber_recordIndex.valid}"
+                       pattern="^[0-9]+$">
+              </td>
+              <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>车间/部门</th>
-            <th>工种/岗位</th>
-            <th>天/周</th>
-            <th>班/天</th>
-            <th>小时/班</th>
-            <th>每班</th>
-            <th>总定员</th>
-            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
-          </tr>
-          <tr *ngFor="let item of recordData.recordPostPersonnelDataList;let i=index;"  >
-            <td>
-              <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{i}}.companyOfficeId">
-              <input type="text" [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
-              <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
-            </td>
-            <td width="20px;">
-              <select #select [(ngModel)]="item.postId" name="item{{i}}.postId">
-                <option value="">--请选择岗位--</option>
-                <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
-              </select>
-            </td>
-            <td><input type="number" [(ngModel)]="item.dayOfWeek" name="item{{i}}.dayOfWeek"></td>
-            <td><input type="number" [(ngModel)]="item.classOfDate" name="item{{i}}.classOfDate"></td>
-            <td><input type="number" [(ngModel)]="item.hourOfClass" name="item{{i}}.hourOfClass"></td>
-            <td><input type="number" [(ngModel)]="item.perShift" name="item{{i}}.perShift"></td>
-            <td><input type="number" [(ngModel)]="item.totalNumber" name="item{{i}}.totalNumber"></td>
-            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="row">
+    <div class="modal-footer">
       <div class="op-btn">
-        <button type="button" class="btn btn-success" [disabled]="!postPersonnelForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!postPersonnelForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>

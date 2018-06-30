@@ -73,7 +73,7 @@ export class BuildingAerationEditComponent implements OnInit {
   /**
    * 添加一行
    */
-  addOffice() {
+  addRecord() {
     if (this.recordData.recordBuildingAerationDataList === null) {
       this.recordData.recordBuildingAerationDataList = [];
     }
@@ -91,8 +91,7 @@ export class BuildingAerationEditComponent implements OnInit {
   /**
    * 删除一行
    */
-  delOffice(item) {
-    const index = this.recordData.recordBuildingAerationDataList.indexOf(item);
+  delRecord(index) {
     this.recordData.recordBuildingAerationDataList.splice(index, 1);
   }
 

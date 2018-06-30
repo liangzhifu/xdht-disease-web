@@ -1,61 +1,70 @@
-<div class="c-content-inner">
+<div>
   <form #workLogForm="ngForm">
-    <div class="modal-body row ">
-      <label>{{recordWorkLogEditTitle}}</label>
+    <div class="modal-header">
+      <label class="modal-title">{{recordWorkLogEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordWorkLog.workLogNo" name="recordWorkLog.workLogNo" placeholder="编码" >
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordWorkLog.workLogNo" name="recordWorkLog.workLogNo"
+                 id="workLogNo" [ngClass]="{'warn': !workLogNo.valid}"
+                 #workLogNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordWorkLog.verificationResult"
+                 id="verificationResult" [ngClass]="{'warn': !verificationResult.valid}"  name="recordPreEvaluation.verificationResult"
+                 #verificationResult="ngModel" required="required" maxlength="100">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordWorkLog.verificationResult" name="recordWorkLog.verificationResult" placeholder="核实情况">
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px 15px;">
+          <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+            <tr>
+              <th>车间/部门</th>
+              <th>工种/岗位</th>
+              <th>每班人数</th>
+              <th>工作时间</th>
+              <th>工作地点</th>
+              <th>工作内容</th>
+              <th>接触职业病危害因素</th>
+              <th>备注（高暴露时段等）</th>
+              <th><button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+            </tr>
+            <tr *ngFor="let item of recordData.recordWorkLogDataList;let recordIndex=index;"  >
+              <td>
+                <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.companyOfficeId">
+                <input type="text" class="form-control col-md-8" style="display: inline" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
+                       #officeName_recordIndex="ngModel" [ngClass]="{'warn': !officeName_recordIndex.valid}" required>
+                <button class="btn btn-primary" (click)="searchEmployeeOffice(recordIndex);">查询</button>
+              </td>
+              <td width="20px;">
+                <select class="form-control" #select [(ngModel)]="item.postId" name="item{{recordIndex}}.postId">
+                  <option value="">--请选择岗位--</option>
+                  <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+                </select>
+              </td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.personOfClass" name="item{{recordIndex}}.personOfClass"
+                         #officeName_recordIndex="ngModel" [ngClass]="{'warn': !officeName_recordIndex.valid}" required pattern="^[0-9]+$">
+              </td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.workHours" name="item{{recordIndex}}.workHours" maxlength="10"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace" maxlength="50"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.workContent" name="item{{recordIndex}}.workContent" maxlength="50"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}.hazardFactors" maxlength="50"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.remarks" name="item{{recordIndex}}.remarks" maxlength="50"></td>
+              <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>车间/部门</th>
-            <th>工种/岗位</th>
-            <th>每班人数</th>
-            <th>工作时间</th>
-            <th>工作地点</th>
-            <th>工作内容</th>
-            <th>接触职业病危害因素</th>
-            <th>备注（高暴露时段等）</th>
-            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
-          </tr>
-          <tr *ngFor="let item of recordData.recordWorkLogDataList;let i=index;"  >
-            <td>
-              <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{i}}.companyOfficeId">
-              <input type="text" [(ngModel)]="item.officeName" name="item{{i}}.officeName" readonly>
-              <button class="btn btn-primary" (click)="searchEmployeeOffice(i);">查询</button>
-            </td>
-            <td width="20px;">
-              <select #select [(ngModel)]="item.postId" name="item{{i}}.postId">
-                <option value="">--请选择岗位--</option>
-                <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
-              </select>
-            </td>
-            <td><input type="number" [(ngModel)]="item.personOfClass" name="item{{i}}.personOfClass"></td>
-            <td><input type="text" [(ngModel)]="item.workHours" name="item{{i}}.workHours"></td>
-            <td><input type="text" [(ngModel)]="item.workPlace" name="item{{i}}.workPlace"></td>
-            <td><input type="text" [(ngModel)]="item.workContent" name="item{{i}}.workContent"></td>
-            <td><input type="text" [(ngModel)]="item.hazardFactors" name="item{{i}}.hazardFactors"></td>
-            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks"></td>
-            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="row">
+    <div class="modal-footer">
       <div class="op-btn">
-        <button type="button" class="btn btn-success" [disabled]="!workLogForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!workLogForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>

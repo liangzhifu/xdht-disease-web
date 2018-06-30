@@ -17,7 +17,7 @@ import {RoleChooseComponent} from '../role-choose/role-choose.component';
   templateUrl: './user-manage.component.html',
   styleUrls: ['./user-manage.component.scss']
 })
-export class UserManageComponent implements OnInit,AfterViewInit {
+export class UserManageComponent implements OnInit, AfterViewInit {
   url: String;
   method: 'post';
 
@@ -103,20 +103,14 @@ export class UserManageComponent implements OnInit,AfterViewInit {
    * 删除用户
    */
   delUser(userId, userName) {
-    const confirmCfg = new ConfirmConfig('确定删除用户：' + userName + '！');
+    const confirmCfg: ConfirmConfig = new ConfirmConfig('确定删除用户：' + userName + '！');
     this.modalService.confirm(confirmCfg).then(
       () => {
         this.httpService.get(SystemConstant.USER_DEL + '?id=' + userId).subscribe({
           next: (data) => {
-            const status = data.status;
-            if (status === '1') {
-              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
-              this.toastService.toast(toastCfg);
-              this.search();
-            } else {
-              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除用户失败！' + '失败原因：' + data.message, 3000);
-              this.toastService.toast(toastCfg);
-            }
+            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除用户成功！', 3000);
+            this.toastService.toast(toastCfg);
+            this.search();
           },
           error: (err) => {
             const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除用户失败！' + '失败原因：' + err, 3000);

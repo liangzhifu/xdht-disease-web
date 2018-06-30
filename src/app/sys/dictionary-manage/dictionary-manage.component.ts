@@ -17,7 +17,7 @@ import {ConfirmConfig} from '../../modal/confirm/confirm-config';
   templateUrl: './dictionary-manage.component.html',
   styleUrls: ['./dictionary-manage.component.scss']
 })
-export class DictionaryManageComponent implements OnInit,AfterViewInit {
+export class DictionaryManageComponent implements OnInit, AfterViewInit {
   url: String;
   method: 'post';
   @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
@@ -60,7 +60,7 @@ export class DictionaryManageComponent implements OnInit,AfterViewInit {
    * 新增字典数据
    */
   addDictionary() {
-    const modalRef = this.ngbModal.open(DictionaryEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(DictionaryEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -92,7 +92,7 @@ export class DictionaryManageComponent implements OnInit,AfterViewInit {
    * 打开修改对话框
    */
   openEditDictionary(dictionaryData) {
-    const modalRef = this.ngbModal.open(DictionaryEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(DictionaryEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.sysDictionary = dictionaryData;
     modalRef.result.then(
       (result) => {

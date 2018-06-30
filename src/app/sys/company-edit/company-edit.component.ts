@@ -37,6 +37,9 @@ export class CompanyEditComponent implements OnInit {
       occupationalHazardFactors: '',
       remarks: ''
   };
+  companyNature: any;
+  economicType: any;
+  productionScale: any;
   companyEditTitle: string;
   addFlag: boolean;
   action = '';
@@ -47,6 +50,30 @@ export class CompanyEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
+    // 获取单位性质
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 7} ).subscribe({
+      next: (data) => {
+        this.companyNature = data;
+      },
+      complete: () => {
+      }
+    });
+    // 获取经济类型
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 8} ).subscribe({
+      next: (data) => {
+        this.economicType = data;
+      },
+      complete: () => {
+      }
+    });
+    // 生产规模
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 9} ).subscribe({
+      next: (data) => {
+        this.productionScale = data;
+      },
+      complete: () => {
+      }
+    });
   }
 
   ngOnInit() {

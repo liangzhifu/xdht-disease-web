@@ -77,7 +77,7 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
    */
   openEmployeeInfo(employeeData) {
     const modalRef = this.ngbModal.open(EmpoiyeeInfoComponent);
-    modalRef.componentInstance.sysEmployeeRequest = employeeData;
+    modalRef.componentInstance.sysEmpoiyeeRequest = employeeData;
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -129,7 +129,7 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
           this.search();
         }
       }
-    );
+    ).catch();
   }
 
   /**

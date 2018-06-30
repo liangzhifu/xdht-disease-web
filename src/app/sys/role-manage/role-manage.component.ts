@@ -57,7 +57,7 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
    * 添加角色
    */
   addRole() {
-    const modalRef = this.ngbModal.open(RoleEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(RoleEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -89,7 +89,7 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
    * 打开修改角色对话框
    */
   openEditRole(roleData) {
-    const modalRef = this.ngbModal.open(RoleEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(RoleEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.sysRole = roleData;
     modalRef.result.then(
       (result) => {
@@ -109,16 +109,10 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
     this.modalService.confirm(confirmCfg).then(
       () => {
         this.httpService.get(SystemConstant.ROLE_DEL + '?id=' + roleId).subscribe({
-          next: (data) => {
-            const status = data.status;
-            if (status === '1') {
-              const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
-              this.toastService.toast(toastCfg);
-              this.search();
-            } else {
-              const toastCfg = new ToastConfig(ToastType.ERROR, '', '删除角色失败！' + '失败原因：' + data.message, 3000);
-              this.toastService.toast(toastCfg);
-            }
+          next: () => {
+            const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除角色成功！', 3000);
+            this.toastService.toast(toastCfg);
+            this.search();
           },
           error: (err) => {
             const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除角色失败！' + '失败原因：' + err, 3000);

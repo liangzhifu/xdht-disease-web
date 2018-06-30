@@ -1,46 +1,54 @@
-<div class="c-content-inner">
+<div>
   <form #buildingBaseForm="ngForm">
-    <div class="modal-body row ">
-      <label>{{recordBuildingAerationEditTitle}}</label>
+    <div class="modal-header">
+      <label class="modal-title">{{recordBuildingAerationEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordBuildingAeration.buildingAerationNo" name="recordBuildingAeration.buildingAerationNo" placeholder="编码" >
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordBuildingAeration.buildingAerationNo" name="recordBuildingAeration.buildingAerationNo"
+                 #buildingAerationNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
+                 [ngClass]="{'warn': !buildingAerationNo.valid}">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordBuildingAeration.verificationResult" name="recordBuildingAeration.verificationResult"
+                 #verificationResult="ngModel" required="required" maxlength="50"
+                 [ngClass]="{'warn': !verificationResult.valid}">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordBuildingAeration.verificationResult" name="recordBuildingAeration.verificationResult" placeholder="核实情况">
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px 15px;">
+          <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+            <tr>
+              <th>建筑物名称</th>
+              <th>通风及空气调节方式</th>
+              <th>通风及空气调节设施</th>
+              <th>数量（台）</th>
+              <th>采暖方式</th>
+              <th><button class="btn btn-success" (click)="addRecord();"><i class="fa fa-plus fa-fw"></i></button></th>
+            </tr>
+            <tr *ngFor="let item of recordData.recordBuildingAerationDataList;let recordIndex=index;"  >
+              <td><input type="text" class="form-control" [(ngModel)]="item.buildingName" name="item{{recordIndex}}.buildingName" maxlength="50"
+                         [ngClass]="{'warn': !buildingName_recordIndex.valid}" #buildingName_recordIndex="ngModel" required="required"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.regulationMode" name="item{{recordIndex}}.regulationMode"  maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.adjustmentFacilities" name="item{{recordIndex}}.adjustmentFacilities"  maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.number" name="item{{recordIndex}}.number"  maxlength="20"
+                         [ngClass]="{'warn': !number_recordIndex.valid}" #number_recordIndex="ngModel" pattern="^[0-9]*$"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.heatingMode" name="item{{recordIndex}}.heatingMode"  maxlength="50"></td>
+              <td><button type="button" class="btn btn-danger radius" (click)="delRecord(recordIndex)"><i class="fa fa-trash-o fa-fw"></i></button></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>建筑物名称</th>
-            <th>通风及空气调节方式</th>
-            <th>通风及空气调节设施</th>
-            <th>数量（台）</th>
-            <th>采暖方式</th>
-            <th>操作<button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
-          </tr>
-          <tr *ngFor="let item of recordData.recordBuildingAerationDataList;let i=index;"  >
-            <td><input type="text" [(ngModel)]="item.buildingName" name="item{{i}}.buildingName"></td>
-            <td><input type="text" [(ngModel)]="item.regulationMode" name="item{{i}}.regulationMode"></td>
-            <td><input type="text" [(ngModel)]="item.adjustmentFacilities" name="item{{i}}.adjustmentFacilities"></td>
-            <td><input type="number" [(ngModel)]="item.number" name="item{{i}}.number"></td>
-            <td><input type="text" [(ngModel)]="item.heatingMode" name="item{{i}}.heatingMode"></td>
-            <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="row">
+    <div class="modal-footer">
       <div class="op-btn">
-        <button type="button" class="btn btn-success" [disabled]="!buildingBaseForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!buildingBaseForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>

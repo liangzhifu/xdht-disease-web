@@ -13,7 +13,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./record-funds-edit.component.scss']
 })
 export class RecordFundsEditComponent implements OnInit {
-  recordPreEvaluationEditTitle: string;
+  recordFundsEditTitle: string;
   @Input() sceneId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
@@ -48,7 +48,7 @@ export class RecordFundsEditComponent implements OnInit {
       || this.recordData.recordFunds.id === null
       || this.recordData.recordFunds.id === '') {
       this.addFlag = true;
-      this.recordPreEvaluationEditTitle = '新增--职业病防治经费投入情况调查表';
+      this.recordFundsEditTitle = '新增--职业病防治经费投入情况调查表';
       this.recordData.recordFunds = {
         id: '',
         sceneId: 0,
@@ -75,7 +75,7 @@ export class RecordFundsEditComponent implements OnInit {
       });
     } else {
       this.addFlag = false;
-      this.recordPreEvaluationEditTitle = '修改--职业病防治经费投入情况调查表';
+      this.recordFundsEditTitle = '修改--职业病防治经费投入情况调查表';
     }
   }
 
@@ -94,6 +94,7 @@ export class RecordFundsEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.FUNDS_ADD;
+      this.recordData.recordFunds.sceneId = this.sceneId;
     } else {
       url = SystemConstant.FUNDS_EDIT;
     }

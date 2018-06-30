@@ -32,6 +32,9 @@ export class KnowledgeCatalogChooseComponent implements OnInit {
       chkStyle: 'checkbox',
       autoCheckTrigger: true,
       chkboxType: {Y: 'p', N: 's'}
+    },
+    callback: {
+      onClick: this.zTreeOnClick
     }
   };
   zNodes = null;
@@ -47,6 +50,8 @@ export class KnowledgeCatalogChooseComponent implements OnInit {
       next: (data) => {
         this.zNodes = data;
         $.fn.zTree.init($('#ztree'), this.setting, this.zNodes);
+        const treeObj = $.fn.zTree.getZTreeObj('ztree');
+        treeObj.expandAll(true);
         // 获取角色知识库目录
         this.getRoleKnowledgeCatalog();
       },
@@ -122,4 +127,19 @@ export class KnowledgeCatalogChooseComponent implements OnInit {
     this.waitService.wait(false);
   }
 
+  /**
+   * 菜单节点点击事件
+   * @param event
+   * @param treeId
+   * @param treeNode
+   */
+  zTreeOnClick(event, treeId, treeNode) {
+    const treeObj = $.fn.zTree.getZTreeObj('ztree');
+    const checked = treeNode.checked;
+    if (checked) {
+      treeObj.checkNode(treeNode, false);
+    } else {
+      treeObj.checkNode(treeNode, true);
+    }
+  }
 }

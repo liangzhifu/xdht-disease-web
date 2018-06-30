@@ -37,7 +37,12 @@
     <tr *ngFor="let item of sysEmpoiyeeRequest.sysEmployeeJobList;let i = index">
       <td>{{item.beginDate}}<br>{{item.endDate}}</td>
       <td>{{item.companyName}}</td>
-      <td>{{item.workType}}</td>
+      <td>
+        <select #select [(ngModel)]="item.workType"  name="employeeJob_{{i}}_workType" disabled="disabled">
+          <option>--请选择工种--</option>
+          <option *ngFor="let workType of sysWorkTypeList;" value="{{workType.id}}" >{{workType.postName}}</option>
+        </select>
+      </td>
       <td>{{item.noiseDetectionResults}}</td>
       <td>{{item.protectiveMeasures}}</td>
     </tr>

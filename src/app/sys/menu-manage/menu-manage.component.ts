@@ -34,6 +34,9 @@ export class MenuManageComponent implements OnInit {
       enable: true,
       chkStyle: 'radio',
       radioType: 'all'
+    },
+    callback: {
+      onClick: this.zTreeOnClick
     }
   };
   zNodes = [];
@@ -86,7 +89,7 @@ export class MenuManageComponent implements OnInit {
       this.modalService.alert(alertConfig);
       return false;
     }
-    const modalRef = this.ngbModal.open(MenuEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(MenuEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.parentId = parentId;
     modalRef.result.then(
       (result) => {
@@ -130,7 +133,7 @@ export class MenuManageComponent implements OnInit {
    * 打开修改菜单对话框
    */
   openEditMenu(menuData) {
-    const modalRef = this.ngbModal.open(MenuEditComponent, {backdrop: 'static', keyboard: false});
+    const modalRef = this.ngbModal.open(MenuEditComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.sysMenu = menuData;
     modalRef.result.then(
       (result) => {
@@ -143,8 +146,6 @@ export class MenuManageComponent implements OnInit {
 
   /**
    * 删除
-   * @param menuId
-   * @param menuName
    */
   delMenu() {
     let menuId = 0;
@@ -165,7 +166,7 @@ export class MenuManageComponent implements OnInit {
     this.modalService.confirm(confirmCfg).then(
       () => {
         this.httpService.post(SystemConstant.MENU_DEL + '?id=' + menuId, {}).subscribe({
-          next: (data) => {
+          next: () => {
             const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '删除菜单成功！', 3000);
             this.toastService.toast(toastCfg);
             this.openZTree();
@@ -180,4 +181,19 @@ export class MenuManageComponent implements OnInit {
     );
   }
 
+  /**
+   * 菜单节点点击事件
+   * @param event
+   * @param treeId
+   * @param treeNode
+   */
+  zTreeOnClick(event, treeId, treeNode) {
+    const treeObj = $.fn.zTree.getZTreeObj('ztree');
+    const checked = treeNode.checked;
+    if (checked) {
+      treeObj.checkNode(treeNode, false);
+    } else {
+      treeObj.checkNode(treeNode, true);
+    }
+  }
 }

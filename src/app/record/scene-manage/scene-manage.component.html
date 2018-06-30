@@ -25,9 +25,10 @@
         <table class="table table-bordered table-hover table-list" width="100%" cellpadding="0" cellspacing="0">
           <thead>
             <tr>
-              <th>编号</th>
-              <th>项目名称</th>
+              <th>年份</th>
               <th>调查对象</th>
+              <th>项目名称</th>
+              <th>编号</th>
               <th>调查人</th>
               <th>陪同人</th>
               <th>调查日期</th>
@@ -36,16 +37,17 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of sdt.data;let i = index">
-              <td>{{item.recordNo}}</td>
+              <td>{{item.inquiryYear}}</td>
+              <td>{{item.inquiryCompanyName}}</td>
               <td>{{item.projectName}}</td>
-              <td>{{item.inquiryCompany}}</td>
+              <td>{{item.recordNo}}</td>
               <td>{{item.inquiryPerson}}</td>
-              <td>{{item.inquiryCompanyEmployee }}</td>
+              <td>{{item.inquiryCompanyEmployeeName}}</td>
               <td>{{item.inquiryDate}}</td>
               <td>
                 <button class="btn btn-warning radius mr-10" type="button" (click)="editScene(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
-                <button class="btn btn-danger radius mr-10" type="button" (click)="delScene(item.id, item.projectName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
-                <button class="btn btn-info radius" type="button" (click)="detailScene(item.id, item.projectName)"><i class="fa fa-crosshairs fa-fw"></i>详情</button>
+                <button class="btn btn-danger radius mr-10" type="button" (click)="delScene(item.id, item.recordNo)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+                <button class="btn btn-info radius" type="button" (click)="detailScene(item.id, item.recordNo)"><i class="fa fa-crosshairs fa-fw"></i>详情</button>
               </td>
             </tr>
           </tbody>

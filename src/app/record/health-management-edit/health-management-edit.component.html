@@ -1,42 +1,50 @@
-<div class="c-content-inner">
+<div>
   <form #healthManagementForm="ngForm">
-    <div class="modal-body row">
-      <label>{{recordHealthManagementEditTitle}}</label>
+    <div class="modal-header">
+      <label class="modal-title">{{recordHealthManagementEditTitle}}</label>
       <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">×</span>
+        <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="row list">
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">编码：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordHealthManagement.healthManagementNo" name="recordPreEvaluation.preEvaluationNo" placeholder="编码" >
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left">编码：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordHealthManagement.healthManagementNo" name="recordPreEvaluation.preEvaluationNo"
+                 #healthManagementNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
+                 [ngClass]="{'warn': !healthManagementNo.valid}">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
+          <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordHealthManagement.verificationResult" name="recordPreEvaluation.verificationResult"
+                 #verificationResult="ngModel" required="required" maxlength="50"
+                 [ngClass]="{'warn': !verificationResult.valid}">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="col-md-4 col-form-label text-right float-left">核实情况：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="recordData.recordHealthManagement.verificationResult" name="recordPreEvaluation.verificationResult" placeholder="核实情况">
+      <div class="row">
+        <div class="col-md-12" style="padding: 0px 15px;">
+          <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+            <tr>
+              <th>调查内容</th>
+              <th>建立情况</th>
+              <th>执行情况</th>
+              <th>备注</th>
+            </tr>
+            <tr *ngFor="let item of recordData.recordHealthManagementDataList;let recordIndex = index;">
+              <td>{{item.projectName}}</td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.setUpInfo" name="item{{recordIndex}}.setUpInfo" maxlength="50"
+                         [ngClass]="{'warn': !setUpInfo_recordIndex.valid}" #setUpInfo_recordIndex="ngModel" required="required"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.implementInfo" name="item{{recordIndex}}.implementInfo" maxlength="50"
+                         [ngClass]="{'warn': !implementInfo_recordIndex.valid}" #implementInfo_recordIndex="ngModel" required="required"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.remarks" name="item{{recordIndex}}.remarks" maxlength="50"></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
-          <tr>
-            <th>调查内容</th>
-            <th>建立情况</th>
-            <th>执行情况</th>
-            <th>备注</th>
-          </tr>
-          <tr *ngFor="let item of recordData.recordHealthManagementDataList;let i = index;">
-            <td>{{item.projectName}}</td>
-            <td><input type="text" [(ngModel)]="item.setUpInfo" name="item{{i}}.setUpInfo"></td>
-            <td><input type="text" [(ngModel)]="item.implementInfo" name="item{{i}}.implementInfo"></td>
-            <td><input type="text" [(ngModel)]="item.remarks" name="item{{i}}.remarks"></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div class="row">
+    <div class="modal-footer">
       <div class="op-btn">
-        <button type="button" class="btn btn-success" [disabled]="!healthManagementForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-success button-margin-right" [disabled]="!healthManagementForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
         <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
       </div>
     </div>

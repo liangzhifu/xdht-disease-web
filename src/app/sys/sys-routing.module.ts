@@ -12,6 +12,7 @@ import { EditPasswordComponent } from './edit-password/edit-password.component';
 import {NoticeManageComponent} from './notice-manage/notice-manage.component';
 import {KnowledgeCatalogManageComponent} from './knowledge-catalog-manage/knowledge-catalog-manage.component';
 import {KnowledgeManageComponent} from './knowledge-manage/knowledge-manage.component';
+import {SystemNoticeManageComponent} from './system-notice-manage/system-notice-manage.component';
 
 /**
  * 系统管理路由
@@ -30,6 +31,7 @@ const sysRoutes: Routes = [
       {path: 'roleManage', component: RoleManageComponent},
       {path: 'userManage', component: UserManageComponent},
       {path: 'noticeManage', component: NoticeManageComponent},
+      {path: 'systemNoticeManage', component: SystemNoticeManageComponent},
       {path: 'knowledgeCatalogManage', component: KnowledgeCatalogManageComponent},
       {path: 'knowledgeManage', component: KnowledgeManageComponent}
     ]

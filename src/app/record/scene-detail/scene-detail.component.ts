@@ -187,8 +187,8 @@ export class SceneDetailComponent implements OnInit {
       case (14) : this.editComponent = IndividualProtectiveEditComponent;
                   myUrl = SystemConstant.INDIVIDUAL_PROTECTIVE_DETAIL;
                   break;
-      case (15) : this.editComponent = HealthManagementEditComponent;
-                  myUrl = SystemConstant.HEALTH_MANAGEMENT_DETAIL;
+      case (15) : this.editComponent = EmergencyFacilitiesEditComponent;
+                  myUrl = SystemConstant.EMERGENCY_FACILITIES_DETAIL;
                   break;
       case (16) : this.editComponent = BuildingBaseEditComponent;
                   myUrl = SystemConstant.BUILDING_BASE_DETAIL;

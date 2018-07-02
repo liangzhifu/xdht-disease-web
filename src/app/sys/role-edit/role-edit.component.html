@@ -12,7 +12,7 @@
           <label class="col-md-4 col-form-label text-right float-left" for="roleName"><span style="color:red;">*</span>角色名称：</label>
           <input type="hidden" [(ngModel)]="sysRole.id" name="id">
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysRole.roleName" name="roleName" id="roleName"
-                 [ngClass]="{'warn': !roleName.valid}" #roleName="ngModel" required="required" maxlength="20">
+                 [ngClass]="{'warn': !roleName.valid}" #roleName="ngModel" required="required" maxlength="20"  ngbTooltip="密码长度小于20个字符。">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left" for="remarks">备注：</label>

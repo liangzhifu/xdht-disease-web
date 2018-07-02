@@ -32,7 +32,7 @@ export class SystemNoticeDetailComponent implements OnInit {
 
   ngOnInit() {
     this.noticeEditTitle = '公告详情';
-    $('#noticeContent').append(this.sysNotice.noticeContent);
+    $('#noticeContent').html(this.sysNotice.noticeContent);
   }
 
   /**

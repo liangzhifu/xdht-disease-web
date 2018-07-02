@@ -132,6 +132,7 @@ export class WorkLogEditComponent implements OnInit {
       url = SystemConstant.WORK_LOG_EDIT;
     }
     // 保存调查表
+    console.log('url:' + url);
     this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);

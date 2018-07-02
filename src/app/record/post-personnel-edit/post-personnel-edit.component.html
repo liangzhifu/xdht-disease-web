@@ -50,7 +50,7 @@
                 <select class="form-control" #select [(ngModel)]="item.postId" name="item{{recordIndex}}.postId"
                         #postId_recordIndex="ngModel" required="required" [ngClass]="{'warn': !postId_recordIndex.valid}">
                   <option value="">--请选择岗位--</option>
-                  <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+                  <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.dictionaryName}}</option>
                 </select>
               </td>
               <td>

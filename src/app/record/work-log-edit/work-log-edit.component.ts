@@ -41,7 +41,7 @@ export class WorkLogEditComponent implements OnInit {
   };
   sysPostList: [{
     'id': '',
-    'postName': ''
+    'dictionaryName': ''
   }];
 
   addFlag: boolean;
@@ -54,7 +54,7 @@ export class WorkLogEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
       next: (data) => {
         this.sysPostList = data;
       },
@@ -115,7 +115,7 @@ export class WorkLogEditComponent implements OnInit {
    */
   delOffice(item) {
     const index = this.recordData.recordWorkLogDataList.indexOf(item);
-    this.recordData.recordWorkLogDataList.splice(index, index + 1);
+    this.recordData.recordWorkLogDataList.splice(index, 1);
   }
 
   /**

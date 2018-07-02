@@ -75,7 +75,7 @@ export class AuxiliaryHealthEditComponent implements OnInit {
   /**
    * 添加一行
    */
-  addOffice() {
+  addRecord() {
     if (this.recordData.recordAuxiliaryHealthDataList === null) {
       this.recordData.recordAuxiliaryHealthDataList = [];
     }
@@ -94,8 +94,7 @@ export class AuxiliaryHealthEditComponent implements OnInit {
   /**
    * 删除一行
    */
-  delOffice(item) {
-    const index = this.recordData.recordAuxiliaryHealthDataList.indexOf(item);
+  delRecord(index) {
     this.recordData.recordAuxiliaryHealthDataList.splice(index, 1);
   }
 

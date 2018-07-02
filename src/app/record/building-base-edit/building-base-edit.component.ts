@@ -32,7 +32,8 @@ export class BuildingBaseEditComponent implements OnInit {
       layers: '',
       builtUpArea: '',
       lightingMode: '',
-      lightingSystem: ''
+      lightingSystem: '',
+      lightingLamps: ''
     }]
   };
   addFlag: boolean;
@@ -74,7 +75,7 @@ export class BuildingBaseEditComponent implements OnInit {
   /**
    * 添加一行
    */
-  addOffice() {
+  addRecord() {
     if (this.recordData.recordBuildingBaseDataList === null) {
       this.recordData.recordBuildingBaseDataList = [];
     }
@@ -87,15 +88,15 @@ export class BuildingBaseEditComponent implements OnInit {
       layers: '',
       builtUpArea: '',
       lightingMode: '',
-      lightingSystem: ''
+      lightingSystem: '',
+      lightingLamps: ''
     };
   }
 
   /**
    * 删除一行
    */
-  delOffice(item) {
-    const index = this.recordData.recordBuildingBaseDataList.indexOf(item);
+  delRecord(index) {
     this.recordData.recordBuildingBaseDataList.splice(index, 1);
   }
 

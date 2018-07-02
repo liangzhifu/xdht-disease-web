@@ -42,16 +42,25 @@ export class SceneEditComponent implements OnInit {
       inquiryCompany: '',
       inquiryCompanyEmployee: '',
       inquiryCompanyEmployeeName: '',
-      inquiryDate: ''
+      inquiryDate: '',
+      inquiryDatepicker: {
+        year : null,
+        month: null,
+        day: null
+      }
     },
     recordScenQuestionnaireList: [{
       id: '',
       sceneId: '',
       questionnaireId: '',
-      generatorRecord: '',
+      generatorRecord: null,
       questionnaireName: ''
     }]
   };
+  inquiryTypeList = [{
+    id : '',
+    dictionaryName: ''
+  }];
 
   constructor(
     private ngbModal: NgbModal,
@@ -74,6 +83,14 @@ export class SceneEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    // 获取调查类型
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 7}).subscribe({
+      next: (data) => {
+        this.inquiryTypeList = data;
+      },
+      complete: () => {
+      }
+    });
     if (this.recordSceneRequest.recordScene.id === undefined
       || this.recordSceneRequest.recordScene.id === null
       || this.recordSceneRequest.recordScene.id === '') {
@@ -102,6 +119,12 @@ export class SceneEditComponent implements OnInit {
       this.addFlag = false;
       this.action = '修改';
       this.recordSceneEditTitle = '修改--职业卫生现场调查记录';
+       $('#inquiryDate').val(this.recordSceneRequest.recordScene.inquiryDate);
+      this.recordSceneRequest.recordScene.inquiryDatepicker = {
+        year: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(0, 4)),
+        month: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(5, 7)),
+        day: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(8, 10))
+      };
     }
   }
 
@@ -161,15 +184,9 @@ export class SceneEditComponent implements OnInit {
   /**
    * 根据单位改变单位下的人员
    */
-  changeCompany(companyId) {
-    const param = {'companyId': companyId};
-    this.httpService.post(SystemConstant.EMPLOYEE_ALL_LIST, param).subscribe({
-      next: (data) => {
-        this.employeeData = data;
-      },
-      complete: () => {
-      }
-    });
+  changeCompany() {
+    this.recordSceneRequest.recordScene.inquiryCompanyEmployee = '';
+    this.recordSceneRequest.recordScene.inquiryCompanyEmployeeName = '';
   }
 
   /**

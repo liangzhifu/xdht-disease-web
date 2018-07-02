@@ -12,8 +12,8 @@ import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
 import {CompanyOfficeChooseComponent} from '../company-office-choose/company-office-choose.component';
 import {FileUploader} from 'ng2-file-upload';
-import 'jquery';
 import {SessionStorageService} from '../../core/storage/session-storage.service';
+import 'jquery';
 declare var $: any;
 
 @Component({
@@ -40,7 +40,8 @@ export class EmployeeEditComponent implements OnInit {
       empEducation: '',
       empHobby: '',
       empWorkDate: '',
-      empIdentityNumber: ''
+      empIdentityNumber: '',
+      imageName: ''
     },
     sysCompanyOffice: {
       id : '',
@@ -80,7 +81,8 @@ export class EmployeeEditComponent implements OnInit {
     }]
   };
   companyList = [{id: '', companyName: ''}];
-  sysWorkTypeList = [{id: '', postName: ''}];
+  sysWorkTypeList = [{id: '', dictionaryName: ''}];
+  sysEmpHobbyList = [{id: '', dictionaryName: ''}];
   employeeEditTitle: string;
   addFlag: boolean;
   action = '';
@@ -103,7 +105,8 @@ export class EmployeeEditComponent implements OnInit {
       method: 'POST',
       itemAlias: 'uploadFile',
       authToken: this.authToken,
-      authTokenHeader: 'authorization'
+      authTokenHeader: 'authorization',
+      removeAfterUpload: true
     });
     // 获取部门列表
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
@@ -114,9 +117,17 @@ export class EmployeeEditComponent implements OnInit {
       }
     });
     // 获取工种列表
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
       next: (data) => {
         this.sysWorkTypeList = data;
+      },
+      complete: () => {
+      }
+    });
+    // 获取文化程度列表
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 11} ).subscribe({
+      next: (data) => {
+        this.sysEmpHobbyList = data;
       },
       complete: () => {
       }
@@ -130,6 +141,7 @@ export class EmployeeEditComponent implements OnInit {
       this.action = '修改';
       this.addFlag = false;
       this.employeeEditTitle = '修改职工信息';
+      $('#employeeImg').attr('src', SystemConstant.IMAG_PATH + this.sysEmployeeRequest.sysEmployee.imageName);
     }
   }
 
@@ -275,47 +287,34 @@ export class EmployeeEditComponent implements OnInit {
     );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-    this.uploader = new FileUploader({
-      url: SystemConstant.FILE_UPLOAD,
-      method: 'POST',
-      itemAlias: 'uploadFile',
-      authToken: this.authToken,
-      authTokenHeader: 'authorization'
-    });
-  }
-
-// C: 定义事件，选择文件
-  selectedFileOnChanged(event: any) {
-    // 打印文件选择名称
-    this.uploadFile();
-  }
-  // D: 定义事件，上传文件
-  uploadFile() {
+  /**
+   * 选择文件上传
+   */
+  selectedFileOnChanged() {
     // 上传
-    this.uploader.queue[0].onSuccess = function (response, status, headers) {
-      // 上传文件成功
-      if (status === 200) {
-        // 上传文件后获取服务器返回的数据
-        const ret = JSON.parse(response);
-        if ( ret.code === 100 ) {
-          // 此处无法 this.formModel.controls[this.name].setValue(this.defImg);  因此在html中增加hidden域，然后触犯隐藏域的单击事件
-          $('#upload-file-id').val(ret.content);
-          $('#upload-file-id').trigger('click');
-        } else {
-          alert('文件上传失败:' + ret.message);
-        }
-      } else {
-        // 上传文件后获取服务器返回的数据错误
-        alert('文件上传失败');
-      }
-    };
+    this.uploader.queue[0].onSuccess = this.fileSuccess.bind(this);
     this.uploader.queue[0].upload(); // 开始上传
   }
 
-  changeModel() {
-    this.defImg = 'assets/img/employee/' + $('#upload-file-id').val();
-    this.uploader.queue[0].remove(); // 上传过移除原有图片信息
+  /**
+   * 文件上传成功回调函数
+   * @param response
+   * @param status
+   */
+  fileSuccess(response, status) {
+    // 上传文件成功
+    if (status === 200) {
+      // 上传文件后获取服务器返回的数据
+      const ret = JSON.parse(response);
+      if ( ret.code === 100 ) {
+        this.sysEmployeeRequest.sysEmployee.imageName = ret.content;
+        $('#employeeImg').attr('src', SystemConstant.IMAG_PATH + ret.content);
+      } else {
+        alert('文件上传失败:' + ret.message);
+      }
+    } else {
+      // 上传文件后获取服务器返回的数据错误
+      alert('文件上传失败');
+    }
   }
 }

@@ -129,7 +129,7 @@ export class CompanyManageComponent implements OnInit,AfterViewInit {
    * @param companyId
    */
   editCompanyOffice(companyId) {
-    const modalRef = this.ngbModal.open(CompanyOfficeManageComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(CompanyOfficeManageComponent, {backdrop: 'static', keyboard: false, size: 'lg', centered: true});
     modalRef.componentInstance.companyId = companyId;
     modalRef.result.then(
       (result) => {

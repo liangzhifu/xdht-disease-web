@@ -50,7 +50,12 @@ export class LoginComponent implements OnInit {
                   this.sessionStorage.set('token', LoginResponse.token);
                   const user: UserData = new UserData();
                   user.userName = LoginResponse.userName;
-                  user.userAvatar = './assets/img/user-header.png';
+                  const imageName = LoginResponse.imageName;
+                  if (imageName === undefined || imageName === null || imageName === '') {
+                    user.userAvatar = './assets/img/user-header.png';
+                  } else {
+                    user.userAvatar = SystemConstant.IMAG_PATH + imageName;
+                  }
                   this.sessionStorage.setObject('user', user);
                   this.getSysInfo();
                 } else {

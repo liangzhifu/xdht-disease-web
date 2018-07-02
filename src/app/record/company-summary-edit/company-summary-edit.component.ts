@@ -21,7 +21,7 @@ export class CompanySummaryEditComponent implements OnInit {
     id: '',
     companyId: '',
     inspectionDate: '',
-    inspectionDateDatepicker: '',
+    inspectionDatepicker: null,
     inspectionAgency: '',
     physicalExaminationType: '',
     inspectedNumber: '',
@@ -67,6 +67,12 @@ export class CompanySummaryEditComponent implements OnInit {
       this.action = '修改';
       this.addFlag = false;
       this.companySummaryEditTitle = '修改企业体检信息';
+      $('#inspectionDate').val(this.companySummary.inspectionDate);
+      this.companySummary.inspectionDatepicker = {
+        year: Number(this.companySummary.inspectionDate.substring(0, 4)),
+        month: Number(this.companySummary.inspectionDate.substring(5, 7)),
+        day: Number(this.companySummary.inspectionDate.substring(8, 10))
+      };
     }
   }
 

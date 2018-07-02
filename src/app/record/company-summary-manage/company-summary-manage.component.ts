@@ -56,7 +56,7 @@ export class CompanySummaryManageComponent implements OnInit, AfterViewInit {
    * 新增企业体检信息
    */
   addCompanySummary() {
-    const modalRef = this.ngbModal.open(CompanySummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
+    const modalRef = this.ngbModal.open(CompanySummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg', centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -87,7 +87,7 @@ export class CompanySummaryManageComponent implements OnInit, AfterViewInit {
    * 打开修改企业体检信息
    */
   openEditCompanySummary(companySummaryData) {
-    const modalRef = this.ngbModal.open(CompanySummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
+    const modalRef = this.ngbModal.open(CompanySummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg', centered: true});
     modalRef.componentInstance.companySummary = companySummaryData;
     modalRef.result.then(
       (result) => {

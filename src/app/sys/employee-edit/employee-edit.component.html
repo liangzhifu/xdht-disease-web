@@ -19,7 +19,7 @@
             <div class="col-md-4 xdht-row-col">
               <label class="col-md-4 col-form-label text-right float-left">公司：</label>
               <select class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.companyId" name="sysCompanyOfficeCompanyId"
-                      [ngClass]="{'warn': !sysCompanyOfficeCompanyId.valid}" #sysCompanyOfficeCompanyId="ngModel" required="required">
+                      [ngClass]="{'warn': !sysCompanyOfficeCompanyId.valid}" #sysCompanyOfficeCompanyId="ngModel" required="required" (change)="changeCompany()">
                 <option value=""></option>
                 <option *ngFor="let item of companyList;" value="{{item.id}}">{{item.companyName}}</option>
               </select>

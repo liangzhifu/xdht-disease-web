@@ -317,4 +317,12 @@ export class EmployeeEditComponent implements OnInit {
       alert('文件上传失败');
     }
   }
+
+  /**
+   * 单位修改
+   */
+  changeCompany() {
+    this.sysEmployeeRequest.sysCompanyOffice.companyId = '';
+    this.sysEmployeeRequest.sysCompanyOffice.officeName = '';
+  }
 }

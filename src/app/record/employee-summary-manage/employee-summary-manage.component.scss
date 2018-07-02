@@ -20,3 +20,14 @@ body,html{
   padding: 15px 0px;
   background-color: #fff;
 }
+
+.table-outframe{
+  overflow-x: auto;
+  th{
+    white-space:nowrap; 
+    vertical-align: middle;
+  }
+  td{
+    vertical-align: middle;
+  }
+}

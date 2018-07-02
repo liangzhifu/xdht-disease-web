@@ -12,7 +12,7 @@
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>菜单名称：</label>
           <input type="hidden" [(ngModel)]="sysMenu.id" name="id">
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysMenu.menuName" name="menuName" placeholder="菜单名称"
-                 [ngClass]="{'warn': !menuName.valid}" #menuName="ngModel" required="required" maxlength="10">
+                 [ngClass]="{'warn': !menuName.valid}" #menuName="ngModel" required="required" maxlength="10" ngbTooltip="长度小于10个字符。">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>菜单类型：</label>

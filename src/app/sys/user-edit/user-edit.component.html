@@ -12,19 +12,19 @@
           <label class="col-md-3 col-form-label text-right float-left" for="userName"><span style="color:red;">*</span>用户名：</label>
           <input type="hidden" [(ngModel)]="sysUser.id" name="id">
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.userName" name="userName" id="userName"
-                 [ngClass]="{'warn': !userName.valid}" #userName="ngModel" required="required" maxlength="10">
+                 [ngClass]="{'warn': !userName.valid}" #userName="ngModel" required="required" maxlength="10" ngbTooltip="长度小于10个字符。" >
         </div>
         <div class="col-md-6">
           <label class="col-md-3 col-form-label text-right float-left" for="loginCode"><span style="color:red;">*</span>登录名：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysUser.loginCode" name="loginCode" id="loginCode" [readonly]="!addFlag"
-                 [ngClass]="{'warn': !loginCode.valid}" #loginCode="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9]{0,20}$">
+                 ngbTooltip="长度小于20" [ngClass]="{'warn': !loginCode.valid}" #loginCode="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9]{0,20}$" ngbTooltip="长度小于20个字符。">
         </div>
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
           <label class="col-md-3 col-form-label text-right float-left" for="password"><span style="color:red;">*</span>密码：</label>
           <input type="password" class="form-control col-md-7" [(ngModel)]="sysUser.password" name="password" id="password" [readonly]="!addFlag"
-                 [ngClass]="{'warn': !password.valid}" #password="ngModel" required="required" maxlength="50" pattern="^[a-zA-Z0-9_-!]{0,20}$">
+                 [ngClass]="{'warn': !password.valid}" #password="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-!]{0,20}$" ngbTooltip="密码长度大于6个字符，小于20个字符。">
         </div>
         <div class="col-md-6">
           <label class="col-md-3 col-form-label text-right float-left" for="mgrType"><span style="color:red;">*</span>管理员：</label>

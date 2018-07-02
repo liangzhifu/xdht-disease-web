@@ -12,7 +12,7 @@
           <label class="col-md-3 col-form-label text-right float-left" for="catalogName"><span style="color:red;">*</span>目录名称：</label>
           <input type="hidden" [(ngModel)]="sysKnowledgeCatalog.id" name="id">
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysKnowledgeCatalog.catalogName" name="catalogName" id="catalogName"
-                 [ngClass]="{'warn': !catalogName.valid}" #catalogName="ngModel" required="required" maxlength="20">
+                 [ngClass]="{'warn': !catalogName.valid}" #catalogName="ngModel" required="required" maxlength="20" ngbTooltip="长度小于20个字符。">
         </div>
       </div>
     </div>

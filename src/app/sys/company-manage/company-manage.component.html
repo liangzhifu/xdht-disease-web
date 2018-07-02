@@ -26,6 +26,10 @@
             <th>单位性质</th>
             <th>所属管辖</th>
             <th>经济类型</th>
+            <th>联系人电话</th>
+            <th>联系人姓名</th>
+            <th>法定代表人</th>
+            <th>成立日期</th>
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;">
@@ -33,6 +37,10 @@
             <td>{{item.companyNature}}</td>
             <td>{{item.belongToJurisdiction}}</td>
             <td>{{item.economicType}}</td>
+            <td>{{item.contactNumber}}</td>
+            <td>{{item.contactUsername}}</td>
+            <td>{{item.legalRepresentative}}</td>
+            <td>{{item.establishDate}}</td>
             <td>
               <button type="button" class="btn btn-info radius mr-10" (click)="editCompanyOffice(item.id)"><i class="fa fa-gears fa-fw"></i>部门管理</button>
               <button type="button" class="btn btn-warning radius mr-10" (click)="editCompany(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>

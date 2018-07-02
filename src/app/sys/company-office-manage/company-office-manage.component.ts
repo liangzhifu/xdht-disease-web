@@ -33,6 +33,9 @@ export class CompanyOfficeManageComponent implements OnInit {
       enable: true,
       chkStyle: 'radio',
       radioType: 'all'
+    },
+    callback: {
+      onClick: this.zTreeOnClick
     }
   };
   zNodes = [];
@@ -163,5 +166,21 @@ export class CompanyOfficeManageComponent implements OnInit {
       },
       complete: () => {}
     });
+  }
+
+  /**
+   * 菜单节点点击事件
+   * @param event
+   * @param treeId
+   * @param treeNode
+   */
+  zTreeOnClick(event, treeId, treeNode) {
+    const treeObj = $.fn.zTree.getZTreeObj('ztree');
+    const checked = treeNode.checked;
+    if (checked) {
+      treeObj.checkNode(treeNode, false);
+    } else {
+      treeObj.checkNode(treeNode, true);
+    }
   }
 }

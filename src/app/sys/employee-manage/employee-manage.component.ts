@@ -90,7 +90,7 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
    * 新增职工
    */
   addEmployee() {
-    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
+    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'w80', centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -121,7 +121,7 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
    * 打开修改职工对话框
    */
   openEditEmployee(employeeData) {
-    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
+    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'w80', centered: true});
     modalRef.componentInstance.sysEmployeeRequest = employeeData;
     modalRef.result.then(
       (result) => {

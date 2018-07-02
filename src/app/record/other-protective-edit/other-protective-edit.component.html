@@ -13,14 +13,14 @@
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordOtherProtective.otherProtectiveFacilitiesNo"
                  name="recordOtherProtective.otherProtectiveFacilitiesNo"
                  #otherProtectiveFacilitiesNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
-                 [ngClass]="{'warn': !otherProtectiveFacilitiesNo.valid}">
+                 [ngClass]="{'warn': !otherProtectiveFacilitiesNo.valid}" ngbTooltip="编码长度不大于20">
         </div>
         <div class="col-md-6">
           <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordOtherProtective.verificationResult"
                  name="recordOtherProtective.verificationResult"
                  #verificationResult="ngModel" required="required" maxlength="50"
-                 [ngClass]="{'warn': !verificationResult.valid}">
+                 [ngClass]="{'warn': !verificationResult.valid}" ngbTooltip="核实情况长度不大于50">
         </div>
       </div>
       <div class="row">
@@ -49,10 +49,14 @@
                   <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.dictionaryName}}</option>
                 </select>
               </td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace" maxlength="10"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}.hazardFactors" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.protectiveFacilities" name="item{{recordIndex}}.protectiveFacilities" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.operationAndMaintenance" name="item{{recordIndex}}.operationAndMaintenance" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace"
+                         ngbTooltip="作业地点长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}.hazardFactors"
+                         ngbTooltip="职业病危害因素长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.protectiveFacilities" name="item{{recordIndex}}.protectiveFacilities"
+                         ngbTooltip="防护措施名称长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.operationAndMaintenance" name="item{{recordIndex}}.operationAndMaintenance"
+                         ngbTooltip="运行维护情况长度不大于50" maxlength="50"></td>
               <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
             </tr>
           </table>

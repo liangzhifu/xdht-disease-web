@@ -2,6 +2,8 @@ const INTERFACE_ADDRESS = 'http://localhost:7071';
 const SYSTEM_GATEWAY = '';
 const INTERFACE_VERSION = '/api/v1';
 export const SystemConstant = Object.freeze({
+  // 图片路径
+  IMAG_PATH: 'http://localhost:8080/testCom/img/',
   // 字典类型
   DICTIONARY_TYPE_POST: 10,
 

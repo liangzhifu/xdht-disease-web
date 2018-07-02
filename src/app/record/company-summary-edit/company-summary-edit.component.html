@@ -81,11 +81,11 @@
       <div class="col-md-6">
         <label class="col-md-4 col-form-label text-right float-left">其他疾患：</label>
         <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.otherDiseasesNumber"
-               name="otherDiseasesNumber" placeholder="其他疾患">
+               name="otherDiseasesNumber" maxlength="20" >
       </div>
       <div class="col-md-6">
         <label class="col-md-4 col-form-label text-right float-left">备注信息：</label>
-        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.remarks" name="remarks" placeholder="备注信息">
+        <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.remarks" name="remarks" maxlength="50">
       </div>
     </div>
     <div class="row">

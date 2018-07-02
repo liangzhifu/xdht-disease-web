@@ -3,7 +3,7 @@ const SYSTEM_GATEWAY = '';
 const INTERFACE_VERSION = '/api/v1';
 export const SystemConstant = Object.freeze({
   // 字典类型
-  DICTIONARY_TYPE_POST: 8,
+  DICTIONARY_TYPE_POST: 10,
 
   LOCAL_STORAGE_PREFIX: 'xdht-disease-',
   SESSION_STORAGE_PREFIX: 'xdht-disease-',

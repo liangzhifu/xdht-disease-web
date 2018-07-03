@@ -322,7 +322,7 @@ export class EmployeeEditComponent implements OnInit {
    * 单位修改
    */
   changeCompany() {
-    this.sysEmployeeRequest.sysCompanyOffice.companyId = '';
+    this.sysEmployeeRequest.sysCompanyOffice.id = '';
     this.sysEmployeeRequest.sysCompanyOffice.officeName = '';
   }
 }

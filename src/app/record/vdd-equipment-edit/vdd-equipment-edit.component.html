@@ -9,13 +9,13 @@
     <div class="modal-body">
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>编码：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordVddEquipment.vddEquipmentNo" name="recordVddEquipment.vddEquipmentNo"
                  #vddEquipmentNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
                  [ngClass]="{'warn': !vddEquipmentNo.valid}" ngbTooltip="编码长度不大于20">
         </div>
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>核实情况：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordVddEquipment.verificationResult" name="recordVddEquipment.verificationResult"
                  #verificationResult="ngModel" required="required" maxlength="50"
                  [ngClass]="{'warn': !verificationResult.valid}" ngbTooltip="核实情况长度不大于50">

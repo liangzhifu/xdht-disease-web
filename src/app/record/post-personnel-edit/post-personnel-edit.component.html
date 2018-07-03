@@ -9,14 +9,14 @@
     <div class="modal-body">
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-4 col-form-label text-right float-left label-title">编码：</label>
+          <label class="col-md-4 col-form-label text-right float-left label-title"><span style="color:red;">*</span>编码：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordPostPersonnel.postPersonnelNo"
                  id="postPersonnelNo" [ngClass]="{'warn': !postPersonnelNo.valid}"
                  #postPersonnelNo="ngModel" required="required" maxlength="20" ngbTooltip="编码长度不大于20"
                  name="recordPostPersonnel.postPersonnelNo" pattern="^[a-zA-Z0-9_-]{0,20}$">
         </div>
         <div class="col-md-6">
-          <label class="col-md-4 col-form-label text-right float-left label-title">核实情况：</label>
+          <label class="col-md-4 col-form-label text-right float-left label-title"><span style="color:red;">*</span>核实情况：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordPostPersonnel.verificationResult"
                  id="verificationResult" [ngClass]="{'warn': !verificationResult.valid}"  name="recordPreEvaluation.verificationResult"
                  #verificationResult="ngModel" required="required" maxlength="100" ngbTooltip="核实情况长度不大于100">

@@ -2,8 +2,40 @@
   <div class="row">
     <div class="col-md-4">
       <label class="col-form-label float-left text-right">公司名称：</label>
-      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.companyName"
-             placeholder="请输入公司名...">
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.companyName">
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">联系人姓名：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.contactUsername">
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">法定代表人：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.legalRepresentative">
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">所属管辖：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.belongToJurisdiction">
+    </div>
+    <div class="col-md-4">
+      <label class=" col-form-label text-right float-left">单&nbsp;位&nbsp;性&nbsp;质：&nbsp;</label>
+      <select class="col-md-8 float-left form-control" #select [(ngModel)]="param.companyNature"
+              name="companyNature" id="companyNature">
+        <option value="">--请选择--</option>
+        <option *ngFor="let item of companyNature;" value="{{item.dictionaryName}}">{{item.dictionaryName}}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">成立日期：</label>
+      <div class="input-group col-md-7">
+        <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{param.establishDate}}" id="establishDate" name="establishDate " >
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar-icon.png"/>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
     </div>
     <div class="col-md-4">
     </div>

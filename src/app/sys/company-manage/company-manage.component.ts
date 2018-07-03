@@ -11,6 +11,8 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {CompanyOfficeManageComponent} from '../company-office-manage/company-office-manage.component';
+import 'jquery';
+declare var $: any;
 
 @Component({
   selector: 'app-company-manage',
@@ -27,15 +29,30 @@ export class CompanyManageComponent implements OnInit,AfterViewInit {
    * 查询条件
    */
   param: any = {
-    componentName: ''
+    componentName: '',
+    contactUsername: '',
+    legalRepresentative: '',
+    belongToJurisdiction: '',
+    companyNature: '',
+    establishDate: ''
   };
+  companyNature: any;
   constructor(
     private ngbModal: NgbModal,
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
     private toastService: ToastService
-  ) { }
+  ) {
+    // 获取单位性质
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 7} ).subscribe({
+      next: (data) => {
+        this.companyNature = data;
+      },
+      complete: () => {
+      }
+    });
+  }
 
   ngOnInit() {
     this.url = SystemConstant.COMPANY_PAGE_LIST;
@@ -50,6 +67,7 @@ export class CompanyManageComponent implements OnInit,AfterViewInit {
    * 查询
    */
   search() {
+    this.param.establishDate = $('#establishDate').val();
     this.waitService.wait(true);
     this.sdhp.search();
     this.waitService.wait(false);

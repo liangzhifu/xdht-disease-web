@@ -12,12 +12,13 @@
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>公司名称：</label>
           <input type="hidden" [(ngModel)]="sysCompany.id" name="id">
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.companyName" name="companyName"
-                 [ngClass]="{'warn': !companyName.valid}" maxlength="100" #companyName="ngModel" required="required">
+                 [ngClass]="{'warn': !companyName.valid}" maxlength="100" #companyName="ngModel" required="required"
+                  ngbTooltip="公司名称长度不大于100">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">经济行业：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.nationalEconomicIndustry" name="nationalEconomicIndustry"
-                 minlength="2" maxlength="125" >
+                 minlength="2" maxlength="125" ngbTooltip="经济行业长度不大于125" >
         </div>
       </div>
       <div class="row row-margin-bottom">
@@ -32,14 +33,14 @@
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">危害类别：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.industrialDiseaseCategory" name="industrialDiseaseCategory"
-                 maxlength="125" >
+                 maxlength="125"  ngbTooltip="危害类别长度不大于125">
         </div>
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">所属管辖：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.belongToJurisdiction" name="belongToJurisdiction"
-                 maxlength="125" >
+                 maxlength="125" ngbTooltip="所属管辖长度不大于125">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">经济类型：</label>
@@ -55,38 +56,38 @@
           <label class="col-md-4 col-form-label text-right float-left">联系电话：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.contactNumber" name="contactNumber"
                  id="contactNumber" #contactNumber="ngModel"
-                 pattern="^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$"
-                 [ngClass]="{'warn': !contactNumber.valid}">
+                 pattern="^(((0\d{2,3}-)?\d{7,8})|(1[3584]\d{9}))$"
+                 [ngClass]="{'warn': !contactNumber.valid}" ngbTooltip="填写正确的电话号">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">传真电话：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.faxPhone" name="faxPhone"
                  id="faxPhone" #faxPhone="ngModel"
-                 pattern="^(\d{3,4}-)\d{7,8}$" [ngClass]="{'warn': !faxPhone.valid}">
+                 pattern="^(\d{3,4}-)?\d{7,8}$" [ngClass]="{'warn': !faxPhone.valid}" ngbTooltip="填写正确的传真电话号码">
         </div>
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">法定代表人：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.legalRepresentative"
-                 maxlength="125" name="legalRepresentative" >
+                 maxlength="10" name="legalRepresentative" ngbTooltip="法定代表人长度不大于10">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">联系人姓名：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.contactUsername" name="contactUsername"
-                 maxlength="125" >
+                 maxlength="10" ngbTooltip="联系人姓名长度不大于10">
         </div>
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">注册地址：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.registeredAddress" name="registeredAddress"
-                 maxlength="125"  >
+                 maxlength="125"  ngbTooltip="注册地址长度不大于125" >
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">经营地址：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.actualOperateAddress" name="actualOperateAddress"
-                 maxlength="125" >
+                 maxlength="125" ngbTooltip="经营地址长度不大于125">
         </div>
       </div>
       <div class="row row-margin-bottom">
@@ -95,7 +96,7 @@
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysCompany.companyUrl" name="companyUrl"
                  id="companyUrl" #companyUrl="ngModel"
                  pattern="^(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?" [ngClass]="{'warn': !companyUrl.valid}"
-                 maxlength="125">
+                 maxlength="125" ngbTooltip="单位网址长度不大于125">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">成立日期：</label>
@@ -113,28 +114,28 @@
         <div class="col-md-12">
           <label class="col-md-2 col-form-label text-right float-left">生产规模：</label>
           <input type="text" class="form-control col-md-9" [(ngModel)]="sysCompany.productionScale" name="productionScale"
-                 maxlength="125" >
+                 maxlength="125" ngbTooltip="生产规模长度不大于125">
         </div>
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-12">
           <label class="col-md-2 col-form-label text-right float-left">主要产品：</label>
           <input type="text" class="form-control col-md-9" [(ngModel)]="sysCompany.mainProducts" name="mainProducts"
-                 maxlength="125" >
+                 maxlength="125" ngbTooltip="主要产品长度不大于125">
         </div>
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-12">
           <label class="col-md-2 col-form-label text-right float-left">主要原辅料：</label>
           <input type="text" class="form-control col-md-9" [(ngModel)]="sysCompany.mainRawMaterials" name="mainRawMaterials"
-                 maxlength="125" >
+                 maxlength="125" ngbTooltip="主要原辅料长度不大于125">
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
           <label class="col-md-2 col-form-label text-right float-left">危害因素：</label>
           <input type="text" class="form-control col-md-9" [(ngModel)]="sysCompany.occupationalHazardFactors" name="occupationalHazardFactors"
-                 maxlength="125" >
+                 maxlength="125" ngbTooltip="危害因素长度不大于125">
         </div>
       </div>
     </div>

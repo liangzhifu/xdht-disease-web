@@ -27,7 +27,12 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
    * 查询条件
    */
   param: any = {
-    empName: ''
+    empName: '',
+    empSex: '',
+    empNative: '',
+    empIdentityNumber: '',
+    empMarriage: ''
+
   };
   constructor(
     private ngbModal: NgbModal,

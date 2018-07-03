@@ -11,7 +11,8 @@ import {ToastService} from '../../toast/toast.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {SceneEditComponent} from '../scene-edit/scene-edit.component';
-
+import 'jquery';
+declare var $: any;
 @Component({
   selector: 'app-record-scene-manage',
   templateUrl: './scene-manage.component.html',
@@ -26,7 +27,11 @@ export class SceneManageComponent implements OnInit, AfterViewInit {
    * 查询条件
    */
   param: any = {
-    projectName: ''
+    projectName: '',
+    recordNo: '',
+    inquiryDate: '',
+    inquiryPerson: '',
+    inquiryYear: ''
   };
   constructor(
     private ngbModal: NgbModal,
@@ -49,6 +54,7 @@ export class SceneManageComponent implements OnInit, AfterViewInit {
    * 查询
    */
   search() {
+    this.param.inquiryDate = $('#inquiryDate').val();
     this.waitService.wait(true);
     this.sdhp.search();
     this.waitService.wait(false);

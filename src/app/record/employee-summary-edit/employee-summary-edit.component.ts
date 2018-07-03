@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalService} from '../../modal/modal.service';
 import {WaitService} from '../../core/wait/wait.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
 import {FormBuilder} from '@angular/forms';
 import {HttpService} from '../../core/http/http.service';
@@ -9,6 +9,7 @@ import {ToastService} from '../../toast/toast.service';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
 import 'jquery';
+import {SelectEmployeeComponent} from '../select-employee/select-employee.component';
 declare var $: any;
 
 @Component({
@@ -17,10 +18,11 @@ declare var $: any;
   styleUrls: ['./employee-summary-edit.component.scss']
 })
 export class EmployeeSummaryEditComponent implements OnInit {
-  @Input() employeeSummaryRequest = {
-    'employeeSummary': {
+  @Input() employeeSummary = {
       id: '',
       empId: '',
+      empName: '',
+      companyId: '',
       officeId: '',
       workType: '',
       name: '',
@@ -60,23 +62,15 @@ export class EmployeeSummaryEditComponent implements OnInit {
       dbhl2kR: '',
       dbhl3kR: '',
       dbhl4kR: '',
-      dbhl6kR: '',
-      status: ''
-    },
-    'sysCompanyOfficeList': [{
-      'id': '',
-      'officeName': '',
-      'status': ''
-    }],
-    'SysPostList': [{
-      'id': '',
-      'postName': ''
-    }]
+      dbhl6kR: ''
   };
+  companyData: any = null;
+  sysPostList: any = null;
   employeeSummaryEditTitle: string;
   addFlag: boolean;
   action = '';
   constructor(
+    private ngbModal: NgbModal,
     private modalService: ModalService,
     private httpService: HttpService,
     private formBuilder: FormBuilder,
@@ -87,23 +81,23 @@ export class EmployeeSummaryEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    // 新增时获取部门列表
-    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
+    // 获取单位列表
+    this.httpService.post(SystemConstant.COMPANY_LIST, {}).subscribe({
       next: (data) => {
-        this.employeeSummaryRequest.sysCompanyOfficeList = data;
+        this.companyData = data;
       },
       complete: () => {
       }
     });
     // 新增时获取工种列表
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
       next: (data) => {
-        this.employeeSummaryRequest.SysPostList = data;
+        this.sysPostList = data;
       },
       complete: () => {
       }
     });
-    const preEvaluationId = this.employeeSummaryRequest.employeeSummary.id;
+    const preEvaluationId = this.employeeSummary.id;
     console.log(preEvaluationId);
     if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
       this.action = '新增';
@@ -117,6 +111,30 @@ export class EmployeeSummaryEditComponent implements OnInit {
   }
 
   /**
+   * 修改单位
+   */
+  changeCompany() {
+    this.employeeSummary.empId = '';
+    this.employeeSummary.empName = '';
+  }
+
+  /**
+   * 选择人员
+   */
+  selectEmployee() {
+    const modalRef = this.ngbModal.open(SelectEmployeeComponent, {size: 'lg'});
+    modalRef.componentInstance.companyId = this.employeeSummary.companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result.success === 'success') {
+          this.employeeSummary.empId = result.sysEmployee.id;
+          this.employeeSummary.empName = result.sysEmployee.empName;
+        }
+      }
+    );
+  }
+
+  /**
    * 关闭职工体检信息修改框
    */
   close() {
@@ -127,7 +145,7 @@ export class EmployeeSummaryEditComponent implements OnInit {
    * 提交职工体检信息信息
    */
   submitData() {
-    this.employeeSummaryRequest.employeeSummary.inspectDate = $('#inspectDate').val();
+    this.employeeSummary.inspectDate = $('#inspectDate').val();
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {
@@ -135,7 +153,7 @@ export class EmployeeSummaryEditComponent implements OnInit {
     } else {
       url = SystemConstant.EMPLOYEE_SUMMARY_EDIT;
     }
-    this.httpService.post(url, this.employeeSummaryRequest).subscribe({
+    this.httpService.post(url, this.employeeSummary).subscribe({
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);

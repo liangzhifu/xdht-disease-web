@@ -11,13 +11,14 @@
         <div style="float: left;display: inline;width: 80%;">
           <div class="row row-margin-bottom">
             <div class="col-md-4 xdht-row-col">
-              <label class="col-md-4 col-form-label text-right float-left">姓名：</label>
+              <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
+                姓名：</label>
               <input type="hidden" [(ngModel)]="sysEmployeeRequest.sysEmployee.id" name="sysEmployee.id">
               <input type="text" class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empName" name="sysEmployeeEmpName"
-                     [ngClass]="{'warn': !sysEmployeeEmpName.valid}" #sysEmployeeEmpName="ngModel" required="required" maxlength="10">
+                     [ngClass]="{'warn': !sysEmployeeEmpName.valid}" #sysEmployeeEmpName="ngModel" required="required" maxlength="10" ngbTooltip="长度小于10字符。">
             </div>
             <div class="col-md-4 xdht-row-col">
-              <label class="col-md-4 col-form-label text-right float-left">公司：</label>
+              <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>公司：</label>
               <select class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.companyId" name="sysCompanyOfficeCompanyId"
                       [ngClass]="{'warn': !sysCompanyOfficeCompanyId.valid}" #sysCompanyOfficeCompanyId="ngModel" required="required" (change)="changeCompany()">
                 <option value=""></option>
@@ -25,7 +26,7 @@
               </select>
             </div>
             <div class="col-md-4 xdht-row-col">
-              <label class="col-md-4 col-form-label text-right float-left">部门：</label>
+              <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>部门：</label>
               <input type="hidden" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.id" name="sysCompanyOfficeId">
               <input type="text" class="form-control col-md-5 float-left" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.officeName" name="sysCompanyOfficeName" readonly
                      [ngClass]="{'warn': !sysCompanyOfficeOfficeName.valid}" #sysCompanyOfficeOfficeName="ngModel" required="required">
@@ -45,7 +46,7 @@
             <div class="col-md-4">
               <label class="col-md-4 col-form-label text-right float-left">籍贯：</label>
               <input type="text" class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empNative" name="sysEmployeeEmpNative"
-                maxlength="125">
+                maxlength="125" ngbTooltip="长度小于125字符。">
             </div>
             <div class="col-md-4 xdht-row-col">
               <label class="col-md-4 col-form-label text-right float-left">婚姻：</label>
@@ -67,15 +68,15 @@
             <div class="col-md-4 xdht-row-col">
               <label class="col-md-4 col-form-label text-right float-left">嗜好：</label>
               <input type="text" class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empHobby" name="sysEmployeeEmpHobby"
-                  maxlength="50">
+                  maxlength="50" ngbTooltip="长度小于50字符。">
             </div>
             <div class="col-md-4 xdht-row-col">
-              <label class="col-md-4 col-form-label text-right float-left">身份证号：</label>
+              <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>身份证号：</label>
               <input type="text" class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.empIdentityNumber"
                      id="sysEmployeeEmpIdentityNumber" #sysEmployeeEmpIdentityNumber="ngModel"
                      pattern="^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$" required="required"
                      [ngClass]="{'warn': !sysEmployeeEmpIdentityNumber.valid}"
-                     name="sysEmployeeEmpIdentityNumber">
+                     name="sysEmployeeEmpIdentityNumber" ngbTooltip="请输入正确的身份证号码。">
             </div>
           </div>
           <div class="row">
@@ -115,8 +116,8 @@
             <th width="15%">结束时间</th>
             <th width="17%">工作单位</th>
             <th width="10%">工种</th>
-            <th width="19%">噪声检测结果</th>
-            <th width="19%">防护措施</th>
+            <th width="19%"><span style="color:red;">*</span>噪声检测结果</th>
+            <th width="19%"><span style="color:red;">*</span>防护措施</th>
             <th width="5%"><button class="btn btn-success" (click)="addJob();"><i class="fa fa-plus fa-fw"></i></button></th>
           </tr>
           </thead>
@@ -142,7 +143,7 @@
                 </div>
               </div>
             </td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeJob.companyName" name="employeeJob_{{recordeIndex}}_companyName" maxlength="50"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeJob.companyName" name="employeeJob_{{recordeIndex}}_companyName" maxlength="50" ngbTooltip="长度小于50字符。"
                           #employeeJob_recordeIndex_companyName = "ngModel" required="required" [ngClass]="{'warn': !employeeJob_recordeIndex_companyName.valid}"></td>
             <td>
               <select #select class="form-control" [(ngModel)]="employeeJob.workType"  name="employeeJob_{{recordeIndex}}_workType">
@@ -150,9 +151,9 @@
                 <option *ngFor="let workType of sysWorkTypeList;" value="{{workType.id}}" >{{workType.dictionaryName}}</option>
               </select>
             </td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeJob.noiseDetectionResults" name="employeeJob_{{recordeIndex}}_noiseDetectionResults" maxlength="250"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeJob.noiseDetectionResults" name="employeeJob_{{recordeIndex}}_noiseDetectionResults" maxlength="250" ngbTooltip="长度小于250字符。"
                        #employeeJob_recordeIndex_noiseDetectionResults = "ngModel" required="required" [ngClass]="{'warn': !employeeJob_recordeIndex_noiseDetectionResults.valid}"></td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeJob.protectiveMeasures" name="employeeJob_{{recordeIndex}}_protectiveMeasures" maxlength="250"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeJob.protectiveMeasures" name="employeeJob_{{recordeIndex}}_protectiveMeasures" maxlength="250" ngbTooltip="长度小于250字符。"
                        #employeeJob_recordeIndex_protectiveMeasures = "ngModel" required="required" [ngClass]="{'warn': !employeeJob_recordeIndex_protectiveMeasures.valid}"></td>
             <td>
               <button class="btn btn-danger radius mr-10" type="button" (click)="delJob(recordeIndex)"><i class="fa fa-trash-o fa-fw"></i></button>
@@ -172,15 +173,15 @@
           <tr>
             <th width="20%">疾病名称</th>
             <th width="15%">诊断时间</th>
-            <th width="20%">诊断医院</th>
-            <th width="20%">治疗结果</th>
+            <th width="20%"><span style="color:red;">*</span>诊断医院</th>
+            <th width="20%"><span style="color:red;">*</span>治疗结果</th>
             <th width="20%">备注</th>
             <th width="5%"><button class="btn btn-success" (click)="addCase();"><i class="fa fa-plus fa-fw"></i></button></th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let employeeCase of sysEmployeeRequest.sysEmployeeCaseList;let recordeIndex = index">
-            <td><input type="text" class="form-control" [(ngModel)]="employeeCase.caseName" name="employeeCase_{{recordeIndex}}_caseName" maxlength="50"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeCase.caseName" name="employeeCase_{{recordeIndex}}_caseName" maxlength="50" ngbTooltip="长度小于50字符。"
                        #employeeCase_recordeIndex_caseName = "ngModel" required="required" [ngClass]="{'warn': !employeeCase_recordeIndex_caseName.valid}"></td>
             <td>
               <div class="input-group col-md-12">
@@ -192,11 +193,11 @@
                 </div>
               </div>
             </td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeCase.diagnosisHospital" name="employeeCase_{{recordeIndex}}_diagnosisHospital" maxlength="50"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeCase.diagnosisHospital" name="employeeCase_{{recordeIndex}}_diagnosisHospital" maxlength="50" ngbTooltip="长度小于50字符。"
                        #employeeCase_recordeIndex_diagnosisHospital = "ngModel" required="required" [ngClass]="{'warn': !employeeCase_recordeIndex_diagnosisHospital.valid}"></td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeCase.treatmentResults" name="employeeCase_{{recordeIndex}}_treatmentResults" maxlength="50"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeCase.treatmentResults" name="employeeCase_{{recordeIndex}}_treatmentResults" maxlength="50" ngbTooltip="长度小于50字符。"
                        #employeeCase_recordeIndex_treatmentResults = "ngModel" required="required" [ngClass]="{'warn': !employeeCase_recordeIndex_treatmentResults.valid}"></td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeCase.remarks" name="employeeCase_{{recordeIndex}}_remarks" maxlength="50"></td>
+            <td><input type="text" class="form-control" [(ngModel)]="employeeCase.remarks" name="employeeCase_{{recordeIndex}}_remarks" maxlength="50" ngbTooltip="长度小于50字符。"></td>
             <td>
               <button class="btn btn-danger radius mr-10" type="button" (click)="delCase(recordeIndex)"><i class="fa fa-trash-o fa-fw"></i></button>
             </td>
@@ -215,15 +216,15 @@
           <tr>
             <th width="20%">职业病名称</th>
             <th width="15%">诊断时间</th>
-            <th width="20%">诊断医院</th>
-            <th width="20%">诊断级别</th>
+            <th width="20%"><span style="color:red;">*</span>诊断医院</th>
+            <th width="20%"><span style="color:red;">*</span>诊断级别</th>
             <th width="20%">备注</th>
             <th width="5%"><button class="btn btn-success" (click)="addDisease();"><i class="fa fa-plus fa-fw"></i></button></th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let employeeDisease of sysEmployeeRequest.sysEmployeeDiseaseList;let recordeIndex = index">
-            <td><input type="text" class="form-control" [(ngModel)]="employeeDisease.diseaseName" name="employeeDisease_{{recordeIndex}}_diseaseName" maxlength="50"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeDisease.diseaseName" name="employeeDisease_{{recordeIndex}}_diseaseName" maxlength="50" ngbTooltip="长度小于50字符。"
                        #employeeDisease_recordeIndex_diseaseName = "ngModel" required="required" [ngClass]="{'warn': !employeeDisease_recordeIndex_diseaseName.valid}"></td>
             <td>
               <div class="input-group col-md-12">
@@ -235,11 +236,11 @@
                 </div>
               </div>
             </td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeDisease.diagnosisHospital" name="employeeDisease_{{recordeIndex}}_diagnosisHospital" maxlength="50"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeDisease.diagnosisHospital" name="employeeDisease_{{recordeIndex}}_diagnosisHospital" maxlength="50" ngbTooltip="长度小于50字符。"
                        #employeeDisease_recordeIndex_diagnosisHospital = "ngModel" required="required" [ngClass]="{'warn': !employeeDisease_recordeIndex_diagnosisHospital.valid}"></td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeDisease.diagnosisLevel" name="employeeDisease_{{recordeIndex}}_diagnosisLevel" maxlength="5"
+            <td><input type="text" class="form-control" [(ngModel)]="employeeDisease.diagnosisLevel" name="employeeDisease_{{recordeIndex}}_diagnosisLevel" maxlength="5" ngbTooltip="长度小于5字符。"
                        #employeeDisease_recordeIndex_diagnosisLevel = "ngModel" required="required" [ngClass]="{'warn': !employeeDisease_recordeIndex_diagnosisLevel.valid}"></td>
-            <td><input type="text" class="form-control" [(ngModel)]="employeeDisease.remarks" name="employeeDisease_{{recordeIndex}}_remarks" maxlength="50"></td>
+            <td><input type="text" class="form-control" [(ngModel)]="employeeDisease.remarks" name="employeeDisease_{{recordeIndex}}_remarks" maxlength="50" ngbTooltip="长度小于50字符。"></td>
             <td>
               <button class="btn btn-danger radius mr-10" type="button" (click)="delDisease(recordeIndex)"><i class="fa fa-trash-o fa-fw"></i></button>
             </td>

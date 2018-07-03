@@ -23,6 +23,7 @@
         <div class="table-outframe">
             <table  width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
                 <tr>
+                  <th rowspan="3">单位</th>
                   <th rowspan="3">部门</th>
                   <th rowspan="3">工种</th>
                   <th rowspan="3">姓名</th>
@@ -39,7 +40,6 @@
                   <th rowspan="3">ALTU/L</th>
                   <th rowspan="3">心电图</th>
                   <th colspan="12">纯音听阈测试</th>
-                  <th rowspan="3">状态</th>
                   <th rowspan="3">操作</th>
                 </tr>
                 <tr>
@@ -78,10 +78,11 @@
                   <th>6K</th>
                 </tr>
                 <tr *ngFor="let item of sdt.data;">
-                  <td>{{item.officeId}}</td>
-                  <td>{{item.workType}}</td>
-                  <td>{{item.name}}</td>
-                  <td>{{item.sex | sexReform}}</td>
+                  <td>{{item.companyName}}</td>
+                  <td>{{item.officeName}}</td>
+                  <td>{{item.workTypeName}}</td>
+                  <td>{{item.empName}}</td>
+                  <td>{{item.empSex | sexReform}}</td>
                   <td>{{item.age}}</td>
                   <td>{{item.contactTime}}</td>
                   <td>{{item.inspectDate}}</td>
@@ -118,7 +119,6 @@
                   <td>{{item.dbhl3kR}}</td>
                   <td>{{item.dbhl4kR}}</td>
                   <td>{{item.dbhl6kR}}</td>
-                  <td>{{item.status | statusReform}}</td>
                   <td>
                     <button type="button" style="margin-right: 0px!important" class="btn btn-warning radius mr-10" (click)="editEmployeeSummary(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
                     <button type="button" style="margin-right: 0px!important" class="btn btn-danger radius" (click)="delEmployeeSummary(item.id, item.name)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
@@ -126,7 +126,7 @@
                 </tr>
               </table>
         </div>
-        
+
         <div class="c-mt15">
           <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
         </div>

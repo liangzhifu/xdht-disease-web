@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ModalService} from '../../modal/modal.service';
 import {FormBuilder} from '@angular/forms';
 import {ToastService} from '../../toast/toast.service';
@@ -10,14 +10,15 @@ import {SystemConstant} from '../../core/class/system-constant';
 import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
 import {SimpleDataTableDirective} from '../../simple-data-table/simple-data-table.directive';
-import * as $ from 'jquery';
+import 'jquery';
+declare var $: any;
 
 @Component({
   selector: 'app-select-employee',
   templateUrl: './select-employee.component.html',
   styleUrls: ['./select-employee.component.scss']
 })
-export class SelectEmployeeComponent implements OnInit {
+export class SelectEmployeeComponent implements OnInit, AfterViewInit {
   @Input() companyId = '';
   selectEmployeeTitle: string;
   param = {
@@ -44,6 +45,10 @@ export class SelectEmployeeComponent implements OnInit {
     this.param.companyId = this.companyId;
     this.selectEmployeeTitle = '选择人员';
     this.url = SystemConstant.EMPLOYEE_PAGE_LIST;
+  }
+
+  ngAfterViewInit() {
+    this.search();
   }
 
   /**

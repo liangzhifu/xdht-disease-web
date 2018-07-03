@@ -9,14 +9,14 @@
     <div class="modal-body">
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>编码：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordIndividualProtective.individualProtectiveEquipmentNo"
                  name="recordOtherProtective.otherProtectiveFacilitiesNo"
                  #otherProtectiveFacilitiesNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
                  [ngClass]="{'warn': !otherProtectiveFacilitiesNo.valid}" ngbTooltip="编码长度不大于20">
         </div>
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>核实情况：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordIndividualProtective.verificationResult"
                  name="recordOtherProtective.verificationResult"
                  #verificationResult="ngModel" required="required" maxlength="50"

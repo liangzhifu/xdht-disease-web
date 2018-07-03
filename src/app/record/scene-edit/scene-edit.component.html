@@ -45,7 +45,7 @@
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查人：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryPerson"
                  name="inquiryPerson" id="inquiryPerson" [ngClass]="{'warn': !inquiryPerson.valid}"  #inquiryPerson="ngModel"
-                 required="required" maxlength="10" placeholder="调查人">
+                 required="required" maxlength="10" ngbTooltip="调查人长度不大于10">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查日期：</label>
@@ -63,7 +63,7 @@
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-4 col-form-label text-right float-left">陪同人：</label>
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>陪同人：</label>
           <input type="hidden" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee"
                  name="recordSceneInquiryCompanyEmployee">
           <input type="text" class="form-control col-md-5 float-left"

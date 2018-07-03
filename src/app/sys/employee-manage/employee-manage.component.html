@@ -2,9 +2,31 @@
   <div class="row">
     <div class="col-md-4">
       <label class="col-form-label float-left text-right">职工姓名：</label>
-      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empName" placeholder="请输入职工姓名...">
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empName" >
     </div>
     <div class="col-md-4">
+      <label class="col-form-label float-left text-right">性别：</label>
+      <select class="form-control col-md-7" [(ngModel)]="param.empSex" name="empSex">
+        <option value=""></option>
+        <option value="0">男</option>
+        <option value="1">女</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">籍贯：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empNative" >
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">身份证号：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empIdentityNumber" >
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">婚姻：</label>
+      <select class="form-control col-md-7" [(ngModel)]="param.empMarriage" name="empMarriage">
+        <option value=""></option>
+        <option value="1">已婚</option>
+        <option value="0">未婚</option>
+      </select>
     </div>
     <div class="col-md-4">
       <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
@@ -35,7 +57,7 @@
             <td>{{item.empName}}</td>
             <td>{{item.empSex | sexReform}}</td>
             <td>{{item.empNative}}</td>
-            <td>{{item.empMarriage}}</td>
+            <td>{{item.empMarriage | marriageReform}}</td>
             <td>{{item.empEducation}}</td>
             <td>{{item.empHobby}}</td>
             <td>{{item.empWorkDate}}</td>

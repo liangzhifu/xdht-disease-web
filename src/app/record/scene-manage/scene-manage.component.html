@@ -2,10 +2,30 @@
   <div class="row">
     <div class="col-md-4">
       <label class="col-form-label float-left text-right">项目名称：</label>
-      <input type="text" class="form-control input-pro col-md-8 float-left" ([ngModel])="param.projectName" placeholder="项目名称">
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.projectName" >
     </div>
     <div class="col-md-4">
-
+      <label class="col-form-label float-left text-right">项目编号：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.recordNo" >
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">调查日期：</label>
+      <div class="input-group col-md-7">
+        <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{param.inquiryDate}}" id="inquiryDate" name="inquiryDate" >
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar-icon.png"/>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">调&nbsp;&nbsp;查&nbsp;&nbsp;人：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.inquiryPerson" >
+    </div>
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;份：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.inquiryYear" >
     </div>
     <div class="col-md-4">
       <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>

@@ -26,7 +26,8 @@ export class UserManageComponent implements OnInit, AfterViewInit {
    * 查询条件
    */
   param: any = {
-    userName: ''
+    userName: '',
+    loginCode: ''
   };
   constructor(
     private ngbModal: NgbModal,

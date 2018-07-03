@@ -11,6 +11,7 @@ import { SexReformPipe } from './pipe/sex-reform.pipe';
 import { StatusReformPipe } from './pipe/status-reform.pipe';
 import { SysReformPipe } from './pipe/sys-reform.pipe';
 import { InspectReformPipe } from './pipe/inspect-reform.pipe';
+import { MarriageReformPipe } from './pipe/marriage-reform.pipe';
 
 @NgModule({
   imports: [
@@ -27,16 +28,19 @@ import { InspectReformPipe } from './pipe/inspect-reform.pipe';
   exports: [
     SexReformPipe,
     SysReformPipe,
+    MarriageReformPipe,
     StatusReformPipe,
     WaitComponent,
     InspectReformPipe
   ],
   declarations: [
     SexReformPipe,
+    MarriageReformPipe,
     StatusReformPipe,
     WaitComponent,
     SysReformPipe,
-    InspectReformPipe
+    InspectReformPipe,
+    MarriageReformPipe
   ]
 })
 export class CoreModule { }

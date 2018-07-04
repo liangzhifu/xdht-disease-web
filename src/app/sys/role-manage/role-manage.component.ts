@@ -129,7 +129,7 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
    * @param roleId
    */
   editRoleMenu(roleId) {
-    const modalRef = this.ngbModal.open(MenuChooseComponent);
+    const modalRef = this.ngbModal.open(MenuChooseComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.roleId = roleId;
     modalRef.result.then(
       (result) => {
@@ -146,7 +146,7 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
    * @param roleId
    */
   editRoleKnowledgeCatalog(roleId) {
-    const modalRef = this.ngbModal.open(KnowledgeCatalogChooseComponent);
+    const modalRef = this.ngbModal.open(KnowledgeCatalogChooseComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.roleId = roleId;
     modalRef.result.then(
       (result) => {

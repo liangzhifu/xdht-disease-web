@@ -128,7 +128,7 @@ export class UserManageComponent implements OnInit, AfterViewInit {
    * @param userId
    */
   editUserRole(userId) {
-    const modalRef = this.ngbModal.open(RoleChooseComponent);
+    const modalRef = this.ngbModal.open(RoleChooseComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.userId = userId;
     modalRef.result.then(
       (result) => {

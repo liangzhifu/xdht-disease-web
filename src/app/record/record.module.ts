@@ -72,7 +72,6 @@ import { HealthCareEditComponent } from './health-care-edit/health-care-edit.com
     ControlEffectEditComponent,
     CompanySummaryEditComponent,
     EmergencyFacilitiesEditComponent,
-    EmployeeSummaryEditComponent,
     EquipmentEditComponent,
     EquipmentLayoutEditComponent,
     HazardFactorsEditComponent,

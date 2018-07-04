@@ -24,6 +24,7 @@ import {EmployeeSummaryManageComponent} from './employee-summary-manage/employee
 import {PostPersonnelManageComponent} from './post-personnel-manage/post-personnel-manage.component';
 import {BuildingBaseManageComponent} from './building-base-manage/building-base-manage.component';
 import {BuildingAerationManageComponent} from './building-aeration-manage/building-aeration-manage.component';
+import {EmployeeSummaryEditComponent} from './employee-summary-edit/employee-summary-edit.component';
 
 /**
  * 调查表管理路由
@@ -53,6 +54,7 @@ const recordRoutes: Routes = [
       {path: 'recordHealthManagement', component: HealthManagementManageComponent},
       {path: 'recordVddEquipment', component: VddEquipmentManageComponent},
       {path: 'employeeSummaryManage', component: EmployeeSummaryManageComponent},
+      {path: 'employeeSummaryEdit', component: EmployeeSummaryEditComponent},
       {path: 'companySummaryManage', component: CompanySummaryManageComponent},
       {path: 'buildingAerationManage', component: BuildingAerationManageComponent},
       {path: 'buildingBaseManage', component: BuildingBaseManageComponent}

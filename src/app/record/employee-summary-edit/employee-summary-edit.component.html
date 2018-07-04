@@ -1,14 +1,8 @@
-<div>
+<div class="c-content-inner">
   <form #employeeSummaryForm="ngForm">
-    <div class="modal-header">
-      <label class="modal-title">{{employeeSummaryEditTitle}}</label>
-      <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
+
       <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>单位：</label>
           <select class="form-control col-md-7" #select [(ngModel)]="employeeSummary.companyId"
                   name="companyId" id="companyId" [ngClass]="{'warn': !companyId.valid && addFlag}" #companyId="ngModel"
@@ -17,7 +11,7 @@
             <option *ngFor="let item of companyData;" value="{{item.id}}">{{item.companyName}}</option>
           </select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">姓名：</label>
           <input type="hidden" [(ngModel)]="employeeSummary.empId"
                  name="empId">
@@ -27,9 +21,7 @@
                  id="empName" required name="empName" readonly >
           <button class="btn btn-primary col-md-2" (click)="selectEmployee();" [disabled]="!employeeSummary.companyId">查询</button>
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">工种：</label>
           <select class="form-control col-md-7" [(ngModel)]="employeeSummary.workType" name="workType" required
                   [ngClass]="{'warn': !workType.valid}" #workType="ngModel">
@@ -37,14 +29,14 @@
             <option *ngFor="let sysPost of sysPostList;" value="{{sysPost.id}}" >{{sysPost.dictionaryName}}</option>
           </select>
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">接噪工龄：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.contactTime" name="contactTime"
                  [ngClass]="{'warn': !contactTime.valid}" #contactTime="ngModel" required="required" maxlength="20" pattern="^[0-9]+$">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">体检日期：</label>
           <div class="input-group col-md-7" style="padding-left: 0px; padding-right: 0px;">
             <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{employeeSummary.inspectDate}}" id="inspectDate" name="inspectDate" readonly>
@@ -55,7 +47,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">初检/复检：</label>
           <select [(ngModel)]="employeeSummary.inspect" class="form-control col-md-7" name="inspect"
                   [ngClass]="{'warn': !inspect.valid}" #inspect="ngModel" required="required">
@@ -66,75 +58,71 @@
         </div>
       </div>
       <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">危害因素：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.hazardFactor" name="hazardFactor"
                  [ngClass]="{'warn': !hazardFactor.valid}" #hazardFactor="ngModel" required="required" maxlength="50">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">收缩压：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.bloodPressureShrink" name="bloodPressureShrink"
                  [ngClass]="{'warn': !bloodPressureShrink.valid}" #bloodPressureShrink="ngModel" required="required" pattern="^[0-9]+$" maxlength="20">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">舒张压：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.bloodPressureDiastole"
                  name="bloodPressureDiastole"  maxlength="20"
                  [ngClass]="{'warn': !bloodPressureDiastole.valid}" #bloodPressureDiastole="ngModel" required="required" pattern="^[0-9]+$">
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">心脏：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.heart" name="heart"
                  [ngClass]="{'warn': !heart.valid}" #heart="ngModel" required="required" maxlength="50">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">肺：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.lungs" name="lungs"
                  [ngClass]="{'warn': !lungs.valid}" #lungs="ngModel" required="required" maxlength="50">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">皮肤粘膜：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.skinMucousMembrane" name="skinMucousMembrane"
                  [ngClass]="{'warn': !skinMucousMembrane.valid}" #skinMucousMembrane="ngModel" required="required" maxlength="50">
         </div>
       </div>
       <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">浅表淋巴结：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.lymphNode" name="lymphNode"
                  [ngClass]="{'warn': !lymphNode.valid}" #lymphNode="ngModel" required="required" maxlength="50">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">甲状腺：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.thyroidGland"  name="thyroidGland"
                  [ngClass]="{'warn': !thyroidGland.valid}" #thyroidGland="ngModel" required="required" maxlength="50">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">耳：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.ear"  name="ear"
                  [ngClass]="{'warn': !ear.valid}" #ear="ngModel" required="required" maxlength="50">
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">白细胞×109/L：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.whiteBloodCell"
                  name="whiteBloodCell" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !whiteBloodCell.valid}" #whiteBloodCell="ngModel" required="required" maxlength="20">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">中性粒细胞计数×109/L：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.neutrophileGranulocyte"
                  name="neutrophileGranulocyte" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !neutrophileGranulocyte.valid}" #neutrophileGranulocyte="ngModel" required="required" maxlength="20">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">红细胞计数×1012/L：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.redBloodCell"
                  name="redBloodCell" pattern="^[0-9]+$"
@@ -142,41 +130,39 @@
         </div>
       </div>
       <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">血色素g/L：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.hemoglobin"
                  name="hemoglobin" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !hemoglobin.valid}" #hemoglobin="ngModel" required="required" maxlength="20">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">血小板×109/L：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.platelet"
                  name="platelet" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !platelet.valid}" #platelet="ngModel" required="required" maxlength="20">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">白细胞(尿)：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.whiteBloodCellUrine"
                  name="whiteBloodCellUrine"
                  [ngClass]="{'warn': !whiteBloodCellUrine.valid}" #whiteBloodCellUrine="ngModel" required="required" maxlength="50">
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">尿蛋白：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.urineProtein"
                  name="urineProtein"
                  [ngClass]="{'warn': !urineProtein.valid}" #urineProtein="ngModel" required="required" maxlength="50">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">尿潜血：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.urineOccultBlood"
                  name="urineOccultBlood"
                  [ngClass]="{'warn': !urineOccultBlood.valid}" #urineOccultBlood="ngModel" required="required" maxlength="50">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">尿糖：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.urineSugar"
                  name="urineSugar"
@@ -184,41 +170,39 @@
         </div>
       </div>
       <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">ALTU/L：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.altuL"
                  name="altuL"
                  [ngClass]="{'warn': !altuL.valid}" #altuL="ngModel" required="required" maxlength="50">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">心电图：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.electrocardiogram"
                  name="electrocardiogram"
                  [ngClass]="{'warn': !electrocardiogram.valid}" #electrocardiogram="ngModel" required="required" maxlength="50">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl500L：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl500L"
                  name="dbhl500L" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl500L.valid}" #dbhl500L="ngModel" required="required" maxlength="20">
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl1kL：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl1kL"
                  name="dbhl1kL" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl1kL.valid}" #dbhl1kL="ngModel" required="required" maxlength="20">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl2kL：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl2kL"
                  name="dbhl2kL" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl2kL.valid}" #dbhl2kL="ngModel" required="required" maxlength="20">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl3kL：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl3kL"
                  name="dbhl3kL" pattern="^[0-9]+$"
@@ -226,41 +210,39 @@
         </div>
       </div>
       <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl4kL ：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl4kL"
                  name="dbhl4kL" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl4kL.valid}" #dbhl4kL="ngModel" required="required" maxlength="20">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl6kL ：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl6kL"
                  name="dbhl6kL" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl6kL.valid}" #dbhl6kL="ngModel" required="required" maxlength="20">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl500R ：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl500R"
                  name="dbhl500R" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl500R.valid}" #dbhl500R="ngModel" required="required" maxlength="20">
         </div>
-        <div class="col-md-6">
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl1kR ：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl1kR"
                  name="dbhl1kR" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl1kR.valid}" #dbhl1kR="ngModel" required="required" maxlength="20">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl2kR ：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl2kR"
                  name="dbhl2kR" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl2kR.valid}" #dbhl2kR="ngModel" required="required" maxlength="20">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl3kR ：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl3kR"
                  name="dbhl3kR" pattern="^[0-9]+$"
@@ -268,20 +250,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl4kR ：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl4kR"
                  name="dbhl4kR" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl4kR.valid}" #dbhl4kR="ngModel" required="required" maxlength="20">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">dbhl6kR ：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.dbhl6kR"
                  name="dbhl6kR" pattern="^[0-9]+$"
                  [ngClass]="{'warn': !dbhl6kR.valid}" #dbhl6kR="ngModel" required="required" maxlength="20">
         </div>
       </div>
-    </div>
+
     <div class="modal-footer">
       <div class="op-btn">
         <button type="button" class="btn btn-success button-margin-right" [disabled]="!employeeSummaryForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>

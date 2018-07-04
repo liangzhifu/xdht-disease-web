@@ -8,8 +8,7 @@ import {SimpleDataHttpPageComponent} from '../../simple-data-table/simple-data-h
 import {HttpService} from '../../core/http/http.service';
 import {ToastType} from '../../toast/toast-type.enum';
 import {WaitService} from '../../core/wait/wait.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {EmployeeSummaryEditComponent} from '../employee-summary-edit/employee-summary-edit.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-employee-summary-manage',
@@ -28,11 +27,11 @@ export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
     name: ''
   };
   constructor(
-    private ngbModal: NgbModal,
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -56,46 +55,14 @@ export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
    * 新增职工体检信息
    */
   addEmployeeSummary() {
-    const modalRef = this.ngbModal.open(EmployeeSummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-          this.search();
-        }
-      }
-    );
+    this.router.navigate(['/main/record/employeeSummaryEdit'], {queryParams: {id: null}});
   }
 
   /**
    * 修改职工体检信息
    */
   editEmployeeSummary(employeeSummaryId) {
-    // 获取企业数据
-    this.httpService.get(SystemConstant.EMPLOYEE_SUMMARY_DETAIL + '/' + employeeSummaryId).subscribe({
-      next: (data) => {
-        this.openEmployeeSummary(data);
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取职工体检信息失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
-  }
-
-  /**
-   * 打开修改职工体检信息对话框
-   */
-  openEmployeeSummary(employeeSummaryData) {
-    const modalRef = this.ngbModal.open(EmployeeSummaryEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
-    modalRef.componentInstance.employeeSummaryRequest = employeeSummaryData;
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-          this.search();
-        }
-      }
-    );
+    this.router.navigate(['/main/record/employeeSummaryEdit'], {queryParams: {id: employeeSummaryId}});
   }
 
   /**

@@ -1,15 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ModalService} from '../../modal/modal.service';
 import {WaitService} from '../../core/wait/wait.service';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
-import {FormBuilder} from '@angular/forms';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
-import 'jquery';
 import {SelectEmployeeComponent} from '../select-employee/select-employee.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import 'jquery';
 declare var $: any;
 
 @Component({
@@ -18,7 +18,7 @@ declare var $: any;
   styleUrls: ['./employee-summary-edit.component.scss']
 })
 export class EmployeeSummaryEditComponent implements OnInit {
-  @Input() employeeSummary = {
+  employeeSummary = {
       id: '',
       empId: '',
       empName: '',
@@ -73,10 +73,10 @@ export class EmployeeSummaryEditComponent implements OnInit {
     private ngbModal: NgbModal,
     private modalService: ModalService,
     private httpService: HttpService,
-    private formBuilder: FormBuilder,
-    private activeModal: NgbActiveModal,
     private toastService: ToastService,
-    private waitService: WaitService
+    private waitService: WaitService,
+    private activeRoute: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -97,17 +97,29 @@ export class EmployeeSummaryEditComponent implements OnInit {
       complete: () => {
       }
     });
-    const preEvaluationId = this.employeeSummary.id;
-    console.log(preEvaluationId);
-    if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
-      this.action = '新增';
-      this.addFlag = true;
-      this.employeeSummaryEditTitle = '新增职工体检信息';
-    } else {
-      this.action = '修改';
-      this.addFlag = false;
-      this.employeeSummaryEditTitle = '修改职工体检信息';
-    }
+    this.activeRoute.queryParams.subscribe(params => {
+      const id = params['id'];
+      if (id === undefined || id === null || id === '') {
+        this.action = '新增';
+        this.addFlag = true;
+        this.employeeSummaryEditTitle = '新增职工体检信息';
+      } else {
+        this.action = '修改';
+        this.addFlag = false;
+        this.employeeSummaryEditTitle = '修改职工体检信息';
+        // 获取企业数据
+        this.httpService.get(SystemConstant.EMPLOYEE_SUMMARY_DETAIL + '/' + id).subscribe({
+          next: (data) => {
+            this.employeeSummary = data;
+          },
+          error: (err) => {
+            const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取职工体检信息失败！' + '失败原因：' + err, 3000);
+            this.toastService.toast(toastCfg);
+          },
+          complete: () => {}
+        });
+      }
+    });
   }
 
   /**
@@ -138,7 +150,7 @@ export class EmployeeSummaryEditComponent implements OnInit {
    * 关闭职工体检信息修改框
    */
   close() {
-    this.activeModal.dismiss('failed');
+    this.router.navigate(['/main/record/employeeSummaryManage']);
   }
 
   /**
@@ -157,13 +169,11 @@ export class EmployeeSummaryEditComponent implements OnInit {
       next: (data) => {
         const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
         this.toastService.toast(toastCfg);
-        this.activeModal.close('success');
-        const status = data.status;
+        this.router.navigate(['/main/record/employeeSummaryManage']);
       },
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
         this.toastService.toast(toastCfg);
-        this.activeModal.dismiss('failed');
       },
       complete: () => {
       }

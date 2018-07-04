@@ -40,6 +40,7 @@ import { KnowledgeHistoryComponent } from './knowledge-history/knowledge-history
 import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledge-catalog-edit.component';
 import { SystemNoticeManageComponent } from './system-notice-manage/system-notice-manage.component';
 import { SystemNoticeDetailComponent } from './system-notice-detail/system-notice-detail.component';
+import { CompanyOfficeDropdownComponent } from './company-office-dropdown/company-office-dropdown.component';
 
 @NgModule({
   imports: [
@@ -113,7 +114,11 @@ import { SystemNoticeDetailComponent } from './system-notice-detail/system-notic
     KnowledgeHistoryComponent,
     KnowledgeCatalogEditComponent,
     SystemNoticeManageComponent,
-    SystemNoticeDetailComponent
+    SystemNoticeDetailComponent,
+    CompanyOfficeDropdownComponent
+  ],
+  exports: [
+    CompanyOfficeDropdownComponent
   ]
 })
 export class SysModule { }

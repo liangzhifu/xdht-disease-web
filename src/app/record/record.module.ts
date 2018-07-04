@@ -56,6 +56,7 @@ import { BuildingAerationEditComponent } from './building-aeration-edit/building
 import { AuxiliaryHealthEditComponent } from './auxiliary-health-edit/auxiliary-health-edit.component';
 import { RecordFundsEditComponent } from './record-funds-edit/record-funds-edit.component';
 import { HealthCareEditComponent } from './health-care-edit/health-care-edit.component';
+import {SysModule} from '../sys/sys.module';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { HealthCareEditComponent } from './health-care-edit/health-care-edit.com
     NgbModule,
     ReactiveFormsModule,
     RecordRoutingModule,
-    SimpleDataTableModule
+    SimpleDataTableModule,
+    SysModule
   ],
   entryComponents: [
     AntiNoiseEditComponent,

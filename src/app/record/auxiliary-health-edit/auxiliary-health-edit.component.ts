@@ -30,7 +30,6 @@ export class AuxiliaryHealthEditComponent implements OnInit {
       id: '',
       auxiliaryHealthId: '',
       officeId: '',
-      officeName: '',
       workPlace: '',
       hygienicRoom: '',
       livingRoom: ''
@@ -84,7 +83,6 @@ export class AuxiliaryHealthEditComponent implements OnInit {
       id: '',
       auxiliaryHealthId: '',
       officeId: '',
-      officeName: '',
       workPlace: '',
       hygienicRoom: '',
       livingRoom: ''
@@ -129,19 +127,9 @@ export class AuxiliaryHealthEditComponent implements OnInit {
 
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordAuxiliaryHealthDataList[index].officeId = sysCompanyOffice.id;
-          this.recordData.recordAuxiliaryHealthDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.recordData.recordAuxiliaryHealthDataList[data.index].officeId = data.officeId;
   }
-
 }

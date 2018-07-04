@@ -54,7 +54,7 @@
                    [ngClass]="{'warn': !inquiryDate.valid}" #inquiryDate="ngModel" required="required"
                    [(ngModel)]="recordSceneRequest.recordScene.inquiryDatepicker" readonly>
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" (click)="d.toggle();change()" type="button">
+              <button class="btn btn-outline-secondary" (click)="d.toggle();" type="button">
                 <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
               </button>
             </div>

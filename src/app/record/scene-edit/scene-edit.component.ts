@@ -10,9 +10,9 @@ import {ToastConfig} from '../../toast/toast-config';
 import {SystemConstant} from '../../core/class/system-constant';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SelectEmployeeComponent} from '../select-employee/select-employee.component';
-import * as $ from 'jquery';
 import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-record-scene-edit',
@@ -141,7 +141,7 @@ export class SceneEditComponent implements OnInit {
    */
   submitData() {
     let num = 0;
-    this.recordSceneRequest.recordScene.inquiryDate = $('#inquiryDate').val();
+    this.recordSceneRequest.recordScene.inquiryDate =  $('#inquiryDate').val();
     for (let i = 0; i < this.recordSceneRequest.recordScenQuestionnaireList.length; i++) {
       if ($('#checkbox-' + this.recordSceneRequest.recordScenQuestionnaireList[i].questionnaireId).is(':checked')) {
         this.recordSceneRequest.recordScenQuestionnaireList[i].generatorRecord = '1';
@@ -203,10 +203,5 @@ export class SceneEditComponent implements OnInit {
         }
       }
     );
-  }
-
-  change() {
-    const inquiryDate = $('#inquiryDate').val().substring(0, 4);
-    $('#year').val(inquiryDate);
   }
 }

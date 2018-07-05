@@ -53,7 +53,6 @@ export class CompanyOfficeDropdownComponent implements OnInit {
    * 打开部门树形结构
    */
   openZTree(companyId, officeId) {
-    console.log('companyId:' + companyId + '---officeId:' + officeId);
     if (companyId == null || companyId === '') {
       $.fn.zTree.init($('#company_office_ztree_' + this.treeSeq), this.setting, null);
       this.officeName = '';

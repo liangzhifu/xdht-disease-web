@@ -35,12 +35,10 @@
             </tr>
             <tr *ngFor="let item of recordData.recordTemperatureDataList;let recordIndex=index;"  >
               <td>
-                <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.companyOfficeId">
-                <input type="text" class="form-control col-md-7" style="display:inline;" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
-                       [ngClass]="{'warn': !officeName_recordIndex.valid}" #officeName_recordIndex="ngModel" required="required">
-                <button class="btn btn-primary" (click)="searchEmployeeOffice(recordIndex);">查询</button>
+                <input type="text" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
+                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.companyOfficeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
               </td>
-              <td width="20px;">
+              <td>
                 <select #select class="form-control" [(ngModel)]="item.postId" name="item{{recordIndex}}.postId"
                         [ngClass]="{'warn': !postId_recordIndex.valid}" #postId_recordIndex="ngModel" required="required">
                   <option value="">--请选择岗位--</option>

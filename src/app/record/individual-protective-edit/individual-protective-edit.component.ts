@@ -7,7 +7,6 @@ import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-individual-protective-edit',
@@ -28,7 +27,6 @@ export class IndividualProtectiveEditComponent implements OnInit {
     recordIndividualProtectiveDataList: [{
       id: '',
       companyOfficeId: '',
-      officeName: '',
       postId: '',
       hazardFactors: '',
       protectiveEquipment: '',
@@ -95,7 +93,6 @@ export class IndividualProtectiveEditComponent implements OnInit {
     this.recordData.recordIndividualProtectiveDataList[index] = {
         id: '',
         companyOfficeId: '',
-        officeName: '',
         postId: '',
         hazardFactors: '',
         protectiveEquipment: '',
@@ -145,19 +142,10 @@ export class IndividualProtectiveEditComponent implements OnInit {
   }
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordIndividualProtectiveDataList[index].companyOfficeId = sysCompanyOffice.id;
-          this.recordData.recordIndividualProtectiveDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.recordData.recordIndividualProtectiveDataList[data.index].companyOfficeId = data.officeId;
   }
 
 

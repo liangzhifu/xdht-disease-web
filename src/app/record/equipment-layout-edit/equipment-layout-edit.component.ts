@@ -6,9 +6,8 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
-import * as $ from 'jquery';
 import {ModalService} from '../../modal/modal.service';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
+
 @Component({
   selector: 'app-equipment-layout-edit',
   templateUrl: './equipment-layout-edit.component.html',
@@ -51,7 +50,7 @@ export class EquipmentLayoutEditComponent implements OnInit {
   ngOnInit() {
     if (this.recordData.recordEquipmentLayout === null
       || this.recordData.recordEquipmentLayout.id === null
-      || this.recordData.recordEquipmentLayout.id === ''){
+      || this.recordData.recordEquipmentLayout.id === '') {
       this.addFlag = true;
       this.recordEquipmentLayoutEditTitle = '新增--设备设施布局调查表';
       this.recordData.recordEquipmentLayout = {
@@ -133,19 +132,10 @@ export class EquipmentLayoutEditComponent implements OnInit {
   }
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordEquipmentLayoutDataList[index].officeId = sysCompanyOffice.id;
-          this.recordData.recordEquipmentLayoutDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.recordData.recordEquipmentLayoutDataList[data.index].officeId = data.officeId;
   }
 
 }

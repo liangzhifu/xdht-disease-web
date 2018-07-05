@@ -11,6 +11,7 @@ import { SysModule } from './sys/sys.module';
 import { ModalModule } from './modal/modal.module';
 import { MainModule } from './main/main.module';
 import { RecordModule } from './record/record.module';
+import {TitleService} from './title.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,11 @@ import { RecordModule } from './record/record.module';
     RecordModule,
     ToastModule
   ],
-  providers: [],
+  exports: [
+  ],
+  providers: [
+    TitleService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

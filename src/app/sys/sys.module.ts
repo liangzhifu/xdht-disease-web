@@ -18,8 +18,6 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { MenuChooseComponent } from './menu-choose/menu-choose.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoleChooseComponent } from './role-choose/role-choose.component';
-import { CompanyOfficeEditComponent } from './company-office-edit/company-office-edit.component';
-
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
 import { DictionaryManageComponent } from './dictionary-manage/dictionary-manage.component';
@@ -57,7 +55,6 @@ import { CompanyOfficeDropdownComponent } from './company-office-dropdown/compan
   entryComponents: [
     CompanyEditComponent,
     CompanyOfficeChooseComponent,
-    CompanyOfficeEditComponent,
     CompanyOfficeManageComponent,
     DictionaryEditComponent,
     EmployeeEditComponent,
@@ -78,7 +75,6 @@ import { CompanyOfficeDropdownComponent } from './company-office-dropdown/compan
   declarations: [
     CompanyEditComponent,
     CompanyManageComponent,
-    CompanyOfficeEditComponent,
     CompanyOfficeManageComponent,
     EditPasswordComponent,
     EmployeeManageComponent,

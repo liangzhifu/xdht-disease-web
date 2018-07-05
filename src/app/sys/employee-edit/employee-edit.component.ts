@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
@@ -8,11 +8,9 @@ import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
-import {AlertType} from '../../modal/alert/alert-type';
-import {AlertConfig} from '../../modal/alert/alert-config';
-import {CompanyOfficeChooseComponent} from '../company-office-choose/company-office-choose.component';
 import {FileUploader} from 'ng2-file-upload';
 import {SessionStorageService} from '../../core/storage/session-storage.service';
+import {CompanyOfficeDropdownComponent} from '../company-office-dropdown/company-office-dropdown.component';
 import 'jquery';
 declare var $: any;
 
@@ -22,6 +20,7 @@ declare var $: any;
   styleUrls: ['./employee-edit.component.scss']
 })
 export class EmployeeEditComponent implements OnInit {
+  @ViewChild('acod', undefined) acod: CompanyOfficeDropdownComponent;
   @Input()
   change: any;
   defImg: string;
@@ -32,6 +31,7 @@ export class EmployeeEditComponent implements OnInit {
   @Input() sysEmployeeRequest = {
     sysEmployee: {
       id: '',
+      companyId: '',
       officeId: '',
       empName: '',
       empSex: '',
@@ -44,9 +44,8 @@ export class EmployeeEditComponent implements OnInit {
       imageName: ''
     },
     sysCompanyOffice: {
-      id : '',
-      companyId: '',
-      officeName: ''
+      id: '',
+      companyId: ''
     },
     sysEmployeeJobList: [{
       id: '',
@@ -142,6 +141,8 @@ export class EmployeeEditComponent implements OnInit {
       this.addFlag = false;
       this.employeeEditTitle = '修改职工信息';
       $('#employeeImg').attr('src', SystemConstant.IMAG_PATH + this.sysEmployeeRequest.sysEmployee.imageName);
+      this.sysEmployeeRequest.sysEmployee.companyId = this.sysEmployeeRequest.sysCompanyOffice.companyId;
+      this.sysEmployeeRequest.sysEmployee.officeId = this.sysEmployeeRequest.sysCompanyOffice.id;
     }
   }
 
@@ -163,7 +164,6 @@ export class EmployeeEditComponent implements OnInit {
     } else {
       url = SystemConstant.EMPLOYEE_EDIT;
     }
-    this.sysEmployeeRequest.sysEmployee.officeId = this.sysEmployeeRequest.sysCompanyOffice.id;
     this.sysEmployeeRequest.sysEmployee.empWorkDate = $('#sysEmployeeEmpWorkDate').val();
     for (let i = 0; i < this.sysEmployeeRequest.sysEmployeeCaseList.length; i++) {
       this.sysEmployeeRequest.sysEmployeeCaseList[i].diagnosisDate = $('#employeeCase_' + i + '_diagnosisDate').val();
@@ -266,25 +266,10 @@ export class EmployeeEditComponent implements OnInit {
 
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice() {
-    const companyId = this.sysEmployeeRequest.sysCompanyOffice.companyId;
-    if (companyId === undefined || companyId === null || companyId === '') {
-      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, null, '请先选择一个公司！');
-      this.modalService.alert(alertConfig);
-      return false;
-    }
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.sysEmployeeRequest.sysCompanyOffice.id = sysCompanyOffice.id;
-          this.sysEmployeeRequest.sysCompanyOffice.officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.sysEmployeeRequest.sysEmployee.officeId = data.officeId;
   }
 
   /**
@@ -322,7 +307,7 @@ export class EmployeeEditComponent implements OnInit {
    * 单位修改
    */
   changeCompany() {
-    this.sysEmployeeRequest.sysCompanyOffice.id = '';
-    this.sysEmployeeRequest.sysCompanyOffice.officeName = '';
+    this.sysEmployeeRequest.sysEmployee.officeId = '';
+    this.acod.openZTree(this.sysEmployeeRequest.sysEmployee.companyId, this.sysEmployeeRequest.sysEmployee.officeId);
   }
 }

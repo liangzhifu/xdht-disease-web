@@ -6,7 +6,6 @@ import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 import {ModalService} from '../../modal/modal.service';
 
 @Component({
@@ -133,18 +132,9 @@ export class HazardFactorsEditComponent implements OnInit {
 
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordHazardFactorsDataList[index].officeId = sysCompanyOffice.id;
-          this.recordData.recordHazardFactorsDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.recordData.recordHazardFactorsDataList[data.index].officeId = data.officeId;
   }
 }

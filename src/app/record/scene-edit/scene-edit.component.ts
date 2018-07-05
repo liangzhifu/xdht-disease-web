@@ -119,7 +119,7 @@ export class SceneEditComponent implements OnInit {
       this.addFlag = false;
       this.action = '修改';
       this.recordSceneEditTitle = '修改--职业卫生现场调查记录';
-       $('#inquiryDate').val(this.recordSceneRequest.recordScene.inquiryDate);
+       $('#inquiryDate1').val(this.recordSceneRequest.recordScene.inquiryDate);
       this.recordSceneRequest.recordScene.inquiryDatepicker = {
         year: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(0, 4)),
         month: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(5, 7)),
@@ -141,7 +141,7 @@ export class SceneEditComponent implements OnInit {
    */
   submitData() {
     let num = 0;
-    this.recordSceneRequest.recordScene.inquiryDate =  $('#inquiryDate').val();
+    this.recordSceneRequest.recordScene.inquiryDate =  $('#inquiryDate1').val();
     for (let i = 0; i < this.recordSceneRequest.recordScenQuestionnaireList.length; i++) {
       if ($('#checkbox-' + this.recordSceneRequest.recordScenQuestionnaireList[i].questionnaireId).is(':checked')) {
         this.recordSceneRequest.recordScenQuestionnaireList[i].generatorRecord = '1';

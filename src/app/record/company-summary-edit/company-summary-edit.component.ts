@@ -58,7 +58,6 @@ export class CompanySummaryEditComponent implements OnInit {
       }
     });
     const preEvaluationId = this.companySummary.id;
-    console.log(preEvaluationId);
     if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
       this.action = '新增';
       this.addFlag = true;

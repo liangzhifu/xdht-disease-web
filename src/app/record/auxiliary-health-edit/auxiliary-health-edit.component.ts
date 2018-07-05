@@ -7,7 +7,6 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-auxiliary-health-edit',

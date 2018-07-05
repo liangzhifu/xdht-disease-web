@@ -35,10 +35,8 @@
             </tr>
             <tr *ngFor="let item of recordData.recordHazardFactorsDataList;let recordIndex=index;"  >
               <td>
-                <input type="hidden" [(ngModel)]="item.officeId" name="item{{recordIndex}}.officeId">
-                <input type="text" class="form-control col-md-8" style="display: inline" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
-                       [ngClass]="{'warn': !officeName_recordIndex.valid}" #officeName_recordIndex="ngModel" required="required">
-                <button class="btn btn-primary" (click)="searchEmployeeOffice(recordIndex);">查询</button>
+                <input type="text" [(ngModel)]="item.officeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
+                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.officeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
               </td>
               <td><input type="text" class="form-control" [(ngModel)]="item.processName" name="item{{recordIndex}}.processName"
                          ngbTooltip="工艺过程长度不大于50" maxlength="50"></td>

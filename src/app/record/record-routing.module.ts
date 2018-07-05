@@ -25,6 +25,7 @@ import {PostPersonnelManageComponent} from './post-personnel-manage/post-personn
 import {BuildingBaseManageComponent} from './building-base-manage/building-base-manage.component';
 import {BuildingAerationManageComponent} from './building-aeration-manage/building-aeration-manage.component';
 import {EmployeeSummaryEditComponent} from './employee-summary-edit/employee-summary-edit.component';
+import {SceneEditComponent} from './scene-edit/scene-edit.component';
 
 /**
  * 调查表管理路由
@@ -35,6 +36,7 @@ const recordRoutes: Routes = [
     component: RecordComponent,
     children: [
       {path: 'recordSceneManage', component: SceneManageComponent},
+      {path: 'recordSceneEdit', component: SceneEditComponent},
       {path: 'recordPreEvaManage', component: PreEvaluationManageComponent},
       {path: 'recordPresentSituation', component: PresentSituationManageComponent},
       {path: 'recordControlEffect', component: ControlEffectManageComponent},

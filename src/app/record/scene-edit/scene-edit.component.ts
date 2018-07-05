@@ -8,11 +8,12 @@ import {ToastService} from '../../toast/toast.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {SystemConstant} from '../../core/class/system-constant';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SelectEmployeeComponent} from '../select-employee/select-employee.component';
-import * as $ from 'jquery';
 import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
+import {ActivatedRoute, Router} from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-record-scene-edit',
@@ -68,8 +69,9 @@ export class SceneEditComponent implements OnInit {
     private httpService: HttpService,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
-    private activeModal: NgbActiveModal,
-    private waitService: WaitService
+    private waitService: WaitService,
+    private activeRoute: ActivatedRoute,
+    private router: Router
   ) {
     // 获取单位列表
     this.httpService.post(SystemConstant.COMPANY_LIST, {}).subscribe({
@@ -91,41 +93,53 @@ export class SceneEditComponent implements OnInit {
       complete: () => {
       }
     });
-    if (this.recordSceneRequest.recordScene.id === undefined
-      || this.recordSceneRequest.recordScene.id === null
-      || this.recordSceneRequest.recordScene.id === '') {
-      this.addFlag = true;
-      this.action = '新增';
-      this.recordSceneEditTitle = '新增--职业卫生现场调查记录';
-      // 获取问卷的列表
-      this.httpService.post(SystemConstant.QUESTION_LIST, null).subscribe({
-        next: (data) => {
-          this.recordSceneRequest.recordScenQuestionnaireList = [];
-          for (let i = 0; i < data.length; i++) {
-            const recordSceneQuestionData = {
-              'id': '',
-              'sceneId': '',
-              'questionnaireId': data[i].id,
-              'generatorRecord': '',
-              'questionnaireName': data[i].questionnaireName
-            };
-            this.recordSceneRequest.recordScenQuestionnaireList.push(recordSceneQuestionData);
+    this.activeRoute.queryParams.subscribe(params => {
+      const id = params['id'];
+      if (id === undefined || id === null || id === '') {
+        this.action = '新增';
+        this.addFlag = true;
+        this.recordSceneEditTitle = '新增--职业卫生现场调查记录';
+        // 获取问卷的列表
+        this.httpService.post(SystemConstant.QUESTION_LIST, null).subscribe({
+          next: (data) => {
+            this.recordSceneRequest.recordScenQuestionnaireList = [];
+            for (let i = 0; i < data.length; i++) {
+              const recordSceneQuestionData = {
+                'id': '',
+                'sceneId': '',
+                'questionnaireId': data[i].id,
+                'generatorRecord': '',
+                'questionnaireName': data[i].questionnaireName
+              };
+              this.recordSceneRequest.recordScenQuestionnaireList.push(recordSceneQuestionData);
+            }
+          },
+          complete: () => {
           }
-        },
-        complete: () => {
-        }
-      });
-    } else {
-      this.addFlag = false;
-      this.action = '修改';
-      this.recordSceneEditTitle = '修改--职业卫生现场调查记录';
-       $('#inquiryDate').val(this.recordSceneRequest.recordScene.inquiryDate);
-      this.recordSceneRequest.recordScene.inquiryDatepicker = {
-        year: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(0, 4)),
-        month: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(5, 7)),
-        day: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(8, 10))
-      };
-    }
+        });
+      } else {
+        this.action = '修改';
+        this.addFlag = false;
+        this.recordSceneEditTitle = '修改--职业卫生现场调查记录';
+        // 获取职业卫生现场调查记录数据
+        this.httpService.get(SystemConstant.RECORD_SCENE_DETAIL + '/' + id).subscribe({
+          next: (data) => {
+            this.recordSceneRequest = data;
+            $('#inquiryDate').val(this.recordSceneRequest.recordScene.inquiryDate);
+            this.recordSceneRequest.recordScene.inquiryDatepicker = {
+              year: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(0, 4)),
+              month: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(5, 7)),
+              day: Number(this.recordSceneRequest.recordScene.inquiryDate.substring(8, 10))
+            };
+          },
+          error: (err) => {
+            const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取用户详情失败！' + '失败原因：' + err, 3000);
+            this.toastService.toast(toastCfg);
+          },
+          complete: () => {}
+        });
+      }
+    });
   }
 
 
@@ -133,7 +147,7 @@ export class SceneEditComponent implements OnInit {
    * 关闭对话框
    */
   close() {
-    this.activeModal.dismiss('failed');
+    this.router.navigate(['/main/record/recordSceneManage']);
   }
 
   /**
@@ -168,7 +182,7 @@ export class SceneEditComponent implements OnInit {
         next: (data) => {
           const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
           this.toastService.toast(toastCfg);
-          this.activeModal.close('success');
+          this.router.navigate(['/main/record/recordSceneManage']);
         },
         error: (err) => {
           const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
@@ -193,7 +207,7 @@ export class SceneEditComponent implements OnInit {
    * 选择陪同人
    */
   selectEmployee() {
-    const modalRef = this.ngbModal.open(SelectEmployeeComponent, {size: 'lg'});
+    const modalRef = this.ngbModal.open(SelectEmployeeComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;
     modalRef.result.then(
       (result) => {

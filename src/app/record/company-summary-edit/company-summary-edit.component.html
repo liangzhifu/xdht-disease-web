@@ -9,11 +9,10 @@
     <div class="modal-body">
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
-            检查日期：</label>
-          <div class="input-group col-md-8">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>检查日期：</label>
+          <div class="input-group col-md-7" style="padding-left: 0px;padding-right: 0px;">
             <input type="hidden" [(ngModel)]="companySummary.id" name="id">
-            <input class="form-control" ngbDatepicker #d="ngbDatepicker" id="inspectionDate" [(ngModel)]="companySummary.inspectionDatepicker"
+            <input class="form-control" ngbDatepicker #d="ngbDatepicker" id="inspectionDate" [(ngModel)]="companySummary.inspectionDatepicker" readonly
                    name="inspectionDate" [ngClass]="{'warn': !inspectionDatepicker.valid}" #inspectionDatepicker="ngModel" required="required">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
@@ -36,14 +35,14 @@
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
             检查机构：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.inspectionAgency"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.inspectionAgency"
                  name="inspectionAgency" [ngClass]="{'warn': !inspectionAgency.valid}" maxlength="50"
                  #inspectionAgency="ngModel" required="required" ngbTooltip="长度小于50字符。">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">
             <span style="color:red;">*</span>体检种类：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.physicalExaminationType" name="physicalExaminationType"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.physicalExaminationType" name="physicalExaminationType"
                  [ngClass]="{'warn': !physicalExaminationType.valid}" maxlength="10"
                  #physicalExaminationType="ngModel" required="required" ngbTooltip="长度小于10字符。">
         </div>
@@ -52,14 +51,14 @@
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
             应检人数：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.inspectedNumber"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.inspectedNumber"
                  name="inspectedNumber" [ngClass]="{'warn': !inspectedNumber.valid}" maxlength="5"
                  #inspectedNumber="ngModel" required="required" pattern="^[0-9]+$" ngbTooltip="长度小于5字符。">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
             实检人数：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.actualInspectdNumber"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.actualInspectdNumber"
                  name="actualInspectdNumber" [ngClass]="{'warn': !actualInspectdNumber.valid}" maxlength="5"
                  #actualInspectdNumber="ngModel" required="required" pattern="^[0-9]+$" ngbTooltip="长度小于5字符。">
         </div>
@@ -68,14 +67,14 @@
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
             未见异常：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.noAbnormality"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.noAbnormality"
                  name="noAbnormality" [ngClass]="{'warn': !noAbnormality.valid}" maxlength="5"
                  #noAbnormality="ngModel" required="required" pattern="^[0-9]+$" ngbTooltip="长度小于5字符。">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
             复查：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.reviewNumber"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.reviewNumber"
                  name="reviewNumber" [ngClass]="{'warn': !reviewNumber.valid}" maxlength="5"
                  #reviewNumber="ngModel" required="required" pattern="^[0-9]+$" ngbTooltip="长度小于5字符。">
         </div>
@@ -84,14 +83,14 @@
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
             疑似：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.doubtfulNumber"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.doubtfulNumber"
                  name="doubtfulNumber" [ngClass]="{'warn': !doubtfulNumber.valid}" maxlength="5"
                  #doubtfulNumber="ngModel" required="required" pattern="^[0-9]+$" ngbTooltip="长度小于5字符。">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
             禁忌证：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.tabooNumber"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.tabooNumber"
                  name="tabooNumber" [ngClass]="{'warn': !tabooNumber.valid}" maxlength="5"
                  #tabooNumber="ngModel" required="required" pattern="^[0-9]+$" ngbTooltip="长度小于5字符。">
         </div>
@@ -100,13 +99,13 @@
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>
             其他疾患：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.otherDiseasesNumber"
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.otherDiseasesNumber"
                  name="otherDiseasesNumber" [ngClass]="{'warn': !otherDiseasesNumber.valid}" maxlength="5"
                   #otherDiseasesNumber="ngModel" required="required" pattern="^[0-9]+$" ngbTooltip="长度小于5字符。">
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left">备注信息：</label>
-          <input type="text" class="form-control col-md-8" [(ngModel)]="companySummary.remarks" name="remarks" maxlength="50">
+          <input type="text" class="form-control col-md-7" [(ngModel)]="companySummary.remarks" name="remarks" maxlength="50">
         </div>
       </div>
     </div>

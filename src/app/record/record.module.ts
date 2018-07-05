@@ -87,7 +87,6 @@ import {SysModule} from '../sys/sys.module';
     PreEvaluationEditComponent,
     PresentSituationEditComponent,
     ProductEditComponent,
-    SceneEditComponent,
     SelectEmployeeComponent,
     TemperatureProtectionEditComponent,
     VddEquipmentEditComponent,

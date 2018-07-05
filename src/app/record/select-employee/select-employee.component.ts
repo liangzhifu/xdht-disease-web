@@ -73,7 +73,8 @@ export class SelectEmployeeComponent implements OnInit, AfterViewInit {
   submitData() {
     let sysEmployee = {
       id : 0,
-      empName: ''
+      empName: '',
+      officeId: ''
     };
     const index = $('input[name="employeeRadio"]:checked').val();
     if (index === undefined || index === null) {
@@ -84,7 +85,8 @@ export class SelectEmployeeComponent implements OnInit, AfterViewInit {
       const data = this.sdt.data[index];
       sysEmployee = {
         id : data.id,
-        empName: data.empName
+        empName: data.empName,
+        officeId: data.officeId
       };
     }
     this.activeModal.close({success: 'success', sysEmployee: sysEmployee});

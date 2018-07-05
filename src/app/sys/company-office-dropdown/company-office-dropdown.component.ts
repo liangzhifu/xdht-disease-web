@@ -46,24 +46,41 @@ export class CompanyOfficeDropdownComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: this.companyId}).subscribe({
-      next: (data) => {
-        this.zNodes = data;
-        $.fn.zTree.init($('#company_office_ztree_' + this.treeSeq), this.setting, this.zNodes);
-        const treeObj = $.fn.zTree.getZTreeObj('company_office_ztree_' + this.treeSeq);
-        treeObj.expandAll(true);
-        if (this.officeId != null && this.officeId !== '') {
-          const treeNode = treeObj.getNodeByTId(this.officeId);
-          this.officeName = treeNode.officeName;
-          treeObj.checkNode(treeNode, true);
-        }
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取部门失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
+    this.openZTree(this.companyId, this.officeId);
+  }
+
+  /**
+   * 打开部门树形结构
+   */
+  openZTree(companyId, officeId) {
+    console.log('companyId:' + companyId + '---officeId:' + officeId);
+    if (companyId == null || companyId === '') {
+      $.fn.zTree.init($('#company_office_ztree_' + this.treeSeq), this.setting, null);
+      this.officeName = '';
+    } else {
+      this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: companyId}).subscribe({
+        next: (data) => {
+          this.zNodes = data;
+          $.fn.zTree.init($('#company_office_ztree_' + this.treeSeq), this.setting, this.zNodes);
+          const treeObj = $.fn.zTree.getZTreeObj('company_office_ztree_' + this.treeSeq);
+          treeObj.expandAll(true);
+          if (officeId != null && officeId !== '') {
+            const treeNode = treeObj.getNodeByParam('id', officeId, null);
+            if (treeNode != null) {
+              this.officeName = treeNode.officeName;
+              treeObj.checkNode(treeNode, true);
+            }
+          } else {
+            this.officeName = '';
+          }
+        },
+        error: (err) => {
+          const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取部门失败！' + '失败原因：' + err, 3000);
+          this.toastService.toast(toastCfg);
+        },
+        complete: () => {}
+      });
+    }
   }
 
   /**

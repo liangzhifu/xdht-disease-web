@@ -19,18 +19,19 @@
             </div>
             <div class="col-md-4 xdht-row-col">
               <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>公司：</label>
-              <select class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.companyId" name="sysCompanyOfficeCompanyId"
-                      [ngClass]="{'warn': !sysCompanyOfficeCompanyId.valid}" #sysCompanyOfficeCompanyId="ngModel" required="required" (change)="changeCompany()">
+              <select class="form-control col-md-7" [(ngModel)]="sysEmployeeRequest.sysEmployee.companyId" name="sysCompanyOfficeCompanyId"
+                      [ngClass]="{'warn': !sysCompanyOfficeCompanyId.valid}" #sysCompanyOfficeCompanyId="ngModel" required="required" (ngModelChange)="changeCompany()">
                 <option value=""></option>
                 <option *ngFor="let item of companyList;" value="{{item.id}}">{{item.companyName}}</option>
               </select>
             </div>
             <div class="col-md-4 xdht-row-col">
               <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>部门：</label>
-              <input type="hidden" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.id" name="sysCompanyOfficeId">
-              <input type="text" class="form-control col-md-5 float-left" [(ngModel)]="sysEmployeeRequest.sysCompanyOffice.officeName" name="sysCompanyOfficeName" readonly
-                     [ngClass]="{'warn': !sysCompanyOfficeOfficeName.valid}" #sysCompanyOfficeOfficeName="ngModel" required="required">
-              <button class="btn btn-primary" (click)="searchEmployeeOffice();" [disabled]="!sysEmployeeRequest.sysCompanyOffice.companyId">查询</button>
+              <input type="hidden" [(ngModel)]="sysEmployeeRequest.sysEmployee.officeId" name="sysCompanyOfficeId" required>
+              <div class="col-md-7" style="float: left;padding-left: 0px;padding-right: 0px;">
+                <app-company-office-dropdown #acod [companyId]="sysEmployeeRequest.sysEmployee.companyId" [officeId]="sysEmployeeRequest.sysEmployee.officeId"
+                                             [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
+              </div>
             </div>
           </div>
           <div class="row row-margin-bottom">
@@ -82,8 +83,9 @@
           <div class="row">
             <div class="col-md-4 xdht-row-col">
               <label class="col-md-4 col-form-label text-right float-left">工作时间：</label>
-              <div class="input-group col-md-7">
-                <input class="form-control" readonly ngbDatepicker #d="ngbDatepicker" value="{{sysEmployeeRequest.sysEmployee.empWorkDate}}" id="sysEmployeeEmpWorkDate" name="sysEmployeeEmpWorkDate">
+              <div class="input-group col-md-7" style="padding-left: 0px;padding-right: 0px;" >
+                <input class="form-control" readonly ngbDatepicker #d="ngbDatepicker" value="{{sysEmployeeRequest.sysEmployee.empWorkDate}}"
+                       id="sysEmployeeEmpWorkDate" name="sysEmployeeEmpWorkDate">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
                     <img src="assets/img/calendar-icon.png"/>

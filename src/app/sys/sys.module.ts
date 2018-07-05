@@ -67,7 +67,6 @@ import { CompanyOfficeDropdownComponent } from './company-office-dropdown/compan
     RoleChooseComponent,
     RoleEditComponent,
     UserEditComponent,
-    EmpoiyeeInfoComponent,
     NoticeManageComponent,
     SystemNoticeManageComponent,
     SystemNoticeDetailComponent

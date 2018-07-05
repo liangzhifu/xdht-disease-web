@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {SystemConstant} from '../../core/class/system-constant';
@@ -12,6 +12,8 @@ import {ToastService} from '../../toast/toast.service';
   styleUrls: ['./empoiyee-info.component.scss']
 })
 export class EmpoiyeeInfoComponent implements OnInit {
+  companyList = [{id: '', companyName: ''}];
+  sysWorkTypeList = [{id: '', dictionaryName: ''}];
   sysEmployeeRequest = {
     sysEmployee: {
       id: '',
@@ -29,7 +31,8 @@ export class EmpoiyeeInfoComponent implements OnInit {
     },
     sysCompanyOffice: {
       id: '',
-      companyId: ''
+      companyId: '',
+      officeName: ''
     },
     sysEmployeeJobList: [{
       id: '',
@@ -69,6 +72,22 @@ export class EmpoiyeeInfoComponent implements OnInit {
     private httpService: HttpService,
     private toastService: ToastService
   ) {
+    // 获取部门列表
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      complete: () => {
+      }
+    });
+    // 获取工种列表
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
+      next: (data) => {
+        this.sysWorkTypeList = data;
+      },
+      complete: () => {
+      }
+    });
   }
 
   ngOnInit() {

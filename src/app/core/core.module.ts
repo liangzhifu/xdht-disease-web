@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpService } from './http/http.service';
 import { SessionStorageService } from './storage/session-storage.service';
-import { TitleService } from './title/title.service';
 import { TokenPermissionService } from './token/token-permission.service';
 import { WaitService } from './wait/wait.service';
 import { WaitComponent } from './wait/wait.component';
@@ -21,7 +20,6 @@ import { MarriageReformPipe } from './pipe/marriage-reform.pipe';
   providers: [
     HttpService,
     SessionStorageService,
-    TitleService,
     TokenPermissionService,
     WaitService
   ],

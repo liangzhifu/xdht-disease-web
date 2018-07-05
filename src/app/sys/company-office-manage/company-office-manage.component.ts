@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CompanyOfficeEditComponent} from '../company-office-edit/company-office-edit.component';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {SystemConstant} from '../../core/class/system-constant';
@@ -11,6 +10,7 @@ import {AlertConfig} from '../../modal/alert/alert-config';
 import {AlertType} from '../../modal/alert/alert-type';
 import 'ztree';
 import 'jquery';
+import {WaitService} from '../../core/wait/wait.service';
 declare var $: any;
 
 @Component({
@@ -40,12 +40,22 @@ export class CompanyOfficeManageComponent implements OnInit {
   };
   zNodes = [];
   @Input() companyId = null;
+  sysCompanyOffice = {
+    id : '',
+    parentId : 0,
+    companyId : this.companyId,
+    officeName : ''
+  };
+  addFlag = null;
+  action = null;
+  officeEditFlag = false;
   constructor(
     private activeModal: NgbActiveModal,
     private ngbModal: NgbModal,
     private httpService: HttpService,
     private toastService: ToastService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private waitService: WaitService
   ) { }
 
   ngOnInit() {
@@ -78,6 +88,10 @@ export class CompanyOfficeManageComponent implements OnInit {
     this.activeModal.dismiss('failed');
   }
 
+  officeEditClose() {
+    this.officeEditFlag = false;
+  }
+
   /**
    * 新增部门
    */
@@ -90,16 +104,15 @@ export class CompanyOfficeManageComponent implements OnInit {
         parentId = nodes[i].id;
       }
     }
-    const modalRef = this.ngbModal.open(CompanyOfficeEditComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.componentInstance.parentId = parentId;
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-          this.openZTree();
-        }
-      }
-    );
+    this.addFlag = true;
+    this.action = '新增';
+    this.sysCompanyOffice = {
+      id : '',
+      parentId : 0,
+      companyId : this.companyId,
+      officeName : ''
+    };
+    this.officeEditFlag = true;
   }
 
   /**
@@ -107,8 +120,8 @@ export class CompanyOfficeManageComponent implements OnInit {
    * @returns {boolean}
    */
   editCompanyOffice() {
-    let sysCompanyOffice = {
-      id : 0,
+    let sysCompanyOfficeTemp = {
+      id : '',
       parentId : 0,
       officeName: ''
     };
@@ -120,24 +133,22 @@ export class CompanyOfficeManageComponent implements OnInit {
       return false;
     } else {
       for (let i = 0; i < nodes.length; i++) {
-        sysCompanyOffice = {
+        sysCompanyOfficeTemp = {
           id: nodes[i].id,
           parentId: nodes[i].parentId,
           officeName: nodes[i].officeName
         };
       }
     }
-    const modalRef = this.ngbModal.open(CompanyOfficeEditComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.componentInstance.parentId = sysCompanyOffice.parentId;
-    modalRef.componentInstance.SysCompanyOffice = sysCompanyOffice;
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-          this.openZTree();
-        }
-      }
-    );
+    this.addFlag = false;
+    this.action = '修改';
+    this.sysCompanyOffice = {
+      id : sysCompanyOfficeTemp.id,
+      parentId : sysCompanyOfficeTemp.parentId,
+      companyId : this.companyId,
+      officeName : sysCompanyOfficeTemp.officeName
+    };
+    this.officeEditFlag = true;
   }
 
   /**
@@ -182,5 +193,33 @@ export class CompanyOfficeManageComponent implements OnInit {
     } else {
       treeObj.checkNode(treeNode, true);
     }
+  }
+
+  /**
+   * 提交信息
+   */
+  submitData() {
+    this.waitService.wait(true);
+    let url = '';
+    if (this.addFlag) {
+      url = SystemConstant.OFFICE_ADD;
+    } else {
+      url = SystemConstant.OFFICE_EDIT;
+    }
+    this.httpService.post(url, this.sysCompanyOffice).subscribe({
+      next: (data) => {
+        const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
+        this.toastService.toast(toastCfg);
+        this.openZTree();
+        this.officeEditFlag = false;
+      },
+      error: (err) => {
+        const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
+        this.toastService.toast(toastCfg);
+      },
+      complete: () => {
+      }
+    });
+    this.waitService.wait(false);
   }
 }

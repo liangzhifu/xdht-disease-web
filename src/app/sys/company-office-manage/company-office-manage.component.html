@@ -5,6 +5,24 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    <div class="modal-body" *ngIf="officeEditFlag">
+      <form #sysCompanyOfficeForm="ngForm">
+        <div class="row">
+          <div class="col-md-8">
+            <label class="col-md-3 col-form-label text-right float-left">部门名称：</label>
+            <input type="hidden" [(ngModel)]="sysCompanyOffice.id" name="id">
+            <input type="text" class="form-control col-md-8" [(ngModel)]="sysCompanyOffice.officeName" name="officeName"
+                   [ngClass]="{'warn': !officeName.valid}" #officeName="ngModel" required="required">
+          </div>
+          <div class="col-md-4">
+            <div class="op-btn">
+              <button type="button" class="btn btn-success" [disabled]="!sysCompanyOfficeForm.form.valid" (click)="submitData()" >确&nbsp;&nbsp;定</button>
+              <button type="button" class="btn btn-outline-success" (click)="officeEditClose()">取&nbsp;&nbsp;消</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
     <div class="modal-body">
       <ul id="ztree" class="ztree"></ul>
     </div>

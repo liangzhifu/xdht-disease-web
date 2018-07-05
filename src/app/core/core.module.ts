@@ -11,6 +11,8 @@ import { StatusReformPipe } from './pipe/status-reform.pipe';
 import { SysReformPipe } from './pipe/sys-reform.pipe';
 import { InspectReformPipe } from './pipe/inspect-reform.pipe';
 import { MarriageReformPipe } from './pipe/marriage-reform.pipe';
+import { CompanyNamePipe } from './pipe/company-name.pipe';
+import { WorkTypePipe } from './pipe/work-type.pipe';
 
 @NgModule({
   imports: [
@@ -24,12 +26,14 @@ import { MarriageReformPipe } from './pipe/marriage-reform.pipe';
     WaitService
   ],
   exports: [
+    CompanyNamePipe,
     SexReformPipe,
     SysReformPipe,
     MarriageReformPipe,
     StatusReformPipe,
     WaitComponent,
-    InspectReformPipe
+    InspectReformPipe,
+    WorkTypePipe
   ],
   declarations: [
     SexReformPipe,
@@ -38,7 +42,9 @@ import { MarriageReformPipe } from './pipe/marriage-reform.pipe';
     WaitComponent,
     SysReformPipe,
     InspectReformPipe,
-    MarriageReformPipe
+    MarriageReformPipe,
+    CompanyNamePipe,
+    WorkTypePipe
   ]
 })
 export class CoreModule { }

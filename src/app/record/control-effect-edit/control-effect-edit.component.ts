@@ -41,7 +41,6 @@ export class ControlEffectEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('sceneId:' + this.sceneId);
     if (this.recordData.recordControlEffect === null
       || this.recordData.recordControlEffect.id === null
       || this.recordData.recordControlEffect.id === '') {

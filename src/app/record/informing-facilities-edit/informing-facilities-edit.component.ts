@@ -7,7 +7,6 @@ import {ToastService} from '../../toast/toast.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-informing-facilities-edit',
@@ -28,7 +27,6 @@ export class InformingFacilitiesEditComponent implements OnInit {
     recordInformingFacilitiesDataList: [{
       id: '',
       companyOfficeId: '',
-      officeName: '',
       processName: '',
       hazardFactors: '',
       informingFacilities: '',
@@ -84,7 +82,6 @@ export class InformingFacilitiesEditComponent implements OnInit {
     this.recordData.recordInformingFacilitiesDataList[index] = {
         id: '',
         companyOfficeId: '',
-        officeName: '',
         processName: '',
         hazardFactors: '',
         informingFacilities: '',
@@ -133,18 +130,9 @@ export class InformingFacilitiesEditComponent implements OnInit {
 
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordInformingFacilitiesDataList[index].companyOfficeId = sysCompanyOffice.id;
-          this.recordData.recordInformingFacilitiesDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.recordData.recordInformingFacilitiesDataList[data.index].companyOfficeId = data.officeId;
   }
 }

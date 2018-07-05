@@ -4,11 +4,10 @@ import {WaitService} from '../../core/wait/wait.service';
 import {ToastService} from '../../toast/toast.service';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
-import * as $ from 'jquery';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
+
 @Component({
   selector: 'app-equipment-edit',
   templateUrl: './equipment-edit.component.html',
@@ -28,7 +27,6 @@ export class EquipmentEditComponent implements OnInit {
     recordEquipmentDataList: [{
       id: '',
       officdId: '',
-      officeName: '',
       processName: '',
       equipmentName: '',
       epuipmentNumber: '',
@@ -85,7 +83,6 @@ export class EquipmentEditComponent implements OnInit {
     this.recordData.recordEquipmentDataList[index] = {
       id: '',
       officdId: '',
-      officeName: '',
       processName: '',
       equipmentName: '',
       epuipmentNumber: '',
@@ -132,19 +129,10 @@ export class EquipmentEditComponent implements OnInit {
 
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordEquipmentDataList[index].officdId = sysCompanyOffice.id;
-          this.recordData.recordEquipmentDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.recordData.recordEquipmentDataList[data.index].officdId = data.officeId;
   }
 
 }

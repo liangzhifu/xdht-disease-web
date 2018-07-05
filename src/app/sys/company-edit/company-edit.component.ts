@@ -78,7 +78,6 @@ export class CompanyEditComponent implements OnInit {
 
   ngOnInit() {
     const preEvaluationId = this.sysCompany.id;
-    console.log(preEvaluationId);
     if (preEvaluationId === undefined || preEvaluationId === null || preEvaluationId === '') {
       this.action = '新增';
       this.addFlag = true;

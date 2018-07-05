@@ -31,7 +31,7 @@
             <tr *ngFor="let item of recordData.recordFundsDataList;let recordIndex = index;">
               <td>{{item.projectName}}</td>
               <td><input type="text" class="form-control" [(ngModel)]="item.expactOrPay" name="item{{recordIndex}}.expactOrPay" maxlength="20"
-                         [ngClass]="{'warn': !expactOrPay_recordIndex.valid}" #expactOrPay_recordIndex="ngModel" pattern="^[0-9]*" ngbTooltip="填写非负整数"></td>
+                         [ngClass]="{'warn': !expactOrPay_recordIndex.valid}" #expactOrPay_recordIndex="ngModel" pattern="^[0-9]*" ngbTooltip="填写非负整数" required="required"></td>
             </tr>
           </table>
         </div>

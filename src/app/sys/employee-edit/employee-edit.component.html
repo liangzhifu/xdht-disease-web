@@ -7,7 +7,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <div class="row row-margin-bottom" style="white-space: nowrap;">
+      <div class="row row-margin-bottom" style="white-space: nowrap;position: relative;">
         <div style="float: left;display: inline;width: 80%;">
           <div class="row row-margin-bottom">
             <div class="col-md-4 xdht-row-col">
@@ -95,12 +95,13 @@
             </div>
           </div>
         </div>
-        <div style="float: left;display: inline;">
-          <div class="row row-margin-bottom">
+        <div style="position: absolute;right: 0px;top: 0px;width: 150px;">
+          <div class="row-margin-bottom">
             <img style="width: 100px;height: 80px;" id="employeeImg"/>
             <input [(ngModel)]="sysEmployeeRequest.sysEmployee.imageName" name="sysEmployeeImageName" style="display: none" id="sysEmployeeImageName">
           </div>
-          <div class="row">
+          <div class="file-part">
+            <button class="btn btn-outline-success chose-portrait">选择头像</button>
             <input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged()"  placeholder="请选择要上传的文件">
           </div>
         </div>

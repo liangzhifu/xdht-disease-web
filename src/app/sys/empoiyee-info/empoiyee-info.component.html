@@ -1,7 +1,7 @@
 <div class="c-content-inner">
-    <div class="row row-margin-bottom" style="white-space: nowrap;">
+    <div class="row row-margin-bottom" style="white-space: nowrap;position: relative;">
       <div style="float: left;display: inline;width: 80%;">
-        <div class="row row-margin-bottom">
+        <div class="row">
           <div class="col-md-4 xdht-row-col">
             <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>姓名：</label>
             <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empName}}</label>
@@ -15,7 +15,7 @@
             <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysCompanyOffice.officeName}}</label>
           </div>
         </div>
-        <div class="row row-margin-bottom">
+        <div class="row">
           <div class="col-md-4 xdht-row-col">
             <label class="col-md-4 col-form-label text-right float-left">性别：</label>
             <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empSex | sexReform}}</label>
@@ -29,7 +29,7 @@
             <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empMarriage | marriageReform}}</label>
           </div>
         </div>
-        <div class="row row-margin-bottom">
+        <div class="row">
           <div class="col-md-4 xdht-row-col">
             <label class="col-md-4 col-form-label text-right float-left">文化程度：</label>
             <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empEducation}}</label>
@@ -50,13 +50,13 @@
           </div>
         </div>
       </div>
-      <div style="float: left;display: inline;">
+      <div style="position: absolute;right: 30px;top: 0px;">
         <div class="row row-margin-bottom">
           <img style="width: 100px;height: 80px;" id="employeeImg"/>
         </div>
       </div>
     </div>
-    <div class="row row-margin-bottom">
+    <div class="row row-margin-bottom" style="padding: 0px 15px;">
       <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
         <thead>
         <tr>
@@ -85,7 +85,7 @@
         </tbody>
       </table>
     </div>
-    <div class="row row-margin-bottom">
+    <div class="row row-margin-bottom" style="padding: 0px 15px;">
       <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
         <thead>
         <tr>
@@ -112,7 +112,7 @@
         </tbody>
       </table>
     </div>
-    <div class="row">
+    <div class="row" style="padding: 0px 15px;">
       <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
         <thead>
         <tr>

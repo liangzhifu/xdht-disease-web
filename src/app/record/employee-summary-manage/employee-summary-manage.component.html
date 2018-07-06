@@ -2,8 +2,7 @@
   <div class="row">
     <div class="col-md-4">
       <label class="col-form-label float-left text-right">姓名：</label>
-      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.name"
-             placeholder="请输入职工姓名...">
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empName">
     </div>
     <div class="col-md-4">
     </div>
@@ -85,7 +84,7 @@
                   <td>{{item.empSex | sexReform}}</td>
                   <td>{{item.age}}</td>
                   <td>{{item.contactTime}}</td>
-                  <td>{{item.inspectDate}}</td>
+                  <td>{{item.inspectDate  | date:'yyyy-MM-dd '}}</td>
                   <td>{{item.inspect | inspectReform}}</td>
                   <td>{{item.hazardFactor}}</td>
                   <td>{{item.bloodPressureShrink}}</td>
@@ -121,7 +120,7 @@
                   <td>{{item.dbhl6kR}}</td>
                   <td>
                     <button type="button" style="margin-right: 0px!important" class="btn btn-warning radius mr-10" (click)="editEmployeeSummary(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
-                    <button type="button" style="margin-right: 0px!important" class="btn btn-danger radius" (click)="delEmployeeSummary(item.id, item.name)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+                    <button type="button" style="margin-right: 0px!important" class="btn btn-danger radius" (click)="delEmployeeSummary(item.id, item.empName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
                   </td>
                 </tr>
               </table>

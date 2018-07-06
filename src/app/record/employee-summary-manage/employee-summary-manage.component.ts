@@ -24,7 +24,7 @@ export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
    * 查询条件
    */
   param: any = {
-    name: ''
+    empName: ''
   };
   constructor(
     private waitService: WaitService,

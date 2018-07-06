@@ -5,3 +5,24 @@
   background-color: #4682B4;
   color: #fff;
 }
+
+// 修改头像部分
+.file-part{
+  position: relative;
+  width: 100px;
+  &>button.chose-portrait{
+    display: block;
+    width: 100px;
+    border-radius: 4px;
+  }
+  input[type='file']{
+    width: 100px;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+  }
+}

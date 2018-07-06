@@ -12,6 +12,7 @@ import {AlertConfig} from '../../modal/alert/alert-config';
 import {AlertType} from '../../modal/alert/alert-type';
 import 'ztree';
 import 'jquery';
+import {TitleService} from '../../title.service';
 declare var $: any;
 
 @Component({
@@ -44,8 +45,11 @@ export class MenuManageComponent implements OnInit {
     private ngbModal: NgbModal,
     private httpService: HttpService,
     private toastService: ToastService,
-    private modalService: ModalService
-  ) { }
+    private modalService: ModalService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('菜单管理');
+  }
 
   ngOnInit() {
     this.openZTree();

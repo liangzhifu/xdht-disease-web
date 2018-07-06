@@ -12,6 +12,7 @@ import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 import {KnowledgeCatalogEditComponent} from '../knowledge-catalog-edit/knowledge-catalog-edit.component';
 import 'ztree';
 import 'jquery';
+import {TitleService} from '../../title.service';
 declare var $: any;
 
 @Component({
@@ -44,8 +45,11 @@ export class KnowledgeCatalogManageComponent implements OnInit {
     private ngbModal: NgbModal,
     private httpService: HttpService,
     private toastService: ToastService,
-    private modalService: ModalService
-  ) { }
+    private modalService: ModalService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('目录管理');
+  }
 
   ngOnInit() {
     this.openZTree();

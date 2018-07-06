@@ -10,6 +10,7 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {WaitService} from '../../core/wait/wait.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanySummaryEditComponent} from '../company-summary-edit/company-summary-edit.component';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-company-summary-manage',
@@ -32,8 +33,11 @@ export class CompanySummaryManageComponent implements OnInit, AfterViewInit {
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('企业体检信息');
+  }
 
   ngOnInit() {
     this.url = SystemConstant.COMPANY_SUMMARY_MANAGE_PAGE;

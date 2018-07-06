@@ -9,6 +9,7 @@ import {HttpService} from '../../core/http/http.service';
 import {ToastType} from '../../toast/toast-type.enum';
 import {WaitService} from '../../core/wait/wait.service';
 import {Router} from '@angular/router';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-employee-summary-manage',
@@ -31,8 +32,11 @@ export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
     private modalService: ModalService,
     private httpService: HttpService,
     private toastService: ToastService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private  titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('职工体检信息');
+  }
 
   ngOnInit() {
     this.url = SystemConstant.EMPLOYEE_SUMMARY_PAGE;

@@ -100,7 +100,8 @@ export class CompanyEditComponent implements OnInit {
    * 提交企业信息
    */
   submitData() {
-    this.sysCompany.establishDate = $('#establishDate').val();
+    console.log('establishDate:' + $('#sysCompanyEstablishDate').val());
+    this.sysCompany.establishDate = $('#sysCompanyEstablishDate').val();
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {

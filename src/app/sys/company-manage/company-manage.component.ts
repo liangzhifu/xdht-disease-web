@@ -12,6 +12,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {CompanyOfficeManageComponent} from '../company-office-manage/company-office-manage.component';
 import 'jquery';
+import {TitleService} from '../../title.service';
+
 declare var $: any;
 
 @Component({
@@ -42,8 +44,10 @@ export class CompanyManageComponent implements OnInit,AfterViewInit {
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private titleService: TitleService
   ) {
+    this.titleService.titleEventEmitter.emit('企业基本信息');
     // 获取单位性质
     this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 7} ).subscribe({
       next: (data) => {

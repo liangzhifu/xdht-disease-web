@@ -10,6 +10,7 @@ import {ToastService} from '../../toast/toast.service';
 import {ModalService} from '../../modal/modal.service';
 import {HttpService} from '../../core/http/http.service';
 import {KnowledgeEditComponent} from '../knowledge-edit/knowledge-edit.component';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-knowledge-manage',
@@ -32,8 +33,11 @@ export class KnowledgeManageComponent implements OnInit, AfterViewInit {
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('文档存储');
+  }
 
   ngOnInit() {
     this.url = SystemConstant.KNOWLEDGE_PAGE_LIST;

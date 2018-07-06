@@ -18,8 +18,6 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { MenuChooseComponent } from './menu-choose/menu-choose.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RoleChooseComponent } from './role-choose/role-choose.component';
-import { CompanyOfficeEditComponent } from './company-office-edit/company-office-edit.component';
-
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmpoiyeeInfoComponent } from './empoiyee-info/empoiyee-info.component';
 import { DictionaryManageComponent } from './dictionary-manage/dictionary-manage.component';
@@ -40,6 +38,7 @@ import { KnowledgeHistoryComponent } from './knowledge-history/knowledge-history
 import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledge-catalog-edit.component';
 import { SystemNoticeManageComponent } from './system-notice-manage/system-notice-manage.component';
 import { SystemNoticeDetailComponent } from './system-notice-detail/system-notice-detail.component';
+import { CompanyOfficeDropdownComponent } from './company-office-dropdown/company-office-dropdown.component';
 
 @NgModule({
   imports: [
@@ -56,7 +55,6 @@ import { SystemNoticeDetailComponent } from './system-notice-detail/system-notic
   entryComponents: [
     CompanyEditComponent,
     CompanyOfficeChooseComponent,
-    CompanyOfficeEditComponent,
     CompanyOfficeManageComponent,
     DictionaryEditComponent,
     EmployeeEditComponent,
@@ -69,7 +67,6 @@ import { SystemNoticeDetailComponent } from './system-notice-detail/system-notic
     RoleChooseComponent,
     RoleEditComponent,
     UserEditComponent,
-    EmpoiyeeInfoComponent,
     NoticeManageComponent,
     SystemNoticeManageComponent,
     SystemNoticeDetailComponent
@@ -77,7 +74,6 @@ import { SystemNoticeDetailComponent } from './system-notice-detail/system-notic
   declarations: [
     CompanyEditComponent,
     CompanyManageComponent,
-    CompanyOfficeEditComponent,
     CompanyOfficeManageComponent,
     EditPasswordComponent,
     EmployeeManageComponent,
@@ -113,7 +109,11 @@ import { SystemNoticeDetailComponent } from './system-notice-detail/system-notic
     KnowledgeHistoryComponent,
     KnowledgeCatalogEditComponent,
     SystemNoticeManageComponent,
-    SystemNoticeDetailComponent
+    SystemNoticeDetailComponent,
+    CompanyOfficeDropdownComponent
+  ],
+  exports: [
+    CompanyOfficeDropdownComponent
   ]
 })
 export class SysModule { }

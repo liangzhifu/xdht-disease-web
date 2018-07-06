@@ -11,6 +11,7 @@ import { ModalService } from '../../modal/modal.service';
 import { HttpService } from '../../core/http/http.service';
 import { ToastService } from '../../toast/toast.service';
 import {RoleChooseComponent} from '../role-choose/role-choose.component';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-user-manage',
@@ -26,15 +27,19 @@ export class UserManageComponent implements OnInit, AfterViewInit {
    * 查询条件
    */
   param: any = {
-    userName: ''
+    userName: '',
+    loginCode: ''
   };
   constructor(
     private ngbModal: NgbModal,
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('用户管理');
+  }
 
   ngOnInit() {
     this.url = SystemConstant.USER_PAGE_LIST;
@@ -127,7 +132,7 @@ export class UserManageComponent implements OnInit, AfterViewInit {
    * @param userId
    */
   editUserRole(userId) {
-    const modalRef = this.ngbModal.open(RoleChooseComponent);
+    const modalRef = this.ngbModal.open(RoleChooseComponent, {size: 'lg', backdrop: 'static', keyboard: false, centered: true});
     modalRef.componentInstance.userId = userId;
     modalRef.result.then(
       (result) => {

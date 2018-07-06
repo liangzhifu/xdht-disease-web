@@ -12,7 +12,7 @@
           <label class="col-md-3 col-form-label text-right float-left" for="dictionaryTypeId">类型：</label>
           <input type="hidden" [(ngModel)]="sysDictionary.id" name="id">
           <select class="form-control col-md-7" [(ngModel)]="sysDictionary.dictionaryTypeId" name="dictionaryTypeId" id="dictionaryTypeId"
-                  [ngClass]="{'warn': !dictionaryTypeId.valid}" #dictionaryTypeId="ngModel" required="required">
+                  [ngClass]="{'warn': !dictionaryTypeId.valid}" #dictionaryTypeId="ngModel" required="required"  ngbTooltip="必填项。">
             <option value=""></option>
             <option *ngFor="let item of dictionaryTypeList;" value="{{item.id}}">{{item.dictionaryTypeName}}</option>
           </select>
@@ -20,7 +20,7 @@
         <div class="col-md-6">
           <label class="col-md-3 col-form-label text-right float-left" for="dictionaryName">值：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="sysDictionary.dictionaryName" name="dictionaryName" id="dictionaryName"
-                 [ngClass]="{'warn': !dictionaryName.valid}" #dictionaryName="ngModel" required="required" maxlength="100">
+                 [ngClass]="{'warn': !dictionaryName.valid}" #dictionaryName="ngModel" required="required" maxlength="100" ngbTooltip="必填项，且长度小于100个字符。">
         </div>
       </div>
     </div>

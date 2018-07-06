@@ -1,13 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {SystemConstant} from '../../core/class/system-constant';
-import {HttpService} from '../../core/http/http.service';
-import {ToastService} from '../../toast/toast.service';
-import {WaitService} from '../../core/wait/wait.service';
+import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
-import {ModalService} from '../../modal/modal.service';
+import {SystemConstant} from '../../core/class/system-constant';
+import {ActivatedRoute} from '@angular/router';
+import {HttpService} from '../../core/http/http.service';
+import {ToastService} from '../../toast/toast.service';
 
 @Component({
   selector: 'app-empoiyee-info',
@@ -15,74 +12,76 @@ import {ModalService} from '../../modal/modal.service';
   styleUrls: ['./empoiyee-info.component.scss']
 })
 export class EmpoiyeeInfoComponent implements OnInit {
-
-  @Input() sysEmpoiyeeRequest = {
-    'sysEmployee': {
-      'id': '',
-      'officeId': '',
-      'empName': '',
-      'empSex': '',
-      'empNative': '',
-      'empMarriage': '',
-      'empEducation': '',
-      'empHobby': '',
-      'empWorkDate': '',
-      'empIdentityNumber': '',
-      'status': '',
-      'remarks': ''
+  companyList = [{id: '', companyName: ''}];
+  sysWorkTypeList = [{id: '', dictionaryName: ''}];
+  sysEmployeeRequest = {
+    sysEmployee: {
+      id: '',
+      companyId: '',
+      officeId: '',
+      empName: '',
+      empSex: '',
+      empNative: '',
+      empMarriage: '',
+      empEducation: '',
+      empHobby: '',
+      empWorkDate: '',
+      empIdentityNumber: '',
+      imageName: ''
     },
-    'sysEmployeeJobList': [{
-      'id': '',
-      'employeeId': '',
-      'beginDate': '',
-      'endDate': '',
-      'companyName': '',
-      'workType': '',
-      'noiseDetectionResults': '',
-      'protectiveMeasures': '',
-      'status': ''
+    sysCompanyOffice: {
+      id: '',
+      companyId: '',
+      officeName: ''
+    },
+    sysEmployeeJobList: [{
+      id: '',
+      employeeId: '',
+      beginDate: '',
+      endDate: '',
+      companyName: '',
+      workType: '',
+      noiseDetectionResults: '',
+      protectiveMeasures: '',
+      status: ''
     }],
-    'sysEmployeeCaseList': [{
-      'id': '',
-      'employeeId': '',
-      'caseName': '',
-      'diagnosisDate': '',
-      'diagnosisHospital': '',
-      'treatmentResults': '',
-      'remarks': '',
-      'status': ''
+    sysEmployeeCaseList: [{
+      id: '',
+      employeeId: '',
+      caseName: '',
+      diagnosisDate: '',
+      diagnosisHospital: '',
+      treatmentResults: '',
+      remarks: '',
+      status: ''
     }],
-    'sysEmployeeDiseaseList': [{
-      'id': '',
-      'employeeId': '',
-      'diseaseName': '',
-      'diagnosisDate': '',
-      'diagnosisHospital': '',
-      'diagnosisLevel': '',
-      'remarks': '',
-      'status': ''
+    sysEmployeeDiseaseList: [{
+      id: '',
+      employeeId: '',
+      diseaseName: '',
+      diagnosisDate: '',
+      diagnosisHospital: '',
+      diagnosisLevel: '',
+      remarks: '',
+      status: ''
     }]
   };
-  sysWorkTypeList = [{id: '', postName: ''}];
-  empoiyeeEditTitle: string;
-  addFlag: boolean;
-  action = '';
-  constructor(
-    private modalService: ModalService,
-    private httpService: HttpService,
-    private formBuilder: FormBuilder,
-    private activeModal: NgbActiveModal,
-    private toastService: ToastService,
-    private waitService: WaitService
-  ) {
-  }
 
-  ngOnInit() {
-      this.action = '详情';
-      this.addFlag = true;
-      this.empoiyeeEditTitle = '企业详情';
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private httpService: HttpService,
+    private toastService: ToastService
+  ) {
+    // 获取部门列表
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      complete: () => {
+      }
+    });
     // 获取工种列表
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
       next: (data) => {
         this.sysWorkTypeList = data;
       },
@@ -91,11 +90,22 @@ export class EmpoiyeeInfoComponent implements OnInit {
     });
   }
 
-  /**
-   * 关闭企业修改框
-   */
-  close() {
-    this.activeModal.dismiss('failed');
+  ngOnInit() {
+    this.activeRoute.queryParams.subscribe(params => {
+      const id = params['id'];
+      // 获取职工数据
+      this.httpService.get(SystemConstant.EMPLOYEE_DETAIL + '/' + id).subscribe({
+        next: (data) => {
+          this.sysEmployeeRequest = data;
+        },
+        error: (err) => {
+          const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取职工详情失败！' + '失败原因：' + err, 3000);
+          this.toastService.toast(toastCfg);
+        },
+        complete: () => {}
+      });
+    });
   }
+
 
 }

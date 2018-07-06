@@ -9,16 +9,16 @@
     <div class="modal-body">
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>编码：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordTemperature.temperatureProtectionFacilitiesNo" name="recordTemperature.temperatureProtectionFacilitiesNo"
                  #temperatureProtectionFacilitiesNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
-                 [ngClass]="{'warn': !temperatureProtectionFacilitiesNo.valid}">
+                 [ngClass]="{'warn': !temperatureProtectionFacilitiesNo.valid}" ngbTooltip="编码长度不大于20">
         </div>
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>核实情况：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordTemperature.verificationResult" name="recordTemperature.verificationResult"
                  #verificationResult="ngModel" required="required" maxlength="50"
-                 [ngClass]="{'warn': !verificationResult.valid}">
+                 [ngClass]="{'warn': !verificationResult.valid}" ngbTooltip="核实情况长度不大于50">
         </div>
       </div>
       <div class="row">
@@ -29,28 +29,30 @@
               <th>工种/岗位</th>
               <th>作业地点</th>
               <th>生产性热源</th>
-              <th>防高温设施保温隔热、通风等）</th>
+              <th>防高温设施(保温隔热、通风等)</th>
               <th>运行维护情况</th>
               <th><button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
             </tr>
             <tr *ngFor="let item of recordData.recordTemperatureDataList;let recordIndex=index;"  >
               <td>
-                <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.companyOfficeId">
-                <input type="text" class="form-control col-md-7" style="display:inline;" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
-                       [ngClass]="{'warn': !officeName_recordIndex.valid}" #officeName_recordIndex="ngModel" required="required">
-                <button class="btn btn-primary" (click)="searchEmployeeOffice(recordIndex);">查询</button>
+                <input type="text" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
+                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.companyOfficeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
               </td>
-              <td width="20px;">
+              <td>
                 <select #select class="form-control" [(ngModel)]="item.postId" name="item{{recordIndex}}.postId"
                         [ngClass]="{'warn': !postId_recordIndex.valid}" #postId_recordIndex="ngModel" required="required">
                   <option value="">--请选择岗位--</option>
                   <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.dictionaryName}}</option>
                 </select>
               </td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.productiveHeatSource" name="item{{recordIndex}}.productiveHeatSource" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.temperatureProtectionFacilities" name="item{{recordIndex}}.temperatureProtectionFacilities" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.operationAndMaintenance" name="item{{recordIndex}}.operationAndMaintenance" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace"
+                         ngbTooltip="作业地点长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.productiveHeatSource" name="item{{recordIndex}}.productiveHeatSource"
+                         ngbTooltip="生产性热源长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.temperatureProtectionFacilities" name="item{{recordIndex}}.temperatureProtectionFacilities"
+                         ngbTooltip="防高温设施长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.operationAndMaintenance" name="item{{recordIndex}}.operationAndMaintenance"
+                         ngbTooltip="运行维护情况长度不大于50" maxlength="50"></td>
               <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
             </tr>
           </table>

@@ -7,7 +7,7 @@ import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
+
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
@@ -27,7 +27,6 @@ export class ProductEditComponent implements OnInit {
     recordProductDataList: [{
       id: '',
       companyOfficeId: '',
-      officeName: '',
       processName: '',
       productType: '',
       productName: '',
@@ -99,7 +98,6 @@ export class ProductEditComponent implements OnInit {
     this.recordData.recordProductDataList[index] = {
       id: '',
       companyOfficeId: '',
-      officeName: '',
       processName: '',
       productType: '',
       productName: '',
@@ -150,20 +148,11 @@ export class ProductEditComponent implements OnInit {
   }
 
   /**
-  * 选择部门
-*/
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordProductDataList[index].companyOfficeId = sysCompanyOffice.id;
-          this.recordData.recordProductDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+   * 选择部门
+   * @param data
+   */
+  onDataChanged(data) {
+    this.recordData.recordProductDataList[data.index].companyOfficeId = data.officeId;
   }
 
 

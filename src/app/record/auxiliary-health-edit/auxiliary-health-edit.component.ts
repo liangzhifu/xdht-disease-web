@@ -7,7 +7,6 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-auxiliary-health-edit',
@@ -30,7 +29,6 @@ export class AuxiliaryHealthEditComponent implements OnInit {
       id: '',
       auxiliaryHealthId: '',
       officeId: '',
-      officeName: '',
       workPlace: '',
       hygienicRoom: '',
       livingRoom: ''
@@ -84,7 +82,6 @@ export class AuxiliaryHealthEditComponent implements OnInit {
       id: '',
       auxiliaryHealthId: '',
       officeId: '',
-      officeName: '',
       workPlace: '',
       hygienicRoom: '',
       livingRoom: ''
@@ -129,19 +126,9 @@ export class AuxiliaryHealthEditComponent implements OnInit {
 
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordAuxiliaryHealthDataList[index].officeId = sysCompanyOffice.id;
-          this.recordData.recordAuxiliaryHealthDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.recordData.recordAuxiliaryHealthDataList[data.index].officeId = data.officeId;
   }
-
 }

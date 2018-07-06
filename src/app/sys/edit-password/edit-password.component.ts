@@ -18,9 +18,6 @@ import {SessionStorageService} from '../../core/storage/session-storage.service'
   styleUrls: ['./edit-password.component.scss']
 })
 export class EditPasswordComponent implements OnInit {
-
-  editPasswordError: '';
-  editPasswordForm: FormGroup;
   @Input() user = {
     oldPassword: '',
     newPassword: '',
@@ -35,11 +32,6 @@ export class EditPasswordComponent implements OnInit {
     private toastService: ToastService,
     private sessionStorageService: SessionStorageService,
   ) {
-    this.editPasswordForm = this.formBuilder.group({
-      oldPassword: '',
-      newPassword: '',
-      newPasswordAgain: ''
-    });
   }
 
   ngOnInit() {
@@ -50,7 +42,7 @@ export class EditPasswordComponent implements OnInit {
    */
   editPassword() {
     if (this.user.newPassword === this.user.newPasswordAgain) {
-      this.httpService.post(SystemConstant.EDIT_PASSWORD, this.editPasswordForm.value).subscribe({
+      this.httpService.post(SystemConstant.EDIT_PASSWORD, this.user).subscribe({
         next: () => {
           const toastCfg = new ToastConfig(ToastType.SUCCESS, '', '修改密码成功！', 3000);
           this.toastService.toast(toastCfg);

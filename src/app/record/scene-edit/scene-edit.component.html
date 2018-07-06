@@ -1,28 +1,20 @@
-<div>
+<div class="c-content-inner">
   <form #sceneEditForm="ngForm">
-    <div class="modal-header">
-      <label class="modal-title">{{recordSceneEditTitle}}</label>
-      <button aria-label="Close" class="close" type="button" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
     <div class="modal-body">
       <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-3">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>编码：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.recordNo"
                  name="recordNo" id="recordNo" [ngClass]="{'warn': !recordNo.valid}" #recordNo="ngModel"
-                 required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$">
+                 required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$" ngbTooltip="编码长度不大于20">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>项目名称：</label>
           <input type="text" class="form-control col-md-7 " [(ngModel)]="recordSceneRequest.recordScene.projectName"
                  name="projectName" id="projectName" [ngClass]="{'warn': !projectName.valid}" #projectName="ngModel"
-                 required="required" maxlength="30">
+                 required="required" maxlength="30" ngbTooltip="项目名称长度不大于30">
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-3">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查类型：</label>
           <select class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryType"
                   name="inquiryType" id="inquiryType" [ngClass]="{'warn': !inquiryType.valid}" #inquiryType="ngModel" required="required">
@@ -30,7 +22,7 @@
             <option *ngFor="let item of inquiryTypeList" value="{{item.id}}">{{item.dictionaryName}}</option>
           </select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查对象：</label>
           <select class="form-control col-md-7" #select [(ngModel)]="recordSceneRequest.recordScene.inquiryCompany" [disabled]="!addFlag"
                   name="inquiryCompany" id="inquiryCompany" [ngClass]="{'warn': !inquiryCompany.valid && addFlag}" #inquiryCompany="ngModel"
@@ -41,15 +33,15 @@
         </div>
       </div>
       <div class="row row-margin-bottom">
-        <div class="col-md-6">
+        <div class="col-md-3">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查人：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="recordSceneRequest.recordScene.inquiryPerson"
                  name="inquiryPerson" id="inquiryPerson" [ngClass]="{'warn': !inquiryPerson.valid}"  #inquiryPerson="ngModel"
-                 required="required" maxlength="10" placeholder="调查人">
+                 required="required" maxlength="10" ngbTooltip="调查人长度不大于10">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>调查日期：</label>
-          <div class="input-group col-md-7">
+          <div class="input-group col-md-7" style="padding-right: 0px;padding-left: 0px;">
             <input class="form-control" ngbDatepicker #d="ngbDatepicker" id="inquiryDate" name="inquiryDate"
                    [ngClass]="{'warn': !inquiryDate.valid}" #inquiryDate="ngModel" required="required"
                    [(ngModel)]="recordSceneRequest.recordScene.inquiryDatepicker" readonly>
@@ -60,10 +52,8 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
-          <label class="col-md-4 col-form-label text-right float-left">陪同人：</label>
+        <div class="col-md-3">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>陪同人：</label>
           <input type="hidden" [(ngModel)]="recordSceneRequest.recordScene.inquiryCompanyEmployee"
                  name="recordSceneInquiryCompanyEmployee">
           <input type="text" class="form-control col-md-5 float-left"
@@ -71,10 +61,10 @@
                  id="inquiryCompanyEmployeeName" required
                  #inquiryCompanyEmployeeName="ngModel" [ngClass]="{'warn': !inquiryCompanyEmployeeName.valid}"
                  name="recordSceneInquiryCompanyEmployeeName" readonly >
-          <button class="btn btn-primary" (click)="selectEmployee();" [disabled]="!recordSceneRequest.recordScene.inquiryCompany">查询</button>
+          <button class="btn btn-primary col-md-2" (click)="selectEmployee();" [disabled]="!recordSceneRequest.recordScene.inquiryCompany">查询</button>
         </div>
       </div>
-      <div class="row" style="padding: 10px;height: 300px;overflow: scroll;">
+      <div class="row" style="padding: 10px;height: 500px;overflow: scroll;">
         <table class="table table-bordered table-hover">
           <thead class="thead-light">
           <tr>

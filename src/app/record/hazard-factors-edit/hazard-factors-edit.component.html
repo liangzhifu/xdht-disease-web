@@ -9,15 +9,15 @@
     <div class="modal-body">
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>编码：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordHazardFactors.hazardFactorsNo" name="recordHazardFactors.hazardFactorsNo"
                  #hazardFactorsNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$"
-                 [ngClass]="{'warn': !hazardFactorsNo.valid}">
+                 [ngClass]="{'warn': !hazardFactorsNo.valid}" ngbTooltip="编码长度不大于20">
         </div>
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>核实情况：</label>
           <input type="text" class="form-control col-md-6" [(ngModel)]="recordData.recordHazardFactors.verificationResult" name="recordHazardFactors.verificationResult"
-                 #verificationResult="ngModel" required="required" maxlength="50"
+                 #verificationResult="ngModel" required="required" maxlength="50" ngbTooltip="核实情况长度不大于50"
                  [ngClass]="{'warn': !verificationResult.valid}">
         </div>
       </div>
@@ -35,16 +35,19 @@
             </tr>
             <tr *ngFor="let item of recordData.recordHazardFactorsDataList;let recordIndex=index;"  >
               <td>
-                <input type="hidden" [(ngModel)]="item.officeId" name="item{{recordIndex}}.officeId">
-                <input type="text" class="form-control col-md-8" style="display: inline" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
-                       [ngClass]="{'warn': !officeName_recordIndex.valid}" #officeName_recordIndex="ngModel" required="required">
-                <button class="btn btn-primary" (click)="searchEmployeeOffice(recordIndex);">查询</button>
+                <input type="text" [(ngModel)]="item.officeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
+                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.officeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
               </td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.processName" name="item{{recordIndex}}.processName" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}.hazardFactors" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.exposureMode" name="item{{recordIndex}}.exposureMode" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.exposureTime" name="item{{recordIndex}}.exposureTime" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.remarks" name="item{{recordIndex}}.remarks" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.processName" name="item{{recordIndex}}.processName"
+                         ngbTooltip="工艺过程长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}.hazardFactors"
+                         ngbTooltip="职业病危害因素长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.exposureMode" name="item{{recordIndex}}.exposureMode"
+                         ngbTooltip="暴露方式长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.exposureTime" name="item{{recordIndex}}.exposureTime"
+                         ngbTooltip="暴露时间长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.remarks" name="item{{recordIndex}}.remarks"
+                         ngbTooltip="备注长度不大于50" maxlength="50"></td>
               <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
             </tr>
           </table>

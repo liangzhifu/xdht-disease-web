@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
@@ -8,12 +8,10 @@ import {WaitService} from '../../core/wait/wait.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
-import {AlertType} from '../../modal/alert/alert-type';
-import {AlertConfig} from '../../modal/alert/alert-config';
-import {CompanyOfficeChooseComponent} from '../company-office-choose/company-office-choose.component';
 import {FileUploader} from 'ng2-file-upload';
-import 'jquery';
 import {SessionStorageService} from '../../core/storage/session-storage.service';
+import {CompanyOfficeDropdownComponent} from '../company-office-dropdown/company-office-dropdown.component';
+import 'jquery';
 declare var $: any;
 
 @Component({
@@ -22,6 +20,7 @@ declare var $: any;
   styleUrls: ['./employee-edit.component.scss']
 })
 export class EmployeeEditComponent implements OnInit {
+  @ViewChild('acod', undefined) acod: CompanyOfficeDropdownComponent;
   @Input()
   change: any;
   defImg: string;
@@ -32,6 +31,7 @@ export class EmployeeEditComponent implements OnInit {
   @Input() sysEmployeeRequest = {
     sysEmployee: {
       id: '',
+      companyId: '',
       officeId: '',
       empName: '',
       empSex: '',
@@ -40,12 +40,12 @@ export class EmployeeEditComponent implements OnInit {
       empEducation: '',
       empHobby: '',
       empWorkDate: '',
-      empIdentityNumber: ''
+      empIdentityNumber: '',
+      imageName: ''
     },
     sysCompanyOffice: {
-      id : '',
-      companyId: '',
-      officeName: ''
+      id: '',
+      companyId: ''
     },
     sysEmployeeJobList: [{
       id: '',
@@ -80,7 +80,8 @@ export class EmployeeEditComponent implements OnInit {
     }]
   };
   companyList = [{id: '', companyName: ''}];
-  sysWorkTypeList = [{id: '', postName: ''}];
+  sysWorkTypeList = [{id: '', dictionaryName: ''}];
+  sysEmpHobbyList = [{id: '', dictionaryName: ''}];
   employeeEditTitle: string;
   addFlag: boolean;
   action = '';
@@ -103,7 +104,8 @@ export class EmployeeEditComponent implements OnInit {
       method: 'POST',
       itemAlias: 'uploadFile',
       authToken: this.authToken,
-      authTokenHeader: 'authorization'
+      authTokenHeader: 'authorization',
+      removeAfterUpload: true
     });
     // 获取部门列表
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
@@ -114,9 +116,17 @@ export class EmployeeEditComponent implements OnInit {
       }
     });
     // 获取工种列表
-    this.httpService.post(SystemConstant.SYS_POST_LIST, {} ).subscribe({
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
       next: (data) => {
         this.sysWorkTypeList = data;
+      },
+      complete: () => {
+      }
+    });
+    // 获取文化程度列表
+    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 11} ).subscribe({
+      next: (data) => {
+        this.sysEmpHobbyList = data;
       },
       complete: () => {
       }
@@ -130,6 +140,9 @@ export class EmployeeEditComponent implements OnInit {
       this.action = '修改';
       this.addFlag = false;
       this.employeeEditTitle = '修改职工信息';
+      $('#employeeImg').attr('src', SystemConstant.IMAG_PATH + this.sysEmployeeRequest.sysEmployee.imageName);
+      this.sysEmployeeRequest.sysEmployee.companyId = this.sysEmployeeRequest.sysCompanyOffice.companyId;
+      this.sysEmployeeRequest.sysEmployee.officeId = this.sysEmployeeRequest.sysCompanyOffice.id;
     }
   }
 
@@ -151,7 +164,6 @@ export class EmployeeEditComponent implements OnInit {
     } else {
       url = SystemConstant.EMPLOYEE_EDIT;
     }
-    this.sysEmployeeRequest.sysEmployee.officeId = this.sysEmployeeRequest.sysCompanyOffice.id;
     this.sysEmployeeRequest.sysEmployee.empWorkDate = $('#sysEmployeeEmpWorkDate').val();
     for (let i = 0; i < this.sysEmployeeRequest.sysEmployeeCaseList.length; i++) {
       this.sysEmployeeRequest.sysEmployeeCaseList[i].diagnosisDate = $('#employeeCase_' + i + '_diagnosisDate').val();
@@ -254,68 +266,48 @@ export class EmployeeEditComponent implements OnInit {
 
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice() {
-    const companyId = this.sysEmployeeRequest.sysCompanyOffice.companyId;
-    if (companyId === undefined || companyId === null || companyId === '') {
-      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, null, '请先选择一个公司！');
-      this.modalService.alert(alertConfig);
-      return false;
-    }
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.sysEmployeeRequest.sysCompanyOffice.id = sysCompanyOffice.id;
-          this.sysEmployeeRequest.sysCompanyOffice.officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.sysEmployeeRequest.sysEmployee.officeId = data.officeId;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-    this.uploader = new FileUploader({
-      url: SystemConstant.FILE_UPLOAD,
-      method: 'POST',
-      itemAlias: 'uploadFile',
-      authToken: this.authToken,
-      authTokenHeader: 'authorization'
-    });
-  }
-
-// C: 定义事件，选择文件
-  selectedFileOnChanged(event: any) {
-    // 打印文件选择名称
-    this.uploadFile();
-  }
-  // D: 定义事件，上传文件
-  uploadFile() {
+  /**
+   * 选择文件上传
+   */
+  selectedFileOnChanged() {
     // 上传
-    this.uploader.queue[0].onSuccess = function (response, status, headers) {
-      // 上传文件成功
-      if (status === 200) {
-        // 上传文件后获取服务器返回的数据
-        const ret = JSON.parse(response);
-        if ( ret.code === 100 ) {
-          // 此处无法 this.formModel.controls[this.name].setValue(this.defImg);  因此在html中增加hidden域，然后触犯隐藏域的单击事件
-          $('#upload-file-id').val(ret.content);
-          $('#upload-file-id').trigger('click');
-        } else {
-          alert('文件上传失败:' + ret.message);
-        }
-      } else {
-        // 上传文件后获取服务器返回的数据错误
-        alert('文件上传失败');
-      }
-    };
+    this.uploader.queue[0].onSuccess = this.fileSuccess.bind(this);
     this.uploader.queue[0].upload(); // 开始上传
   }
 
-  changeModel() {
-    this.defImg = 'assets/img/employee/' + $('#upload-file-id').val();
-    this.uploader.queue[0].remove(); // 上传过移除原有图片信息
+  /**
+   * 文件上传成功回调函数
+   * @param response
+   * @param status
+   */
+  fileSuccess(response, status) {
+    // 上传文件成功
+    if (status === 200) {
+      // 上传文件后获取服务器返回的数据
+      const ret = JSON.parse(response);
+      if ( ret.code === 100 ) {
+        this.sysEmployeeRequest.sysEmployee.imageName = ret.content;
+        $('#employeeImg').attr('src', SystemConstant.IMAG_PATH + ret.content);
+      } else {
+        alert('文件上传失败:' + ret.message);
+      }
+    } else {
+      // 上传文件后获取服务器返回的数据错误
+      alert('文件上传失败');
+    }
+  }
+
+  /**
+   * 单位修改
+   */
+  changeCompany() {
+    this.sysEmployeeRequest.sysEmployee.officeId = '';
+    this.acod.openZTree(this.sysEmployeeRequest.sysEmployee.companyId, this.sysEmployeeRequest.sysEmployee.officeId);
   }
 }

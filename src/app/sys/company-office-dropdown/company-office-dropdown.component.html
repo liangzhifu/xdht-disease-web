@@ -1,0 +1,7 @@
+<div ngbDropdown>
+  <input type="text" class="form-control" readonly ngbDropdownToggle [ngModel]="officeName" name="officeName_tree_{{treeSeq}}"
+         [ngClass]="{'warn': !officeName_tree.valid}" #officeName_tree="ngModel" required="required">
+  <div ngbDropdownMenu class="animated fadeIn">
+    <ul id="company_office_ztree_{{treeSeq}}" class="ztree"></ul>
+  </div>
+</div>

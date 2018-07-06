@@ -1,9 +1,45 @@
 <div class="c-content-inner">
+  <div class="row row-margin-bottom">
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label float-left text-right">公司名称：</label>
+      <input type="text" class="form-control input-pro col-md-7 float-left" [(ngModel)]="param.companyName">
+    </div>
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label float-left text-right">联系人姓名：</label>
+      <input type="text" class="form-control input-pro col-md-7 float-left" [(ngModel)]="param.contactUsername">
+    </div>
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label float-left text-right">法定代表人：</label>
+      <input type="text" class="form-control input-pro col-md-7 float-left" [(ngModel)]="param.legalRepresentative">
+    </div>
+  </div>
+  <div class="row row-margin-bottom">
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label float-left text-right">所属管辖：</label>
+      <input type="text" class="form-control input-pro col-md-7 float-left" [(ngModel)]="param.belongToJurisdiction">
+    </div>
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">单&nbsp;位&nbsp;性&nbsp;质：&nbsp;</label>
+      <select class="col-md-7 float-left form-control" #select [(ngModel)]="param.companyNature"
+              name="companyNature" id="companyNature">
+        <option value="">--请选择--</option>
+        <option *ngFor="let item of companyNature;" value="{{item.dictionaryName}}">{{item.dictionaryName}}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label float-left text-right">成立日期：</label>
+      <div class="input-group col-md-7" style="padding-left: 0px; padding-right: 0px;">
+        <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{param.establishDate}}" id="establishDate" name="establishDate " >
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar-icon.png"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-4">
-      <label class="col-form-label float-left text-right">公司名称：</label>
-      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.companyName"
-             placeholder="请输入公司名...">
     </div>
     <div class="col-md-4">
     </div>
@@ -26,6 +62,10 @@
             <th>单位性质</th>
             <th>所属管辖</th>
             <th>经济类型</th>
+            <th>联系人电话</th>
+            <th>联系人姓名</th>
+            <th>法定代表人</th>
+            <th>成立日期</th>
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;">
@@ -33,6 +73,10 @@
             <td>{{item.companyNature}}</td>
             <td>{{item.belongToJurisdiction}}</td>
             <td>{{item.economicType}}</td>
+            <td>{{item.contactNumber}}</td>
+            <td>{{item.contactUsername}}</td>
+            <td>{{item.legalRepresentative}}</td>
+            <td>{{item.establishDate}}</td>
             <td>
               <button type="button" class="btn btn-info radius mr-10" (click)="editCompanyOffice(item.id)"><i class="fa fa-gears fa-fw"></i>部门管理</button>
               <button type="button" class="btn btn-warning radius mr-10" (click)="editCompany(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>

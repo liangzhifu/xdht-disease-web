@@ -11,7 +11,8 @@ import {ToastService} from '../../toast/toast.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {SceneEditComponent} from '../scene-edit/scene-edit.component';
-
+import 'jquery';
+declare var $: any;
 @Component({
   selector: 'app-record-scene-manage',
   templateUrl: './scene-manage.component.html',
@@ -26,7 +27,11 @@ export class SceneManageComponent implements OnInit, AfterViewInit {
    * 查询条件
    */
   param: any = {
-    projectName: ''
+    projectName: '',
+    recordNo: '',
+    inquiryDate: '',
+    inquiryPerson: '',
+    inquiryYear: ''
   };
   constructor(
     private ngbModal: NgbModal,
@@ -49,6 +54,7 @@ export class SceneManageComponent implements OnInit, AfterViewInit {
    * 查询
    */
   search() {
+    this.param.inquiryDate = $('#inquiryDate').val();
     this.waitService.wait(true);
     this.sdhp.search();
     this.waitService.wait(false);
@@ -58,31 +64,14 @@ export class SceneManageComponent implements OnInit, AfterViewInit {
    * 新增--职业卫生现场调查记录
    */
   addScene() {
-    const modalRef = this.ngbModal.open(SceneEditComponent, {size: 'lg', backdrop: 'static', keyboard: false});
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-          this.search();
-        }
-      }
-    );
+    this.router.navigate(['/main/record/recordSceneEdit'], {queryParams: {id: null}});
   }
 
   /**
    * 修改--职业卫生现场调查记录
    */
   editScene(id) {
-    // 获取职业卫生现场调查记录数据
-    this.httpService.get(SystemConstant.RECORD_SCENE_DETAIL + '/' + id).subscribe({
-      next: (data) => {
-        this.openEditScene(data);
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取用户详情失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
+    this.router.navigate(['/main/record/recordSceneEdit'], {queryParams: {id: id}});
   }
 
   /**
@@ -91,21 +80,6 @@ export class SceneManageComponent implements OnInit, AfterViewInit {
    */
   detailScene(id) {
     this.router.navigate(['/main/record/recordSceneDetail'], {queryParams: {id: id}});
-  }
-
-  /**
-   * 打开修改(职业卫生现场调查记录)对话框
-   */
-  openEditScene(recordSceneData) {
-    const modalRef = this.ngbModal.open(SceneEditComponent, {size: 'lg', backdrop: 'static', keyboard: false});
-    modalRef.componentInstance.recordSceneRequest = recordSceneData;
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-          this.search();
-        }
-      }
-    );
   }
 
   /**

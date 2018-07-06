@@ -1,100 +1,142 @@
-<div class="col-md-12">
-  <h6>表 职工档案信息</h6>
-  <table width="100%" border="1">
-    <tr>
-      <th>姓名</th>
-      <td>{{sysEmpoiyeeRequest.sysEmployee.empName}}</td>
-      <th>性别</th>
-      <td>{{sysEmpoiyeeRequest.sysEmployee.empSex | sexReform}}</td>
-      <th colspan="2" rowspan="5">照片</th>
-    </tr>
-    <tr>
-      <th>籍贯</th>
-      <td>{{sysEmpoiyeeRequest.sysEmployee.empNative}}</td>
-      <th>婚姻</th>
-      <td>{{sysEmpoiyeeRequest.sysEmployee.empMarriage}}</td>
-    </tr>
-    <tr>
-      <th>参加工作时间</th>
-      <td colspan="3">{{sysEmpoiyeeRequest.sysEmployee.empWorkDate}}</td>
-    </tr>
-    <tr>
-      <th>身份证号</th>
-      <td colspan="3">{{sysEmpoiyeeRequest.sysEmployee.empIdentityNumber}}</td>
-    </tr>
-  </table>
-  <table width="100%" border="1">
-    <tr>
-      <th colspan="5">职业史及职业病危害接触史</th>
-    </tr>
-    <tr>
-      <th>起止时间</th>
-      <th>工作单位</th>
-      <th>工种</th>
-      <th>噪声检测结果</th>
-      <th>防护措施</th>
-    </tr>
-    <tr *ngFor="let item of sysEmpoiyeeRequest.sysEmployeeJobList;let i = index">
-      <td>{{item.beginDate}}<br>{{item.endDate}}</td>
-      <td>{{item.companyName}}</td>
-      <td>
-        <select #select [(ngModel)]="item.workType"  name="employeeJob_{{i}}_workType" disabled="disabled">
-          <option>--请选择工种--</option>
-          <option *ngFor="let workType of sysWorkTypeList;" value="{{workType.id}}" >{{workType.postName}}</option>
-        </select>
-      </td>
-      <td>{{item.noiseDetectionResults}}</td>
-      <td>{{item.protectiveMeasures}}</td>
-    </tr>
-  </table>
-  <table width="100%" border="1">
-    <tr>
-      <th colspan="5">既往病史</th>
-    </tr>
-    <tr>
-      <th>疾病名称</th>
-      <th>诊断时间</th>
-      <th>诊断医院</th>
-      <th>治疗结果</th>
-      <th>备注</th>
-    </tr>
-    <tr *ngFor="let item of sysEmpoiyeeRequest.sysEmployeeCaseList;let i = index">
-      <td>{{item.caseName}}</td>
-      <td>{{item.diagnosisDate}}</td>
-      <td>{{item.diagnosisHospital}}</td>
-      <td>{{item.treatmentResults}}</td>
-      <td>{{item.remarks}}</td>
-    </tr>
-  </table>
-  <table width="100%" border="1">
-    <tr>
-      <th colspan="5">职业病诊断</th>
-    </tr>
-    <tr>
-      <th>职业病名称</th>
-      <th>诊断时间</th>
-      <th>诊断医院</th>
-      <th>诊断级别</th>
-      <th>备注</th>
-    </tr>
-    <tr *ngFor="let item of sysEmpoiyeeRequest.sysEmployeeDiseaseList;let i = index">
-      <td>{{item.diseaseName}}</td>
-      <td>{{item.diagnosisDate}}</td>
-      <td>{{item.diagnosisHospital}}</td>
-      <td>{{item.diagnosisLevel}}</td>
-      <td>{{item.remarks}}</td>
-    </tr>
-  </table>
-</div>
-
 <div class="c-content-inner">
-  <div class="row">
-    <div class="col-md-4">
+    <div class="row row-margin-bottom" style="white-space: nowrap;">
+      <div style="float: left;display: inline;width: 80%;">
+        <div class="row row-margin-bottom">
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>姓名：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empName}}</label>
+          </div>
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>公司：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysCompanyOffice.companyId | companyName: companyList}}</label>
+          </div>
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>部门：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysCompanyOffice.officeName}}</label>
+          </div>
+        </div>
+        <div class="row row-margin-bottom">
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left">性别：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empSex | sexReform}}</label>
+          </div>
+          <div class="col-md-4">
+            <label class="col-md-4 col-form-label text-right float-left">籍贯：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empNative}}</label>
+          </div>
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left">婚姻：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empMarriage | marriageReform}}</label>
+          </div>
+        </div>
+        <div class="row row-margin-bottom">
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left">文化程度：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empEducation}}</label>
+          </div>
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left">嗜好：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empHobby}}</label>
+          </div>
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>身份证号：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empIdentityNumber}}</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 xdht-row-col">
+            <label class="col-md-4 col-form-label text-right float-left">工作时间：</label>
+            <label class="col-md-7 col-form-label">{{sysEmployeeRequest.sysEmployee.empWorkDate}}</label>
+          </div>
+        </div>
+      </div>
+      <div style="float: left;display: inline;">
+        <div class="row row-margin-bottom">
+          <img style="width: 100px;height: 80px;" id="employeeImg"/>
+        </div>
+      </div>
     </div>
-    <div class="col-md-4">
-      <button type="button" (click)="close()">关闭</button>
+    <div class="row row-margin-bottom">
+      <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+          <th colspan="6">
+            职业史及职业病危害接触史
+          </th>
+        </tr>
+        <tr>
+          <th width="15%">开始时间</th>
+          <th width="15%">结束时间</th>
+          <th width="17%">工作单位</th>
+          <th width="10%">工种</th>
+          <th width="19%"><span style="color:red;">*</span>噪声检测结果</th>
+          <th width="19%"><span style="color:red;">*</span>防护措施</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employeeJob of sysEmployeeRequest.sysEmployeeJobList;">
+          <td>{{employeeJob.beginDate}}</td>
+          <td>{{employeeJob.endDate}}</td>
+          <td>{{employeeJob.companyName}}</td>
+          <td>{{employeeJob.workType | workType: sysWorkTypeList}}</td>
+          <td>{{employeeJob.noiseDetectionResults}}</td>
+          <td>{{employeeJob.protectiveMeasures}}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="col-md-4">
+    <div class="row row-margin-bottom">
+      <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+          <th colspan="5">
+            既往病史
+          </th>
+        </tr>
+        <tr>
+          <th width="20%">疾病名称</th>
+          <th width="15%">诊断时间</th>
+          <th width="20%"><span style="color:red;">*</span>诊断医院</th>
+          <th width="20%"><span style="color:red;">*</span>治疗结果</th>
+          <th width="20%">备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employeeCase of sysEmployeeRequest.sysEmployeeCaseList;">
+          <td>{{employeeCase.caseName}}</td>
+          <td>{{employeeCase.diagnosisDate}}</td>
+          <td>{{employeeCase.diagnosisHospital}}</td>
+          <td>{{employeeCase.treatmentResults}}</td>
+          <td>{{employeeCase.remarks}}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
+    <div class="row">
+      <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+          <th colspan="5">
+            职业病诊断
+          </th>
+        </tr>
+        <tr>
+          <th width="20%">职业病名称</th>
+          <th width="15%">诊断时间</th>
+          <th width="20%"><span style="color:red;">*</span>诊断医院</th>
+          <th width="20%"><span style="color:red;">*</span>诊断级别</th>
+          <th width="20%">备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employeeDisease of sysEmployeeRequest.sysEmployeeDiseaseList;">
+          <td>{{employeeDisease.diseaseName}}</td>
+          <td>{{employeeDisease.diagnosisDate}}</td>
+          <td>{{employeeDisease.diagnosisHospital}}</td>
+          <td>{{employeeDisease.diagnosisLevel}}</td>
+          <td>{{employeeDisease.remarks}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
 </div>

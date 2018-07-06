@@ -7,7 +7,6 @@ import {HttpService} from '../../core/http/http.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
-import {CompanyOfficeChooseComponent} from '../../sys/company-office-choose/company-office-choose.component';
 
 @Component({
   selector: 'app-temperature-protection-edit',
@@ -28,7 +27,6 @@ export class TemperatureProtectionEditComponent implements OnInit {
     recordTemperatureDataList: [{
       id: '',
       companyOfficeId: '',
-      officeName: '',
       postId: '',
       workPlace: '',
       productiveHeatSource: '',
@@ -95,7 +93,6 @@ export class TemperatureProtectionEditComponent implements OnInit {
     this.recordData.recordTemperatureDataList[index] = {
         id: '',
         companyOfficeId: '',
-        officeName: '',
         postId: '',
         workPlace: '',
         productiveHeatSource: '',
@@ -142,21 +139,14 @@ export class TemperatureProtectionEditComponent implements OnInit {
     });
     this.waitService.wait(false);
   }
+
+
   /**
    * 选择部门
+   * @param data
    */
-  searchEmployeeOffice(index) {
-    const modalRef = this.ngbModal.open(CompanyOfficeChooseComponent);
-    modalRef.componentInstance.companyId = this.companyId;
-    modalRef.result.then(
-      (result) => {
-        if (result.success === 'success') {
-          const sysCompanyOffice = result.sysCompanyOffice;
-          this.recordData.recordTemperatureDataList[index].companyOfficeId = sysCompanyOffice.id;
-          this.recordData.recordTemperatureDataList[index].officeName = sysCompanyOffice.officeName;
-        }
-      }
-    );
+  onDataChanged(data) {
+    this.recordData.recordTemperatureDataList[data.index].companyOfficeId = data.officeId;
   }
 
 

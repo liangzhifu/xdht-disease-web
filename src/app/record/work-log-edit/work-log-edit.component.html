@@ -9,16 +9,16 @@
     <div class="modal-body">
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">编码：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>编码：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordWorkLog.workLogNo" name="recordWorkLog.workLogNo"
-                 id="workLogNo" [ngClass]="{'warn': !workLogNo.valid}"
+                 id="workLogNo" [ngClass]="{'warn': !workLogNo.valid}" ngbTooltip="编码长度不大于20"
                  #workLogNo="ngModel" required="required" maxlength="20" pattern="^[a-zA-Z0-9_-]{0,20}$">
         </div>
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left">核实情况：</label>
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>核实情况：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="recordData.recordWorkLog.verificationResult"
                  id="verificationResult" [ngClass]="{'warn': !verificationResult.valid}"  name="recordPreEvaluation.verificationResult"
-                 #verificationResult="ngModel" required="required" maxlength="100">
+                 #verificationResult="ngModel" required="required" maxlength="100" ngbTooltip="核实情况长度不大于100">
         </div>
       </div>
       <div class="row">
@@ -37,25 +37,25 @@
             </tr>
             <tr *ngFor="let item of recordData.recordWorkLogDataList;let recordIndex=index;"  >
               <td>
-                <input type="hidden" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.companyOfficeId">
-                <input type="text" class="form-control col-md-8" style="display: inline" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
-                       #officeName_recordIndex="ngModel" [ngClass]="{'warn': !officeName_recordIndex.valid}" required>
-                <button class="btn btn-primary" (click)="searchEmployeeOffice(recordIndex);">查询</button>
+                <input type="text" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
+                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.companyOfficeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
               </td>
-              <td width="20px;">
-                <select class="form-control" #select [(ngModel)]="item.postId" name="item{{recordIndex}}.postId">
+              <td>
+                <select class="form-control" #select [(ngModel)]="item.postId" name="item{{recordIndex}}.postId"
+                        #postId_recordIndex="ngModel" required="required" [ngClass]="{'warn': !postId_recordIndex.valid}">
                   <option value="">--请选择岗位--</option>
-                  <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.postName}}</option>
+                  <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.dictionaryName}}</option>
                 </select>
               </td>
               <td><input class="form-control" type="text" [(ngModel)]="item.personOfClass" name="item{{recordIndex}}.personOfClass"
-                         #officeName_recordIndex="ngModel" [ngClass]="{'warn': !officeName_recordIndex.valid}" required pattern="^[0-9]+$">
+                         ngbTooltip="每班人数大于0"
+                         #officeName_recordIndex="ngModel" [ngClass]="{'warn': !officeName_recordIndex.valid}" required pattern="^[1-9]+$">
               </td>
-              <td><input class="form-control" type="text" [(ngModel)]="item.workHours" name="item{{recordIndex}}.workHours" maxlength="10"></td>
-              <td><input class="form-control" type="text" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace" maxlength="50"></td>
-              <td><input class="form-control" type="text" [(ngModel)]="item.workContent" name="item{{recordIndex}}.workContent" maxlength="50"></td>
-              <td><input class="form-control" type="text" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}.hazardFactors" maxlength="50"></td>
-              <td><input class="form-control" type="text" [(ngModel)]="item.remarks" name="item{{recordIndex}}.remarks" maxlength="50"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.workHours" name="item{{recordIndex}}.workHours" maxlength="10" ngbTooltip="内容长度不大于10"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace" maxlength="50" ngbTooltip="工作地点长度不大于50"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.workContent" name="item{{recordIndex}}.workContent" maxlength="50" ngbTooltip="工作内容长度不大于50"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}.hazardFactors" maxlength="50" ngbTooltip="危害因素内容长度不大于50"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.remarks" name="item{{recordIndex}}.remarks" maxlength="50" ngbTooltip="内容长度不大于50"></td>
               <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
             </tr>
           </table>

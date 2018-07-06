@@ -11,6 +11,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EmployeeEditComponent} from '../employee-edit/employee-edit.component';
 import {EmpoiyeeInfoComponent} from '../empoiyee-info/empoiyee-info.component';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-employee-manage',
@@ -27,14 +28,20 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
    * 查询条件
    */
   param: any = {
-    empName: ''
+    empName: '',
+    empSex: '',
+    empNative: '',
+    empIdentityNumber: '',
+    empMarriage: ''
+
   };
   constructor(
     private ngbModal: NgbModal,
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -59,38 +66,14 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
    * 查看职工信息
    */
   selectEmployeeInfo(employeeId) {
-    // 获取职工数据
-    this.httpService.get(SystemConstant.EMPLOYEE_DETAIL + '/' + employeeId).subscribe({
-      next: (data) => {
-        this.openEmployeeInfo(data);
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '', '获取职工详情失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {}
-    });
+    this.router.navigate(['/main/record/employeeDetail'], {queryParams: {id: employeeId}});
   }
 
-  /**
-   * 打开职工详情对话框
-   */
-  openEmployeeInfo(employeeData) {
-    const modalRef = this.ngbModal.open(EmpoiyeeInfoComponent);
-    modalRef.componentInstance.sysEmpoiyeeRequest = employeeData;
-    modalRef.result.then(
-      (result) => {
-        if (result === 'success') {
-          this.search();
-        }
-      }
-    );
-  }
   /**
    * 新增职工
    */
   addEmployee() {
-    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
+    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'w80', centered: true});
     modalRef.result.then(
       (result) => {
         if (result === 'success') {
@@ -121,7 +104,7 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
    * 打开修改职工对话框
    */
   openEditEmployee(employeeData) {
-    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'lg'});
+    const modalRef = this.ngbModal.open(EmployeeEditComponent, {backdrop: 'static', keyboard: false, size: 'w80', centered: true});
     modalRef.componentInstance.sysEmployeeRequest = employeeData;
     modalRef.result.then(
       (result) => {

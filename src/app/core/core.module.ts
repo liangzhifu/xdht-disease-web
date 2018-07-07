@@ -13,6 +13,8 @@ import { InspectReformPipe } from './pipe/inspect-reform.pipe';
 import { MarriageReformPipe } from './pipe/marriage-reform.pipe';
 import { CompanyNamePipe } from './pipe/company-name.pipe';
 import { WorkTypePipe } from './pipe/work-type.pipe';
+import {I18nService} from './I18n/i18n.service';
+import {CustomDatepickerI18nService} from './I18n/custom-datepicker-i18n.service';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import { WorkTypePipe } from './pipe/work-type.pipe';
     HttpClientModule
   ],
   providers: [
+    CustomDatepickerI18nService,
     HttpService,
+    I18nService,
     SessionStorageService,
     TokenPermissionService,
     WaitService

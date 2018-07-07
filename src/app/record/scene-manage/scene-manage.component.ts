@@ -8,16 +8,19 @@ import {ModalService} from '../../modal/modal.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {WaitService} from '../../core/wait/wait.service';
 import {ToastService} from '../../toast/toast.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
-import {SceneEditComponent} from '../scene-edit/scene-edit.component';
 import 'jquery';
 import {TitleService} from '../../title.service';
+import {I18nService} from '../../core/I18n/i18n.service';
+import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
+
 declare var $: any;
 @Component({
   selector: 'app-record-scene-manage',
   templateUrl: './scene-manage.component.html',
-  styleUrls: ['./scene-manage.component.scss']
+  styleUrls: ['./scene-manage.component.scss'],
+  providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class SceneManageComponent implements OnInit, AfterViewInit {
   url: String;

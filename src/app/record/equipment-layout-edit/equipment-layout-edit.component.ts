@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class EquipmentLayoutEditComponent implements OnInit {
   recordEquipmentLayoutEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordEquipmentLayout: {
@@ -33,7 +34,8 @@ export class EquipmentLayoutEditComponent implements OnInit {
       remarkds: '',
       officeName: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
 
   addFlag: boolean;
@@ -111,6 +113,7 @@ export class EquipmentLayoutEditComponent implements OnInit {
       url = SystemConstant.EQUIPMENT_LAYOUT_ADD;
      this.recordData.recordEquipmentLayoutDataList.splice( 1, this.recordData.recordEquipmentLayoutDataList.length + 1);
       this.recordData.recordEquipmentLayout.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.EQUIPMENT_LAYOUT_EDIT;
     }

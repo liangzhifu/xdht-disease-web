@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class AntiNoiseEditComponent implements OnInit {
   recordAntiNoiseEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordAntiNoiseFacilities: {
@@ -33,7 +34,8 @@ export class AntiNoiseEditComponent implements OnInit {
       noiseProtectionFacilities: '',
       operationAndMaintenance: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   sysPostList: [{
     id: '',
@@ -119,6 +121,7 @@ export class AntiNoiseEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.ANTI_NOISE_ADD;
       this.recordData.recordAntiNoiseFacilities.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.ANTI_NOISE_EDIT;
     }

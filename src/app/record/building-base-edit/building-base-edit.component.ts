@@ -16,6 +16,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class BuildingBaseEditComponent implements OnInit {
   recordBuildingBaseEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordBuildingBase: {
@@ -34,7 +35,8 @@ export class BuildingBaseEditComponent implements OnInit {
       lightingMode: '',
       lightingSystem: '',
       lightingLamps: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -109,6 +111,7 @@ export class BuildingBaseEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.BUILDING_BASE_ADD;
       this.recordData.recordBuildingBase.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.BUILDING_BASE_EDIT;
     }

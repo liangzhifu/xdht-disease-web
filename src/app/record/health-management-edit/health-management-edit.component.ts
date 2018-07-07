@@ -16,6 +16,7 @@ export class HealthManagementEditComponent implements OnInit {
 
   recordHealthManagementEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordHealthManagement: {
@@ -32,7 +33,8 @@ export class HealthManagementEditComponent implements OnInit {
       implementInfo: '',
       remarks: '',
       projectName: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -98,6 +100,7 @@ export class HealthManagementEditComponent implements OnInit {
     let url = '';
     if (this.addFlag) {
       url = SystemConstant.HEALTH_MANAGEMENT_ADD;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.HEALTH_MANAGEMENT_EDIT;
     }

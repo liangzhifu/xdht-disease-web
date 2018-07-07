@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class VddEquipmentEditComponent implements OnInit {
   recordVddEquipmentEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordVddEquipment: {
@@ -34,7 +35,8 @@ export class VddEquipmentEditComponent implements OnInit {
       number: '',
       operationAndMaintenance: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   sysPostList: [{
     id: '',
@@ -121,6 +123,7 @@ export class VddEquipmentEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.VDD_EQUIPMENT_ADD;
       this.recordData.recordVddEquipment.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.VDD_EQUIPMENT_EDIT;
     }

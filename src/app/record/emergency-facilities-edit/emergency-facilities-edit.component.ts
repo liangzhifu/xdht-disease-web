@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class EmergencyFacilitiesEditComponent implements OnInit {
   recordEmergencyFacilitiesEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordEmergencyFacilities: {
@@ -34,7 +35,8 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
       technicalParameter: '',
       hazardFactors: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -111,6 +113,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.EMERGENCY_FACILITIES_ADD;
       this.recordData.recordEmergencyFacilities.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.EMERGENCY_FACILITIES_EDIT;
     }

@@ -15,6 +15,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 export class RecordFundsEditComponent implements OnInit {
   recordFundsEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordFunds: {
@@ -29,7 +30,8 @@ export class RecordFundsEditComponent implements OnInit {
       fundsProjectId: '',
       expactOrPay: '',
       projectName: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -95,6 +97,7 @@ export class RecordFundsEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.FUNDS_ADD;
       this.recordData.recordFunds.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.FUNDS_EDIT;
     }

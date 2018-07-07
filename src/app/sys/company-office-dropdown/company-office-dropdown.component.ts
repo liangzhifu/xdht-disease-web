@@ -16,6 +16,7 @@ declare var $: any;
 export class CompanyOfficeDropdownComponent implements OnInit {
   @Input() companyId: any;
   @Input() officeId: any;
+  @Input() addFlag: any;
   @Input() treeSeq: any;
   @Output() onDataChanged: EventEmitter<any> = new EventEmitter();
   setting = {
@@ -46,7 +47,11 @@ export class CompanyOfficeDropdownComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.openZTree(this.companyId, this.officeId);
+      this.openZTree(this.companyId, this.officeId);
+      // 隐藏部门列表
+      if (this.addFlag === 1) {
+        $('.ztree').hide();
+      }
   }
 
   /**

@@ -8,14 +8,17 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
 import {SelectEmployeeComponent} from '../select-employee/select-employee.component';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import 'jquery';
+import {I18nService} from '../../core/I18n/i18n.service';
+import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
 declare var $: any;
 
 @Component({
   selector: 'app-employee-summary-edit',
   templateUrl: './employee-summary-edit.component.html',
-  styleUrls: ['./employee-summary-edit.component.scss']
+  styleUrls: ['./employee-summary-edit.component.scss'],
+  providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class EmployeeSummaryEditComponent implements OnInit {
   employeeSummary = {

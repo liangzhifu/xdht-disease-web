@@ -14,6 +14,7 @@ import {ToastConfig} from '../../toast/toast-config';
 export class ControlEffectEditComponent implements OnInit {
   recordControlEffectEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordControlEffect: {
@@ -30,6 +31,7 @@ export class ControlEffectEditComponent implements OnInit {
       remarks: '',
       projectName: ''
     }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -88,6 +90,7 @@ export class ControlEffectEditComponent implements OnInit {
    * 提交数据
    */
   submitData() {
+    this.recordData.questionnaireId = this.questionnaireId;
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {

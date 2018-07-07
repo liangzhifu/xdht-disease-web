@@ -11,7 +11,8 @@ const mainRoutes: Routes = [
     component: MainComponent,
     children: [
       {path: 'sys', loadChildren: './../sys/sys.module#SysModule'},
-      {path: 'record', loadChildren: './../record/record.module#RecordModule'}
+      {path: 'record', loadChildren: './../record/record.module#RecordModule'},
+      {path: 'echart', loadChildren: './../echart/echart.module#EchartModule'}
     ],
     canActivate: [TokenPermissionService]
   }

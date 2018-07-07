@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class InformingFacilitiesEditComponent implements OnInit {
   recordInformingFacilitiesEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordInformingFacilities: {
@@ -33,7 +34,8 @@ export class InformingFacilitiesEditComponent implements OnInit {
       settingPlace: '',
       remarks: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -108,6 +110,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.INFORMING_FACILITIES_ADD;
       this.recordData.recordInformingFacilities.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.INFORMING_FACILITIES_EDIT;
     }

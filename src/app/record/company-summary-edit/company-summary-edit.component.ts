@@ -6,15 +6,18 @@ import {ToastService} from '../../toast/toast.service';
 import {ToastConfig} from '../../toast/toast-config';
 import {HttpService} from '../../core/http/http.service';
 import {ToastType} from '../../toast/toast-type.enum';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
 import {WaitService} from '../../core/wait/wait.service';
 import 'jquery';
+import {I18nService} from '../../core/I18n/i18n.service';
+import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
 declare var $: any;
 
 @Component({
   selector: 'app-company-summary-edit',
   templateUrl: './company-summary-edit.component.html',
-  styleUrls: ['./company-summary-edit.component.scss']
+  styleUrls: ['./company-summary-edit.component.scss'],
+  providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class CompanySummaryEditComponent implements OnInit {
   @Input() companySummary = {

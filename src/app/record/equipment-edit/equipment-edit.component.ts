@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class EquipmentEditComponent implements OnInit {
   recordEquipmentEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordEquipment: {
@@ -31,7 +32,8 @@ export class EquipmentEditComponent implements OnInit {
       equipmentName: '',
       epuipmentNumber: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
 
   };
 
@@ -107,6 +109,7 @@ export class EquipmentEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.EQUIPMENT_ADD;
       this.recordData.recordEquipment.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.EQUIPMENT_EDIT;
     }

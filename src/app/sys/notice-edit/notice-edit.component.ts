@@ -2,19 +2,22 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ModalService} from '../../modal/modal.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {HttpService} from '../../core/http/http.service';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
 import {ToastService} from '../../toast/toast.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
 import {QuillEditorComponent} from 'ngx-quill';
 import 'jquery';
+import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
+import {I18nService} from '../../core/I18n/i18n.service';
 declare var $: any;
 
 @Component({
   selector: 'app-notice-edit',
   templateUrl: './notice-edit.component.html',
-  styleUrls: ['./notice-edit.component.scss']
+  styleUrls: ['./notice-edit.component.scss'],
+  providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class NoticeEditComponent implements OnInit {
 

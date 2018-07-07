@@ -15,6 +15,7 @@ import {ToastConfig} from '../../toast/toast-config';
 export class PreEvaluationEditComponent implements OnInit {
   recordPreEvaluationEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordPreEvaluation: {
@@ -30,7 +31,8 @@ export class PreEvaluationEditComponent implements OnInit {
       surveyResults: '',
       remarks: '',
       projectName: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -92,6 +94,7 @@ export class PreEvaluationEditComponent implements OnInit {
    * 提交数据
    */
   submitData() {
+    this.recordData.questionnaireId = this.questionnaireId;
     this.waitService.wait(true);
     let url = '';
     if (this.addFlag) {

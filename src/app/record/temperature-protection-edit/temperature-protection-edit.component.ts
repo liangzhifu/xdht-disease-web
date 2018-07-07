@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class TemperatureProtectionEditComponent implements OnInit {
   recordTemperatureEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordTemperature: {
@@ -33,7 +34,8 @@ export class TemperatureProtectionEditComponent implements OnInit {
       temperatureProtectionFacilities: '',
       operationAndMaintenance: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   sysPostList: [{
     id: '',
@@ -120,6 +122,7 @@ export class TemperatureProtectionEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.TEMPERATURE_ADD;
       this.recordData.recordTemperature.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.TEMPERATURE_EDIT;
     }

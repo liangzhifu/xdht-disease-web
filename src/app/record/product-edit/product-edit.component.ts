@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class ProductEditComponent implements OnInit {
   recordProductEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordProduct: {
@@ -36,7 +37,8 @@ export class ProductEditComponent implements OnInit {
       transportMode: '',
       annualAmount: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   sysPostList: [{
     id: '',
@@ -127,6 +129,7 @@ export class ProductEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.PRODUCT_ADD;
       this.recordData.recordProduct.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.PRODUCT_EDIT;
     }

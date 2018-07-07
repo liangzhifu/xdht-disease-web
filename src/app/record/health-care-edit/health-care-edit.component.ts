@@ -15,6 +15,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 export class HealthCareEditComponent implements OnInit {
   recordHealthCareEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordHealthCare: {
@@ -30,7 +31,8 @@ export class HealthCareEditComponent implements OnInit {
       surveyResults: '',
       remarks: '',
       projectName: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -97,6 +99,7 @@ export class HealthCareEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.HEALTH_CARE_ADD;
       this.recordData.recordHealthCare.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.HEALTH_CARE_EDIT;
     }

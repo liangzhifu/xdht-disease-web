@@ -61,7 +61,8 @@ export class SceneDetailComponent implements OnInit {
       'sceneId': '',
       'questionnaireId': '',
       'generatorRecord': null,
-      'questionnaireName': ''
+      'questionnaireName': '',
+      'editStatus': ''
     }]
   };
 
@@ -236,6 +237,7 @@ export class SceneDetailComponent implements OnInit {
         const modalRef = this.ngbModal.open(this.editComponent, options);
           modalRef.componentInstance.recordData = data;
           modalRef.componentInstance.sceneId = this.recordSceneRequest.recordScene.id;
+          modalRef.componentInstance.questionnaireId = questionnaireId;
           modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;
           modalRef.result.then(
           (result) => {

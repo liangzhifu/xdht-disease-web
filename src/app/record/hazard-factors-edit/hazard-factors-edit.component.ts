@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class HazardFactorsEditComponent implements OnInit {
   recordHazardFactorsEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordHazardFactors: {
@@ -34,7 +35,8 @@ export class HazardFactorsEditComponent implements OnInit {
       exposureTime: '',
       remarks: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -110,6 +112,7 @@ export class HazardFactorsEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.HAZARD_FACTORS_ADD;
       this.recordData.recordHazardFactors.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.HAZARD_FACTORS_EDIT;
     }

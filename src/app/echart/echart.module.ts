@@ -4,7 +4,6 @@ import {NgxEchartsModule} from 'ngx-echarts';
 import {EchartComponent} from './echart.component';
 import {DemoComponent} from './demo/demo.component';
 import {EchartRoutingModule} from './echart-routing.module';
-import { EmployeeEarComponent } from './employee-ear/employee-ear.component';
 import { EmployeeEcharsInfoComponent } from './employee-echars-info/employee-echars-info.component';
 
 @NgModule({

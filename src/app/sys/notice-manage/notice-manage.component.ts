@@ -9,6 +9,7 @@ import {ToastService} from '../../toast/toast.service';
 import {NoticeEditComponent} from '../notice-edit/notice-edit.component';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-notice-manage',
@@ -31,8 +32,11 @@ export class NoticeManageComponent implements OnInit,AfterViewInit {
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('公告编辑');
+  }
 
   ngOnInit() {
     this.url = SystemConstant.NOTICE_PAGE_LIST;

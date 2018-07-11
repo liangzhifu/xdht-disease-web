@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class IndividualProtectiveEditComponent implements OnInit {
   recordIndividualProtectiveEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordIndividualProtective: {
@@ -34,7 +35,8 @@ export class IndividualProtectiveEditComponent implements OnInit {
       number: '',
       usaged: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   sysPostList: [{
     id: '',
@@ -121,6 +123,7 @@ export class IndividualProtectiveEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.INDIVIDUAL_PROTECTIVE_ADD;
       this.recordData.recordIndividualProtective.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.INDIVIDUAL_PROTECTIVE_EDIT;
     }

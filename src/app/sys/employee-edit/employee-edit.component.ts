@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
-import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SystemConstant} from '../../core/class/system-constant';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
@@ -12,12 +12,15 @@ import {FileUploader} from 'ng2-file-upload';
 import {SessionStorageService} from '../../core/storage/session-storage.service';
 import {CompanyOfficeDropdownComponent} from '../company-office-dropdown/company-office-dropdown.component';
 import 'jquery';
+import {I18nService} from '../../core/I18n/i18n.service';
+import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
 declare var $: any;
 
 @Component({
   selector: 'app-employee-edit',
   templateUrl: './employee-edit.component.html',
-  styleUrls: ['./employee-edit.component.scss']
+  styleUrls: ['./employee-edit.component.scss'],
+  providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class EmployeeEditComponent implements OnInit {
   @ViewChild('acod', undefined) acod: CompanyOfficeDropdownComponent;

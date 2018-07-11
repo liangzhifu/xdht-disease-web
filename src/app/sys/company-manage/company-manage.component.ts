@@ -8,18 +8,22 @@ import {ModalService} from '../../modal/modal.service';
 import {HttpService} from '../../core/http/http.service';
 import {ToastService} from '../../toast/toast.service';
 import {ToastType} from '../../toast/toast-type.enum';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CompanyEditComponent} from '../company-edit/company-edit.component';
 import {CompanyOfficeManageComponent} from '../company-office-manage/company-office-manage.component';
+import {TitleService} from '../../title.service';
+import {I18nService} from '../../core/I18n/i18n.service';
+import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
 import 'jquery';
 declare var $: any;
 
 @Component({
   selector: 'app-company-manage',
   templateUrl: './company-manage.component.html',
-  styleUrls: ['./company-manage.component.scss']
+  styleUrls: ['./company-manage.component.scss'],
+  providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
-export class CompanyManageComponent implements OnInit,AfterViewInit {
+export class CompanyManageComponent implements OnInit, AfterViewInit {
 
   url: String;
   method: 'post';
@@ -42,8 +46,10 @@ export class CompanyManageComponent implements OnInit,AfterViewInit {
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private titleService: TitleService
   ) {
+    this.titleService.titleEventEmitter.emit('企业基本信息');
     // 获取单位性质
     this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 7} ).subscribe({
       next: (data) => {

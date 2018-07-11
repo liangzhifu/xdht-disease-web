@@ -9,9 +9,9 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {ToastConfig} from '../../toast/toast-config';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EmployeeEditComponent} from '../employee-edit/employee-edit.component';
-import {EmpoiyeeInfoComponent} from '../empoiyee-info/empoiyee-info.component';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 import {Router} from '@angular/router';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-employee-manage',
@@ -41,8 +41,11 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
     private modalService: ModalService,
     private httpService: HttpService,
     private toastService: ToastService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private  titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('职工档案信息');
+  }
 
   ngOnInit() {
     this.url = SystemConstant.EMPLOYEE_PAGE_LIST;

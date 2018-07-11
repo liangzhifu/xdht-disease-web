@@ -12,6 +12,7 @@ import { ToastType } from '../../toast/toast-type.enum';
 import { ConfirmConfig } from '../../modal/confirm/confirm-config';
 import { MenuChooseComponent } from '../menu-choose/menu-choose.component';
 import {KnowledgeCatalogChooseComponent} from '../knowledge-catalog-choose/knowledge-catalog-choose.component';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-role-manage',
@@ -34,8 +35,11 @@ export class RoleManageComponent implements OnInit,AfterViewInit {
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('角色管理');
+  }
   ngOnInit() {
     this.url = SystemConstant.ROLE_PAGE_LIST;
   }

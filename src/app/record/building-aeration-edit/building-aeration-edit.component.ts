@@ -16,6 +16,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class BuildingAerationEditComponent implements OnInit {
   recordBuildingAerationEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordBuildingAeration: {
@@ -31,7 +32,8 @@ export class BuildingAerationEditComponent implements OnInit {
       adjustmentFacilities: '',
       number: '',
       heatingMode: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -104,6 +106,7 @@ export class BuildingAerationEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.BUILDING_AERATION_ADD;
       this.recordData.recordBuildingAeration.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.BUILDING_AERATION_EDIT;
     }

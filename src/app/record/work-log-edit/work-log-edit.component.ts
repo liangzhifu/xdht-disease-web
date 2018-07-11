@@ -16,6 +16,7 @@ import {ModalService} from '../../modal/modal.service';
 export class WorkLogEditComponent implements OnInit {
   recordWorkLogEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordWorkLog: {
@@ -35,7 +36,8 @@ export class WorkLogEditComponent implements OnInit {
       hazardFactors: '',
       remarks: '',
       relationId: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   sysPostList: [{
     'id': '',
@@ -125,6 +127,7 @@ export class WorkLogEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.WORK_LOG_ADD;
       this.recordData.recordWorkLog.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.WORK_LOG_EDIT;
     }

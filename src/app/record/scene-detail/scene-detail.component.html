@@ -47,8 +47,11 @@
         <td *ngIf="item.generatorRecord == 1">{{i+1}}</td>
         <td *ngIf="item.generatorRecord == 1">{{item.questionnaireName}}</td>
         <td *ngIf="item.generatorRecord == 1">
-          <button class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)">
+          <button *ngIf="item.editStatus == '1'" class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)">
             <i class="fa fa-edit fa-fw"></i>编辑
+          </button>
+          <button *ngIf="item.editStatus == '0'" class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)">
+            <i class="fa fa-edit fa-fw"></i>填写
           </button>
         </td>
       </tr>

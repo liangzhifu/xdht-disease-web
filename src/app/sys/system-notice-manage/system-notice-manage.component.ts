@@ -9,6 +9,7 @@ import {ToastService} from '../../toast/toast.service';
 import {HttpService} from '../../core/http/http.service';
 import {ModalService} from '../../modal/modal.service';
 import {SystemNoticeDetailComponent} from '../system-notice-detail/system-notice-detail.component';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-system-notice-manage',
@@ -31,8 +32,11 @@ export class SystemNoticeManageComponent implements OnInit, AfterViewInit {
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
-    private toastService: ToastService
-  ) { }
+    private toastService: ToastService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('系统公告');
+  }
 
   ngOnInit() {
     this.url = SystemConstant.NOTICE_PAGE_LIST;

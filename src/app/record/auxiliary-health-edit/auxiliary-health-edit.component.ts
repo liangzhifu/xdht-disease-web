@@ -17,6 +17,7 @@ export class AuxiliaryHealthEditComponent implements OnInit {
 
   recordAuxiliaryHealthEditTitle: string;
   @Input() sceneId = 0;
+  @Input() questionnaireId = 0;
   @Input() companyId = 0;
   @Input() recordData = {
     recordAuxiliaryHealth: {
@@ -32,7 +33,8 @@ export class AuxiliaryHealthEditComponent implements OnInit {
       workPlace: '',
       hygienicRoom: '',
       livingRoom: ''
-    }]
+    }],
+    questionnaireId: 0
   };
   addFlag: boolean;
   action = '';
@@ -104,6 +106,7 @@ export class AuxiliaryHealthEditComponent implements OnInit {
     if (this.addFlag) {
       url = SystemConstant.AUXILIARY_HEALTH_ADD;
       this.recordData.recordAuxiliaryHealth.sceneId = this.sceneId;
+      this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.AUXILIARY_HEALTH_EDIT;
     }

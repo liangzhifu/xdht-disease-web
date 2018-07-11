@@ -171,7 +171,7 @@
         <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">尿潜血：</label>
           <input type="text" class="form-control col-md-7" [(ngModel)]="employeeSummary.urineOccultBlood"
-                 name="urineOccultBlood"
+                 name="urineOccultBlood" ngbTooltip="内容长度不大于50"
                  [ngClass]="{'warn': !urineOccultBlood.valid}" #urineOccultBlood="ngModel" required="required" maxlength="50">
         </div>
         <div class="col-md-4">

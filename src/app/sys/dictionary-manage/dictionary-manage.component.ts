@@ -11,6 +11,7 @@ import {SystemConstant} from '../../core/class/system-constant';
 import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
+import {TitleService} from '../../title.service';
 
 @Component({
   selector: 'app-dictionary-manage',
@@ -35,8 +36,11 @@ export class DictionaryManageComponent implements OnInit, AfterViewInit {
     private modalService: ModalService,
     private httpService: HttpService,
     private toastService: ToastService,
-    private sessionStorage: SessionStorageService
-  ) { }
+    private sessionStorage: SessionStorageService,
+    private titleService: TitleService
+  ) {
+    this.titleService.titleEventEmitter.emit('字典管理');
+  }
 
   ngOnInit() {
     this.dictionaryTypeList = this.sessionStorage.getObject('dictionary_type');

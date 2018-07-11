@@ -12,6 +12,7 @@ import { ModalModule } from './modal/modal.module';
 import { MainModule } from './main/main.module';
 import { RecordModule } from './record/record.module';
 import {TitleService} from './title.service';
+import {EchartModule} from './echart/echart.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {TitleService} from './title.service';
     NgbModule.forRoot(),
     SysModule,
     RecordModule,
-    ToastModule
+    ToastModule,
+    EchartModule
   ],
   exports: [
   ],

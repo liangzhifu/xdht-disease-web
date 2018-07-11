@@ -1,0 +1,27 @@
+<div class="c-content-inner">
+
+  <div class="row row-margin-bottom">
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>单位：</label>
+      <select class="form-control col-md-7"  name="companyId" id="companyId"
+              (change)="changeCompany()">
+        <option value="">请选择</option>
+        <option *ngFor="let item of companyData;" value="{{item.id}}">{{item.companyName}}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="col-md-4 col-form-label text-right float-left">姓名：</label>
+      <input type="hidden" name="empId" id="empId">
+      <input type="hidden" name="officeId" id="officeId" >
+      <input type="text" class="form-control col-md-5 float-left"  id="empName" name="employeeSummary.empName" (click)="selectEmployee();" placeholder="单击选人" required  readonly >
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="selectEmployeeSummaryInfo();"><i class="fa fa-search fa-fw"></i> 查询</button>
+    </div>
+  </div>
+
+</div>
+<div style="height: 50px;"></div>
+<div echarts [options]="chartLeftOption" class="my-chart" ></div>
+<div style="height: 50px;"></div>
+<div echarts [options]="chartRightOption" class="my-chart"></div>

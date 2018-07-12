@@ -13,120 +13,131 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <p class="c-line-title"></p>
+      <p class="c-line-title"></p><p class="c-line-title"></p>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
       <div #sdt=simpleDataTable appSimpleDataTable>
-        <div class="table-outframe">
-            <table  width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
-                <tr>
-                  <th rowspan="3">单位</th>
-                  <th rowspan="3">部门</th>
-                  <th rowspan="3">工种</th>
-                  <th rowspan="3">姓名</th>
-                  <th rowspan="3">性别</th>
-                  <th rowspan="3">年龄</th>
-                  <th rowspan="3">接噪工龄</th>
-                  <th rowspan="3">体检日期</th>
-                  <th rowspan="3">初检/复检</th>
-                  <th rowspan="3">职业病危害因素</th>
-                  <th colspan="7">内科</th>
-                  <th rowspan="3">耳</th>
-                  <th colspan="5">血常规</th>
-                  <th colspan="4">尿常规</th>
-                  <th rowspan="3">ALTU/L</th>
-                  <th rowspan="3">心电图</th>
-                  <th colspan="12">纯音听阈测试</th>
-                  <th rowspan="3">操作</th>
-                </tr>
-                <tr>
-                  <th colspan="2">血压mmHg</th>
-                  <th rowspan="2">心脏</th>
-                  <th rowspan="2">肺</th>
-                  <th rowspan="2">皮肤粘膜</th>
-                  <th rowspan="2">浅表淋巴结</th>
-                  <th rowspan="2">甲状腺</th>
-                  <th rowspan="2">白细胞×109/L</th>
-                  <th rowspan="2">中性粒细胞计数×109/L</th>
-                  <th rowspan="2">红细胞计数×1012/L</th>
-                  <th rowspan="2">血色素g/L</th>
-                  <th rowspan="2">血小板×109/L</th>
-                  <th rowspan="2">白细胞（尿）</th>
-                  <th rowspan="2">尿蛋白</th>
-                  <th rowspan="2">尿潜血</th>
-                  <th rowspan="2">尿糖</th>
-                  <th colspan="6">左（dBHL）</th>
-                  <th colspan="6">右（dBHL）</th>
-                </tr>
-                <tr>
-                  <th>收缩压</th>
-                  <th>舒张压</th>
-                  <th>500</th>
-                  <th>1K</th>
-                  <th>2K</th>
-                  <th>3K</th>
-                  <th>4K</th>
-                  <th>6K</th>
-                  <th>500</th>
-                  <th>1K</th>
-                  <th>2K</th>
-                  <th>3K</th>
-                  <th>4K</th>
-                  <th>6K</th>
-                </tr>
-                <tr *ngFor="let item of sdt.data;">
-                  <td>{{item.companyName}}</td>
-                  <td>{{item.officeName}}</td>
-                  <td>{{item.workTypeName}}</td>
-                  <td>{{item.empName}}</td>
-                  <td>{{item.empSex | sexReform}}</td>
-                  <td>{{item.age}}</td>
-                  <td>{{item.contactTime}}</td>
-                  <td>{{item.inspectDate  | date:'yyyy-MM-dd '}}</td>
-                  <td>{{item.inspect | inspectReform}}</td>
-                  <td>{{item.hazardFactor}}</td>
-                  <td>{{item.bloodPressureShrink}}</td>
-                  <td>{{item.bloodPressureDiastole}}</td>
-                  <td>{{item.heart}}</td>
-                  <td>{{item.lungs}}</td>
-                  <td>{{item.skinMucousMembrane}}</td>
-                  <td>{{item.lymphNode}}</td>
-                  <td>{{item.thyroidGland}}</td>
-                  <td>{{item.ear}}</td>
-                  <td>{{item.whiteBloodCell}}</td>
-                  <td>{{item.neutrophileGranulocyte}}</td>
-                  <td>{{item.redBloodCell}}</td>
-                  <td>{{item.hemoglobin}}</td>
-                  <td>{{item.platelet}}</td>
-                  <td>{{item.whiteBloodCellUrine}}</td>
-                  <td>{{item.urineProtein}}</td>
-                  <td>{{item.urineOccultBlood}}</td>
-                  <td>{{item.urineSugar}}</td>
-                  <td>{{item.altuL}}</td>
-                  <td>{{item.electrocardiogram}}</td>
-                  <td>{{item.dbhl500L}}</td>
-                  <td>{{item.dbhl1kL}}</td>
-                  <td>{{item.dbhl2kL}}</td>
-                  <td>{{item.dbhl3kL}}</td>
-                  <td>{{item.dbhl4kL}}</td>
-                  <td>{{item.dbhl6kL}}</td>
-                  <td>{{item.dbhl500R}}</td>
-                  <td>{{item.dbhl1kR}}</td>
-                  <td>{{item.dbhl2kR}}</td>
-                  <td>{{item.dbhl3kR}}</td>
-                  <td>{{item.dbhl4kR}}</td>
-                  <td>{{item.dbhl6kR}}</td>
-                  <td>
-                    <button type="button" style="margin-right: 0px!important" class="btn btn-warning radius mr-10" (click)="editEmployeeSummary(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
-                    <button type="button" style="margin-right: 0px!important" class="btn btn-danger radius" (click)="delEmployeeSummary(item.id, item.empName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
-                  </td>
-                </tr>
-              </table>
+        <div class="table-op-outline">
+            <div class="table-outframe">
+                <table  width="100%" class="table table-bordered table-hover table-list" id="MesTable" cellpadding="0" cellspacing="0">
+                  <thead>
+                      <tr>
+                          <th rowspan="3">单位</th>
+                          <th rowspan="3">部门</th>
+                          <th rowspan="3">工种</th>
+                          <th rowspan="3">姓名</th>
+                          <th rowspan="3">性别</th>
+                          <th rowspan="3">年龄</th>
+                          <th rowspan="3">接噪工龄</th>
+                          <th rowspan="3">体检日期</th>
+                          <th rowspan="3">初检/复检</th>
+                          <th rowspan="3">职业病危害因素</th>
+                          <th colspan="7">内科</th>
+                          <th rowspan="3">耳</th>
+                          <th colspan="5">血常规</th>
+                          <th colspan="4">尿常规</th>
+                          <th rowspan="3">ALTU/L</th>
+                          <th rowspan="3">心电图</th>
+                          <th colspan="12">纯音听阈测试</th>
+                        </tr>
+                        <tr>
+                          <th colspan="2">血压mmHg</th>
+                          <th rowspan="2">心脏</th>
+                          <th rowspan="2">肺</th>
+                          <th rowspan="2">皮肤粘膜</th>
+                          <th rowspan="2">浅表淋巴结</th>
+                          <th rowspan="2">甲状腺</th>
+                          <th rowspan="2">白细胞×109/L</th>
+                          <th rowspan="2">中性粒细胞计数×109/L</th>
+                          <th rowspan="2">红细胞计数×1012/L</th>
+                          <th rowspan="2">血色素g/L</th>
+                          <th rowspan="2">血小板×109/L</th>
+                          <th rowspan="2">白细胞（尿）</th>
+                          <th rowspan="2">尿蛋白</th>
+                          <th rowspan="2">尿潜血</th>
+                          <th rowspan="2">尿糖</th>
+                          <th colspan="6">左（dBHL）</th>
+                          <th colspan="6">右（dBHL）</th>
+                        </tr>
+                        <tr>
+                          <th>收缩压</th>
+                          <th>舒张压</th>
+                          <th>500</th>
+                          <th>1K</th>
+                          <th>2K</th>
+                          <th>3K</th>
+                          <th>4K</th>
+                          <th>6K</th>
+                          <th>500</th>
+                          <th>1K</th>
+                          <th>2K</th>
+                          <th>3K</th>
+                          <th>4K</th>
+                          <th>6K</th>
+                        </tr>
+                  </thead> 
+                  <tbody>
+                      <tr class="dataTr" *ngFor="let item of sdt.data;">
+                          <td>{{item.companyName}}</td>
+                          <td>{{item.officeName}}</td>
+                          <td>{{item.workTypeName}}</td>
+                          <td>{{item.empName}}</td>
+                          <td>{{item.empSex | sexReform}}</td>
+                          <td>{{item.age}}</td>
+                          <td>{{item.contactTime}}</td>
+                          <td>{{item.inspectDate  | date:'yyyy-MM-dd '}}</td>
+                          <td>{{item.inspect | inspectReform}}</td>
+                          <td>{{item.hazardFactor}}</td>
+                          <td>{{item.bloodPressureShrink}}</td>
+                          <td>{{item.bloodPressureDiastole}}</td>
+                          <td>{{item.heart}}</td>
+                          <td>{{item.lungs}}</td>
+                          <td>{{item.skinMucousMembrane}}</td>
+                          <td>{{item.lymphNode}}</td>
+                          <td>{{item.thyroidGland}}</td>
+                          <td>{{item.ear}}</td>
+                          <td>{{item.whiteBloodCell}}</td>
+                          <td>{{item.neutrophileGranulocyte}}</td>
+                          <td>{{item.redBloodCell}}</td>
+                          <td>{{item.hemoglobin}}</td>
+                          <td>{{item.platelet}}</td>
+                          <td>{{item.whiteBloodCellUrine}}</td>
+                          <td>{{item.urineProtein}}</td>
+                          <td>{{item.urineOccultBlood}}</td>
+                          <td>{{item.urineSugar}}</td>
+                          <td>{{item.altuL}}</td>
+                          <td>{{item.electrocardiogram}}</td>
+                          <td>{{item.dbhl500L}}</td>
+                          <td>{{item.dbhl1kL}}</td>
+                          <td>{{item.dbhl2kL}}</td>
+                          <td>{{item.dbhl3kL}}</td>
+                          <td>{{item.dbhl4kL}}</td>
+                          <td>{{item.dbhl6kL}}</td>
+                          <td>{{item.dbhl500R}}</td>
+                          <td>{{item.dbhl1kR}}</td>
+                          <td>{{item.dbhl2kR}}</td>
+                          <td>{{item.dbhl3kR}}</td>
+                          <td>{{item.dbhl4kR}}</td>
+                          <td>{{item.dbhl6kR}}</td>
+                        </tr>
+                  </tbody>
+                    
+                  </table>
+            </div>
+            <div class="opDiv">
+                 <ul id="opUl">
+                   <li class="op-title">操作</li>
+                   <li class="op-li" *ngFor="let item of sdt.data;">
+                      <button type="button" class="btn btn-warning radius mr-10" (click)="editEmployeeSummary(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+                      <button type="button" class="btn btn-danger radius" (click)="delEmployeeSummary(item.id, item.empName)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+                    </li>
+                 </ul>
+            </div>
         </div>
 
-        <div class="c-mt15">
+        <div class="c-mt15" style="clear: both;">
           <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
         </div>
       </div>

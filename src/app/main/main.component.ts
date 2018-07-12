@@ -7,7 +7,6 @@ import { ModalService } from '../modal/modal.service';
 import { SessionStorageService } from '../core/storage/session-storage.service';
 import { HttpService } from '../core/http/http.service';
 import { ToastService } from '../toast/toast.service';
-import {CompanyEditComponent} from '../sys/company-edit/company-edit.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditPasswordComponent} from '../sys/edit-password/edit-password.component';
 

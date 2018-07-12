@@ -242,6 +242,7 @@ export class SceneDetailComponent implements OnInit {
           modalRef.result.then(
           (result) => {
             if (result === 'success') {
+              this.ngOnInit();
               console.log('操作成功');
             }
           }

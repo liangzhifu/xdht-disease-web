@@ -50,8 +50,8 @@
           <button *ngIf="item.editStatus == '1'" class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)">
             <i class="fa fa-edit fa-fw"></i>编辑
           </button>
-          <button *ngIf="item.editStatus == '0'" class="btn btn-warning radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)">
-            <i class="fa fa-edit fa-fw"></i>填写
+          <button *ngIf="item.editStatus == '0'" class="btn btn-danger radius mr-10" type="button" (click)="openRecordEdit(item.questionnaireId)">
+            <i class="fa fa-pencil fa-fw"></i>填写
           </button>
         </td>
       </tr>

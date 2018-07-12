@@ -46,6 +46,12 @@ export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
     this.search();
   }
 
+  // 每次做完组件视图和子视图的变更检测之后调用。
+  ngAfterViewChecked(){
+
+  }
+
+
   /**
    * 查询
    */

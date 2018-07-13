@@ -1,0 +1,60 @@
+<div>
+  <form #individualNoiseForm="ngForm">
+    <div class="modal-header">
+      <label class="modal-title">{{individualNoiseEditTitle}}</label>
+      <button aria-label="Close" class="close" type="button" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="workshop"><span style="color:red;">*</span>车间：</label>
+          <input type="hidden" [(ngModel)]="recordIndividualNoise.id" name="id">
+          <input type="text" class="form-control col-md-7"  name="workshop" id="workshop"  [(ngModel)]="recordIndividualNoise.workshop"
+                 [ngClass]="{'warn': !workshop.valid}" #workshop="ngModel" required="required" maxlength="100" ngbTooltip="长度小于100个字符。" >
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="postId"><span style="color:red;">*</span>工种：</label>
+          <select class="form-control col-md-7" [(ngModel)]="recordIndividualNoise.postId" name="postId" id="postId"
+                  [ngClass]="{'warn': !postId.valid}" #postId="ngModel" required="required">
+            <option value="">--请选择--</option>
+            <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.dictionaryName}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="stopPlace"><span style="color:red;">*</span>主要停留地点：</label>
+          <input type="text" class="form-control col-md-7"  name="stopPlace" id="stopPlace"   [(ngModel)]="recordIndividualNoise.stopPlace"
+                 [ngClass]="{'warn': !stopPlace.valid}" #stopPlace="ngModel" required="required" maxlength="100"  ngbTooltip="密码长度小于100个字符。">
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>接触时间：</label>
+          <div class="input-group col-md-7" style="padding-left: 0px; padding-right: 0px;">
+            <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{recordIndividualNoise.contactTime}}"
+                   id="contactTime" name="contactTime" readonly    required="required">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                <img src="assets/img/calendar-icon.png"/>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-3 col-form-label text-right float-left" for="soundLevel"><span style="color:red;">*</span>等效声级：</label>
+          <input type="text" class="form-control col-md-7"  name="soundLevel" id="soundLevel"  [(ngModel)]="recordIndividualNoise.soundLevel" required="required"
+                 pattern="^[0-9]+$" [ngClass]="{'warn': !soundLevel.valid}"  #soundLevel="ngModel" ngbTooltip="请输入数字格式数据" placeholder="8h（或40h）等效声级[dB(A)]">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="op-btn">
+        <button type="button" class="btn btn-success button-margin-right"  [disabled]="!individualNoiseForm.form.valid " (click)="submitData()" >确&nbsp;&nbsp;定</button>
+        <button type="button" class="btn btn-outline-success" (click)="close()">取&nbsp;&nbsp;消</button>
+      </div>
+    </div>
+  </form>
+</div>

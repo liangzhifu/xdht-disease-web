@@ -57,6 +57,10 @@ import { AuxiliaryHealthEditComponent } from './auxiliary-health-edit/auxiliary-
 import { RecordFundsEditComponent } from './record-funds-edit/record-funds-edit.component';
 import { HealthCareEditComponent } from './health-care-edit/health-care-edit.component';
 import {SysModule} from '../sys/sys.module';
+import { IndividualNoiseManageComponent } from './individual-noise-manage/individual-noise-manage.component';
+import { IndividualNoiseEditComponent } from './individual-noise-edit/individual-noise-edit.component';
+import { WorkplaceNoiseManageComponent } from './workplace-noise-manage/workplace-noise-manage.component';
+import { WorkplaceNoiseEditComponent } from './workplace-noise-edit/workplace-noise-edit.component';
 
 @NgModule({
   imports: [
@@ -95,7 +99,9 @@ import {SysModule} from '../sys/sys.module';
     BuildingAerationEditComponent,
     AuxiliaryHealthEditComponent,
     RecordFundsEditComponent,
-    HealthCareEditComponent
+    HealthCareEditComponent,
+    IndividualNoiseEditComponent,
+    WorkplaceNoiseEditComponent,
   ],
   declarations: [
     AntiNoiseEditComponent,
@@ -149,6 +155,10 @@ import {SysModule} from '../sys/sys.module';
     AuxiliaryHealthEditComponent,
     RecordFundsEditComponent,
     HealthCareEditComponent,
+    IndividualNoiseManageComponent,
+    IndividualNoiseEditComponent,
+    WorkplaceNoiseManageComponent,
+    WorkplaceNoiseEditComponent,
   ]
 })
 export class RecordModule { }

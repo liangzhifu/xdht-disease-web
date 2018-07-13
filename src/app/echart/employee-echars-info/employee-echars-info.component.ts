@@ -104,8 +104,10 @@ export class EmployeeEcharsInfoComponent implements OnInit {
    * 修改单位
    */
   changeCompany () {
-    this.employeeSummary.empId = '';
-    this.employeeSummary.empName = '';
+    // this.employeeSummary.empId = '';
+    // this.employeeSummary.empName = '';
+    $('#empId').val('');
+    $('#empName').val('');
   }
 
   /**
@@ -134,13 +136,6 @@ export class EmployeeEcharsInfoComponent implements OnInit {
       );
     }
   }
-  /**
-   * 选择部门
-   * @param data
-   */
-  // onDataChanged(data) {
-  //   this.employeeSummary.officeId = data.officeId;
-  // }
 
   // 查询职工体检报表信息
   selectEmployeeSummaryInfo() {
@@ -215,6 +210,7 @@ export class EmployeeEcharsInfoComponent implements OnInit {
                 const item = {
                   name : year[i],
                   type: 'line',
+                  smooth: true,
                   data: dataLeftArray
                 };
                 serie.push(item);
@@ -275,6 +271,7 @@ export class EmployeeEcharsInfoComponent implements OnInit {
                 const item = {
                   name : year[i],
                   type: 'line',
+                  smooth: true,
                   data: dataRightArray
                 };
                 serie.push(item);

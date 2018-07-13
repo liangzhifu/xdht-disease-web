@@ -26,6 +26,8 @@ import {BuildingBaseManageComponent} from './building-base-manage/building-base-
 import {BuildingAerationManageComponent} from './building-aeration-manage/building-aeration-manage.component';
 import {EmployeeSummaryEditComponent} from './employee-summary-edit/employee-summary-edit.component';
 import {SceneEditComponent} from './scene-edit/scene-edit.component';
+import {IndividualNoiseManageComponent} from './individual-noise-manage/individual-noise-manage.component';
+import {WorkplaceNoiseManageComponent} from './workplace-noise-manage/workplace-noise-manage.component';
 
 /**
  * 调查表管理路由
@@ -59,7 +61,9 @@ const recordRoutes: Routes = [
       {path: 'employeeSummaryEdit', component: EmployeeSummaryEditComponent},
       {path: 'companySummaryManage', component: CompanySummaryManageComponent},
       {path: 'buildingAerationManage', component: BuildingAerationManageComponent},
-      {path: 'buildingBaseManage', component: BuildingBaseManageComponent}
+      {path: 'buildingBaseManage', component: BuildingBaseManageComponent},
+      {path: 'recordIndividualNoiseManage', component: IndividualNoiseManageComponent},
+      {path: 'recordWorkplaceNoiseManage', component: WorkplaceNoiseManageComponent}
     ]
   }
 ];

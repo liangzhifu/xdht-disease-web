@@ -1,0 +1,50 @@
+<div class="c-content-inner">
+  <div class="row">
+    <div class="col-md-4">
+      <label class="col-form-label float-left text-right">车间：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.workshop" >
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
+      <button class="btn btn-primary" (click)="addIndividualNoise();"><i class="fa fa-search fa-fw"></i> 新增</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="c-line-title"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      <div #sdt=simpleDataTable appSimpleDataTable>
+        <table class="table table-bordered table-hover table-list" width="100%" cellpadding="0" cellspacing="0">
+          <tr>
+            <th>车间</th>
+            <th>岗位/工种</th>
+            <th>主要停留地点</th>
+            <th>接触时间</th>
+            <th>8h（或40h）等效声级[dB(A)]</th>
+            <th>操作</th>
+          </tr>
+          <tr *ngFor="let item of sdt.data;let i = index">
+            <td>{{item.workshop}}</td>
+            <td>{{item.postId | workType : sysWorkTypeList}}</td>
+            <td>{{item.stopPlace}}</td>
+            <td>{{item.contactTime}}</td>
+            <td>{{item.soundLevel}}</td>
+
+            <td>
+              <button class="btn btn-warning radius mr-10" type="button" (click)="editIndividualNoise(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
+              <button class="btn btn-danger radius mr-10" type="button" (click)="delIndividualNoise(item.id)"><i class="fa fa-trash-o fa-fw"></i>删除</button>
+            </td>
+          </tr>
+        </table>
+        <div class="c-mt15">
+          <app-simple-data-http-page #sdhp [url]="url" [method]="method" [param]="param"></app-simple-data-http-page>
+        </div>
+      </div>
+</div>
+

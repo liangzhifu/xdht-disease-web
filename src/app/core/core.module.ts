@@ -15,6 +15,7 @@ import { CompanyNamePipe } from './pipe/company-name.pipe';
 import { WorkTypePipe } from './pipe/work-type.pipe';
 import {I18nService} from './I18n/i18n.service';
 import {CustomDatepickerI18nService} from './I18n/custom-datepicker-i18n.service';
+import { OfficeTypePipe } from './pipe/office-type.pipe';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import {CustomDatepickerI18nService} from './I18n/custom-datepicker-i18n.service
     StatusReformPipe,
     WaitComponent,
     InspectReformPipe,
-    WorkTypePipe
+    WorkTypePipe,
+    OfficeTypePipe
   ],
   declarations: [
     SexReformPipe,
@@ -48,7 +50,8 @@ import {CustomDatepickerI18nService} from './I18n/custom-datepicker-i18n.service
     InspectReformPipe,
     MarriageReformPipe,
     CompanyNamePipe,
-    WorkTypePipe
+    WorkTypePipe,
+    OfficeTypePipe
   ]
 })
 export class CoreModule { }

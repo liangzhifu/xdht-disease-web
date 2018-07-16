@@ -28,8 +28,9 @@
             </tr>
             <tr *ngFor="let item of sdt.data;let i = index">
               <td><input type="radio" value="{{i}}" name="employeeRadio"></td>
-              <td><input type="text" [(ngModel)]="item.officeId" name="item{{i}}.officeId" style="display: none;border: none" >
-                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.officeId" [addFlag]="1" [treeSeq]="i" aria-disabled="true"></app-company-office-dropdown></td>
+              <td>
+              {{item.officeId | officeType : officeTypeList}}
+              </td>
               <td>{{item.empName}}</td>
             </tr>
           </table>

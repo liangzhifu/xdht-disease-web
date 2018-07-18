@@ -22,7 +22,7 @@ declare var $: any;
 })
 export class SelectEmployeeComponent implements OnInit, AfterViewInit {
   @Input() companyId = '';
-  officeData: any;
+  officeTypeList: [{id: '', officeName: ''}];
   selectEmployeeTitle: string;
   param = {
     companyId: '',
@@ -45,11 +45,8 @@ export class SelectEmployeeComponent implements OnInit, AfterViewInit {
     // 查询部门信息
     this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: this.companyId}).subscribe({
       next: (data) => {
-        this.officeData = data;
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取部门失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
+        this.officeTypeList = data;
+        console.log('office:' + this.officeTypeList.length + ':' + this.officeTypeList[0].officeName);
       },
       complete: () => {}
     });

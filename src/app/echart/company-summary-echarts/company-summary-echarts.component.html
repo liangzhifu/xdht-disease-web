@@ -5,14 +5,14 @@
       <label class="col-md-4 col-form-label text-right float-left">开始时间：</label>
       <select class="form-control col-md-7"  name="startTime" id="startTime">
         <option value="">请选择</option>
-        <option *ngFor="let item of yearData;" value="{{item}}">{{item}}</option>
+        <option *ngFor="let item of yearData;" value="{{item.year}}">{{item.year}}</option>
       </select>
     </div>
     <div class="col-md-4">
       <label class="col-md-4 col-form-label text-right float-left">结束时间：</label>
       <select class="form-control col-md-7"  name="endTime" id="endTime">
         <option value="">请选择</option>
-        <option *ngFor="let item of yearData;" value="{{item}}">{{item}}</option>
+        <option *ngFor="let item of yearData;" value="{{item.year}}">{{item.year}}</option>
       </select>
     </div>
     <div class="col-md-4">

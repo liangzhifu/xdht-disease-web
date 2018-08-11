@@ -14,12 +14,16 @@ import 'jquery';
 declare var $: any;
 
 @Component({
-  selector: 'app-company-office-manage',
-  templateUrl: './company-office-manage.component.html',
-  styleUrls: ['./company-office-manage.component.scss']
+  selector: 'app-company-work-type-manage',
+  templateUrl: './company-work-type-manage.component.html',
+  styleUrls: ['./company-work-type-manage.component.scss']
 })
-export class CompanyOfficeManageComponent implements OnInit {
+export class CompanyWorkTypeManageComponent implements OnInit {
   setting = {
+    view: {
+      fontCss: this.fontCss,
+      nameIsHTML: true
+    },
     data: {
       simpleData: {
         enable: true,
@@ -67,7 +71,7 @@ export class CompanyOfficeManageComponent implements OnInit {
    * 打开部门树
    */
   openZTree() {
-    this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: this.companyId, officeType: 1}).subscribe({
+    this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: this.companyId}).subscribe({
       next: (data) => {
         this.zNodes = data;
         $.fn.zTree.init($('#ztree'), this.setting, this.zNodes);
@@ -75,7 +79,7 @@ export class CompanyOfficeManageComponent implements OnInit {
         treeObj.expandAll(true);
       },
       error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取部门失败！' + '失败原因：' + err, 3000);
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '获取工种失败！' + '失败原因：' + err, 3000);
         this.toastService.toast(toastCfg);
       },
       complete: () => {}
@@ -131,7 +135,7 @@ export class CompanyOfficeManageComponent implements OnInit {
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
     if (nodes === undefined || nodes === null || nodes.length === 0) {
-      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '部门修改', '必须选择一个部门！');
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '工种修改', '必须选择一个工种！');
       this.modalService.alert(alertConfig);
       return false;
     } else {
@@ -164,7 +168,7 @@ export class CompanyOfficeManageComponent implements OnInit {
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
     if (nodes === undefined || nodes === null || nodes.length === 0) {
-      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '部门删除', '必须选择一个部门！');
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '工种删除', '必须选择一个工种！');
       this.modalService.alert(alertConfig);
       return false;
     } else {
@@ -177,7 +181,7 @@ export class CompanyOfficeManageComponent implements OnInit {
         this.openZTree();
       },
       error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除部门失败！' + '失败原因：' + err, 3000);
+        const toastCfg = new ToastConfig(ToastType.ERROR, '',  '删除工种失败！' + '失败原因：' + err, 3000);
         this.toastService.toast(toastCfg);
       },
       complete: () => {}
@@ -198,6 +202,16 @@ export class CompanyOfficeManageComponent implements OnInit {
     } else {
       treeObj.checkNode(treeNode, true);
     }
+  }
+
+  /**
+   * 部门字体颜色
+   * @param treeId
+   * @param node
+   * @returns {{}}
+   */
+  fontCss(treeId, node) {
+    return node.treeType === 1 ? {'color': 'red'} : {};
   }
 
   /**
@@ -227,4 +241,5 @@ export class CompanyOfficeManageComponent implements OnInit {
     });
     this.waitService.wait(false);
   }
+
 }

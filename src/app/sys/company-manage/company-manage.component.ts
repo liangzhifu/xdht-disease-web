@@ -15,6 +15,7 @@ import {TitleService} from '../../title.service';
 import {I18nService} from '../../core/I18n/i18n.service';
 import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
 import 'jquery';
+import {CompanyWorkTypeManageComponent} from '../company-work-type-manage/company-work-type-manage.component';
 declare var $: any;
 
 @Component({
@@ -154,6 +155,21 @@ export class CompanyManageComponent implements OnInit, AfterViewInit {
    */
   editCompanyOffice(companyId) {
     const modalRef = this.ngbModal.open(CompanyOfficeManageComponent, {backdrop: 'static', keyboard: false, size: 'lg', centered: true});
+    modalRef.componentInstance.companyId = companyId;
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+        }
+      }
+    );
+  }
+
+  /**
+   * 修改公司部门
+   * @param companyId
+   */
+  editCompanyWorkType(companyId) {
+    const modalRef = this.ngbModal.open(CompanyWorkTypeManageComponent, {backdrop: 'static', keyboard: false, size: 'lg', centered: true});
     modalRef.componentInstance.companyId = companyId;
     modalRef.result.then(
       (result) => {

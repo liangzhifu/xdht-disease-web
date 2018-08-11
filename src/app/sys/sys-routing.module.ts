@@ -14,6 +14,7 @@ import {KnowledgeCatalogManageComponent} from './knowledge-catalog-manage/knowle
 import {KnowledgeManageComponent} from './knowledge-manage/knowledge-manage.component';
 import {SystemNoticeManageComponent} from './system-notice-manage/system-notice-manage.component';
 import {EmpoiyeeInfoComponent} from './empoiyee-info/empoiyee-info.component';
+import {CompanyWorkTypeManageComponent} from './company-work-type-manage/company-work-type-manage.component';
 
 /**
  * 系统管理路由

@@ -39,6 +39,7 @@ import { KnowledgeCatalogEditComponent } from './knowledge-catalog-edit/knowledg
 import { SystemNoticeManageComponent } from './system-notice-manage/system-notice-manage.component';
 import { SystemNoticeDetailComponent } from './system-notice-detail/system-notice-detail.component';
 import { CompanyOfficeDropdownComponent } from './company-office-dropdown/company-office-dropdown.component';
+import { CompanyWorkTypeManageComponent } from './company-work-type-manage/company-work-type-manage.component';
 
 @NgModule({
   imports: [
@@ -110,7 +111,8 @@ import { CompanyOfficeDropdownComponent } from './company-office-dropdown/compan
     KnowledgeCatalogEditComponent,
     SystemNoticeManageComponent,
     SystemNoticeDetailComponent,
-    CompanyOfficeDropdownComponent
+    CompanyOfficeDropdownComponent,
+    CompanyWorkTypeManageComponent
   ],
   exports: [
     CompanyOfficeDropdownComponent

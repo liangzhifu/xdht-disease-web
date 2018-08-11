@@ -44,7 +44,8 @@ export class CompanyOfficeManageComponent implements OnInit {
     id : '',
     parentId : 0,
     companyId : this.companyId,
-    officeName : ''
+    officeName : '',
+    officeType: 1
   };
   addFlag = null;
   action = null;
@@ -66,7 +67,7 @@ export class CompanyOfficeManageComponent implements OnInit {
    * 打开部门树
    */
   openZTree() {
-    this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: this.companyId}).subscribe({
+    this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: this.companyId, officeType: 1}).subscribe({
       next: (data) => {
         this.zNodes = data;
         $.fn.zTree.init($('#ztree'), this.setting, this.zNodes);
@@ -108,9 +109,10 @@ export class CompanyOfficeManageComponent implements OnInit {
     this.action = '新增';
     this.sysCompanyOffice = {
       id : '',
-      parentId : 0,
+      parentId : parentId,
       companyId : this.companyId,
-      officeName : ''
+      officeName : '',
+      officeType: 1
     };
     this.officeEditFlag = true;
   }
@@ -123,7 +125,8 @@ export class CompanyOfficeManageComponent implements OnInit {
     let sysCompanyOfficeTemp = {
       id : '',
       parentId : 0,
-      officeName: ''
+      officeName: '',
+      officeType: 1
     };
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
@@ -136,7 +139,8 @@ export class CompanyOfficeManageComponent implements OnInit {
         sysCompanyOfficeTemp = {
           id: nodes[i].id,
           parentId: nodes[i].parentId,
-          officeName: nodes[i].officeName
+          officeName: nodes[i].officeName,
+          officeType: 1
         };
       }
     }
@@ -146,7 +150,8 @@ export class CompanyOfficeManageComponent implements OnInit {
       id : sysCompanyOfficeTemp.id,
       parentId : sysCompanyOfficeTemp.parentId,
       companyId : this.companyId,
-      officeName : sysCompanyOfficeTemp.officeName
+      officeName : sysCompanyOfficeTemp.officeName,
+      officeType: 1
     };
     this.officeEditFlag = true;
   }

@@ -8,6 +8,7 @@ import { EmployeeEcharsInfoComponent } from './employee-echars-info/employee-ech
 import { WorkplaceNoiseEchartsComponent } from './workplace-noise-echarts/workplace-noise-echarts.component';
 import { IndividualNoiseEchartsComponent } from './individual-noise-echarts/individual-noise-echarts.component';
 import { CompanySummaryEchartsComponent } from './company-summary-echarts/company-summary-echarts.component';
+import { CompanySummaryEchartsBarComponent } from './company-summary-echarts-bar/company-summary-echarts-bar.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { CompanySummaryEchartsComponent } from './company-summary-echarts/compan
     EchartRoutingModule,
     NgxEchartsModule
   ],
-  declarations: [EchartComponent, DemoComponent,  EmployeeEcharsInfoComponent,  WorkplaceNoiseEchartsComponent, IndividualNoiseEchartsComponent, CompanySummaryEchartsComponent]
+  declarations: [EchartComponent, DemoComponent,  EmployeeEcharsInfoComponent,  WorkplaceNoiseEchartsComponent, IndividualNoiseEchartsComponent, CompanySummaryEchartsComponent, CompanySummaryEchartsBarComponent]
 })
 export class EchartModule { }

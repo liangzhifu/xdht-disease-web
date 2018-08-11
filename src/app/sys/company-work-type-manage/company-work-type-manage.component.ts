@@ -98,16 +98,23 @@ export class CompanyWorkTypeManageComponent implements OnInit {
   }
 
   /**
-   * 新增部门
+   * 新增工种
    */
-  addCompanyOffice() {
+  addCompanyWorkType() {
     let parentId = 0;
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
     if (nodes !== undefined && nodes !== null) {
       for (let i = 0; i < nodes.length; i++) {
-        parentId = nodes[i].id;
+        if (nodes[i].officeType === 1) {
+          parentId = nodes[i].id;
+        }
       }
+    }
+    if (parentId === 0) {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '新增工种', '必须选择部门！');
+      this.modalService.alert(alertConfig);
+      return false;
     }
     this.addFlag = true;
     this.action = '新增';
@@ -116,21 +123,21 @@ export class CompanyWorkTypeManageComponent implements OnInit {
       parentId : parentId,
       companyId : this.companyId,
       officeName : '',
-      officeType: 1
+      officeType: 2
     };
     this.officeEditFlag = true;
   }
 
   /**
-   * 修改部门
+   * 修改工种
    * @returns {boolean}
    */
-  editCompanyOffice() {
+  editCompanyWorkType() {
     let sysCompanyOfficeTemp = {
       id : '',
       parentId : 0,
       officeName: '',
-      officeType: 1
+      officeType: 2
     };
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
@@ -140,13 +147,20 @@ export class CompanyWorkTypeManageComponent implements OnInit {
       return false;
     } else {
       for (let i = 0; i < nodes.length; i++) {
-        sysCompanyOfficeTemp = {
-          id: nodes[i].id,
-          parentId: nodes[i].parentId,
-          officeName: nodes[i].officeName,
-          officeType: 1
-        };
+        if (nodes[i].officeType === 2) {
+          sysCompanyOfficeTemp = {
+            id: nodes[i].id,
+            parentId: nodes[i].parentId,
+            officeName: nodes[i].officeName,
+            officeType: 2
+          };
+        }
       }
+    }
+    if (sysCompanyOfficeTemp.id === '') {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '修改工种', '必须选择一个工种！');
+      this.modalService.alert(alertConfig);
+      return false;
     }
     this.addFlag = false;
     this.action = '修改';
@@ -155,15 +169,15 @@ export class CompanyWorkTypeManageComponent implements OnInit {
       parentId : sysCompanyOfficeTemp.parentId,
       companyId : this.companyId,
       officeName : sysCompanyOfficeTemp.officeName,
-      officeType: 1
+      officeType: 2
     };
     this.officeEditFlag = true;
   }
 
   /**
-   * 删除部门
+   * 删除工种
    */
-  delCompanyOffice() {
+  delCompanyWorkType() {
     let id = 0;
     const treeObj = $.fn.zTree.getZTreeObj('ztree');
     const nodes = treeObj.getCheckedNodes(true);
@@ -173,8 +187,15 @@ export class CompanyWorkTypeManageComponent implements OnInit {
       return false;
     } else {
       for (let i = 0; i < nodes.length; i++) {
-        id = nodes[i].id;
+        if (nodes[i].officeType === 2) {
+          id = nodes[i].id;
+        }
       }
+    }
+    if (id === 0) {
+      const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '删除工种', '必须选择一个工种！');
+      this.modalService.alert(alertConfig);
+      return false;
     }
     this.httpService.get(SystemConstant.OFFICE_DEL + '?id=' + id).subscribe({
       next: (data) => {
@@ -211,7 +232,7 @@ export class CompanyWorkTypeManageComponent implements OnInit {
    * @returns {{}}
    */
   fontCss(treeId, node) {
-    return node.treeType === 1 ? {'color': 'red'} : {};
+    return node.officeType === 1 ? {'color': 'red'} : {};
   }
 
   /**

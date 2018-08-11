@@ -57,6 +57,7 @@ import { CompanyWorkTypeManageComponent } from './company-work-type-manage/compa
     CompanyEditComponent,
     CompanyOfficeChooseComponent,
     CompanyOfficeManageComponent,
+    CompanyWorkTypeManageComponent,
     DictionaryEditComponent,
     EmployeeEditComponent,
     KnowledgeCatalogChooseComponent,

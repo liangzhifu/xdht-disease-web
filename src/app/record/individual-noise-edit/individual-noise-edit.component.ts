@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ToastConfig} from '../../toast/toast-config';
 import {SystemConstant} from '../../core/class/system-constant';
 import {ToastType} from '../../toast/toast-type.enum';
@@ -10,9 +10,10 @@ import {ToastService} from '../../toast/toast.service';
 import {ModalService} from '../../modal/modal.service';
 import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
 import {I18nService} from '../../core/I18n/i18n.service';
-import 'jquery';
 import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
+import {CompanyWorkTypeDropdownComponent} from '../../sys/company-work-type-dropdown/company-work-type-dropdown.component';
+import 'jquery';
 declare var $: any;
 
 @Component({
@@ -22,22 +23,22 @@ declare var $: any;
   providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class IndividualNoiseEditComponent implements OnInit {
+  @ViewChild('acod', undefined) acod: CompanyWorkTypeDropdownComponent;
   @Input() recordIndividualNoise: any = {
     'id' : '',
-    'workshop' : '',
-    'postId' : '',
+    'inspectDate' : '',
+    'companyId': '',
+    'workTypeId': '',
+    'workingHoursPerShift' : '',
+    'workdayWeek' : '',
     'stopPlace' : '',
     'contactTime' : '',
     'soundLevel' : ''
-
   };
+  companyList = [{id: '', companyName: ''}];
   individualNoiseEditTitle: string;
   addFlag: boolean;
   action = '';
-  sysPostList: [{
-    id: '',
-    dictionaryName: ''
-  }];
   constructor(
     private modalService: ModalService,
     private httpService: HttpService,
@@ -46,13 +47,6 @@ export class IndividualNoiseEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
-      next: (data) => {
-        this.sysPostList = data;
-      },
-      complete: () => {
-      }
-    });
   }
 
 ngOnInit() {
@@ -65,6 +59,14 @@ ngOnInit() {
     this.addFlag = false;
     this.individualNoiseEditTitle = '修改-劳动者个体噪声暴露评估';
   }
+  // 获取部门列表
+  this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
+    next: (data) => {
+      this.companyList = data;
+    },
+    complete: () => {
+    }
+  });
 }
 
   close() {
@@ -98,5 +100,21 @@ ngOnInit() {
       }
     });
     this.waitService.wait(false);
+  }
+
+  /**
+   * 选择工种
+   * @param data
+   */
+  onDataChanged(data) {
+    this.recordIndividualNoise.workTypeId = data.workTypeId;
+  }
+
+  /**
+   * 单位修改
+   */
+  changeCompany() {
+    this.recordIndividualNoise.workTypeId = '';
+    this.acod.openZTree(this.recordIndividualNoise.companyId, this.recordIndividualNoise.workTypeId);
   }
 }

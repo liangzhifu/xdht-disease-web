@@ -40,6 +40,7 @@ import { SystemNoticeManageComponent } from './system-notice-manage/system-notic
 import { SystemNoticeDetailComponent } from './system-notice-detail/system-notice-detail.component';
 import { CompanyOfficeDropdownComponent } from './company-office-dropdown/company-office-dropdown.component';
 import { CompanyWorkTypeManageComponent } from './company-work-type-manage/company-work-type-manage.component';
+import { CompanyWorkTypeDropdownComponent } from './company-work-type-dropdown/company-work-type-dropdown.component';
 
 @NgModule({
   imports: [
@@ -113,10 +114,12 @@ import { CompanyWorkTypeManageComponent } from './company-work-type-manage/compa
     SystemNoticeManageComponent,
     SystemNoticeDetailComponent,
     CompanyOfficeDropdownComponent,
-    CompanyWorkTypeManageComponent
+    CompanyWorkTypeManageComponent,
+    CompanyWorkTypeDropdownComponent
   ],
   exports: [
-    CompanyOfficeDropdownComponent
+    CompanyOfficeDropdownComponent,
+    CompanyWorkTypeDropdownComponent
   ]
 })
 export class SysModule { }

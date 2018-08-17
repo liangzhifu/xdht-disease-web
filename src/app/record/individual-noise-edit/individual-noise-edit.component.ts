@@ -32,7 +32,6 @@ export class IndividualNoiseEditComponent implements OnInit {
     'workingHoursPerShift' : '',
     'workdayWeek' : '',
     'stopPlace' : '',
-    'contactTime' : '',
     'soundLevel' : ''
   };
   companyList = [{id: '', companyName: ''}];
@@ -73,8 +72,8 @@ ngOnInit() {
     this.activeModal.dismiss('failed');
   }
   submitData() {
-    this.recordIndividualNoise.contactTime = $('#contactTime').val();
-    if (this.recordIndividualNoise.contactTime === null || this.recordIndividualNoise.contactTime === '') {
+    this.recordIndividualNoise.inspectDate = $('#inspectDate').val();
+    if (this.recordIndividualNoise.inspectDate === null || this.recordIndividualNoise.inspectDate === '') {
       const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '日期选择', '请选择日期！');
       this.modalService.alert(alertConfig);
       return false;

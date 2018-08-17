@@ -25,7 +25,6 @@
             <th>检查年份</th>
             <th>检查时间</th>
             <th>公司</th>
-            <th>车间</th>
             <th>工种</th>
             <th>每班工作时间（H）</th>
             <th>工作日/周</th>
@@ -35,11 +34,13 @@
           </tr>
           <tr *ngFor="let item of sdt.data;let i = index">
             <td>{{item.inspectYear}}</td>
-            <td>{{item.workshop}}</td>
-            <td>{{item.postId | workType : sysWorkTypeList}}</td>
-            <td>{{item.stopPlace}}</td>
-            <td>{{item.contactTime}}</td>
+            <td>{{item.inspectDate}}</td>
+            <td>{{item.companyId | companyName: sysCompanyTypeList}}</td>
+            <td>{{item.workTypeId | officeType: sysWorkTypeList}}</td>
+            <td>{{item.workingHoursPerShift}}</td>
+            <td>{{item.workdayWeek}}</td>
             <td>{{item.soundLevel}}</td>
+            <td>{{item.decisionResult}}</td>
 
             <td>
               <button class="btn btn-warning radius mr-10" type="button" (click)="editIndividualNoise(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>

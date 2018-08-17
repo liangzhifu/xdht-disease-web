@@ -28,7 +28,8 @@ export class IndividualNoiseManageComponent implements OnInit,  AfterViewInit {
   param: any = {
     workshop: ''
   };
-  sysWorkTypeList = [{id: '', dictionaryName: ''}];
+  sysWorkTypeList = [{id: '', officeName: ''}];
+  sysCompanyTypeList = [{id: '' , CompanyName: ''}];
   constructor(
     private ngbModal: NgbModal,
     private waitService: WaitService,
@@ -40,15 +41,23 @@ export class IndividualNoiseManageComponent implements OnInit,  AfterViewInit {
     this.titleService.titleEventEmitter.emit('劳动者个体噪声暴露评估');
 
     // 获取工种列表
-    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
+    this.httpService.post(SystemConstant.OFFICE_LIST, {Id: ''} ).subscribe({
       next: (data) => {
         this.sysWorkTypeList = data;
       },
       complete: () => {
       }
+
+    });
+    // 获取公司列表                                             /*修改*/
+    this.httpService.post(SystemConstant.COMPANY_LIST, {dictionaryTypeId: ''} ).subscribe({
+      next: (data) => {
+        this.sysCompanyTypeList = data;
+      },
+      complete: () => {
+      }
     });
   }
-
   ngOnInit() {
     this.url = SystemConstant.RECORD_INDIVIDUAL_NOISE_PAGE;
   }

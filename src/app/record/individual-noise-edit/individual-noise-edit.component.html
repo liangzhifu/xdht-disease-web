@@ -23,21 +23,20 @@
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-4 col-form-label text-right float-left" for="postId"><span style="color:red;">*</span>公司：</label>
+          <label class="col-md-4 col-form-label text-right float-left" for="companyId"><span style="color:red;">*</span>公司：</label>
           <select class="form-control col-md-7" [(ngModel)]="recordIndividualNoise.companyId" name="companyId" id="companyId"
-                  [ngClass]="{'warn': !companyId.valid}" #companyId="ngModel" required="required">
+                  [ngClass]="{'warn': !companyId.valid}" #companyId="ngModel" required="required" (ngModelChange)="changeCompany()">
             <option value="">--请选择--</option>
             <option *ngFor="let company of companyList;" value="{{company.id}}" >{{company.companyName}}</option>
           </select>
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left" for="workTypeId"><span style="color:red;">*</span>工种：</label>
-          <input type="hidden" [(ngModel)]="recordIndividualNoise.workTypeId" name="workTypeId" required>
+          <input type="hidden" [(ngModel)]="recordIndividualNoise.workTypeId" name="workTypeId" id="workTypeId" required>
           <div class="col-md-7" style="float: left;padding-left: 0px;padding-right: 0px;">
-            <app-company-work-type-dropdown #acod [companyId]="recordIndividualNoise.companyId" [workTypeId]="recordIndividualNoise.workTypeId"
-                                         [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
+            <app-work-type-dropdown #acod [companyId]="recordIndividualNoise.companyId" [workTypeId]="recordIndividualNoise.workTypeId"
+                                    [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-work-type-dropdown>
           </div>
-
         </div>
       </div>
       <div class="row row-margin-bottom">
@@ -56,7 +55,7 @@
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left" for="soundLevel"><span style="color:red;">*</span>等效声级：</label>
           <input type="text" class="form-control col-md-7"  name="soundLevel" id="soundLevel"  [(ngModel)]="recordIndividualNoise.soundLevel" required="required"
-                 pattern="^[0-9]+$" [ngClass]="{'warn': !soundLevel.valid}"  #soundLevel="ngModel" ngbTooltip="请输入数字格式数据" >
+                 pattern="^([1-9]\d*|0)(\.\d{1,2})?$" [ngClass]="{'warn': !soundLevel.valid}"  #soundLevel="ngModel" ngbTooltip="请输入数字格式数据" >
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left" for="decisionResult"><span style="color:red;">*</span>结果判定：</label>

@@ -67,6 +67,15 @@ export class CompanyWorkTypeDropdownComponent implements OnInit {
           $.fn.zTree.init($('#company_workType_ztree_' + this.treeSeq), this.setting, this.zNodes);
           const treeObj = $.fn.zTree.getZTreeObj('company_workType_ztree_' + this.treeSeq);
           treeObj.expandAll(true);
+          const nodes = treeObj.transformToArray(treeObj.getNodes());
+          if (nodes.length > 0) {
+            for (let i = 0; i < nodes.length; i++) {
+              if (nodes[i].officeType !== 2) {
+                nodes[i].nocheck = true;
+                treeObj.updateNode(nodes[i]);
+              }
+            }
+          }
           if (workTypeId != null && workTypeId !== '') {
             const treeNode = treeObj.getNodeByParam('id', workTypeId, null);
             if (treeNode != null) {
@@ -102,7 +111,10 @@ export class CompanyWorkTypeDropdownComponent implements OnInit {
         workTypeId: treeNode.id,
         workTypeName: treeNode.officeName
       };
-      this.onDataChanged.emit(data);
+      const officeType = treeNode.officeType;
+      if (officeType === 2) {
+        this.onDataChanged.emit(data);
+      }
     } else {
       this.workTypeName = '';
       const data = {
@@ -110,7 +122,10 @@ export class CompanyWorkTypeDropdownComponent implements OnInit {
         workTypeId: null,
         workTypeName: null
       };
-      this.onDataChanged.emit(data);
+      const officeType = treeNode.officeType;
+      if (officeType === 2) {
+        this.onDataChanged.emit(data);
+      }
     }
   }
 
@@ -124,23 +139,29 @@ export class CompanyWorkTypeDropdownComponent implements OnInit {
     const treeObj = $.fn.zTree.getZTreeObj('company_workType_ztree_' + this.treeSeq);
     const checked = treeNode.checked;
     if (checked) {
-      treeObj.checkNode(treeNode, false);
-      this.workTypeName = '';
-      const data = {
-        index : this.treeSeq,
-        workTypeId: null,
-        workTypeName: null
-      };
-      this.onDataChanged.emit(data);
+      const officeType = treeNode.officeType;
+      if (officeType === 2) {
+        treeObj.checkNode(treeNode, false);
+        this.workTypeName = '';
+        const data = {
+          index: this.treeSeq,
+          workTypeId: null,
+          workTypeName: null
+        };
+        this.onDataChanged.emit(data);
+      }
     } else {
-      treeObj.checkNode(treeNode, true);
-      this.workTypeName = treeNode.officeName;
-      const data = {
-        index : this.treeSeq,
-        workTypeId: treeNode.id,
-        workTypeName: treeNode.officeName
-      };
-      this.onDataChanged.emit(data);
+      const officeType = treeNode.officeType;
+      if (officeType === 2) {
+        treeObj.checkNode(treeNode, true);
+        this.workTypeName = treeNode.officeName;
+        const data = {
+          index: this.treeSeq,
+          workTypeId: treeNode.id,
+          workTypeName: treeNode.officeName
+        };
+        this.onDataChanged.emit(data);
+      }
     }
   }
 }

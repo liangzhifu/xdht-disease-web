@@ -22,25 +22,25 @@
       <div #sdt=simpleDataTable appSimpleDataTable>
         <table class="table table-bordered table-hover table-list" width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <th>车间</th>
-            <th>岗位/工种</th>
-            <th>主要停留地点</th>
-            <th>检测地点</th>
-            <th>测定结果[dB(A)]</th>
-            <th>噪声频谱分析结果</th>
+            <th>检查时间</th>
+            <th>检查年份</th>
+            <th>公司</th>
+            <th>工种</th>
+            <th>检查位置</th>
             <th>接触时间</th>
             <th>8h（或40h）等效声级[dB(A)]</th>
+            <th>是否噪声作业</th>
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;let i = index">
-            <td>{{item.workshop}}</td>
-            <td>{{item.postId | workType : sysWorkTypeList}}</td>
-            <td>{{item.stopPlace}}</td>
+            <td>{{item.inspectDate}}</td>
+            <td>{{item.inspectYear}}</td>
+            <td>{{item.companyId | companyName : sysCompanyTypeList}}</td>
+            <td>{{item.workTypeId | officeType : sysWorkTypeList}}</td>
             <td>{{item.checkPlace}}</td>
-            <td>{{item.testResult}}</td>
-            <td>{{item.analysisResult}}</td>
             <td>{{item.contactTime}}</td>
             <td>{{item.soundLevel}}</td>
+            <td>{{item.analysisResult}}</td>
 
             <td>
               <button class="btn btn-warning radius mr-10" type="button" (click)="editWorkplaceNoise(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {NgbActiveModal, NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
 import {HttpService} from '../../core/http/http.service';
 import {WaitService} from '../../core/wait/wait.service';
@@ -13,6 +13,8 @@ import {I18nService} from '../../core/I18n/i18n.service';
 import 'jquery';
 import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
+import {CompanyWorkTypeDropdownComponent} from '../../sys/company-work-type-dropdown/company-work-type-dropdown.component';
+import {CompanyPostDropdownComponent} from '../../sys/company-post-dropdown/company-post-dropdown.component';
 declare var $: any;
 @Component({
   selector: 'app-workplace-noise-edit',
@@ -21,21 +23,22 @@ declare var $: any;
   providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class WorkplaceNoiseEditComponent implements OnInit {
+  @ViewChild('acod', undefined) acod: CompanyWorkTypeDropdownComponent;
   @Input() recordWorkplaceNoise: any = {
     'id' : '',
-    'workshop' : '',
-    'postId' : '',
-    'stopPlace' : '',
-    'checkPlace' : '',
-    'testResult' : '',
-    'analysisResult' : '',
+    'inspectDate' : '',
     'contactTime' : '',
-    'soundLevel' : ''
+    'companyId' : '',
+    'checkPlace' : '',
+    'workTypeId' : '',
+    'soundLevel' : '',
+    'analysisResult' : '',
 
   };
   workplaceNoiseEditTitle: string;
   addFlag: boolean;
   action = '';
+  companyList = [{id: '', companyName: ''}];
   sysPostList: [{
     id: '',
     dictionaryName: ''
@@ -67,13 +70,21 @@ export class WorkplaceNoiseEditComponent implements OnInit {
       this.addFlag = false;
       this.workplaceNoiseEditTitle = '修改-工作场所噪声暴露评估';
     }
+    // 获取部门列表
+    this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
+      next: (data) => {
+        this.companyList = data;
+      },
+      complete: () => {
+      }
+    });
   }
   close() {
     this.activeModal.dismiss('failed');
   }
   submitData() {
-    this.recordWorkplaceNoise.contactTime = $('#contactTime').val();
-    if (this.recordWorkplaceNoise.contactTime === null || this.recordWorkplaceNoise.contactTime === '') {
+    this.recordWorkplaceNoise.inspectDate = $('#inspectDate').val();
+    if (this.recordWorkplaceNoise.inspectDate === null || this.recordWorkplaceNoise.inspectDate === '') {
       const alertConfig: AlertConfig = new AlertConfig(AlertType.INFO, '日期选择', '请选择日期！');
       this.modalService.alert(alertConfig);
       return false;
@@ -99,5 +110,21 @@ export class WorkplaceNoiseEditComponent implements OnInit {
       }
     });
     this.waitService.wait(false);
+  }
+
+  /**
+   * 选择工种
+   * @param data
+   */
+  onDataChanged(data) {
+    this.recordWorkplaceNoise.workTypeId = data.workTypeId;
+  }
+
+  /**
+   * 单位修改
+   */
+  changeCompany() {
+    this.recordWorkplaceNoise.workTypeId = '';
+    this.acod.openZTree(this.recordWorkplaceNoise.companyId, this.recordWorkplaceNoise.workTypeId);
   }
 }

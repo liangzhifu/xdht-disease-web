@@ -9,62 +9,67 @@
     <div class="modal-body">
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left" for="workshop"><span style="color:red;">*</span>车间：</label>
-          <input type="hidden" [(ngModel)]="recordWorkplaceNoise.id" name="id">
-          <input type="text" class="form-control col-md-7"  name="workshop" id="workshop"  [(ngModel)]="recordWorkplaceNoise.workshop"
-                 [ngClass]="{'warn': !workshop.valid}" #workshop="ngModel" required="required" maxlength="100" ngbTooltip="长度小于100个字符。" >
-        </div>
-        <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left" for="postId"><span style="color:red;">*</span>工种：</label>
-          <select class="form-control col-md-7" [(ngModel)]="recordWorkplaceNoise.postId" name="postId" id="postId"
-                  [ngClass]="{'warn': !postId.valid}" #postId="ngModel" required="required">
-            <option value=""></option>
-            <option *ngFor="let post of sysPostList;" value="{{post.id}}" >{{post.dictionaryName}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="row row-margin-bottom">
-        <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left" for="stopPlace"><span style="color:red;">*</span>主要停留地点：</label>
-          <input type="text" class="form-control col-md-7"  name="stopPlace" id="stopPlace"   [(ngModel)]="recordWorkplaceNoise.stopPlace"
-                 [ngClass]="{'warn': !stopPlace.valid}" #stopPlace="ngModel" required="required" maxlength="100"  ngbTooltip="长度小于100个字符">
-        </div>
-        <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left"><span style="color:red;">*</span>接触时间：</label>
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>检查日期：</label>
           <div class="input-group col-md-7" style="padding-left: 0px; padding-right: 0px;">
-            <input class="form-control" ngbDatepicker #d="ngbDatepicker" value="{{recordWorkplaceNoise.contactTime}}"
-                   id="contactTime" name="contactTime" readonly  required="required"  >
+            <input class="form-control" ngbDatepicker #dp="ngbDatepicker" value="{{recordWorkplaceNoise.inspectDate}}"
+                   id="inspectDate" name="inspectDate" readonly    required="required">
             <div class="input-group-append">
-              <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
                 <img src="assets/img/calendar-icon.png"/>
               </button>
             </div>
           </div>
         </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left" for="companyId"><span style="color:red;">*</span>公司：</label>
+          <select class="form-control col-md-7" [(ngModel)]="recordWorkplaceNoise.companyId" name="companyId" id="companyId"
+                  [ngClass]="{'warn': !companyId.valid}" #companyId="ngModel" required="required" (ngModelChange)="changeCompany()">
+            <option value="">--请选择--</option>
+            <option *ngFor="let company of companyList;" value="{{company.id}}" >{{company.companyName}}</option>
+          </select>
+        </div>
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left" for="checkPlace"><span style="color:red;">*</span>检测地点：</label>
+          <label class="col-md-4 col-form-label text-right float-left" for="contactTime"><span style="color:red;">*</span>接触时间：</label>
+          <input type="text" class="form-control col-md-7"  name="contactTime" id="contactTime"  [(ngModel)]="recordWorkplaceNoise.contactTime" required="required"
+                 pattern="^([1-9]\d*|0)(\.\d{1,2})?$" maxlength="10"  [ngClass]="{'warn': !contactTime.valid}"  #contactTime="ngModel" ngbTooltip="请输入数字格式数据" >
+        </div>
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left" for="workTypeId"><span style="color:red;">*</span>工种：</label>
+          <input type="hidden" [(ngModel)]="recordWorkplaceNoise.workTypeId" name="workTypeId" id="workTypeId" required>
+          <div class="col-md-7" style="float: left;padding-left: 0px;padding-right: 0px;">
+            <app-work-type-dropdown #acod [companyId]="recordWorkplaceNoise.companyId" [workTypeId]="recordWorkplaceNoise.workTypeId"
+                                    [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-work-type-dropdown>
+          </div>
+        </div>
+      </div>
+      <div class="row row-margin-bottom">
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left" for="checkPlace"><span style="color:red;">*</span>检查位置：</label>
           <input type="text" class="form-control col-md-7"  name="checkPlace" id="checkPlace"   [(ngModel)]="recordWorkplaceNoise.checkPlace"
                  [ngClass]="{'warn': !checkPlace.valid}" #checkPlace="ngModel" required="required" maxlength="100"  ngbTooltip="长度小于100个字符">
         </div>
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left" for="testResult"><span style="color:red;">*</span>测定结果：</label>
-          <input type="text" class="form-control col-md-7"  name="testResult" id="testResult"   [(ngModel)]="recordWorkplaceNoise.testResult" placeholder="测定结果dB(A)"
-                 [ngClass]="{'warn': !testResult.valid}" #testResult="ngModel" required="required" maxlength="10"  ngbTooltip="请输入数字格式数据" pattern="^[0-9]+$">
+          <label class="col-md-4 col-form-label text-right float-left" for="analysisResult"><span style="color:red;">*</span>是否噪声作业：</label>
+          <select class="form-control col-md-7"  name="decisionResult" id="analysisResult"
+                  [ngClass]="{'warn': !analysisResult.valid}" #analysisResult="ngModel"
+                  required="required" [(ngModel)]="recordWorkplaceNoise.analysisResult">
+            <option value="">请选择</option>
+            <option value="是">是</option>
+            <option value="否">否</option>
+          </select>
         </div>
+
       </div>
       <div class="row row-margin-bottom">
+
         <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left" for="analysisResult"><span style="color:red;">*</span>噪声频谱分析结果：</label>
-          <input type="text" class="form-control col-md-7"  name="analysisResult" id="analysisResult"  [(ngModel)]="recordWorkplaceNoise.analysisResult" required="required"
-                  [ngClass]="{'warn': !analysisResult.valid}"  #analysisResult="ngModel" maxlength="100" ngbTooltip="长度小于100个字符">
-        </div>
-        <div class="col-md-6">
-          <label class="col-md-3 col-form-label text-right float-left" for="soundLevel"><span style="color:red;">*</span>等效声级：</label>
+          <label class="col-md-4 col-form-label text-right float-left" for="soundLevel"><span style="color:red;">*</span>等效声级：</label>
           <input type="text" class="form-control col-md-7"  name="soundLevel" id="soundLevel"  [(ngModel)]="recordWorkplaceNoise.soundLevel" required="required"
-                 pattern="^[0-9]+$" maxlength="10"  [ngClass]="{'warn': !soundLevel.valid}"  #soundLevel="ngModel" ngbTooltip="请输入数字格式数据" placeholder="8h（或40h）等效声级[dB(A)]">
+                 pattern="^([1-9]\d*|0)(\.\d{1,2})?$" maxlength="10"  [ngClass]="{'warn': !soundLevel.valid}"  #soundLevel="ngModel" ngbTooltip="请输入数字格式数据" placeholder="8h（或40h）等效声级[dB(A)]">
         </div>
+
       </div>
     </div>
     <div class="modal-footer">

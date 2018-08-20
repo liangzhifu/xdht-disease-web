@@ -10,11 +10,10 @@ import {ToastConfig} from '../../toast/toast-config';
 import {ToastType} from '../../toast/toast-type.enum';
 import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
 import {I18nService} from '../../core/I18n/i18n.service';
-import 'jquery';
 import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
 import {CompanyWorkTypeDropdownComponent} from '../../sys/company-work-type-dropdown/company-work-type-dropdown.component';
-import {CompanyPostDropdownComponent} from '../../sys/company-post-dropdown/company-post-dropdown.component';
+import 'jquery';
 declare var $: any;
 @Component({
   selector: 'app-workplace-noise-edit',

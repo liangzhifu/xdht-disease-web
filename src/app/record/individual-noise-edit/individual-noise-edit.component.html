@@ -34,8 +34,8 @@
           <label class="col-md-4 col-form-label text-right float-left" for="workTypeId"><span style="color:red;">*</span>工种：</label>
           <input type="hidden" [(ngModel)]="recordIndividualNoise.workTypeId" name="workTypeId" id="workTypeId" required>
           <div class="col-md-7" style="float: left;padding-left: 0px;padding-right: 0px;">
-            <app-work-type-dropdown #acod [companyId]="recordIndividualNoise.companyId" [workTypeId]="recordIndividualNoise.workTypeId"
-                                    [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-work-type-dropdown>
+            <app-company-work-type-dropdown #acod [companyId]="recordIndividualNoise.companyId" [workTypeId]="recordIndividualNoise.workTypeId"
+                                    [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
           </div>
         </div>
       </div>

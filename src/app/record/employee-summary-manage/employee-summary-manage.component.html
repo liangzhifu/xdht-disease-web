@@ -8,7 +8,8 @@
     </div>
     <div class="col-md-4">
       <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
-      <button class="btn btn-success" (click)="addEmployeeSummary();"><i class="fa fa-plus fa-fw"></i> 新增</button>
+      <button class="btn btn-success mr-10" (click)="addEmployeeSummary();"><i class="fa fa-plus fa-fw"></i> 新增</button>
+      <button class="btn btn-info" (click)="importExcel();"><i class="fa fa-file-excel-o fa-fw"></i> 导入</button>
     </div>
   </div>
   <div class="row">
@@ -77,7 +78,7 @@
                           <th>4K</th>
                           <th>6K</th>
                         </tr>
-                  </thead> 
+                  </thead>
                   <tbody>
                       <tr class="dataTr" *ngFor="let item of sdt.data;">
                           <td>{{item.companyName}}</td>
@@ -123,7 +124,7 @@
                           <td>{{item.dbhl6kR}}</td>
                         </tr>
                   </tbody>
-                    
+
                   </table>
             </div>
             <div class="opDiv">

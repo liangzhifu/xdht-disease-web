@@ -10,13 +10,15 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {WaitService} from '../../core/wait/wait.service';
 import {Router} from '@angular/router';
 import {TitleService} from '../../title.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {FileUploadComponent} from '../../sys/file-upload/file-upload.component';
 
 @Component({
   selector: 'app-employee-summary-manage',
   templateUrl: './employee-summary-manage.component.html',
   styleUrls: ['./employee-summary-manage.component.scss']
 })
-export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
+export class EmployeeSummaryManageComponent implements OnInit {
   url: String;
   method: 'post';
 
@@ -28,6 +30,7 @@ export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
     empName: ''
   };
   constructor(
+    private ngbModal: NgbModal,
     private waitService: WaitService,
     private modalService: ModalService,
     private httpService: HttpService,
@@ -44,11 +47,6 @@ export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.search();
-  }
-
-  // 每次做完组件视图和子视图的变更检测之后调用。
-  ngAfterViewChecked(){
-
   }
 
 
@@ -94,6 +92,24 @@ export class EmployeeSummaryManageComponent implements OnInit, AfterViewInit {
           },
           complete: () => {}
         });
+      }
+    );
+  }
+
+  /**
+   * 导入Excel
+   */
+  importExcel() {
+    const modalRef = this.ngbModal.open(FileUploadComponent, {
+      backdrop: 'static',
+      keyboard: false,
+      centered: true
+    });
+    modalRef.result.then(
+      (result) => {
+        if (result === 'success') {
+          this.search();
+        }
       }
     );
   }

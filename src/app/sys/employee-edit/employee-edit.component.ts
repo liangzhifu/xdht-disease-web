@@ -44,7 +44,8 @@ export class EmployeeEditComponent implements OnInit {
       empHobby: '',
       empWorkDate: '',
       empIdentityNumber: '',
-      imageName: ''
+      imageName: '',
+      contactTime: ''
     },
     sysCompanyOffice: {
       id: '',

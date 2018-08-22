@@ -32,7 +32,9 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
     empSex: '',
     empNative: '',
     empIdentityNumber: '',
-    empMarriage: ''
+    empMarriage: '',
+    contactTime: ''
+
 
   };
   constructor(

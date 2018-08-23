@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class VddEquipmentEditComponent implements OnInit {
   recordVddEquipmentEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -73,6 +74,12 @@ export class VddEquipmentEditComponent implements OnInit {
         verificationResult: '',
         sceneId : 0
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordVddEquipment.vddEquipmentNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
       this.addFlag = false;
       this.recordVddEquipmentEditTitle = '修改--通风排毒除尘设施调查表';

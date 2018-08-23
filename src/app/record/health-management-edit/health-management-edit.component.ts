@@ -15,6 +15,7 @@ import {ToastConfig} from '../../toast/toast-config';
 export class HealthManagementEditComponent implements OnInit {
 
   recordHealthManagementEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -60,6 +61,12 @@ export class HealthManagementEditComponent implements OnInit {
         healthManagementNo: '',
         verificationResult: ''
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordHealthManagement.healthManagementNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
       // 获取项目列表
       this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 4} ).subscribe({
         next: (data) => {

@@ -14,6 +14,7 @@ import {ToastConfig} from '../../toast/toast-config';
 })
 export class PresentSituationEditComponent implements OnInit {
   recordPresentSituationEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -55,6 +56,12 @@ export class PresentSituationEditComponent implements OnInit {
         preEvaluationNo: '',
         verificationResult: ''
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordPresentSituation.preEvaluationNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
       // 获取项目列表
       this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 3} ).subscribe({
         next: (data) => {

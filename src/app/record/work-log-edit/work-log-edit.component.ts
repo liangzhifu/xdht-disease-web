@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class WorkLogEditComponent implements OnInit {
   recordWorkLogEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -75,6 +76,12 @@ export class WorkLogEditComponent implements OnInit {
         verificationResult: '',
         sceneId : 0
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordWorkLog.workLogNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
       this.addFlag = false;
       this.recordWorkLogEditTitle = '修改--工作日写实记录表';

@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class HazardFactorsEditComponent implements OnInit {
   recordHazardFactorsEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -62,6 +63,12 @@ export class HazardFactorsEditComponent implements OnInit {
         verificationResult: '',
         sceneId: 0
         };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordHazardFactors.hazardFactorsNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
       } else {
       this.addFlag = false;
       this.recordHazardFactorsEditTitle = '修改--职业病危害因素调查表';

@@ -29,8 +29,8 @@
               <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>工种：</label>
               <input type="hidden" [(ngModel)]="sysEmployeeRequest.sysEmployee.officeId" name="sysCompanyOfficeId" required>
               <div class="col-md-7" style="float: left;padding-left: 0px;padding-right: 0px;">
-              <app-company-office-dropdown #acod [companyId]="sysEmployeeRequest.sysEmployee.companyId" [officeId]="sysEmployeeRequest.sysEmployee.officeId"
-                                           [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
+              <app-company-work-type-dropdown #acod [companyId]="sysEmployeeRequest.sysEmployee.companyId" [workTypeId]="sysEmployeeRequest.sysEmployee.officeId"
+                                           [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
             </div>
             </div>
           </div>

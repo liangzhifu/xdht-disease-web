@@ -62,7 +62,7 @@ export class CompanyOfficeDropdownComponent implements OnInit {
       $.fn.zTree.init($('#company_office_ztree_' + this.treeSeq), this.setting, null);
       this.officeName = '';
     } else {
-      this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: companyId}).subscribe({
+      this.httpService.post(SystemConstant.OFFICE_LIST, {companyId: companyId, officeType: '1' }).subscribe({
         next: (data) => {
           this.zNodes = data;
           $.fn.zTree.init($('#company_office_ztree_' + this.treeSeq), this.setting, this.zNodes);
@@ -97,8 +97,8 @@ export class CompanyOfficeDropdownComponent implements OnInit {
     const treeObj = $.fn.zTree.getZTreeObj('company_office_ztree_' + this.treeSeq);
     const checked = treeNode.checked;
     if (checked) {
-      const  workType = treeNode.officeType;
-      if (workType === 2 ) {
+     /* const  workType = treeNode.officeType;
+      if (workType === 2 ) {*/
       this.officeName = treeNode.officeName;
       const data = {
         index : this.treeSeq,
@@ -106,10 +106,10 @@ export class CompanyOfficeDropdownComponent implements OnInit {
         officeName: treeNode.officeName
       };
       this.onDataChanged.emit(data);
-      }
+      /*}*/
     } else {
-      const  workType = treeNode.officeType;
-      if ( workType === 2 ) {
+    /*  const  workType = treeNode.officeType;
+      if ( workType === 2 ) {*/
       this.officeName = '';
       const data = {
         index : this.treeSeq,
@@ -117,7 +117,7 @@ export class CompanyOfficeDropdownComponent implements OnInit {
         officeName: null
       };
       this.onDataChanged.emit(data);
-      }
+    /*  }*/
     }
   }
 
@@ -135,8 +135,8 @@ export class CompanyOfficeDropdownComponent implements OnInit {
     const checked = treeNode.checked;
 
     if (checked) {
-      const workType = treeNode.officeType;
-      if (workType === 2) {
+      /*const workType = treeNode.officeType;
+      if (workType === 2) {*/
         treeObj.checkNode(treeNode, false);
         this.officeName = '';
         const data = {
@@ -145,10 +145,10 @@ export class CompanyOfficeDropdownComponent implements OnInit {
           officeName: null
         };
         this.onDataChanged.emit(data);
-      }
+      /*}*/
     } else {
-      const workType = treeNode.officeType;
-      if (workType === 2) {
+     /* const workType = treeNode.officeType;
+      if (workType === 2) {*/
         treeObj.checkNode(treeNode, true);
         this.officeName = treeNode.officeName;
         const data = {
@@ -157,7 +157,7 @@ export class CompanyOfficeDropdownComponent implements OnInit {
           officeName: treeNode.officeName
         };
         this.onDataChanged.emit(data);
-      }
+     /* }*/
     }
   }
 

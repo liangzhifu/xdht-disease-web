@@ -234,7 +234,7 @@ export const SystemConstant = Object.freeze({
   SYS_POST_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysPost/recordList',
 
   // 获取调查表 配置
-  SYS_QUESTIONNAIRE: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + 'sysQuestionnaire/selectOne',
+  SYS_QUESTIONNAIRE: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysQuestionnaire/selectOne',
 
   // 企业体检信息
   COMPANY_SUMMARY_MANAGE_PAGE: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/recordCompanySummary/pageList',

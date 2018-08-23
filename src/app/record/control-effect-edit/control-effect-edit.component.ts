@@ -13,6 +13,7 @@ import {ToastConfig} from '../../toast/toast-config';
 })
 export class ControlEffectEditComponent implements OnInit {
   recordControlEffectEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -54,6 +55,12 @@ export class ControlEffectEditComponent implements OnInit {
         preEvaluationNo: '',
         verificationResult: ''
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordControlEffect.preEvaluationNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
       // 获取项目列表
       this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 2} ).subscribe({
         next: (data) => {

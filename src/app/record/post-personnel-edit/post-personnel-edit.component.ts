@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class PostPersonnelEditComponent implements OnInit {
   recordPostPersonnelEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -75,6 +76,12 @@ export class PostPersonnelEditComponent implements OnInit {
           verificationResult: '',
           sceneId : 0
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordPostPersonnel.postPersonnelNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
       this.addFlag = false;
       this.recordPostPersonnelEditTitle = '修改--岗位定员及工作制度调查表';

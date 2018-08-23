@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class EmergencyFacilitiesEditComponent implements OnInit {
   recordEmergencyFacilitiesEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -63,6 +64,12 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
         verificationResult: '',
         sceneId : 0
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordEmergencyFacilities.emergencyFacilitiesNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
       this.addFlag = false;
       this.recordEmergencyFacilitiesEditTitle = '修改--应急设施调查表';

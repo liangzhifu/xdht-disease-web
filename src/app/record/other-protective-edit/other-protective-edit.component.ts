@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class OtherProtectiveEditComponent implements OnInit {
   recordOtherProtectiveEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -72,7 +73,15 @@ export class OtherProtectiveEditComponent implements OnInit {
         verificationResult: '',
         sceneId : 0
       };
+      console.log(this.questionnaireId + '..................ques');
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordOtherProtective.otherProtectiveFacilitiesNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
+
       this.addFlag = false;
       this.recordOtherProtectiveEditTitle = '修改--其他防护设施调查表';
     }

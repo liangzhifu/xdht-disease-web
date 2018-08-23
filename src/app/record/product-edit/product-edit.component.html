@@ -42,7 +42,7 @@
                 <app-company-office-dropdown [companyId]="companyId" [officeId]="item.companyOfficeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
               </td>
               <td><input type="text" class="form-control" [(ngModel)]="item.processName" name="item{{recordIndex}}.processName"
-                         [ngClass]="{'warn': !processName_recordIndex.valid}" #processName_recordIndex="ngModel" required="required" maxlength="50" ngbTooltip="工艺过程长度不大于50"></td>
+                         [ngClass]="{'warn': !processName_recordIndex.valid}" #processName_recordIndex="ngModel"  maxlength="50" ngbTooltip="工艺过程长度不大于50"></td>
               <td><input type="text" class="form-control" [(ngModel)]="item.productType" name="item{{recordIndex}}.productType" maxlength="10" ngbTooltip="产品类别长度不大于10"></td>
               <td><input type="text" class="form-control" [(ngModel)]="item.productName" name="item{{recordIndex}}.productName" maxlength="10" ngbTooltip="名称长度不大于10"></td>
               <td><input type="text" class="form-control" [(ngModel)]="item.productShape" name="item{{recordIndex}}.productShape" maxlength="10" ngbTooltip="产品形态长度不大于10"></td>

@@ -14,6 +14,7 @@ import {CompanyOfficeDropdownComponent} from '../company-office-dropdown/company
 import 'jquery';
 import {I18nService} from '../../core/I18n/i18n.service';
 import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
+import {CompanyWorkTypeDropdownComponent} from '../company-work-type-dropdown/company-work-type-dropdown.component';
 declare var $: any;
 
 @Component({
@@ -23,7 +24,7 @@ declare var $: any;
   providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class EmployeeEditComponent implements OnInit {
-  @ViewChild('acod', undefined) acod: CompanyOfficeDropdownComponent;
+  @ViewChild('acod', undefined) acod: CompanyWorkTypeDropdownComponent;
   @Input()
   change: any;
   defImg: string;

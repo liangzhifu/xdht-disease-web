@@ -16,6 +16,7 @@ import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class AuxiliaryHealthEditComponent implements OnInit {
 
   recordAuxiliaryHealthEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -61,6 +62,12 @@ export class AuxiliaryHealthEditComponent implements OnInit {
         verificationResult: '',
         sceneId : 0
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordAuxiliaryHealth .auxiliaryHealthNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
       this.addFlag = false;
       this.recordAuxiliaryHealthEditTitle = '修改--辅助卫生用室调查表';

@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class EquipmentLayoutEditComponent implements OnInit {
   recordEquipmentLayoutEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -61,6 +62,12 @@ export class EquipmentLayoutEditComponent implements OnInit {
         verificationResult: '',
         sceneId : 0
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordEquipmentLayout.equipmentLayoutNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
       this.addFlag = false;
       this.recordEquipmentLayoutEditTitle = '修改--设备设施布局调查表';

@@ -14,6 +14,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class RecordFundsEditComponent implements OnInit {
   recordFundsEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -57,6 +58,12 @@ export class RecordFundsEditComponent implements OnInit {
         fundsNo: '',
         verificationResult: ''
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordFunds.fundsNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
       // 获取项目列表
       this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 1} ).subscribe({
         next: (data) => {

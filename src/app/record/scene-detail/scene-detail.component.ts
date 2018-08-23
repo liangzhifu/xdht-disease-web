@@ -39,6 +39,7 @@ import {HealthManagementEditComponent} from '../health-management-edit/health-ma
 })
 export class SceneDetailComponent implements OnInit {
 
+
   companyData: any;
   editComponent: any;
   // 输入填写内容
@@ -86,7 +87,7 @@ export class SceneDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activeRoute.queryParams.subscribe(params => {
+    this.activeRoute.queryParams.subscribe(params => {  /*通过id 找到*/
       const id = params['id'];
       this.httpService.get(SystemConstant.RECORD_SCENE_DETAIL + '/' + id).subscribe({
         next: (data) => {
@@ -239,6 +240,7 @@ export class SceneDetailComponent implements OnInit {
           modalRef.componentInstance.sceneId = this.recordSceneRequest.recordScene.id;
           modalRef.componentInstance.questionnaireId = questionnaireId;
           modalRef.componentInstance.companyId = this.recordSceneRequest.recordScene.inquiryCompany;
+          modalRef.componentInstance.numberSeq = this.recordSceneRequest.recordScene.recordNo + '-';
           modalRef.result.then(
           (result) => {
             if (result === 'success') {
@@ -254,6 +256,5 @@ export class SceneDetailComponent implements OnInit {
       },
       complete: () => {}
     });
-
   }
 }

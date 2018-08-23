@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class EquipmentEditComponent implements OnInit {
   recordEquipmentEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -60,6 +61,12 @@ export class EquipmentEditComponent implements OnInit {
         verificationResult: '',
         sceneId : 0
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordEquipment.equipmentNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
       this.addFlag = false;
       this.recordEquipmentEditTitle = '修改--设备设施调查表';

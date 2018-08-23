@@ -15,6 +15,7 @@ import {ModalService} from '../../modal/modal.service';
 })
 export class InformingFacilitiesEditComponent implements OnInit {
   recordInformingFacilitiesEditTitle: string;
+  @Input() numberSeq: any;
   @Input() sceneId = 0;
   @Input() questionnaireId = 0;
   @Input() companyId = 0;
@@ -61,6 +62,12 @@ export class InformingFacilitiesEditComponent implements OnInit {
         verificationResult: '',
         sceneId : 0
       };
+      this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
+        next: (data) => {
+          this.recordData.recordInformingFacilities.informingFacilitiesNo = this.numberSeq + data.questionnaireNum ;
+        },
+        complete: () => {}
+      });
     } else {
       this.addFlag = false;
       this.recordInformingFacilitiesEditTitle = '修改--职业病危害告知设施调查表';

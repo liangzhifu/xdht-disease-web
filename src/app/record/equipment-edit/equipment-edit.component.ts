@@ -31,6 +31,7 @@ export class EquipmentEditComponent implements OnInit {
       officdId: '',
       processName: '',
       equipmentName: '',
+      equipmentNoise: '',
       epuipmentNumber: '',
       relationId: ''
     }],
@@ -94,6 +95,7 @@ export class EquipmentEditComponent implements OnInit {
       officdId: '',
       processName: '',
       equipmentName: '',
+      equipmentNoise: '',
       epuipmentNumber: '',
       relationId: ''
     };

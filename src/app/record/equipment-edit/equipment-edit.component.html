@@ -28,6 +28,7 @@
               <th>车间/部门</th>
               <th>工艺过程</th>
               <th>设备名称</th>
+              <th>是否噪声</th>
               <th>数量 （台/套）</th>
               <th><button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
             </tr>
@@ -37,9 +38,15 @@
                 <app-company-office-dropdown [companyId]="companyId" [officeId]="item.officdId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
               </td>
               <td><input type="text" class="form-control" [(ngModel)]="item.processName" name="item{{recordIndex}}.processName" maxlength="50"
-                         [ngClass]="{'warn': !processName_recordIndex.valid}" #processName_recordIndex="ngModel" required ngbTooltip="工艺过程长度不大于50"></td>
+                         [ngClass]="{'warn': !processName_recordIndex.valid}" #processName_recordIndex="ngModel"  ngbTooltip="工艺过程长度不大于50"></td>
               <td><input type="text" class="form-control" [(ngModel)]="item.equipmentName" name="item{{recordIndex}}.equipmentName" maxlength="10"
                          [ngClass]="{'warn': !equipmentName_recordIndex.valid}" #equipmentName_recordIndex="ngModel" required ngbTooltip="设备名称长度不大于10"></td>
+              <td><select  class="form-control"  [(ngModel)]="item.equipmentNoise" name="item{{recordIndex}}.equipmentNoise"
+                           [ngClass]="{'warn': !equipmentNoise_recordIndex.valid}" #equipmentNoise_recordIndex="ngModel" required ngbTooltip="选择是否">
+                <option value="">请选择 </option>
+                <option value="是">是</option>
+                <option value="否">否</option>
+              </select>  </td>
               <td><input type="text" class="form-control" [(ngModel)]="item.epuipmentNumber" name="item{{recordIndex}}.epuipmentNumber"
                          [ngClass]="{'warn': !epuipmentNumber_recordIndex.valid}" #epuipmentNumber_recordIndex="ngModel" pattern="^[0-9]+$" required ngbTooltip="填写非负整数"></td>
               <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>

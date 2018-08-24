@@ -25,11 +25,11 @@
         </div>
         <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">工种：</label>
-          <select class="form-control col-md-7" [(ngModel)]="employeeSummary.workType" name="workType" required
-                  [ngClass]="{'warn': !workType.valid}" #workType="ngModel">
-            <option value="">请选择</option>
-            <option *ngFor="let sysPost of sysPostList;" value="{{sysPost.id}}" >{{sysPost.dictionaryName}}</option>
-          </select>
+          <input type="hidden" [(ngModel)]="employeeSummary.workType" name="workType" required>
+          <div class="col-md-7" style="float: left;padding-left: 0px;padding-right: 0px;">
+            <app-company-work-type-dropdown #acod [companyId]="employeeSummary.workTypecompanyId" [workTypeId]="employeeSummary.workType"
+                                            [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
+          </div>
         </div>
       </div>
       <div class="row row-margin-bottom">

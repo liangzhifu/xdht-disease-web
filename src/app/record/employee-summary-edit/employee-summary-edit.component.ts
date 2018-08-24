@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {ModalService} from '../../modal/modal.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ModalService} from '../../modal/modal.service';;
 import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {HttpService} from '../../core/http/http.service';
@@ -12,6 +12,7 @@ import {NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import 'jquery';
 import {I18nService} from '../../core/I18n/i18n.service';
 import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
+import {CompanyWorkTypeDropdownComponent} from '../../sys/company-work-type-dropdown/company-work-type-dropdown.component';
 declare var $: any;
 
 @Component({
@@ -21,6 +22,7 @@ declare var $: any;
   providers: [I18nService, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18nService}]
 })
 export class EmployeeSummaryEditComponent implements OnInit {
+@ViewChild('acod', undefined ) 'acod': CompanyWorkTypeDropdownComponent;
   employeeSummary = {
       id: '',
       empId: '',
@@ -131,7 +133,13 @@ export class EmployeeSummaryEditComponent implements OnInit {
   changeCompany() {
     this.employeeSummary.empId = '';
     this.employeeSummary.empName = '';
+    this.acod.openZTree(this.employeeSummary.companyId, this.employeeSummary.workType);
+
   }
+  onDataChanged(data) {
+    this.employeeSummary.workType = data.workTypeId;
+  }
+
 
   /**
    * 选择人员

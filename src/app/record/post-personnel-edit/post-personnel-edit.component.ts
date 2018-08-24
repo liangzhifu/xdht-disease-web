@@ -44,6 +44,12 @@ export class PostPersonnelEditComponent implements OnInit {
     'dictionaryName': ''
   }];
 
+  sysCompanyOffice: [{
+      'id': '',
+    'officeName': ''
+  }];
+  sysOffice: any;
+
   addFlag: boolean;
   action = '';
 
@@ -60,6 +66,14 @@ export class PostPersonnelEditComponent implements OnInit {
         this.sysPostList = data;
       },
       complete: () => {
+      }
+    });
+    this.httpService.post( SystemConstant.OFFICE_LIST , { officeType : 2 }).subscribe({
+      next: (data2) => {
+        this.sysOffice = data2 ;
+      },
+      complete: () => {
+
       }
     });
   }
@@ -158,6 +172,15 @@ export class PostPersonnelEditComponent implements OnInit {
    */
   onDataChanged(data) {
     this.recordData.recordPostPersonnelDataList[data.index].companyOfficeId = data.officeId;
+
+    this.httpService.post( SystemConstant.OFFICE_LIST , {parentId: data.officeId, officeType : 2 }).subscribe({
+      next: (data2) => {
+        this.sysOffice = data2 ;
+      },
+      complete: () => {
+
+      }
+    });
   }
 
 

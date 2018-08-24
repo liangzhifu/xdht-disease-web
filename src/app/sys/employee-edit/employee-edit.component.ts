@@ -10,7 +10,6 @@ import {ToastType} from '../../toast/toast-type.enum';
 import {ModalService} from '../../modal/modal.service';
 import {FileUploader} from 'ng2-file-upload';
 import {SessionStorageService} from '../../core/storage/session-storage.service';
-import {CompanyOfficeDropdownComponent} from '../company-office-dropdown/company-office-dropdown.component';
 import 'jquery';
 import {I18nService} from '../../core/I18n/i18n.service';
 import {CustomDatepickerI18nService} from '../../core/I18n/custom-datepicker-i18n.service';
@@ -112,6 +111,7 @@ export class EmployeeEditComponent implements OnInit {
       authTokenHeader: 'authorization',
       removeAfterUpload: true
     });
+
     // 获取部门列表
     this.httpService.post(SystemConstant.COMPANY_LIST, {} ).subscribe({
       next: (data) => {
@@ -274,12 +274,11 @@ export class EmployeeEditComponent implements OnInit {
    * @param data
    */
   onDataChanged(data) {
-    this.sysEmployeeRequest.sysEmployee.officeId = data.officeId;
+    this.sysEmployeeRequest.sysEmployee.officeId = data.workTypeId;
   }
 
-  /**
-   * 选择文件上传
-   */
+
+/*   * 选择文件上传*/
   selectedFileOnChanged() {
     // 上传
     this.uploader.queue[0].onSuccess = this.fileSuccess.bind(this);
@@ -307,12 +306,12 @@ export class EmployeeEditComponent implements OnInit {
       alert('文件上传失败');
     }
   }
-
   /**
    * 单位修改
    */
   changeCompany() {
     this.sysEmployeeRequest.sysEmployee.officeId = '';
     this.acod.openZTree(this.sysEmployeeRequest.sysEmployee.companyId, this.sysEmployeeRequest.sysEmployee.officeId);
+
   }
 }

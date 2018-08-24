@@ -42,6 +42,7 @@ export class AntiNoiseEditComponent implements OnInit {
     id: '',
     dictionaryName: ''
   }];
+  sysOffice: any;
   addFlag: boolean;
   action = '';
   constructor(
@@ -57,6 +58,14 @@ export class AntiNoiseEditComponent implements OnInit {
         this.sysPostList = data;
       },
       complete: () => {
+      }
+    });
+    this.httpService.post( SystemConstant.OFFICE_LIST , { officeType : 2 }).subscribe({
+      next: (data2) => {
+        this.sysOffice = data2 ;
+      },
+      complete: () => {
+
       }
     });
   }
@@ -154,6 +163,14 @@ export class AntiNoiseEditComponent implements OnInit {
    */
   onDataChanged(data) {
     this.recordData.recordAntiNoiseFacilitiesDataList[data.index].companyOfficeId = data.officeId;
+    this.httpService.post( SystemConstant.OFFICE_LIST , {parentId: data.officeId, officeType : 2 }).subscribe({
+      next: (data2) => {
+        this.sysOffice = data2 ;
+      },
+      complete: () => {
+
+      }
+    });
   }
 
 }

@@ -45,6 +45,9 @@
       <div #sdt=simpleDataTable appSimpleDataTable>
         <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
           <tr>
+            <th>公司</th>
+            <th>部门</th>
+            <th>工种</th>
             <th>姓名</th>
             <th>性别</th>
             <th>籍贯</th>
@@ -57,6 +60,9 @@
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;let i = index">
+             <td>{{item.officeId }}</td>
+            <td> {{item.officeId}}</td>
+            <td> {{item.officeId}}</td>
             <td>{{item.empName}}</td>
             <td>{{item.empSex | sexReform}}</td>
             <td>{{item.empNative}}</td>

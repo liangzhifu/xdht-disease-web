@@ -41,16 +41,15 @@
             </tr>
             <tr *ngFor="let item of recordData.recordPostPersonnelDataList;let recordIndex=index;"  >
               <td>
-                <input type="text" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.officeId" style="display: none" required="required" >
-                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.companyOfficeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
+                <input type="text" class="form-control" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.companyOfficeId"
+                       #companyOfficeId_recordIndex="ngModel" required="required" [ngClass]="{'warn': !companyOfficeId_recordIndex.valid}"
+                       ngbTooltip="每周天数1-7">
               </td>
-              <td >
-                <select class="form-control" #select [(ngModel)]="item.postId" name="item{{recordIndex}}.postId"
-                        #postId_recordIndex="ngModel" required="required" [ngClass]="{'warn': !postId_recordIndex.valid}">
-                  <option value="">--请选择岗位--</option>
-                  <option *ngFor="let post of sysOffice;" value="{{post.id}}" >{{post.officeName}}</option>
-                </select>
+              <td>
+                <input type="text" [(ngModel)]="item.postId" name="item{{recordIndex}}.postId" style="display: none" required="required" >
+                <app-company-work-type-dropdown [companyId]="companyId" [workTypeId]="item.postId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
               </td>
+
               <td>
                 <input type="text" class="form-control" [(ngModel)]="item.dayOfWeek" name="item{{recordIndex}}.dayOfWeek"
                        #dayOfWeek_recordIndex="ngModel" required="required" [ngClass]="{'warn': !dayOfWeek_recordIndex.valid}"

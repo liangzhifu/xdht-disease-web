@@ -68,7 +68,7 @@ export class PostPersonnelEditComponent implements OnInit {
       complete: () => {
       }
     });
-    this.httpService.post( SystemConstant.OFFICE_LIST , { officeType : 2 }).subscribe({
+    this.httpService.post( SystemConstant.OFFICE_LIST , { officeType : 1 }).subscribe({
       next: (data2) => {
         this.sysOffice = data2 ;
       },
@@ -173,7 +173,7 @@ export class PostPersonnelEditComponent implements OnInit {
   onDataChanged(data) {
     this.recordData.recordPostPersonnelDataList[data.index].companyOfficeId = data.officeId;
 
-    this.httpService.post( SystemConstant.OFFICE_LIST , {parentId: data.officeId, officeType : 2 }).subscribe({
+    this.httpService.post( SystemConstant.OFFICE_LIST , {id: data.workTypeId, officeType : 1 }).subscribe({
       next: (data2) => {
         this.sysOffice = data2 ;
       },
@@ -181,6 +181,7 @@ export class PostPersonnelEditComponent implements OnInit {
 
       }
     });
+
   }
 
 

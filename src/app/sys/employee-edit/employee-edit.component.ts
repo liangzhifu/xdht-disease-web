@@ -190,7 +190,6 @@ export class EmployeeEditComponent implements OnInit {
       error: (err) => {
         const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
         this.toastService.toast(toastCfg);
-        this.activeModal.dismiss('failed');
       },
       complete: () => {
       }

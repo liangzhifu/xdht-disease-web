@@ -29,7 +29,9 @@ export class IndividualProtectiveEditComponent implements OnInit {
     recordIndividualProtectiveDataList: [{
       id: '',
       companyOfficeId: '',
+      companyOfficeName: '',
       postId: '',
+      postName: ' ',
       hazardFactors: '',
       protectiveEquipment: '',
       technicalParameter: '',
@@ -43,7 +45,13 @@ export class IndividualProtectiveEditComponent implements OnInit {
     id: '',
     dictionaryName: ''
   }];
-  sysOffice: any;
+
+  sysCompanyOffice: [{
+    'id': '',
+    'parentId': '',
+    'officeName': ''
+  }];
+
   addFlag: boolean;
   action = '';
   constructor(
@@ -61,9 +69,9 @@ export class IndividualProtectiveEditComponent implements OnInit {
       complete: () => {
       }
     });
-    this.httpService.post( SystemConstant.OFFICE_LIST , { officeType : 2 }).subscribe({
-      next: (data2) => {
-        this.sysOffice = data2 ;
+    this.httpService.post( SystemConstant.OFFICE_LIST , { }).subscribe({
+      next: (data) => {
+        this.sysCompanyOffice = data ;
       },
       complete: () => {
 
@@ -72,6 +80,7 @@ export class IndividualProtectiveEditComponent implements OnInit {
   }
 
   ngOnInit() {
+
     if (this.recordData.recordIndividualProtective === null
       || this.recordData.recordIndividualProtective === null
       || this.recordData.recordIndividualProtective.id === '') {
@@ -109,9 +118,11 @@ export class IndividualProtectiveEditComponent implements OnInit {
     }
     const index = this.recordData.recordIndividualProtectiveDataList.length;
     this.recordData.recordIndividualProtectiveDataList[index] = {
-        id: '',
+         id: '',
         companyOfficeId: '',
+       companyOfficeName: '',
         postId: '',
+      postName: '',
         hazardFactors: '',
         protectiveEquipment: '',
         technicalParameter: '',
@@ -164,15 +175,22 @@ export class IndividualProtectiveEditComponent implements OnInit {
    * @param data
    */
   onDataChanged(data) {
-    this.recordData.recordIndividualProtectiveDataList[data.index].companyOfficeId = data.officeId;
-    this.httpService.post( SystemConstant.OFFICE_LIST , {parentId: data.officeId, officeType : 2 }).subscribe({
-      next: (data2) => {
-        this.sysOffice = data2 ;
-      },
-      complete: () => {
-
+    this.recordData.recordIndividualProtectiveDataList[data.index].postId = data.workTypeId;
+    this.recordData.recordIndividualProtectiveDataList[data.index].postName = data.workTypeName;
+    let parentId = '';
+    for (let i = 0 ; i < this.sysCompanyOffice.length; i++) {
+      if (data.workTypeId === this.sysCompanyOffice[i].id) {
+        parentId = this.sysCompanyOffice[i].parentId;
       }
-    });
+    }
+    if (parentId !== '') {
+      for (let i = 0 ; i < this.sysCompanyOffice.length; i++) {
+        if (parentId === this.sysCompanyOffice[i].id) {
+          this.recordData.recordIndividualProtectiveDataList[data.index].companyOfficeId = parentId;
+          this.recordData.recordIndividualProtectiveDataList[data.index].companyOfficeName = this.sysCompanyOffice[i].officeName;
+        }
+      }
+    }
   }
 
 

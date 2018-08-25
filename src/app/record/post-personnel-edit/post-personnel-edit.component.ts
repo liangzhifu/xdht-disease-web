@@ -29,7 +29,9 @@ export class PostPersonnelEditComponent implements OnInit {
     recordPostPersonnelDataList: [{
       id: '',
       companyOfficeId: '',
+      companyOfficeName: '',
       postId: '',
+      postName: '',
       perShift: '',
       totalNumber: '',
       dayOfWeek: '',
@@ -39,16 +41,11 @@ export class PostPersonnelEditComponent implements OnInit {
     }],
     questionnaireId: 0
   };
-  sysPostList: [{
-    'id': '',
-    'dictionaryName': ''
-  }];
-
   sysCompanyOffice: [{
-      'id': '',
+    'id': '',
+    'parentId': '',
     'officeName': ''
   }];
-  sysOffice: any;
 
   addFlag: boolean;
   action = '';
@@ -61,16 +58,9 @@ export class PostPersonnelEditComponent implements OnInit {
     private toastService: ToastService,
     private waitService: WaitService
   ) {
-    this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: SystemConstant.DICTIONARY_TYPE_POST} ).subscribe({
+    this.httpService.post( SystemConstant.OFFICE_LIST , {}).subscribe({
       next: (data) => {
-        this.sysPostList = data;
-      },
-      complete: () => {
-      }
-    });
-    this.httpService.post( SystemConstant.OFFICE_LIST , { officeType : 1 }).subscribe({
-      next: (data2) => {
-        this.sysOffice = data2 ;
+        this.sysCompanyOffice = data ;
       },
       complete: () => {
 
@@ -118,7 +108,9 @@ export class PostPersonnelEditComponent implements OnInit {
     this.recordData.recordPostPersonnelDataList[index] = {
         id: '',
         companyOfficeId: '',
+        companyOfficeName: '',
         postId: '',
+        postName: '',
         perShift: '',
         totalNumber: '',
         dayOfWeek: '',
@@ -167,21 +159,26 @@ export class PostPersonnelEditComponent implements OnInit {
   }
 
   /**
-   * 选择部门
+   * 选择岗位
    * @param data
    */
   onDataChanged(data) {
-    this.recordData.recordPostPersonnelDataList[data.index].companyOfficeId = data.officeId;
-
-    this.httpService.post( SystemConstant.OFFICE_LIST , {id: data.workTypeId, officeType : 1 }).subscribe({
-      next: (data2) => {
-        this.sysOffice = data2 ;
-      },
-      complete: () => {
-
+    this.recordData.recordPostPersonnelDataList[data.index].postId = data.workTypeId;
+    this.recordData.recordPostPersonnelDataList[data.index].postName = data.workTypeName;
+    let parentId = '';
+    for (let i = 0 ; i < this.sysCompanyOffice.length; i++) {
+      if (data.workTypeId === this.sysCompanyOffice[i].id) {
+        parentId = this.sysCompanyOffice[i].parentId;
       }
-    });
-
+    }
+    if (parentId !== '') {
+      for (let i = 0 ; i < this.sysCompanyOffice.length; i++) {
+        if (parentId === this.sysCompanyOffice[i].id) {
+          this.recordData.recordPostPersonnelDataList[data.index].companyOfficeId = parentId;
+          this.recordData.recordPostPersonnelDataList[data.index].companyOfficeName = this.sysCompanyOffice[i].officeName;
+        }
+      }
+    }
   }
 
 

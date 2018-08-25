@@ -29,7 +29,9 @@ export class WorkLogEditComponent implements OnInit {
     recordWorkLogDataList: [{
       id: '',
       companyOfficeId: '',
+      companyOfficeName: '',
       postId: '',
+      postName: '',
       personOfClass: '',
       workHours: '',
       workPlace: '',
@@ -40,11 +42,16 @@ export class WorkLogEditComponent implements OnInit {
     }],
     questionnaireId: 0
   };
+  sysCompanyOffice: [{
+    'id': '',
+    'parentId': '',
+    'officeName': ''
+  }]
   sysPostList: [{
     'id': '',
     'dictionaryName': ''
   }];
-  sysOffice: any;
+
   addFlag: boolean;
   action = '';
   constructor(
@@ -62,9 +69,9 @@ export class WorkLogEditComponent implements OnInit {
       complete: () => {
       }
     });
-    this.httpService.post( SystemConstant.OFFICE_LIST , { officeType : 2 }).subscribe({
-      next: (data2) => {
-        this.sysOffice = data2 ;
+    this.httpService.post( SystemConstant.OFFICE_LIST , {}).subscribe({
+      next: (data) => {
+        this.sysCompanyOffice = data;
       },
       complete: () => {
 
@@ -113,7 +120,9 @@ export class WorkLogEditComponent implements OnInit {
     this.recordData.recordWorkLogDataList[index] = {
       id : '',
       companyOfficeId: '',
+      companyOfficeName: '',
       postId: '',
+      postName: '',
       personOfClass: '',
       workHours: '',
       workPlace: '',
@@ -169,14 +178,24 @@ export class WorkLogEditComponent implements OnInit {
    */
   onDataChanged(data) {
     this.recordData.recordWorkLogDataList[data.index].companyOfficeId = data.officeId;
-    this.httpService.post( SystemConstant.OFFICE_LIST , {parentId: data.officeId, officeType : 2 }).subscribe({
-      next: (data2) => {
-        this.sysOffice = data2 ;
-      },
-      complete: () => {
+    this.recordData.recordWorkLogDataList[data.index].postId = data.workTypeId;
+    this.recordData.recordWorkLogDataList[data.index].postName = data.workTypeName;
+    let parentId = '';
+    for (let i = 0 ; i < this.sysCompanyOffice.length; i++) {
+      if (data.workTypeId === this.sysCompanyOffice[i].id) {
+        parentId = this.sysCompanyOffice[i].parentId;
+      }
+    }
+    if (parentId !== '') {
+      for (let i = 0 ; i < this.sysCompanyOffice.length; i++) {
+        if (parentId === this.sysCompanyOffice[i].id) {
+          this.recordData.recordWorkLogDataList[data.index].companyOfficeId = parentId;
+          this.recordData.recordWorkLogDataList[data.index].companyOfficeName = this.sysCompanyOffice[i].officeName;
+        }
+      }
+    }
 
       }
-    });
-  }
+
 
 }

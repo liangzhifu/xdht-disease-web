@@ -25,6 +25,7 @@
             <th>检查年份</th>
             <th>检查时间</th>
             <th>公司</th>
+            <th>部门</th>
             <th>工种</th>
             <th>每班工作时间（H）</th>
             <th>工作日/周</th>
@@ -36,6 +37,7 @@
             <td>{{item.inspectYear}}</td>
             <td>{{item.inspectDate}}</td>
             <td>{{item.companyId | companyName: sysCompanyTypeList}}</td>
+            <td>{{item.officeId| officeType: sysWorkTypeList}}</td>
             <td>{{item.workTypeId | officeType: sysWorkTypeList}}</td>
             <td>{{item.workingHoursPerShift}}</td>
             <td>{{item.workdayWeek}}</td>

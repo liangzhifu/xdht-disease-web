@@ -37,15 +37,12 @@
             </tr>
             <tr *ngFor="let item of recordData.recordOtherProtectiveDataList;let recordIndex=index;"  >
               <td>
-                <input type="text" [(ngModel)]="item.officeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
-                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.officeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
+                <input type="text" class="form-control" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
+                       #officeName_recordIndex="ngModel" required="required" [ngClass]="{'warn': !officeName_recordIndex.valid}">
               </td>
               <td>
-                <select #select class="form-control" [(ngModel)]="item.postId" name="item{{recordIndex}}.postId"
-                        [ngClass]="{'warn': !postId_recordIndex.valid}" #postId_recordIndex="ngModel" required="required">
-                  <option value="">--请选择岗位--</option>
-                  <option *ngFor="let post of sysOffice;" value="{{post.id}}" >{{post.officeName}}</option>
-                </select>
+                <input type="text" [(ngModel)]="item.postId" name="item{{recordIndex}}.postId" style="display: none" required="required" >
+                <app-company-work-type-dropdown [companyId]="companyId" [workTypeId]="item.postId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
               </td>
               <td><input type="text" class="form-control" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace"
                          ngbTooltip="作业地点长度不大于50" maxlength="50"></td>

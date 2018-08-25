@@ -38,15 +38,12 @@
             </tr>
             <tr *ngFor="let item of recordData.recordIndividualProtectiveDataList;let recordIndex=index;"  >
               <td>
-                <input type="text" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
-                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.companyOfficeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
+                <input type="text" class="form-control" [(ngModel)]="item.companyOfficeName" name="item{{recordIndex}}.companyOfficeName" readonly
+                       #companyOfficeName_recordIndex="ngModel" required="required" [ngClass]="{'warn': !companyOfficeName_recordIndex.valid}">
               </td>
               <td>
-                <select class="form-control" [(ngModel)]="item.postId" name="item{{recordIndex}}}.postId"
-                        [ngClass]="{'warn': !postId_recordIndex.valid}" #postId_recordIndex="ngModel" required="required">
-                  <option value="">--请选择岗位--</option>
-                  <option *ngFor="let post of sysOffice;" value="{{post.id}}" >{{post.officeName}}</option>
-                </select>
+                <input type="text" [(ngModel)]="item.postId" name="item{{recordIndex}}.postId" style="display: none" required="required" >
+                <app-company-work-type-dropdown [companyId]="companyId" [workTypeId]="item.postId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
               </td>
               <td><input type="text" class="form-control" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}}.hazardFactors"
                          ngbTooltip="职业病危害因素长度不大于50" maxlength="50"></td>

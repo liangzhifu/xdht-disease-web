@@ -24,6 +24,7 @@ declare var $: any;
 export class EmployeeSummaryEditComponent implements OnInit {
 @ViewChild('acod', undefined ) 'acod': CompanyWorkTypeDropdownComponent;
   employeeSummary = {
+
       id: '',
       empId: '',
       empName: '',
@@ -34,6 +35,7 @@ export class EmployeeSummaryEditComponent implements OnInit {
       sex: '',
       age: '',
       inspectDate: '',
+      inspectYear: '',
       inspect: '',
       contactTime: '',
       hazardFactor: '',
@@ -67,7 +69,8 @@ export class EmployeeSummaryEditComponent implements OnInit {
       dbhl2kR: '',
       dbhl3kR: '',
       dbhl4kR: '',
-      dbhl6kR: ''
+      dbhl6kR: '',
+
   };
   companyData: any = null;
   sysPostList: any = null;

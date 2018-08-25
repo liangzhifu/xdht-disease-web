@@ -22,8 +22,9 @@
       <div #sdt=simpleDataTable appSimpleDataTable>
         <table class="table table-bordered table-hover table-list" width="100%" cellpadding="0" cellspacing="0">
           <tr>
-            <th>检查时间</th>
             <th>检查年份</th>
+            <th>检查时间</th>
+
             <th>公司</th>
             <th>工种</th>
             <th>检查位置</th>
@@ -33,8 +34,8 @@
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;let i = index">
-            <td>{{item.inspectDate}}</td>
             <td>{{item.inspectYear}}</td>
+            <td>{{item.inspectDate}}</td>
             <td>{{item.companyId | companyName : sysCompanyTypeList}}</td>
             <td>{{item.workTypeId | officeType : sysWorkTypeList}}</td>
             <td>{{item.checkPlace}}</td>

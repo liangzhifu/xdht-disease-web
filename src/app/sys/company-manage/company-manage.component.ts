@@ -29,7 +29,7 @@ export class CompanyManageComponent implements OnInit, AfterViewInit {
   url: String;
   method: 'post';
 
-  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;
+  @ViewChild('sdhp', undefined) sdhp: SimpleDataHttpPageComponent;/*别名分页*/
   /**
    * 查询条件
    */
@@ -41,17 +41,18 @@ export class CompanyManageComponent implements OnInit, AfterViewInit {
     companyNature: '',
     establishDate: ''
   };
-  companyNature: any;
+  companyNature: any;/*等于任何结构都可以*/
   constructor(
     private ngbModal: NgbModal,
     private waitService: WaitService,
-    private modalService: ModalService,
-    private httpService: HttpService,
-    private toastService: ToastService,
+    private modalService: ModalService,/*模式*/
+    private httpService: HttpService,/*方法*/
+    private toastService: ToastService,/*消息框*/
     private titleService: TitleService
-  ) {
-    this.titleService.titleEventEmitter.emit('企业基本信息');
-    // 获取单位性质
+  ) {                                   /*发出*/
+    this.titleService.titleEventEmitter.emit('企业基本信息');/*进入企业基本信息页面*/
+      // 获取单位性质
+                                                                                                  /*观察者*/
     this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 7} ).subscribe({
       next: (data) => {
         this.companyNature = data;
@@ -75,15 +76,16 @@ export class CompanyManageComponent implements OnInit, AfterViewInit {
    */
   search() {
     this.param.establishDate = $('#establishDate').val();
-    this.waitService.wait(true);
+    this.waitService.wait(true);/*显示转圈等待*/
     this.sdhp.search();
-    this.waitService.wait(false);
+    this.waitService.wait(false);/*显示转圈等待*/
   }
 
   /**
    * 新增企业
    */
   addCompany() {
+    /*常量*/                                                   /*选择*/  /*背景*/             /*键盘*/
     const modalRef = this.ngbModal.open(CompanyEditComponent, {backdrop: 'static', keyboard: false, size: 'lg', centered: true});
     modalRef.result.then(
       (result) => {

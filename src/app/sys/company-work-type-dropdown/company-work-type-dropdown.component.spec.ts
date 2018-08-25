@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CompanyWorkTypeDropdownComponent } from './company-work-type-dropdown.component';
 
-describe('CompanyWorkTypeDropdownComponent', () => {
+describe('CompanyPostDropdownComponent', () => {
   let component: CompanyWorkTypeDropdownComponent;
   let fixture: ComponentFixture<CompanyWorkTypeDropdownComponent>;
 

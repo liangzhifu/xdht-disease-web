@@ -11,8 +11,6 @@ export class WaitService {
   getWait(): Observable<boolean> {
     return this.waitSubject;
   }
-
-
   wait(showSpin: boolean) {
     this.waitSubject.next(showSpin);
   }

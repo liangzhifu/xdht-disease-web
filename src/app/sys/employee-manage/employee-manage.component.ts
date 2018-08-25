@@ -28,16 +28,13 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
    * 查询条件
    */
   param: any = {
-    officeId: '',
+    companyName: '',
     empName: '',
-    empSex: '',
-    empNative: '',
-    empIdentityNumber: '',
-    empMarriage: '',
-    contactTime: ''
+    postName: '',
+    workTypeName: '',
+    empIdentityNumber: ''
   };
-  sysWorkTypeList = [{id: '', officeName: ''}];
-    constructor(
+  constructor(
     private ngbModal: NgbModal,
     private waitService: WaitService,
     private modalService: ModalService,
@@ -47,21 +44,10 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
     private  titleService: TitleService
   ) {
     this.titleService.titleEventEmitter.emit('职工档案信息');
-
-      // 获取工种列表
-      this.httpService.post(SystemConstant.OFFICE_LIST, {Id: ''} ).subscribe({
-        next: (data) => {
-          this.sysWorkTypeList = data;
-        },
-        complete: () => {
-        }
-
-      });
   }
 
   ngOnInit() {
     this.url = SystemConstant.EMPLOYEE_PAGE_LIST;
-
   }
 
   ngAfterViewInit() {

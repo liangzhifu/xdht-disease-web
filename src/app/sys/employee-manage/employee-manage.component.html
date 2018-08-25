@@ -5,16 +5,12 @@
       <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empName" >
     </div>
     <div class="col-md-4">
-      <label class="col-form-label float-left text-right">性别：</label>
-      <select class="form-control col-md-7" [(ngModel)]="param.empSex" name="empSex">
-        <option value=""></option>
-        <option value="0">男</option>
-        <option value="1">女</option>
-      </select>
+      <label class="col-form-label float-left text-right">公司：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.companyName" >
     </div>
     <div class="col-md-4">
-      <label class="col-form-label float-left text-right">籍贯：</label>
-      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empNative" >
+      <label class="col-form-label float-left text-right">部门：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.postName" >
     </div>
   </div>
   <div class="row">
@@ -23,12 +19,8 @@
       <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.empIdentityNumber" >
     </div>
     <div class="col-md-4">
-      <label class="col-form-label float-left text-right">婚姻：</label>
-      <select class="form-control col-md-7" [(ngModel)]="param.empMarriage" name="empMarriage">
-        <option value=""></option>
-        <option value="1">已婚</option>
-        <option value="0">未婚</option>
-      </select>
+      <label class="col-form-label float-left text-right">工种：</label>
+      <input type="text" class="form-control input-pro col-md-8 float-left" [(ngModel)]="param.workTypeName" >
     </div>
     <div class="col-md-4" style="padding-left: 58px;">
       <button class="btn btn-primary mr-10" (click)="search();"><i class="fa fa-search fa-fw"></i> 查询</button>
@@ -60,9 +52,9 @@
             <th>操作</th>
           </tr>
           <tr *ngFor="let item of sdt.data;let i = index">
-             <td>{{item.officeId }}</td>
-            <td> {{item.officeId}}</td>
-            <td> {{item.officeId}}</td>
+             <td>{{item.companyName }}</td>
+            <td> {{item.officeName}}</td>
+            <td> {{item.workTypeName}}</td>
             <td>{{item.empName}}</td>
             <td>{{item.empSex | sexReform}}</td>
             <td>{{item.empNative}}</td>

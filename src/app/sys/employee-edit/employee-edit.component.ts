@@ -51,37 +51,9 @@ export class EmployeeEditComponent implements OnInit {
       id: '',
       companyId: ''
     },
-    sysEmployeeJobList: [{
-      id: '',
-      employeeId: '',
-      beginDate: '',
-      endDate: '',
-      companyName: '',
-      workType: '',
-      noiseDetectionResults: '',
-      protectiveMeasures: '',
-      status: ''
-    }],
-    sysEmployeeCaseList: [{
-      id: '',
-      employeeId: '',
-      caseName: '',
-      diagnosisDate: '',
-      diagnosisHospital: '',
-      treatmentResults: '',
-      remarks: '',
-      status: ''
-    }],
-    sysEmployeeDiseaseList: [{
-      id: '',
-      employeeId: '',
-      diseaseName: '',
-      diagnosisDate: '',
-      diagnosisHospital: '',
-      diagnosisLevel: '',
-      remarks: '',
-      status: ''
-    }]
+    sysEmployeeJobList: [],
+    sysEmployeeCaseList: [],
+    sysEmployeeDiseaseList: []
   };
   companyList = [{id: '', companyName: ''}];
   sysWorkTypeList = [{id: '', dictionaryName: ''}];

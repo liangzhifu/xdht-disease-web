@@ -75,16 +75,17 @@ export class PostPersonnelEditComponent implements OnInit {
       this.addFlag = true;
       this.recordPostPersonnelEditTitle = '新增--岗位定员及工作制度调查表';
       this.recordData.recordPostPersonnel = {
-          id: '',
-          postPersonnelNo: '',
-          verificationResult: '',
-          sceneId : 0
+        id: '',
+        postPersonnelNo: '',
+        verificationResult: '',
+        sceneId: 0
       };
       this.httpService.get(SystemConstant.SYS_QUESTIONNAIRE + '/' + this.questionnaireId).subscribe({
         next: (data) => {
-          this.recordData.recordPostPersonnel.postPersonnelNo = this.numberSeq + data.questionnaireNum ;
+          this.recordData.recordPostPersonnel.postPersonnelNo = this.numberSeq + data.questionnaireNum;
         },
-        complete: () => {}
+        complete: () => {
+        }
       });
     } else {
       this.addFlag = false;

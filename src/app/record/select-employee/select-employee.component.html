@@ -24,13 +24,13 @@
             <tr>
               <th></th>
               <th>部门</th>
+              <th>工种</th>
               <th>姓名</th>
             </tr>
             <tr *ngFor="let item of sdt.data;let i = index">
               <td><input type="radio" value="{{i}}" name="employeeRadio"></td>
-              <td>
-              {{item.officeId | officeType : officeTypeList}}
-              </td>
+              <td>{{item.officeName}}</td>
+              <td>{{item.workTypeName}}</td>
               <td>{{item.empName}}</td>
             </tr>
           </table>

@@ -29,7 +29,7 @@ export class VddEquipmentEditComponent implements OnInit {
     recordVddEquipmentDataList: [{
       id: '',
       officeId: '',
-      officeName: '',
+      companyOfficeName: '',
       postId: '',
       postName: '',
       workPlace: '',
@@ -118,7 +118,7 @@ export class VddEquipmentEditComponent implements OnInit {
     this.recordData.recordVddEquipmentDataList[index] = {
       id: '',
       officeId: '',
-      officeName: '',
+      companyOfficeName: '',
       postId: '',
       postName: '',
       workPlace: '',
@@ -187,7 +187,7 @@ export class VddEquipmentEditComponent implements OnInit {
       for (let i = 0 ; i < this.sysCompanyOffice.length; i++) {
         if (parentId === this.sysCompanyOffice[i].id) {
           this.recordData.recordVddEquipmentDataList[data.index].officeId = parentId;
-          this.recordData.recordVddEquipmentDataList[data.index].officeName = this.sysCompanyOffice[i].officeName;
+          this.recordData.recordVddEquipmentDataList[data.index].companyOfficeName = this.sysCompanyOffice[i].officeName;
         }
       }
     }

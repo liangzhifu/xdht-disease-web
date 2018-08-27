@@ -21,15 +21,13 @@
                  [(ngModel)]="employeeSummary.empName"
                  #empName="ngModel" [ngClass]="{'warn': !empName.valid}"
                  id="empName" required name="empName" readonly >
-          <button class="btn btn-primary col-md-2" (click)="selectEmployee();" [disabled]="!employeeSummary.companyId">查询</button>
-        </div>
+          <button class="btn btn-primary col-md-2" (click)="selectEmployee();" [disabled]="!employeeSummary.companyId"  (change)="changeEmp()">查询</button>
+        </div >
         <div class="col-md-4">
           <label class="col-md-4 col-form-label text-right float-left">工种：</label>
-          <input type="hidden" [(ngModel)]="employeeSummary.workType" name="workType" required>
-          <div class="col-md-7" style="float: left;padding-left: 0px;padding-right: 0px;">
-            <app-company-work-type-dropdown #acod [companyId]="employeeSummary.workTypecompanyId" [workTypeId]="employeeSummary.workType"
-                                            [treeSeq]="0" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
-          </div>
+          <input type="text"  class="form-control col-md-7" [(ngModel)]="employeeSummary.workTypeName" name="workTypeName" readonly
+                 [ngClass]="{'warn': !workTypeName.valid}" #workTypeName="ngModel" required="required" maxlength="50"
+                 ngbTooltip="内容长度不大于50">
         </div>
       </div>
       <div class="row row-margin-bottom">

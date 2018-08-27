@@ -31,6 +31,7 @@ export class EmployeeSummaryEditComponent implements OnInit {
       companyId: '',
       officeId: '',
       workType: '',
+    workTypeName: '',
       name: '',
       sex: '',
       age: '',
@@ -72,6 +73,7 @@ export class EmployeeSummaryEditComponent implements OnInit {
       dbhl6kR: '',
 
   };
+   empWorkType: any = null;
   companyData: any = null;
   sysPostList: any = null;
   employeeSummaryEditTitle: string;
@@ -141,6 +143,8 @@ export class EmployeeSummaryEditComponent implements OnInit {
   }
   onDataChanged(data) {
     this.employeeSummary.workType = data.workTypeId;
+
+
   }
 
 
@@ -156,9 +160,13 @@ export class EmployeeSummaryEditComponent implements OnInit {
           this.employeeSummary.empId = result.sysEmployee.id;
           this.employeeSummary.empName = result.sysEmployee.empName;
           this.employeeSummary.officeId = result.sysEmployee.officeId;
+          this.employeeSummary.workTypeName = result.sysEmployee.workTypeName;
+          this.employeeSummary.workType = result.sysEmployee.officeId ;
+
         }
       }
     );
+
   }
 
   /**

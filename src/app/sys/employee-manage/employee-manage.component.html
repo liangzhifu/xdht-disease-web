@@ -61,8 +61,8 @@
             <td>{{item.empMarriage | marriageReform}}</td>
             <td>{{item.empEducation}}</td>
             <td>{{item.empHobby}}</td>
-            <td>{{item.contactTime}}</td>
-            <td>{{item.empWorkDate}}</td>
+            <td>{{item.contactTime }}</td>
+            <td>{{item.empWorkDate | date:'yyyy-MM-dd'}}</td>
             <td>{{item.empIdentityNumber}}</td>
             <td>
               <button class="btn btn-warning radius mr-10" type="button" (click)="editEmployee(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>

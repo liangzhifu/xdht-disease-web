@@ -142,7 +142,7 @@ export class InformingFacilitiesEditComponent implements OnInit {
    * 选择部门
    * @param data
    */
-  onDataChanged(data) {
+  onOfficeDataChanged(data) {
     this.recordData.recordInformingFacilitiesDataList[data.index].companyOfficeId = data.officeId;
   }
 }

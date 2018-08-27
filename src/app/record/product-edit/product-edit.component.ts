@@ -161,7 +161,7 @@ export class ProductEditComponent implements OnInit {
    * 选择部门
    * @param data
    */
-  onDataChanged(data) {
+  onOfficeDataChanged(data) {
     this.recordData.recordProductDataList[data.index].companyOfficeId = data.officeId;
   }
 

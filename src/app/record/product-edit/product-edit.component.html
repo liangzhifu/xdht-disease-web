@@ -39,7 +39,7 @@
             <tr *ngFor="let item of recordData.recordProductDataList;let recordIndex=index;"  >
               <td>
                 <input type="text" [(ngModel)]="item.companyOfficeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
-                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.companyOfficeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
+                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.companyOfficeId" [treeSeq]="recordIndex" (onOfficeDataChanged)="onOfficeDataChanged($event)"></app-company-office-dropdown>
               </td>
               <td><input type="text" class="form-control" [(ngModel)]="item.processName" name="item{{recordIndex}}.processName"
                          [ngClass]="{'warn': !processName_recordIndex.valid}" #processName_recordIndex="ngModel"  maxlength="50" ngbTooltip="工艺过程长度不大于50"></td>

@@ -18,7 +18,7 @@ export class CompanyOfficeDropdownComponent implements OnInit {
   @Input() officeId: any;
   @Input() addFlag: any;
   @Input() treeSeq: any;
-  @Output() onDataChanged: EventEmitter<any> = new EventEmitter();
+  @Output() onOfficeDataChanged: EventEmitter<any> = new EventEmitter();
   setting = {
     data: {
       simpleData: {
@@ -105,7 +105,7 @@ export class CompanyOfficeDropdownComponent implements OnInit {
         officeId: treeNode.id,
         officeName: treeNode.officeName
       };
-      this.onDataChanged.emit(data);
+      this.onOfficeDataChanged.emit(data);
       /*}*/
     } else {
     /*  const  workType = treeNode.officeType;
@@ -116,7 +116,7 @@ export class CompanyOfficeDropdownComponent implements OnInit {
         officeId: null,
         officeName: null
       };
-      this.onDataChanged.emit(data);
+      this.onOfficeDataChanged.emit(data);
     /*  }*/
     }
   }
@@ -144,7 +144,7 @@ export class CompanyOfficeDropdownComponent implements OnInit {
           officeId: null,
           officeName: null
         };
-        this.onDataChanged.emit(data);
+        this.onOfficeDataChanged.emit(data);
       /*}*/
     } else {
      /* const workType = treeNode.officeType;
@@ -156,7 +156,7 @@ export class CompanyOfficeDropdownComponent implements OnInit {
           officeId: treeNode.id,
           officeName: treeNode.officeName
         };
-        this.onDataChanged.emit(data);
+        this.onOfficeDataChanged.emit(data);
      /* }*/
     }
   }

@@ -36,7 +36,7 @@
             <tr *ngFor="let item of recordData.recordHazardFactorsDataList;let recordIndex=index;"  >
               <td>
                 <input type="text" [(ngModel)]="item.officeId" name="item{{recordIndex}}.officeId" style="display: none" required="required">
-                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.officeId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-office-dropdown>
+                <app-company-office-dropdown [companyId]="companyId" [officeId]="item.officeId" [treeSeq]="recordIndex" (onOfficeDataChanged)="onOfficeDataChanged($event)"></app-company-office-dropdown>
               </td>
               <td><input type="text" class="form-control" [(ngModel)]="item.processName" name="item{{recordIndex}}.processName"
                          ngbTooltip="工艺过程长度不大于50" maxlength="50"></td>

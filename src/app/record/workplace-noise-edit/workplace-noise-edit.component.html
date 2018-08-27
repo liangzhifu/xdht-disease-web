@@ -46,9 +46,12 @@
       </div>
       <div class="row row-margin-bottom">
         <div class="col-md-6">
-          <label class="col-md-4 col-form-label text-right float-left" for="checkPlace"><span style="color:red;">*</span>检查位置：</label>
-          <input type="text" class="form-control col-md-7"  name="checkPlace" id="checkPlace"   [(ngModel)]="recordWorkplaceNoise.checkPlace"
-                 [ngClass]="{'warn': !checkPlace.valid}" #checkPlace="ngModel" required="required" maxlength="100"  ngbTooltip="长度小于100个字符">
+          <label class="col-md-4 col-form-label text-right float-left"><span style="color:red;">*</span>设备所属部门：</label>
+          <input type="hidden" [(ngModel)]="recordWorkplaceNoise.eqpPostId" name="eqpPostId" id="eqpPostId" required>
+          <div class="col-md-7" style="float: left;padding-left: 0px;padding-right: 0px;">
+            <app-company-office-dropdown #cod [companyId]="recordWorkplaceNoise.companyId" [officeId]="recordWorkplaceNoise.eqpPostId" [treeSeq]="1"
+                                         (onOfficeDataChanged)="onOfficeDataChanged($event)"></app-company-office-dropdown>
+          </div>
         </div>
         <div class="col-md-6">
           <label class="col-md-4 col-form-label text-right float-left" for="analysisResult"><span style="color:red;">*</span>是否噪声作业：</label>
@@ -63,13 +66,24 @@
 
       </div>
       <div class="row row-margin-bottom">
-
         <div class="col-md-6">
-          <label class="col-md-4 col-form-label text-right float-left" for="soundLevel"><span style="color:red;">*</span>等效声级：</label>
-          <input type="text" class="form-control col-md-7"  name="soundLevel" id="soundLevel"  [(ngModel)]="recordWorkplaceNoise.soundLevel" required="required"
-                 pattern="^([1-9]\d*|0)(\.\d{1,2})?$" maxlength="10"  [ngClass]="{'warn': !soundLevel.valid}"  #soundLevel="ngModel" ngbTooltip="请输入数字格式数据" placeholder="8h（或40h）等效声级[dB(A)]">
+          <label class="col-md-4 col-form-label text-right float-left" for="eqpName"><span style="color:red;">*</span>设备：</label>
+          <input class="form-control col-md-7"  name="eqpName" id="eqpName"
+                 [ngClass]="{'warn': !eqpName.valid}" #eqpName="ngModel"
+                 required="required" [(ngModel)]="recordWorkplaceNoise.eqpName">
         </div>
-
+        <div class="col-md-6">
+          <label class="col-md-4 col-form-label text-right float-left" for="checkPlace"><span style="color:red;">*</span>检查位置：</label>
+          <input type="text" class="form-control col-md-7"  name="checkPlace" id="checkPlace"   [(ngModel)]="recordWorkplaceNoise.checkPlace"
+                 [ngClass]="{'warn': !checkPlace.valid}" #checkPlace="ngModel" required="required" maxlength="100"  ngbTooltip="长度小于100个字符">
+        </div>
+      </div>
+    </div>
+    <div class="row row-margin-bottom">
+      <div class="col-md-6">
+        <label class="col-md-4 col-form-label text-right float-left" for="soundLevel"><span style="color:red;">*</span>等效声级：</label>
+        <input type="text" class="form-control col-md-7"  name="soundLevel" id="soundLevel"  [(ngModel)]="recordWorkplaceNoise.soundLevel" required="required"
+               pattern="^([1-9]\d*|0)(\.\d{1,2})?$" maxlength="10"  [ngClass]="{'warn': !soundLevel.valid}"  #soundLevel="ngModel" ngbTooltip="请输入数字格式数据" placeholder="8h（或40h）等效声级[dB(A)]">
       </div>
     </div>
     <div class="modal-footer">

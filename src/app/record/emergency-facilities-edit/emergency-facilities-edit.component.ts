@@ -145,7 +145,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
    * 选择部门
    * @param data
    */
-  onDataChanged(data) {
+  onOfficeDataChanged(data) {
     this.recordData.recordEmergencyFacilitiesDataList[data.index].officeId = data.officeId;
   }
 }

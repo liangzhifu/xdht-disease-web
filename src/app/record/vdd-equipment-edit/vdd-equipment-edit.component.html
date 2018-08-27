@@ -36,7 +36,7 @@
             </tr>
             <tr *ngFor="let item of recordData.recordVddEquipmentDataList;let recordIndex=index;"  >
               <td>
-                <input type="text" class="form-control" [(ngModel)]="item.officeName" name="item{{recordIndex}}.officeName" readonly
+                <input type="text" class="form-control" [(ngModel)]="item.companyOfficeName" name="item{{recordIndex}}.officeName" readonly
                        #officeName_recordIndex="ngModel" required="required" [ngClass]="{'warn': !officeName_recordIndex.valid}">
               </td>
               <td>

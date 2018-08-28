@@ -24,8 +24,8 @@
           <tr>
             <th>检查年份</th>
             <th>检查时间</th>
-
             <th>公司</th>
+            <th>部门</th>
             <th>工种</th>
             <th>检查位置</th>
             <th>接触时间</th>
@@ -36,13 +36,13 @@
           <tr *ngFor="let item of sdt.data;let i = index">
             <td>{{item.inspectYear}}</td>
             <td>{{item.inspectDate}}</td>
-            <td>{{item.companyId | companyName : sysCompanyTypeList}}</td>
-            <td>{{item.workTypeId | officeType : sysWorkTypeList}}</td>
+            <td>{{item.companyName}}</td>
+            <td>{{item.companyOfficeName}}</td>
+            <td>{{item.workTypeName}}</td>
             <td>{{item.checkPlace}}</td>
             <td>{{item.contactTime}}</td>
             <td>{{item.soundLevel}}</td>
             <td>{{item.analysisResult}}</td>
-
             <td>
               <button class="btn btn-warning radius mr-10" type="button" (click)="editWorkplaceNoise(item.id)"><i class="fa fa-edit fa-fw"></i>修改</button>
               <button class="btn btn-danger radius mr-10" type="button" (click)="delWorkplaceNoise(item.id)"><i class="fa fa-trash-o fa-fw"></i>删除</button>

@@ -101,7 +101,6 @@ export class EmployeeSummaryManageComponent implements OnInit {
    */
   importExcel() {
     const modalRef = this.ngbModal.open(FileUploadComponent, {
-      backdrop: 'static',
       keyboard: false,
       centered: true
     });

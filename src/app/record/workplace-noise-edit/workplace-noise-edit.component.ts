@@ -14,6 +14,7 @@ import {AlertType} from '../../modal/alert/alert-type';
 import {AlertConfig} from '../../modal/alert/alert-config';
 import {CompanyWorkTypeDropdownComponent} from '../../sys/company-work-type-dropdown/company-work-type-dropdown.component';
 import 'jquery';
+import {CompanyOfficeDropdownComponent} from '../../sys/company-office-dropdown/company-office-dropdown.component';
 declare var $: any;
 @Component({
   selector: 'app-workplace-noise-edit',
@@ -23,16 +24,19 @@ declare var $: any;
 })
 export class WorkplaceNoiseEditComponent implements OnInit {
   @ViewChild('acod', undefined) acod: CompanyWorkTypeDropdownComponent;
+  @ViewChild('cod', undefined) cod: CompanyOfficeDropdownComponent;
   @Input() recordWorkplaceNoise: any = {
     'id' : '',
     'inspectDate' : '',
     'contactTime' : '',
     'companyId' : '',
+    'companyOfficeName': '',
     'checkPlace' : '',
     'workTypeId' : '',
     'soundLevel' : '',
     'analysisResult' : '',
-
+    'eqpPostId': '',
+    'eqpName': ''
   };
   workplaceNoiseEditTitle: string;
   addFlag: boolean;
@@ -120,10 +124,20 @@ export class WorkplaceNoiseEditComponent implements OnInit {
   }
 
   /**
+   * 选择部门
+   * @param data
+   */
+  onOfficeDataChanged(data) {
+    this.recordWorkplaceNoise.eqpPostId = data.officeId;
+  }
+
+  /**
    * 单位修改
    */
   changeCompany() {
     this.recordWorkplaceNoise.workTypeId = '';
+    this.recordWorkplaceNoise.eqpPostId = '';
     this.acod.openZTree(this.recordWorkplaceNoise.companyId, this.recordWorkplaceNoise.workTypeId);
+    this.cod.openZTree(this.recordWorkplaceNoise.companyId, this.recordWorkplaceNoise.eqpPostId);
   }
 }

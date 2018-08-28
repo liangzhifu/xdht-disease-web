@@ -144,7 +144,7 @@ export class EquipmentLayoutEditComponent implements OnInit {
    * 选择部门
    * @param data
    */
-  onDataChanged(data) {
+  onOfficeDataChanged(data) {
     this.recordData.recordEquipmentLayoutDataList[data.index].officeId = data.officeId;
   }
 

@@ -143,7 +143,7 @@ export class EquipmentEditComponent implements OnInit {
    * 选择部门
    * @param data
    */
-  onDataChanged(data) {
+  onOfficeDataChanged(data) {
     this.recordData.recordEquipmentDataList[data.index].officdId = data.officeId;
   }
 

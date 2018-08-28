@@ -1,11 +1,11 @@
-const INTERFACE_ADDRESS = 'http://localhost:7071';
+const INTERFACE_ADDRESS = 'http://127.0.0.1:7071';
 const SYSTEM_GATEWAY = '';
 const INTERFACE_VERSION = '/api/v1';
 export const SystemConstant = Object.freeze({
   // 个人体检Excel上传
   EMPLOYEE_SUMMARY_EXCEL: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/summaryExcel/upload',
   // 图片路径
-  IMAG_PATH: 'http://localhost:8080/testCom/img/',
+  IMAG_PATH: 'http://39.106.167.74/img/',
   // 字典类型
   DICTIONARY_TYPE_POST: 10,
 

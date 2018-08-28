@@ -142,6 +142,10 @@ export class PostPersonnelEditComponent implements OnInit {
     } else {
       url = SystemConstant.POST_PERSONNEL_EDIT;
     }
+    if ( this.recordData.recordPostPersonnelDataList.length === 0 ) {
+      const conast = new ToastConfig( ToastType.ERROR , '' , '至少填入一张调查表' , 3000) ;
+      this.toastService.toast( conast);
+    } else {
     // 保存调查表
     this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
@@ -156,7 +160,7 @@ export class PostPersonnelEditComponent implements OnInit {
       complete: () => {
       }
     });
-    this.waitService.wait(false);
+    this.waitService.wait(false);}
   }
 
   /**

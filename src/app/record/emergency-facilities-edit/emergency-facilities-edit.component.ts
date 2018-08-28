@@ -124,6 +124,10 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
     } else {
       url = SystemConstant.EMERGENCY_FACILITIES_EDIT;
     }
+    if ( this.recordData.recordEmergencyFacilitiesDataList.length === 0 ) {
+      const conast = new ToastConfig( ToastType.ERROR , '' , '至少填入一张调查表' , 3000) ;
+      this.toastService.toast( conast);
+    } else {
     // 保存调查表
     this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
@@ -139,7 +143,7 @@ export class EmergencyFacilitiesEditComponent implements OnInit {
       complete: () => {
       }
     });
-    this.waitService.wait(false);
+    this.waitService.wait(false);}
   }
   /**
    * 选择部门

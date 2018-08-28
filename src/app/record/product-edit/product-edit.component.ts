@@ -139,7 +139,12 @@ export class ProductEditComponent implements OnInit {
       this.recordData.questionnaireId = this.questionnaireId;
     } else {
       url = SystemConstant.PRODUCT_EDIT;
+      this.recordData.questionnaireId = this.questionnaireId;
     }
+    if ( this.recordData.recordProductDataList.length === 0 ) {
+      const conast = new ToastConfig( ToastType.ERROR , '' , '至少填入一张调查表' , 3000) ;
+      this.toastService.toast( conast);
+    } else {
     // 保存调查表
     this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
@@ -154,7 +159,7 @@ export class ProductEditComponent implements OnInit {
       complete: () => {
       }
     });
-    this.waitService.wait(false);
+    this.waitService.wait(false);}
   }
 
   /**

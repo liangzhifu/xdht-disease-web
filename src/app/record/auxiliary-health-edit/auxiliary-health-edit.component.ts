@@ -117,21 +117,26 @@ export class AuxiliaryHealthEditComponent implements OnInit {
     } else {
       url = SystemConstant.AUXILIARY_HEALTH_EDIT;
     }
-    // 保存调查表
-    this.httpService.post(url, this.recordData).subscribe({
-      next: (data) => {
-        const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
-        this.toastService.toast(toastCfg);
-        this.activeModal.close('success');
-      },
-      error: (err) => {
-        const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
-        this.toastService.toast(toastCfg);
-      },
-      complete: () => {
-      }
-    });
-    this.waitService.wait(false);
+    if ( this.recordData.recordAuxiliaryHealthDataList.length === 0 ) {
+        const conast = new ToastConfig( ToastType.ERROR , '' , '至少填入一张调查表',3000) ;
+        this.toastService.toast( conast);
+    } else {
+      // 保存调查表
+      this.httpService.post(url, this.recordData).subscribe({
+        next: (data) => {
+          const toastCfg = new ToastConfig(ToastType.SUCCESS, '', this.action + '操作成功！', 3000);
+          this.toastService.toast(toastCfg);
+          this.activeModal.close('success');
+        },
+        error: (err) => {
+          const toastCfg = new ToastConfig(ToastType.ERROR, '', this.action + '操作失败！' + '失败原因：' + err, 3000);
+          this.toastService.toast(toastCfg);
+        },
+        complete: () => {
+        }
+      });
+      this.waitService.wait(false);
+    }
   }
 
   /**

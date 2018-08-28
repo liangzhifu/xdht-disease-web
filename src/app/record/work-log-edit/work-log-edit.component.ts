@@ -144,6 +144,10 @@ export class WorkLogEditComponent implements OnInit {
     } else {
       url = SystemConstant.WORK_LOG_EDIT;
     }
+     if (this.recordData.recordWorkLogDataList.length === 0) {
+       const toastcfg = new ToastConfig(ToastType.ERROR, ' ' , '至少填入一张调查表' , 3000);
+       this.toastService.toast(toastcfg);
+     } else {
     // 保存调查表
     this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
@@ -159,6 +163,7 @@ export class WorkLogEditComponent implements OnInit {
       }
     });
     this.waitService.wait(false);
+     }
   }
 
   /**

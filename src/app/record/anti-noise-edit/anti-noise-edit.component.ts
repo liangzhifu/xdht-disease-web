@@ -149,6 +149,10 @@ export class AntiNoiseEditComponent implements OnInit {
     } else {
       url = SystemConstant.ANTI_NOISE_EDIT;
     }
+    if (this.recordData.recordAntiNoiseFacilitiesDataList.length === 0) {
+       const toast = new ToastConfig(ToastType.ERROR , ' ' , '至少填入一张调查表', 3000) ;
+       this.toastService.toast( toast );
+    }  else {
     // 保存调查表
     this.httpService.post(url, this.recordData).subscribe({
       next: (data) => {
@@ -164,6 +168,7 @@ export class AntiNoiseEditComponent implements OnInit {
       }
     });
     this.waitService.wait(false);
+    }
   }
   /**
    * 选择部门

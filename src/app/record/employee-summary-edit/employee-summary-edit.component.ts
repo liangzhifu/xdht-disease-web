@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ModalService} from '../../modal/modal.service';;
+import {ModalService} from '../../modal/modal.service';
 import {WaitService} from '../../core/wait/wait.service';
 import {SystemConstant} from '../../core/class/system-constant';
 import {HttpService} from '../../core/http/http.service';
@@ -202,5 +202,9 @@ export class EmployeeSummaryEditComponent implements OnInit {
       }
     });
     this.waitService.wait(false);
+  }
+
+  changeEmp() {
+    
   }
 }

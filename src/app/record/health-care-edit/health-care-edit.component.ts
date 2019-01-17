@@ -66,7 +66,7 @@ export class HealthCareEditComponent implements OnInit {
         complete: () => {}
       });
       // 获取项目列表
-      this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 1} ).subscribe({
+      this.httpService.post(SystemConstant.DICTIONARY_LIST, {dictionaryTypeId: 6} ).subscribe({
         next: (data) => {
           this.recordData.recordHealthCareDataList = [];
           for (let i = 0; i < data.length; i++) {

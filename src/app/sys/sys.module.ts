@@ -42,6 +42,7 @@ import { CompanyOfficeDropdownComponent } from './company-office-dropdown/compan
 import { CompanyWorkTypeManageComponent } from './company-work-type-manage/company-work-type-manage.component';
 import { CompanyWorkTypeDropdownComponent } from './company-work-type-dropdown/company-work-type-dropdown.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import {UploadEmployeeComponent} from './upload-employee/upload-employee.component';
 
 @NgModule({
   imports: [
@@ -74,7 +75,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     NoticeManageComponent,
     SystemNoticeManageComponent,
     SystemNoticeDetailComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    UploadEmployeeComponent
   ],
   declarations: [
     CompanyEditComponent,
@@ -118,7 +120,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     CompanyOfficeDropdownComponent,
     CompanyWorkTypeManageComponent,
     CompanyWorkTypeDropdownComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    UploadEmployeeComponent
   ],
   exports: [
     CompanyOfficeDropdownComponent,

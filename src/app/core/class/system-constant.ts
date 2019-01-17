@@ -1,4 +1,4 @@
-const INTERFACE_ADDRESS = 'http://127.0.0.1:7071';
+const INTERFACE_ADDRESS = 'http://127.0.0.1:7081';
 const SYSTEM_GATEWAY = '';
 const INTERFACE_VERSION = '/api/v1';
 export const SystemConstant = Object.freeze({
@@ -116,6 +116,7 @@ export const SystemConstant = Object.freeze({
   EMPLOYEE_EDIT: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysEmployee/update',
   EMPLOYEE_DEL: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysEmployee/delete',
   EMPLOYEE_DETAIL: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysEmployee/detail',
+  EMPLOYEE_EXCEL: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysEmployee/upload',
 
   // 工种信息
   WORK_TYPE_LIST: INTERFACE_ADDRESS + SYSTEM_GATEWAY + INTERFACE_VERSION + '/sysWorkType/sysWorkTypeList',

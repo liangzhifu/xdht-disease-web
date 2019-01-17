@@ -103,10 +103,16 @@ export class EmployeeSummaryManageComponent implements OnInit {
     const modalRef = this.ngbModal.open(FileUploadComponent, {
       keyboard: false,
       centered: true
-    });
-    modalRef.result.then(
+    }).result.then(
       (result) => {
+        console.log('测试:' + result);
         if (result === 'success') {
+          this.search();
+        }
+      },
+      (reason) => {
+        console.log('测试2:' + reason);
+        if (reason === 'success') {
           this.search();
         }
       }

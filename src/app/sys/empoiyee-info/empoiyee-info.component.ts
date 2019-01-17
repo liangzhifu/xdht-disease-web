@@ -27,7 +27,8 @@ export class EmpoiyeeInfoComponent implements OnInit {
       empHobby: '',
       empWorkDate: '',
       empIdentityNumber: '',
-      imageName: ''
+      imageName: '',
+      contactTime: ''
     },
     sysCompanyOffice: {
       id: '',

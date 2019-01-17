@@ -12,6 +12,7 @@ import {EmployeeEditComponent} from '../employee-edit/employee-edit.component';
 import {ConfirmConfig} from '../../modal/confirm/confirm-config';
 import {Router} from '@angular/router';
 import {TitleService} from '../../title.service';
+import {UploadEmployeeComponent} from '../upload-employee/upload-employee.component';
 
 @Component({
   selector: 'app-employee-manage',
@@ -136,6 +137,29 @@ export class EmployeeManageComponent implements OnInit, AfterViewInit {
           },
           complete: () => {}
         });
+      }
+    );
+  }
+
+  /**
+   * 导入Excel
+   */
+  importExcel() {
+    this.ngbModal.open(UploadEmployeeComponent, {
+      keyboard: false,
+      centered: true
+    }).result.then(
+      (result) => {
+        console.log('测试:' + result);
+        if (result === 'success') {
+          this.search();
+        }
+      },
+      (reason) => {
+        console.log('测试2:' + reason);
+        if (reason === 'success') {
+          this.search();
+        }
       }
     );
   }

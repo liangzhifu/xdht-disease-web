@@ -38,7 +38,8 @@ export class WorkLogEditComponent implements OnInit {
       workContent: '',
       hazardFactors: '',
       remarks: '',
-      relationId: ''
+      relationId: '',
+      timeConsuming: ''
     }],
     questionnaireId: 0
   };
@@ -118,7 +119,8 @@ export class WorkLogEditComponent implements OnInit {
       workContent: '',
       hazardFactors: '',
       remarks: '',
-      relationId: ''
+      relationId: '',
+      timeConsuming: ''
     };
   }
 

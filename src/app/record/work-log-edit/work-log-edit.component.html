@@ -32,6 +32,7 @@
               <th>工作地点</th>
               <th>工作内容</th>
               <th>接触职业病危害因素</th>
+              <th>耗费工时</th>
               <th>备注（高暴露时段等）</th>
               <th><button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
             </tr>
@@ -53,6 +54,7 @@
               <td><input class="form-control" type="text" [(ngModel)]="item.workPlace" name="item{{recordIndex}}.workPlace" maxlength="50" ngbTooltip="工作地点长度不大于50"></td>
               <td><input class="form-control" type="text" [(ngModel)]="item.workContent" name="item{{recordIndex}}.workContent" maxlength="50" ngbTooltip="工作内容长度不大于50"></td>
               <td><input class="form-control" type="text" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}.hazardFactors" maxlength="50" ngbTooltip="危害因素内容长度不大于50"></td>
+              <td><input class="form-control" type="text" [(ngModel)]="item.timeConsuming" name="item{{recordIndex}}.timeConsuming" maxlength="20" ngbTooltip="耗费工时长度不大于20"></td>
               <td><input class="form-control" type="text" [(ngModel)]="item.remarks" name="item{{recordIndex}}.remarks" maxlength="50" ngbTooltip="内容长度不大于50"></td>
               <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
             </tr>

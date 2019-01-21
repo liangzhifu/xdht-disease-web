@@ -1,4 +1,4 @@
-const INTERFACE_ADDRESS = 'http://127.0.0.1:7081';
+const INTERFACE_ADDRESS = 'http://39.106.167.74:7081';
 const SYSTEM_GATEWAY = '';
 const INTERFACE_VERSION = '/api/v1';
 export const SystemConstant = Object.freeze({

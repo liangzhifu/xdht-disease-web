@@ -37,7 +37,15 @@ export class IndividualProtectiveEditComponent implements OnInit {
       technicalParameter: '',
       number: '',
       usaged: '',
-      relationId: ''
+      relationId: '',
+      earplugsModel: '',
+      earplugsNrr: '',
+      earplugsSnr: '',
+      earmuffModel: '',
+      earmuffNrr: '',
+      earmuffSnr: '',
+      allocationSituation: '',
+      usageSituation: ''
     }],
     questionnaireId: 0
   };
@@ -128,7 +136,15 @@ export class IndividualProtectiveEditComponent implements OnInit {
         technicalParameter: '',
         number: '',
         usaged: '',
-        relationId: ''
+        relationId: '',
+      earplugsModel: '',
+      earplugsNrr: '',
+      earplugsSnr: '',
+      earmuffModel: '',
+      earmuffNrr: '',
+      earmuffSnr: '',
+      allocationSituation: '',
+      usageSituation: ''
     };
   }
 

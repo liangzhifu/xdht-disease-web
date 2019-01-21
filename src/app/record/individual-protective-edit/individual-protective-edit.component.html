@@ -27,14 +27,21 @@
         <div class="col-md-12" style="padding: 0px 15px;">
           <table width="100%" class="table table-bordered table-hover table-list" cellpadding="0" cellspacing="0">
             <tr>
-              <th>车间/部门</th>
-              <th>工种/岗位</th>
-              <th>接触职业病危害因素</th>
-              <th>防护用品名称</th>
-              <th>技术参数</th>
-              <th>数量</th>
-              <th>使用情况</th>
-              <th><button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+              <th rowspan="2">车间/部门</th>
+              <th rowspan="2">工种/岗位</th>
+              <th colspan="3">耳塞</th>
+              <th colspan="3">耳罩</th>
+              <th rowspan="2">配备情况</th>
+              <th rowspan="2">使用情况</th>
+              <th rowspan="2"><button class="btn btn-success" (click)="addOffice();"><i class="fa fa-plus fa-fw"></i></button></th>
+            </tr>
+            <tr>
+              <th>型号</th>
+              <th>NRR</th>
+              <th>SNR</th>
+              <th>型号</th>
+              <th>NRR</th>
+              <th>SNR</th>
             </tr>
             <tr *ngFor="let item of recordData.recordIndividualProtectiveDataList;let recordIndex=index;"  >
               <td>
@@ -45,17 +52,22 @@
                 <input type="text" [(ngModel)]="item.postId" name="item{{recordIndex}}.postId" style="display: none" required="required" >
                 <app-company-work-type-dropdown [companyId]="companyId" [workTypeId]="item.postId" [treeSeq]="recordIndex" (onDataChanged)="onDataChanged($event)"></app-company-work-type-dropdown>
               </td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.hazardFactors" name="item{{recordIndex}}}.hazardFactors"
-                         ngbTooltip="职业病危害因素长度不大于50" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.protectiveEquipment" name="item{{recordIndex}}}.protectiveEquipment"
-                         ngbTooltip="防护用品名称长度不大于50" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.technicalParameter" name="item{{recordIndex}}}.technicalParameter"
-                         ngbTooltip="技术参数长度不大于50" maxlength="50"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.number" name="item{{recordIndex}}}.number"
-                         [ngClass]="{'warn': !number_recordIndex.valid}" #number_recordIndex="ngModel" pattern="^[0-9]*$"
-                         ngbTooltip="填写非负整数" maxlength="20"></td>
-              <td><input type="text" class="form-control" [(ngModel)]="item.usaged" name="item{{recordIndex}}}.usaged" maxlength="50"
-                         ngbTooltip="使用情况长度不大于50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.earplugsModel" name="item{{recordIndex}}}.earplugsModel"
+                         ngbTooltip="耳塞型号度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.earplugsNrr" name="item{{recordIndex}}}.earplugsNrr"
+                         ngbTooltip="耳塞NRR长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.earplugsSnr" name="item{{recordIndex}}}.earplugsSnr"
+                         ngbTooltip="耳塞SNR长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.earmuffModel" name="item{{recordIndex}}}.earmuffModel"
+                         ngbTooltip="耳罩型号长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.earmuffNrr" name="item{{recordIndex}}}.earmuffNrr"
+                         ngbTooltip="耳罩NRR长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.earmuffSnr" name="item{{recordIndex}}}.earmuffSnr"
+                         ngbTooltip="耳罩SNR长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.allocationSituation" name="item{{recordIndex}}}.allocationSituation"
+                         ngbTooltip="配置情况长度不大于50" maxlength="50"></td>
+              <td><input type="text" class="form-control" [(ngModel)]="item.usageSituation" name="item{{recordIndex}}}.usageSituation"
+                         ngbTooltip="使用情况长度不大于50" maxlength="50"></td>
               <td><button type="button" class="btn btn-danger radius" (click)="delOffice(item)"><i class="fa fa-trash-o fa-fw"></i></button></td>
             </tr>
           </table>
